@@ -5,5 +5,6 @@
 
 :rocket: Awesome Java study notes
 
-## Collection
-![Aaron Swartz](https://github.com/ceezyyy/Java-study-notes/blob/master/pics/Collection/Collection.png)
+## Mind Mapping
+
+![Aaron Swartz](https://github.com/ceezyyy/Java-study-notes/blob/master/pics/Java.png)

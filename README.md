@@ -1,4 +1,4 @@
-# Java-study-notes
+# Java-backend-road
 
 
 [![](https://img.shields.io/badge/Java-Notes-orange?style=flat-square)](https://github.com/ceezyyy/Java-study-notes)

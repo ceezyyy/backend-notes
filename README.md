@@ -3,7 +3,7 @@
 
 [![](https://img.shields.io/badge/Java-Notes-orange?style=flat-square)](https://github.com/ceezyyy/Java-study-notes)
 
-:rocket: Awesome Java study notes
+:rocket: Awesome Java backend study road
 
 ## Mind Mapping
 

@@ -7,7 +7,7 @@
 
 ## Mind Mapping
 
-![Aaron Swartz](https://github.com/ceezyyy/Java-study-notes/blob/master/pics/Java.png)
+![Aaron Swartz](https://github.com/ceezyyy/Java-study-notes/blob/master/pics/BackendDeveloper.png)
 
 
 

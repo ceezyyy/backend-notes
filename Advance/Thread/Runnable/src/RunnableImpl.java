@@ -1,7 +1,7 @@
 
 
-public class MyThread extends Thread {
-    // 重写 run 方法 （需要线程做什么）
+public class RunnableImpl implements Runnable {
+    /* 实现 run 方法 */
     @Override
     public void run() {
         for (int i = 0; i < 30; i++) {

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="713f4215-bcd3-4068-ab91-927665782c10" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1ZzAzykgAVazstnaMSAilRhxe1X" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="RunManager" selected="JUnit.CalculatorTest.testAdd">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="Junit" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CalculatorTest.addTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Junit" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test" />
+      <option name="MAIN_CLASS_NAME" value="test.CalculatorTest" />
+      <option name="METHOD_NAME" value="addTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CalculatorTest.testAdd" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="Junit" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="test" />
+      <option name="MAIN_CLASS_NAME" value="test.CalculatorTest" />
+      <option name="METHOD_NAME" value="testAdd" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.CalculatorTest.testAdd" />
+        <item itemvalue="JUnit.CalculatorTest.addTest" />
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="713f4215-bcd3-4068-ab91-927665782c10" name="Default Changelist" comment="" />
+      <created>1585831814764</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585831814764</updated>
+      <workItem from="1585831818557" duration="529000" />
+      <workItem from="1585833079102" duration="2719000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="371" y="108" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1585832319742">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="371" y="108" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.720@0.0.1280.720" timestamp="1585832319742" />
+    <state width="1222" height="176" key="GridCell.Tab.0.bottom" timestamp="1585836519380">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1222" height="176" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1585836519380" />
+    <state width="1222" height="176" key="GridCell.Tab.0.center" timestamp="1585836519379">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1222" height="176" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1585836519379" />
+    <state width="1222" height="176" key="GridCell.Tab.0.left" timestamp="1585836519379">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1222" height="176" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1585836519379" />
+    <state width="1222" height="176" key="GridCell.Tab.0.right" timestamp="1585836519380">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1222" height="176" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1585836519379" />
+    <state x="336" y="188" key="com.intellij.ide.util.TipDialog" timestamp="1585833503654">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="336" y="188" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1585833503654" />
+    <state x="376" y="254" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1585833824699">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="376" y="254" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1280.720@0.0.1280.720" timestamp="1585833824699" />
+  </component>
+</project>

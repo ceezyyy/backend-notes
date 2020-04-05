@@ -33,7 +33,7 @@
 
 ## :department_store: 数据库
 
-- [MySQL]()
+- [MySQL](https://github.com/ceezyyy/Backend-road/blob/master/SQL/notes/sql.md)
 
   
 

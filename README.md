@@ -32,6 +32,7 @@
 
 ## :department_store: 数据库
 
-- SQL
-  - 基础
+- [MySQL]()
+
+  
 

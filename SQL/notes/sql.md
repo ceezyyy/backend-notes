@@ -1,72 +1,63 @@
-# SQL 学习
+# SQL 
 
 ## 目录
 
-1. 增加
-2. 查询
-3. 修改
-4. 删除
+1. 创建库, 表
+2. 
+3. 
+4. 
 
 
 
-## 1. Create 增
+## 1. 创建库, 表
 
 ### 创建库
 
 ```sql
-CREATE database myDatabase;
-CREATE database if not exists myDatabase;
-USE myDatabase;  # 使用当前数据库
+CREATE DATABASE mydatabase;
+CREATE DATABASE IF NOT EXISTS mydatabase;
+USE mydatabase;  
 ```
 
 
 
 ### 创建表
 
-
-
-
-
-## 2. Retrieve 查
-
-### 查询库
-
 ```sql
-SHOW databases;
-SHOW CREATE database myDatabase;
+CREATE TABLE mytable(
+	# 各个列名用逗号隔开
+	num INT,
+	name VARCHAR(30),  # VARCHAR(length) 需要指定长度
+	age INT，
+	score DOUBLE,
+	birthday DATE,
+	edited_time TIMESTAMP
+);
 ```
 
 
 
-### 查询表
+## 2. 查询表
+
+```
+
+```
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-## 3. Update 改
+## 3. 
 
 
 
  
 
-## 4. Delete 删
+## 4. 
 
-:warning: ​删库危险
 
-```sql
-DROP database if exists myDatabase;
-```
+
+
 
 
 

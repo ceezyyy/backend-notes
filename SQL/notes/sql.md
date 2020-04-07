@@ -64,7 +64,7 @@ DESC mytable;
 ALTER TABLE mytable RENAME TO mytable1;
 ```
 
-关键字：RENAME TO
+关键字：`RENAME TO`
 
 ## 修改字符集
 
@@ -72,7 +72,7 @@ ALTER TABLE mytable RENAME TO mytable1;
 ALTER TABLE mytable CHARACTER SET utf8;
 ```
 
-关键字：CHARACTER SET
+关键字：`CHARACTER SET`
 
 ## 修改列名和属性
 
@@ -82,7 +82,7 @@ ALTER TABLE mytable CHANGE old_col new_col attribute;
 
 其中 `old_col`代表旧的列，`new_col`代表新的列，`attribute`代表属性。
 
-关键字：CHANGE
+关键字：`CHANGE`
 
 ## 增加列
 
@@ -90,7 +90,7 @@ ALTER TABLE mytable CHANGE old_col new_col attribute;
 ALTER TABLE mytable ADD new_col attribute;
 ```
 
-关键字：ADD
+关键字：`ADD`
 
 ## 删除列
 
@@ -98,10 +98,10 @@ ALTER TABLE mytable ADD new_col attribute;
 ALTER TABLE mytable DROP col;
 ```
 
-关键字：DROP
+关键字：`DROP`
 
 
-<a name="4"></a>
+
 # 四、添加数据
 
 ```sql
@@ -135,12 +135,67 @@ UPDATE mytable set col = value WHERE ...
 
 # 七、单表查询
 
+## 基础查询
+
+```sql
+SELECT DISTINCT col FROM mytable;
+```
+
+关键字：`DISTINCT` 去重
+
+```sql
+SELECT col1, col2, col1 + IFNULL(expr1, expr2) AS col_nickname FROM mytable;
+```
+
+关键字：`IFNULL(expr1, expr2) `
+
+如果该值不为`NULL`: expr1
+
+若该值为`NULL`: expr2
 
 
 
+`AS` 列别名
 
 
 
+## 条件查询
+
+```sql
+SELECT col FROM mytable WHERE col BETWEEN xx AND xx;
+```
+
+关键字：`BETWEEN x AND y`
+
+该列的值在 `[x, y]` 之间
 
 
 
+```sql
+SELECT col FROM mytable WHERE col in (value1, value2, valuen);
+```
+
+关键字：`IN`
+
+该值在`()`范围内
+
+
+
+```	sql
+SELECT col FROM mytable WHERE col IS NOT NULL;
+SELECT col FROM mytable WHERE col IS NULL;
+```
+
+关键字：`IS NOT NULL` 和 `IS NULL`
+
+判断空值只能用 `IS`或者`IS NOT`判断
+
+
+
+```sql
+SELECT col FROM mytable WHERE col LIKE '%_';
+```
+
+`%`代表任意个匹配
+
+`_`代表单个匹配

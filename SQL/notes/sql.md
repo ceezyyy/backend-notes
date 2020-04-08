@@ -1,10 +1,39 @@
-# MySQL 基础
+# MySQL 
+
+# 目录
+
+- [MySQL](#mysql)
+- [Create Database / Table](#create-database---table)
+  * [Create database](#create-database)
+  * [Create table](#create-table)
+- [Retrieve table](#retrieve-table)
+- [Update table](#update-table)
+  * [修改表名](#----)
+  * [修改字符集](#-----)
+  * [修改列名和属性](#-------)
+  * [增加列](#---)
+  * [删除列](#---)
+- [Add data](#add-data)
+- [Delete data](#delete-data)
+- [Update data](#update-data)
+- [Query](#query)
+  * [基础查询](#----)
+  * [条件查询](#----)
+  * [排序](#--)
+  * [聚合](#--)
+  * [分组](#--)
+  * [分页](#--)
+- [Constraint](#constraint)
+  * [Primary Key](#primary-key)
+  * [Not null](#not-null)
+  * [Unique](#unique)
+  * [Foreign Key](#foreign-key)
 
 
 
-# 一、创建库
+# Create Database / Table
 
-## 创建库
+## Create database
 
 ```sql
 CREATE DATABASE mydatabase;
@@ -14,7 +43,7 @@ USE mydatabase;
 
 
 
-## 创建表
+## Create table
 
 ```sql
 CREATE TABLE mytable(
@@ -29,7 +58,7 @@ CREATE TABLE mytable(
 ```
 
 
-# 二、查询表
+# Retrieve table
 
 查看当前的表。
 
@@ -39,7 +68,7 @@ DESC mytable;
 
 
 
-# 三、修改表
+# Update table
 
 ## 修改表名
 
@@ -85,7 +114,7 @@ ALTER TABLE mytable DROP col;
 
 
 
-# 四、添加数据
+# Add data
 
 ```sql
 INSERT INTO mytable(col_1, col_2, col_n) VALUES (value_1, value_2, value_n);
@@ -96,7 +125,7 @@ INSERT INTO mytable VALUES (..,...,...,)  # 为所有列赋值
 
 
 
-# 五、删除数据
+# Delete data
 
 ```sql
 DELETE FROM mytable WHERE ...
@@ -106,7 +135,7 @@ DELETE FROM mytable WHERE ...
 
 
 
-# 六、修改数据
+# Update data
 
 ```sql
 UPDATE mytable set col = value WHERE ...
@@ -116,7 +145,7 @@ UPDATE mytable set col = value WHERE ...
 
 
 
-# 七、单表查询
+# Query
 
 ## 基础查询
 
@@ -237,7 +266,7 @@ SELECT COUNT(col) / AVG(col) / SUM(col) / MAX(col) / MIN(col) FROM mytable
 SELECT col, 聚合函数 AS .. FROM mytable WHERE ... GROUP BY col HAVING ...
 ```
 
-**WHERE 与 HAVING区别**
+**WHERE 与 HAVING 区别**
 
 1. `where` 在分组之前筛选。`having`在分好组之后再进行筛选
 
@@ -253,3 +282,28 @@ SELECT col FROM mytable LIMIT 开始的索引, 每页显示的条数;
 
 **开始的索引 = （当前页码 - 1） * 每页显示的条数**
 
+
+
+# Constraint
+
+## Primary Key
+
+
+
+
+
+## Not null
+
+
+
+
+
+## Unique
+
+
+
+
+
+
+
+## Foreign Key

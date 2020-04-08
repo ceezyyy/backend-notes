@@ -34,7 +34,7 @@
 ## :department_store: 数据库
 
 - [MySQL](https://github.com/ceezyyy/Backend-road/blob/master/SQL/notes/sql.md)
-- [SQL Practice]()
+- [SQL Practice](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/SQL/practice/SQL%20Practice.md)
 
 
 

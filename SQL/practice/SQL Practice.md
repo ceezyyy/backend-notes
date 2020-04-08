@@ -5,18 +5,19 @@ from [SQLBolt](https://sqlbolt.com/)
 
 
 ## Category
-
 - [SQL Practice](#sql-practice)
   * [Category](#category)
-  * [Lesson 1: SELECT queries 101](#lesson-1--select-queries-101)
-  * [Lesson 2: Queries with constraints (Pt. 1)](#lesson-2--queries-with-constraints--pt-1-)
-  * [Lesson 3: Queries with constraints (Pt. 2)](#lesson-3--queries-with-constraints--pt-2-)
-  * [Lesson 4: Filtering and sorting Query results](#lesson-4--filtering-and-sorting-query-results)
-  * [Review: Simple SELECT Queries](#review--simple-select-queries)
+  * [SELECT queries 101](#select-queries-101)
+  * [Queries with constraints](#queries-with-constraints)
+  * [Queries with constraints II](#queries-with-constraints-ii)
+  * [Filtering and sorting Query results](#filtering-and-sorting-query-results)
+  * [Review](#review)
 
 
 
-## Lesson 1: SELECT queries 101
+
+
+## SELECT queries 101
 
 1. Find the `title` of each film
 
@@ -60,7 +61,7 @@ from [SQLBolt](https://sqlbolt.com/)
 
 
 
-## Lesson 2: Queries with constraints (Pt. 1)
+## Queries with constraints
 
 1. Find the movie with a row `id` of 6
 
@@ -94,7 +95,7 @@ from [SQLBolt](https://sqlbolt.com/)
 
    
 
-## Lesson 3: Queries with constraints (Pt. 2)
+## Queries with constraints II
 
 1. Find all the Toy Story movies
 
@@ -128,7 +129,7 @@ from [SQLBolt](https://sqlbolt.com/)
 
    
 
-## Lesson 4: Filtering and sorting Query results
+## Filtering and sorting Query results
 
 1. List all directors of Pixar movies (alphabetically), without duplicates
 
@@ -162,7 +163,7 @@ from [SQLBolt](https://sqlbolt.com/)
 
 
 
-## Review: Simple SELECT Queries
+## Review
 
 1. List all the Canadian cities and their populations
 

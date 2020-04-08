@@ -1,33 +1,6 @@
 # MySQL 
 
-# 目录
-
-- [MySQL](#mysql)
-- [Create Database / Table](#create-database---table)
-  * [Create database](#create-database)
-  * [Create table](#create-table)
-- [Retrieve table](#retrieve-table)
-- [Update table](#update-table)
-  * [修改表名](#----)
-  * [修改字符集](#-----)
-  * [修改列名和属性](#-------)
-  * [增加列](#---)
-  * [删除列](#---)
-- [Add data](#add-data)
-- [Delete data](#delete-data)
-- [Update data](#update-data)
-- [Query](#query)
-  * [基础查询](#----)
-  * [条件查询](#----)
-  * [排序](#--)
-  * [聚合](#--)
-  * [分组](#--)
-  * [分页](#--)
-- [Constraint](#constraint)
-  * [Primary Key](#primary-key)
-  * [Not null](#not-null)
-  * [Unique](#unique)
-  * [Foreign Key](#foreign-key)
+# Category
 
 
 
@@ -70,7 +43,7 @@ DESC mytable;
 
 # Update table
 
-## 修改表名
+## RENAME TO
 
 ```sql
 ALTER TABLE mytable RENAME TO mytable1;
@@ -78,7 +51,7 @@ ALTER TABLE mytable RENAME TO mytable1;
 
 关键字：`RENAME TO`
 
-## 修改字符集
+## CHARACTER SET
 
 ```sql
 ALTER TABLE mytable CHARACTER SET utf8;
@@ -86,7 +59,7 @@ ALTER TABLE mytable CHARACTER SET utf8;
 
 关键字：`CHARACTER SET`
 
-## 修改列名和属性
+## CHANGE
 
 ```sql
 ALTER TABLE mytable CHANGE old_col new_col attribute;
@@ -96,7 +69,7 @@ ALTER TABLE mytable CHANGE old_col new_col attribute;
 
 关键字：`CHANGE`
 
-## 增加列
+## ADD
 
 ```sql
 ALTER TABLE mytable ADD new_col attribute;
@@ -104,7 +77,7 @@ ALTER TABLE mytable ADD new_col attribute;
 
 关键字：`ADD`
 
-## 删除列
+## DROP 
 
 ```sql
 ALTER TABLE mytable DROP col;
@@ -147,7 +120,7 @@ UPDATE mytable set col = value WHERE ...
 
 # Query
 
-## 基础查询
+## DISTINCT
 
 ```sql
 SELECT DISTINCT col FROM mytable;
@@ -171,7 +144,7 @@ SELECT col1, col2, col1 + IFNULL(expr1, expr2) AS col_nickname FROM mytable;
 
 
 
-## 条件查询
+## BETWEEN AND
 
 ```sql
 SELECT col FROM mytable WHERE col BETWEEN xx AND xx;
@@ -214,7 +187,7 @@ SELECT col FROM mytable WHERE col LIKE '%_';
 
 
 
-##  排序
+##  ORDER BY
 
 ```sql
 SELECT col1, col2, ... FROM mytable WHERE ... ORDER BY col ASC / DESC
@@ -228,7 +201,7 @@ SELECT col1, col2, ... FROM mytable WHERE ... ORDER BY col ASC / DESC
 
 
 
-## 聚合
+## COUNT
 
 聚合是以列为单位，对列进行统计，结果往往为一个数值。
 
@@ -252,7 +225,7 @@ SELECT COUNT(col) / AVG(col) / SUM(col) / MAX(col) / MIN(col) FROM mytable
 
 
 
-## 分组
+## GROUP BY
 
 “物以聚类人以群分”
 
@@ -288,22 +261,39 @@ SELECT col FROM mytable LIMIT 开始的索引, 每页显示的条数;
 
 ## Primary Key
 
+```sql
+PRIMARY KEY
+```
 
+主键约束，一张表只能一列是主键。
+
+主键唯一且非空，是表的唯一标识。相当于你身份证（号）是每个社会人的唯一标识。
 
 
 
 ## Not null
 
+```sql
+NOT NULL
+```
 
+非空。
 
 
 
 ## Unique
 
+```sql
+UNIQUE	
+```
 
-
-
+不重复。
 
 
 
 ## Foreign Key
+
+```sql
+CONSTRAINT 外键名称 FOREIGN KEY (列名) REFERNCE mytable(id)
+```
+

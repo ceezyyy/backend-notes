@@ -1,3 +1,9 @@
+```
+SELECT * 
+FROM north_american_cities 
+WHERE Country = 'Canada';
+```
+
 # SQL Practice
 
 from [SQLBolt](https://sqlbolt.com/)
@@ -6,16 +12,13 @@ from [SQLBolt](https://sqlbolt.com/)
 
 ## Category
 
-* [SELECT queries 101](#select-queries-101)
-* [Queries with constraints](#queries-with-constraints)
-* [Queries with constraints II](#queries-with-constraints-II)
-* [Filtering and sorting Query results](#filtering-and-sorting-query-results)
-* [Review](#review)
 
 
 
 
 ## SELECT queries 101
+
+
 
 1. Find the `title` of each film
 
@@ -60,12 +63,9 @@ from [SQLBolt](https://sqlbolt.com/)
    FROM movies;
    ```
 
-
-
-
+   
 
 ## Queries with constraints
-
 
 1. Find the movie with a row `id` of 6
 
@@ -101,11 +101,13 @@ from [SQLBolt](https://sqlbolt.com/)
 
    ```sql
    SELECT * 
-   FROM movies 
-WHERE year LIMIT 5;
+   FROM movies
+   WHERE year LIMIT 5;
    ```
+
    
-   
+
+
 
 ## Queries with constraints II
 
@@ -144,13 +146,14 @@ WHERE year LIMIT 5;
    ```sql
    SELECT * 
    FROM movies 
-WHERE title LIKE 'WALL-%';
+   WHERE title LIKE 'WALL-%';
    ```
+
    
-   
+
+
 
 ## Filtering and sorting Query results
-
 
 1. List all directors of Pixar movies (alphabetically), without duplicates
 
@@ -159,6 +162,8 @@ WHERE title LIKE 'WALL-%';
    FROM movies 
    ORDER BY directors;
    ```
+
+   
 
    
 
@@ -193,9 +198,19 @@ WHERE title LIKE 'WALL-%';
    LIMIT 5, 5;
    ```
 
+   
+
+
+
+
+
+
+
 
 
 ## Review
+
+
 
 1. List all the Canadian cities and their populations
 
@@ -250,9 +265,9 @@ WHERE title LIKE 'WALL-%';
    ```sql
    SELECT city, population
    FROM north_american_cities
-WHERE Country = "United States"
-   ORDER BY population DESC
+   WHERE Country = "United States" 
+   ORDER BY population DESC 
    LIMIT 2, 2;
    ```
-   
+
    

@@ -76,7 +76,7 @@ from [SQLBolt](https://sqlbolt.com/)
    SELECT 
    	* 
    FROM 
-	movies;
+		movies;
    ```
    
    
@@ -112,9 +112,12 @@ from [SQLBolt](https://sqlbolt.com/)
 3. Find the movies **not** released in the `year`s between 2000 and 2010
 
    ```sql
-   SELECT * 
-   FROM movies 
-   WHERE year NOT BETWEEN 2000 AND 2010;
+   SELECT 
+   	* 
+   FROM 
+   	movies 
+   WHERE 
+   	year NOT BETWEEN 2000 AND 2010;
    ```
 
    
@@ -126,13 +129,11 @@ from [SQLBolt](https://sqlbolt.com/)
    	* 
    FROM 
    	movies
-WHERE 
+   WHERE 
    	year LIMIT 5;
    ```
    
    
-
-
 
 ## Queries with constraints II
 
@@ -559,35 +560,12 @@ WHERE
 
    1. Find the number of Artists in the studio (without a **HAVING** clause) 
 
-      ```sql
-      SELECT 
-          COUNT(role) 
-      FROM 
-          employees
-      WHERE 
-          role = 'Artist'
-      ```
-
-      
-
       
 
    2. Find the number of Employees of each role in the studio
 
-      ```
-      
-      ```
-
-      
-
       
 
    3. Find the total number of years employed by all Engineers
-
-      ```
-      
-      ```
-
-      
 
       

@@ -130,7 +130,8 @@ from [SQLBolt](https://sqlbolt.com/)
    FROM 
    	movies
    WHERE 
-   	year LIMIT 5;
+   	year 
+   LIMIT 5;
    ```
 
 ## Queries with constraints II
@@ -326,7 +327,7 @@ from [SQLBolt](https://sqlbolt.com/)
    FROM 
    	north_american_cities
    WHERE 
-	Country = "United States" 
+		Country = "United States" 
    ORDER BY 
    	population DESC 
    LIMIT 
@@ -548,16 +549,49 @@ from [SQLBolt](https://sqlbolt.com/)
 
    
 
-   ## Queries with aggregates II
+   
+
+## Queries with aggregates II
 
 1. Find the number of Artists in the studio (without a **HAVING** clause)
+
+   ```sql
+   SELECT 
+       COUNT(*)
+   FROM 
+       employees
+   WHERE 
+       role = 'Artist';
+   ```
 
    
 
 2. Find the number of Employees of each role in the studio
 
+   ```sql
+   SELECT 
+       role, COUNT(*)
+   FROM 
+       employees
+   GROUP BY 
+       role;
+   ```
+
    
 
 3. Find the total number of years employed by all Engineers
+
+   ```sql
+   SELECT 
+       SUM(years_employed)
+   FROM 
+       employees
+   GROUP BY 
+       role
+   HAVING
+       role = 'Engineer';
+   ```
+
+   
 
    

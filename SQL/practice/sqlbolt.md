@@ -132,8 +132,6 @@ from [SQLBolt](https://sqlbolt.com/)
    WHERE 
    	year LIMIT 5;
    ```
-   
-   
 
 ## Queries with constraints II
 
@@ -161,8 +159,6 @@ from [SQLBolt](https://sqlbolt.com/)
    	director = 'John Lasseter';
    ```
 
-   
-
 3. Find all the movies (and director) not directed by John Lasseter
 
    ```sql
@@ -174,7 +170,6 @@ from [SQLBolt](https://sqlbolt.com/)
    	NOT director = 'John Lasseter';
    ```
 
-   
 
 4. Find all the WALL-* movies
 
@@ -183,12 +178,9 @@ from [SQLBolt](https://sqlbolt.com/)
    	* 
    FROM 
    	movies 
-WHERE 
+   WHERE 
    	title LIKE 'WALL-%';
    ```
-   
-   
-
 
 
 ## Filtering and sorting Query results
@@ -558,14 +550,14 @@ WHERE
 
    ## Queries with aggregates II
 
-   1. Find the number of Artists in the studio (without a **HAVING** clause) 
+1. Find the number of Artists in the studio (without a **HAVING** clause)
 
-      
+   
 
-   2. Find the number of Employees of each role in the studio
+2. Find the number of Employees of each role in the studio
 
-      
+   
 
-   3. Find the total number of years employed by all Engineers
+3. Find the total number of years employed by all Engineers
 
-      
+   

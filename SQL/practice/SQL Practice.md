@@ -1,9 +1,3 @@
-```
-SELECT * 
-FROM north_american_cities 
-WHERE Country = 'Canada';
-```
-
 # SQL Practice
 
 from [SQLBolt](https://sqlbolt.com/)
@@ -12,7 +6,12 @@ from [SQLBolt](https://sqlbolt.com/)
 
 ## Category
 
-
+* [Category](#category)
+* [SELECT queries 101](#select-queries-101)
+* [Queries with constraints](#queries-with-constraints)
+* [Queries with constraints II](#queries-with-constraints-ii)
+* [Filtering and sorting Query results](#filtering-and-sorting-query-results)
+* [Review](#review)
 
 
 
@@ -197,13 +196,6 @@ from [SQLBolt](https://sqlbolt.com/)
    ORDER BY title 
    LIMIT 5, 5;
    ```
-
-   
-
-
-
-
-
 
 
 

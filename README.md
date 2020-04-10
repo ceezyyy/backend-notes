@@ -36,7 +36,7 @@
 
 - [MySQL](https://github.com/ceezyyy/Backend-road/blob/master/SQL/notes/sql.md)
   
-- [SQL 语句练习](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/SQL/practice/sqlbolt.md)
+  - [SQL 语句练习](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/SQL/practice/sqlbolt.md)
   
 - [JDBC](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/JDBC/JDBC.md)
 
@@ -44,11 +44,10 @@
 
 ## :desktop_computer: Web
 
-- HTML
-- CSS
-- JS
-
-
+- Frontend
+  - HTML
+  - CSS
+  - JS
 
 
 

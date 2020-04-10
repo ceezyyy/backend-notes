@@ -12,7 +12,7 @@
 
 
 
-## :beginner: 计算机基础
+## :beginner: CS 基础
 - [计算机速成课](https://github.com/ceezyyy/Java-backend-road/blob/master/Basics/CSCrashCourse/CSCrashCourse.md)
 - [计算机网络](https://github.com/ceezyyy/Backend-road/blob/master/Basics/Computer%20Network/Computer%20Network.md)
 
@@ -32,16 +32,21 @@
 
   
 
-## :department_store: 数据库
+## :floppy_disk: Database
 
 - [MySQL](https://github.com/ceezyyy/Backend-road/blob/master/SQL/notes/sql.md)
-  - [SQL 语句练习](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/SQL/practice/sqlbolt.md)
+  
+- [SQL 语句练习](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/SQL/practice/sqlbolt.md)
+  
+- [JDBC](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/JDBC/JDBC.md)
 
-
+  
 
 ## :desktop_computer: Web
 
-- [JDBC]()
+- HTML
+- CSS
+- JS
 
 
 

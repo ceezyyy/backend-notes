@@ -45,8 +45,7 @@
 ## :desktop_computer: Web
 
 - Frontend
-  - HTML
-  - CSS
+  - [HTML & CSS]()
   - JS
 
 

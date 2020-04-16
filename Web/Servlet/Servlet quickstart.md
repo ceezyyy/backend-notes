@@ -2,7 +2,8 @@
 
 ## 什么是 Servlet
 
-![image-20200415201203986](image-20200415201203986.png)
+<div align="center"> <img src="image-20200415201203986.png" width="80%"/> </div><br>
+
 
 **Servlet 是一个接口，一种规范。**
 
@@ -20,11 +21,11 @@
 
 ## 步骤
 
-![image-20200415224328820](image-20200415224328820.png)
+<div align="center"> <img src="image-20200415224328820.png" width="30%"/> </div><br>
 
 
 
-![image-20200415224432703](image-20200415224432703.png)
+<div align="center"> <img src="image-20200415224432703.png" width="80%"/> </div><br>
 
 
 
@@ -34,19 +35,20 @@
 
 查看源码可知，`WebServlet`也是一个接口，里面有一些成员变量（属性）。
 
+<div align="center"> <img src="image-20200415225957425.png" width="50%"/> </div><br>
 
 
-![image-20200415225957425](image-20200415225957425.png)
 
 这里只需重点知道`value`这个属性是必填项，匹配特定的`URL patterns`
 
-![image-20200415230128370](image-20200415230128370.png)
 
+
+<div align="center"> <img src="image-20200415230128370.png" width="80%"/> </div><br>
 
 
 所以，当有特定的`URL pattern`时，可以简写成以下形式。
 
-![image-20200416092312459](image-20200416092312459.png)
+<div align="center"> <img src="image-20200416092312459.png" width="80%"/> </div><br>
 
 
 
@@ -64,4 +66,5 @@
 
 ## Servlet 体系结构
 
-![image-20200416092030560](image-20200416092030560.png)
+<div align="center"> <img src="image-20200416092030560.png" width="50%"/> </div><br>
+

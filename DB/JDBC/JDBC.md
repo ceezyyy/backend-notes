@@ -1,18 +1,5 @@
 # JDBC
 
-## Category
-
-* [Definition](#definition)
-* [Process](#process)
-  + [出门前的准备 —— 导入`jar`包](#-------------jar--)
-  + [初来乍到 —— 注册](#----------)
-  + [搭桥 —— 获取 `Connection`对象](#----------connection---)
-  + [开工大吉 —— 获取 `Statement`对象](#------------statement---)
-  + [打天下 —— 执行 `SQL`操作](#-----------sql---)
-  + [收工 —— 释放资源](#----------)
-
-
-
 ## Roadmap
 
 ![Aaron Swartz](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/DB/JDBC/xmind.png)
@@ -35,7 +22,8 @@ Java 为我们提供了 几种非常常用的 接口，然后由各个（关系�
 
 并且 `Add as library`
 
-![image-20200410130136187](image-20200410130136187.png)
+
+<div align="center"> <img src="image-20200410130136187.png" width="80%"/> </div><br>
 
 **注意**
 
@@ -48,8 +36,8 @@ Class.forName("com.mysql.jdbc.Driver");
 ```
 
 这是什么意思呢？
+<div align="center"> <img src="image-20200410103851276.png" width="80%"/> </div><br>
 
-![image-20200410103851276](image-20200410103851276.png)
 
 这个是返回 `com.mysql.jdbc.Driver`这个类的 `Class`对象。
 
@@ -57,8 +45,8 @@ Class.forName("com.mysql.jdbc.Driver");
 
 我们查看一下源码
 
-![image-20200410161020352](image-20200410161020352.png)
 
+<div align="center"> <img src="image-20200410161020352.png" width="80%"/> </div><br>
 这个 `Driver`类里面有一个静态方法，目的是注册驱动。
 
 只是我们简化了这种写法。

@@ -39,16 +39,21 @@
   
 - [JDBC](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/JDBC/JDBC.md)
 
+  - Druid datasource
+  
   
 
 ## :desktop_computer: Web
 
 - Frontend
   - [HTML](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Frontend/HTML/html.md)
-  - [CSS]()
-  - [JS]()
+  - CSS
+  - JS
 - [Tomcat quickstart](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Tomcat/Tomcat.md)
 - [Servlet quickstart](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Servlet/Servlet%20quickstart.md)
+- HTTP
+  - [Request](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Servlet/Request.md)
+  - Response
 
 
 

@@ -40,13 +40,15 @@
 
 `/ServletDemo/`是指当前的虚拟目录（告诉别人你的项目放在哪，这样才可以访问到）
 
+
+
 注意，此时是（默认）自动跳转到 `index.jsp`  页面的
 
 <div align="center"> <img src="image-20200416125812624.png" width="50%"/> </div><br>
 
 
 
-获取请求数据 —— 行数据**
+**获取请求数据 —— 行数据**
 
 
 <div align="center"> <img src="image-20200416115315524.png" width="80%"/> </div><br>
@@ -57,14 +59,50 @@
 request.getContextPath();
 ```
 
-
+```java
+request.getRequestURI();
+```
 
 查看 API 文档：
 
 <div align="center"> <img src="image-20200416115916470.png" width="100%"/> </div><br>
 
-首
-
-
+此时的 `context path` 路径就是我们的虚拟目录。
 
 <div align="center"> <img src="image-20200416120649907.png" width="80%"/> </div><br>
+
+**获取请求参数**
+
+
+
+
+
+
+
+## Request 实战
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+**遇到问题常见的解决方案：**
+
+1. 重启 `Tomcat`服务器
+
+2. 若是`form` 表单的话，按钮类型一定要是 `submit` !
+
+   

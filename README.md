@@ -14,7 +14,7 @@
 
 ## :key: ​计算机基础
 - [计算机网络：自顶向下的方法]()
-- [Linux常用命令](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Fundamental/Linux/Linux.md)
+- [Linux 常用命令](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Fundamental/Linux/Linux.md)
 
 
 

@@ -14,6 +14,10 @@
 
 ## :key: ​计算机基础
 - [计算机网络：自顶向下的方法]()
+  - 应用层
+  - 运输层
+  - 网络层
+  - 数据链路层和局域网
 - [Linux 常用命令](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Fundamental/Linux/Linux.md)
 
 
@@ -33,23 +37,25 @@
 - 非关系型数据库
   - [Redis](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/DB/Redis/Notes/Redis.md)
 
+## :movie_camera: Frontend
 
-## :desktop_computer: Web
+- HTML
 
-- 前端基础
-  - [HTML](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Frontend/HTML/html.md)
-  - CSS
-  - JS
-- Web 核心
-  - [JDBC](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/JDBC/JDBC.md)
-    - [Druid datasource]()
+- CSS
 
-  - [Tomcat quickstart](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Tomcat/Tomcat.md)
-  - [Servlet quickstart](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Servlet/Servlet%20quickstart.md)
-  - HTTP
-    - [Request](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Servlet/Request.md)
-    - 登录 Demo
-    - Response
+- JavaScript
+
+  
+
+## :desktop_computer: Web Core
+
+- JDBC
+  - Druid datasource
+- Tomcat
+- Servlet
+- [HTTP](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Core/Servlet/HTTP.md)
+  - Request
+  - Response
 
 
 

@@ -41,6 +41,13 @@
 ## 如何使用 Redis ?
 
 **安装**
+<div align="center"> <img src="image-20200418112704314.png" width="60%"/> </div><br>
 
-![image-20200418112704314](image-20200418112704314.png)
+
+
+
+
+**常用命令**
+
+![Aaron Swartz](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/DB/Redis/Notes/Redis.png)
 

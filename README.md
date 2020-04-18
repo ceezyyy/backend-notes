@@ -31,7 +31,7 @@
     - [SQL 语句](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/SQL/practice/sqlbolt.md)
 
 - 非关系型数据库
-  - [Redis]()
+  - [Redis](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/DB/Redis/Notes/Redis.md)
 
 
 ## :desktop_computer: Web

@@ -1,12 +1,101 @@
-# Request 对象原理
+# HTTP Protocol
 
-## 什么是 Request 对象 （原理）
+## HTTP 协议
+
+<div align="center"> <img src="logo.png" width="60%"/> </div><br>
+
+### 概念
+
+**`HTTP`协议是 Web 的核心。**
+
+
+
+`HTTP` 定义了：
+
+1. 客户端和服务器交换报文的**结构**
+2. 进行报文交换的请求方式
+
+
+
+### 特点
+
+1. 基于 `TCP` 的运输协议：安全可靠
+2. 无状态协议：`HTTP` 服务器不保存任何关于用户请求的消息
+3. 默认端口：80
+
+
+
+## HTTP 报文格式
+
+### Request
+
+当你在浏览器网址栏输入：
+<div align="center"> <img src="image-20200418212457009.png" width="100%"/> </div><br>
+
+客户端向浏览器发送一个 `request` 请求，请求报文格式由 4 个部分组成：
+
+1. 请求行
+
+2. 请求头
+
+3. 空行
+
+4. 请求体
+
+
+
+<div align="center"> <img src="image-20200418213220097.png" width="60%"/> </div><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 1. `Tomcat` 服务器会根据 `@WebServlet` 的注解，即我们所写的 `URL pattern`，创建当前的 `Demo2` （`Servlet` 接口实现类）；
 
 2. 创建 `Request` 和 `Response` 对象，其中前者会封装请求消息的数据。例如，我们从 `URL`输入的 网址，或者页面表单提交的信息；
 
-3. `Tomcat` 将上述两个对象作为 `service` 方法的参数，并调用`service`方法；
+3. `Tomcat` 将上述两个对象作为 `service` 方法的参数，并调用`service` 方法；
 
 4. 由开发者在`service`方法写逻辑 / 任务需求，以达到将所需的`response`；
 
@@ -15,16 +104,6 @@
    
 
 <div align="center"> <img src="image-20200416105056019.png" width="80%"/> </div><br>
-
-
-
-## 为什么要用 Request 对象（功能）
-
-先上一张思维导图：
-
-
-
-
 
 
 
@@ -48,42 +127,17 @@
 
 
 
-**获取请求数据 —— 行数据**
-
-
-<div align="center"> <img src="image-20200416115315524.png" width="80%"/> </div><br>
-
-其中，最重要的两个方法：
-
-```java
-request.getContextPath();
-```
-
-```java
-request.getRequestURI();
-```
-
-查看 API 文档：
-
 <div align="center"> <img src="image-20200416115916470.png" width="100%"/> </div><br>
 
 此时的 `context path` 路径就是我们的虚拟目录。
 
 <div align="center"> <img src="image-20200416120649907.png" width="80%"/> </div><br>
 
-**获取请求参数**
 
 
 
 
-
-
-
-## Request 实战
-
-
-
-
+### Response
 
 
 
@@ -92,17 +146,3 @@ request.getRequestURI();
 
 
 
-
-
-
-
-
-
-
-**遇到问题常见的解决方案：**
-
-1. 重启 `Tomcat`服务器
-
-2. 若是`form` 表单的话，按钮类型一定要是 `submit` !
-
-   

@@ -15,6 +15,7 @@
 ## :key: ​计算机基础
 - [计算机网络：自顶向下的方法]()
   - 应用层
+    - [HTTP Protocol](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Core/Servlet/HTTP.md)
   - 运输层
   - 网络层
   - 数据链路层和局域网
@@ -40,9 +41,7 @@
 ## :movie_camera: Frontend
 
 - HTML
-
 - CSS
-
 - JavaScript
 
   
@@ -50,12 +49,10 @@
 ## :desktop_computer: Web Core
 
 - JDBC
-  - Druid datasource
-- Tomcat
+  - 数据库连接池
+- [Tomcat](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Core/Tomcat/Tomcat.md)
 - Servlet
-- [HTTP](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Core/Servlet/HTTP.md)
-  - Request
-  - Response
+- [HTTP Protocol](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Core/Servlet/HTTP.md)
 
 
 

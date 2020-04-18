@@ -49,5 +49,5 @@
 
 **常用命令**
 
-![Aaron Swartz](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/DB/Redis/Notes/Redis.png)
+<div align="center"> <img src="redis.png" width="80%"/> </div><br>
 

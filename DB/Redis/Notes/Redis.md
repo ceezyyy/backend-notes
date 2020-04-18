@@ -49,5 +49,5 @@
 
 **常用命令**
 
-<div align="center"> <img src="redis.png" width="80%"/> </div><br>
+<div align="center"> <img src="Redis.png" width="80%"/> </div><br>
 

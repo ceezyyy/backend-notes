@@ -159,7 +159,7 @@ request.getParameter(s);
 Map<String, String[]> parameterMap = request.getParameterMap();
 ```
 
-**注意**
+:warning: 注意
 
 1. `key`的值是 string 类型，即参数名称
 2. `value` 的值是 string 数组类型，因为一个键可能对应多个值
@@ -267,7 +267,7 @@ response.sendRedirect("path");
 
 
 
-**:warning: 注意 **
+:warning: 注意 
 
 
 

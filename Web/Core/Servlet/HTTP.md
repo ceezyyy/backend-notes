@@ -27,7 +27,7 @@
 
 ## 2. HTTP 报文格式
 
-### 2.1 Request
+### 2.1 Request 对象
 
 #### 2.1.1 预备知识
 
@@ -48,7 +48,7 @@
 
 注意，此时是（默认）自动跳转到 `index.jsp`  页面的
 
-<div align="center"> <img src="image-20200416125812624.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20200416125812624.png" width="35%"/> </div><br>
 
 
 
@@ -69,7 +69,7 @@
 
 
 
-<div align="center"> <img src="image-20200418213220097.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200418213220097.png" width="55%"/> </div><br>
 
 #### 2.1.2 请求行
 
@@ -95,8 +95,7 @@
 
 <div align="center"> <img src="image-20200419163435167.png" width="100%"/> </div><br>
 
-
-<div align="center"> <img src="image-20200419163525124.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200419163525124.png" width="55%"/> </div><br>
 
 
 
@@ -118,8 +117,7 @@
 
 这时，**请求体** 派上用场了，请求参数为封装在请求体中：
 
-
-<div align="center"> <img src="image-20200419163930775.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200419163930775.png" width="55%"/> </div><br>
 
 
 
@@ -176,9 +174,29 @@ request.setCharacterEncoding("utf-8");
 
 
 
-#### 2.1.6
+#### 2.1.6 请求转发
 
-#### 2.1.7
+一种在服务器**内部**转发资源的方式
+
+```java
+request.getRequestDispatcher("path").forward(request, response);
+```
+
+**特点**
+
+1. 资源内部转发方式，浏览器 `URL` 不发生变化（不能转发到外部，压根找不到）
+2. `path` 是指资源内部的路径
+3. 一次请求
+
+
+
+#### 2.1.7 共享数据
+
+
+
+#### 2.1.8 实战
+
+**开发步骤**
 
 
 
@@ -186,7 +204,101 @@ request.setCharacterEncoding("utf-8");
 
 
 
-### 2.2 Response
+
+
+
+
+### 2.2 Response 对象
+
+服务器端发给客户端的消息
+
+
+
+#### 2.2.1 预备知识
+
+**数据格式**
+
+1. 响应行
+2. 响应头
+3. 空行
+4. 响应体
+
+
+
+#### 2.2.2 响应行
+
+在客户端发送请求消息之后，服务器端会告诉客户端这次请求 / 通信的效果如何，就有以下状态码。
+
+**状态码**
+
+`200`：成功，我们最喜欢看到的
+
+`302`：重定向。对于客户端的请求，不在此（请求的）路径上，服务器端告诉客户端：你应该去找另一个路径
+
+`404`：找不到路径。要请求的路径不在服务器资源里
+
+`405`：请求方式没有对应的响应方法
+
+`500`：服务器内部出现异常
+
+
+
+这里需要讲一下`重定向`，先举个例子：
+
+
+
+<div align="center"> <img src="image-20200419232313653.png" width="80%"/> </div><br>
+
+举一个例子，假设你要想吃牛排，你去到一家餐馆，
+
+Q：请问有牛排吗？（请求）
+
+A：没有，牛排馆在隔壁（重定向）
+
+Q：请问是牛排馆吗？（再次请求）
+
+A：是的，请进（响应）
+
+
+
+```java
+response.sendRedirect("path");
+```
+
+
+
+**:warning: 注意 **
+
+
+
+`sendRedirect` 与 `forward` 的区别？
+
+1. 前者是两次请求，后者是一次
+
+2. 前者可以重定向到服务器资源外的网站（Google，Baidu......），后者只能在服务器资源内进行转发
+
+3. 前者不能共享数据（因为不是单单在服务器内部），后者可以
+
+   
+
+
+#### 2.2.3 响应头
+
+当我们输入百度的网址：
+<div align="center"> <img src="image-20200419230447296.png" width="100%"/> </div><br>
+
+
+<div align="center"> <img src="image-20200419230509984.png" width="60%"/> </div><br>
+
+`Content-type` ：响应体的格式以及编码
+
+#### 2.2.4 响应体
+
+
+
+
+
+
 
 
 

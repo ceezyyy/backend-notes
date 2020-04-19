@@ -46,6 +46,56 @@
 
 <div align="center"> <img src="image-20200418213220097.png" width="60%"/> </div><br>
 
+**请求行**
+
+请求行包括了请求方式，重点了解的是 `GET` 和 `POST` 方法，两者的区别是前者在 `URL` 字段会带有请求对象的标识。
+
+比如：
+
+**GET**
+
+先定义一个表单，指定提交方式为 `GET`：
+
+```html
+<form action="/RequestDemo/ServletDemo1" method="get">
+```
+
+> 注意：这里的 `RequestDemo/` 是虚拟路径，一般以项目名标识
+>
+> `ServletDemo1/` 是 Servlet 的路径
+
+<div align="center"> <img src="image-20200419161840057.png" width="40%"/> </div><br>
+
+提交表单之后，`URL` 会显示带有请求对象的标识，且请求体为空。
+
+<div align="center"> <img src="image-20200419163435167.png" width="100%"/> </div><br>
+
+
+<div align="center"> <img src="image-20200419163525124.png" width="60%"/> </div><br>
+
+
+
+**POST**
+
+若提交表单的方式是 `POST` 方法：
+
+```html
+<form action="/RequestDemo/ServletDemo1" method="post">
+```
+
+
+
+点击提交之后，`URL` 没有携带请求参数：
+
+
+<div align="center"> <img src="image-20200419163714466.png" width="100%"/> </div><br>
+
+
+这时，**请求体** 派上用场了，请求参数为封装在请求体中：
+
+
+<div align="center"> <img src="image-20200419163930775.png" width="60%"/> </div><br>
+
 
 
 
@@ -123,15 +173,7 @@
 
 注意，此时是（默认）自动跳转到 `index.jsp`  页面的
 
-<div align="center"> <img src="image-20200416125812624.png" width="50%"/> </div><br>
-
-
-
-<div align="center"> <img src="image-20200416115916470.png" width="100%"/> </div><br>
-
-此时的 `context path` 路径就是我们的虚拟目录。
-
-<div align="center"> <img src="image-20200416120649907.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200416125812624.png" width="40%"/> </div><br>
 
 
 

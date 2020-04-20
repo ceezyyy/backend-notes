@@ -1,4 +1,8 @@
-# HTTP Protocol
+# Servlet 之 HTTP 篇
+
+## 目录
+
+
 
 ## 1. HTTP 协议
 
@@ -292,8 +296,37 @@ response.sendRedirect("path");
 
 `Content-type` ：响应体的格式以及编码
 
+
+
+这个相当于：
+
+
+
+服务器：
+
+” Hey 浏览器！
+
+我发送的响应是`text/html`格式的，你要用浏览器解析引擎才能正确显示内容，
+
+以及我的编码是`utf-8`的。“
+
+
+
+:warning:注意
+
+无论显示的是中文还是英文，强烈建议在首部写上这一行代码，以避免乱码的折磨。
+
+```java
+response.setContentType("text/html;charset=utf-8");
+```
+
+
+
+
+
 #### 2.2.4 响应体
 
+略。
 
 
 
@@ -301,6 +334,31 @@ response.sendRedirect("path");
 
 
 
+### 2.3 ServletContext 对象
+
+#### 什么是 ServletContext ?
+
+`ServletContext` 对象代表整个 `Web` 应用，可以和 `web container` 来进行通信。
+
+比如我们用的 `Tomcat` 就属于 `web container` 的一种。
+
+
+
+**获取方法**
+
+```java
+ServletContext servletContext = this.getServletContext();
+```
+
+
+<div align="center"> <img src="image-20200420121200761.png" width="60%"/> </div><br>
+
+
+
+#### 为什么要用 ServletContext 对象 ?
+
+1. s
+2. 是
 
 
 

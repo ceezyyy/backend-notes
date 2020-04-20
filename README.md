@@ -45,7 +45,8 @@
 
 - Servlet
   - [Servlet 之 HTTP 篇](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Core/Servlet/HTTP.md)
-- 过滤器 / 监听器
+- Filter
+- Listener
 - Ajax / JSON
 
 

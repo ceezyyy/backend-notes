@@ -198,20 +198,6 @@ request.getRequestDispatcher("path").forward(request, response);
 
 
 
-#### 2.1.8 实战
-
-**开发步骤**
-
-
-
-
-
-
-
-
-
-
-
 ### 2.2 Response 对象
 
 服务器端发给客户端的消息
@@ -336,7 +322,7 @@ response.setContentType("text/html;charset=utf-8");
 
 ### 2.3 ServletContext 对象
 
-#### 什么是 ServletContext ?
+#### 2.3.1 什么是 ServletContext ?
 
 `ServletContext` 对象代表整个 `Web` 应用，可以和 `web container` 来进行通信。
 
@@ -355,7 +341,7 @@ ServletContext servletContext = this.getServletContext();
 
 
 
-#### 为什么要用 ServletContext 对象 ?
+#### 2.3.2 为什么要用 ServletContext 对象 ?
 
 1. 获取 `MIME` 对象
 
@@ -372,6 +358,32 @@ ServletContext servletContext = this.getServletContext();
 ## 3. 会话技术
 
 ### 3.1 概念
+
+**什么是会话？**
+
+<div align="center"> <img src="image-20200419232313653.png" width="70%"/> </div><br>
+
+先举个例子：
+
+
+
+A：你好！
+
+B：你好！
+
+A：你吃饭了吗？
+
+B：我吃饭了！
+
+A：你吃饱了吗？
+
+B：不想跟你聊天了，拜拜
+
+
+
+从客户端第一次请求，到服务器端最后一次响应，整个过程称为一次会话。
+
+
 
 之前我们提过，`HTTP` 协议是**无状态的**，也就是服务器不保存任何关于用户的数据。
 
@@ -390,7 +402,7 @@ ServletContext servletContext = this.getServletContext();
 
 
 
-一个 Web 网站希望“识别”用户，即希望把内容（用户的动作行为）与用户联系起来。
+**一个 Web 网站希望“识别”用户，即希望把内容（用户的动作行为）与用户联系起来。**
 
 
 
@@ -449,5 +461,35 @@ ServletContext servletContext = this.getServletContext();
 
 ### 3.3 Session
 
+#### 3.3.1 什么是 Session ?
 
 
+
+
+
+
+
+
+
+#### 3.3.2 Session 有什么用 ?
+
+
+
+
+
+
+
+#### 3.3.3 快速入门
+
+
+<div align="center"> <img src="image-20200420195931250.png" width="90%"/> </div><br>
+
+
+<div align="center"> <img src="image-20200420201625164.png" width="90%"/> </div><br>
+
+
+#### 3.3.4 Session 与 Cookie 的区别
+
+1. `Session` 存储在服务器，`Cookie` 存储在客户端
+2. `Session` 相对安全
+3. `Session` 没有数据大小限制

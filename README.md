@@ -7,40 +7,50 @@
 
 ## Mind Mapping
 
-![Aaron Swartz](https://github.com/ceezyyy/Java-study-notes/blob/master/pics/BackendDeveloper.png)
-
+<div align="center"> <img src="BackendDeveloper.png" width="80%"/> </div><br>
 
 
 
 ## :key: ​计算机基础
 - [计算机网络：自顶向下的方法]()
   - 应用层
+  
   - 运输层
+  
   - 网络层
+  
   - 数据链路层和局域网
+  
+    
 
 ## :coffee: Java 
 
 - 语法基础
+
 - 面向对象
+
 - 常用工具类
+
+  
 
 ## :floppy_disk: DB
 
 - [MySQL](https://github.com/ceezyyy/Backend-road/blob/master/SQL/notes/sql.md)
+
 - [Redis](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/DB/Redis/Notes/Redis.md)
+
 - Java 操作数据库 JDBC
+
 - 数据库连接池 Druid
 
-## :city_sunrise: Frontend
+  
 
+## :sunrise: Frontend
 - HTML
 
 - CSS
 
 - JavaScript
-
-- JQuery
 
 - Bootstrap
 
@@ -70,11 +80,8 @@
 ## :hammer: 开发环境
 
 - Linux 常见命令
-
 - Maven
-
 - Tomcat
-
 - JUnit
 
   

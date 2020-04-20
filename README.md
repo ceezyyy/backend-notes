@@ -24,13 +24,14 @@
 
 ## :coffee: Java 基础
 
-- I / O
+- I / O 流
 
 ## :floppy_disk: Database
 
 - [MySQL](https://github.com/ceezyyy/Backend-road/blob/master/SQL/notes/sql.md)
-  - [SQL 练习](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/SQL/practice/sqlbolt.md)
 - [Redis](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/DB/Redis/Notes/Redis.md)
+- Java 操作数据库 JDBC
+- 数据库连接池 Druid
 
 ## :city_sunrise: Frontend
 
@@ -40,22 +41,23 @@
 
   
 
-## :desktop_computer: Web Core
+## :desktop_computer: Java Web
 
-- JDBC
-  
-  - 数据库连接池
 - Servlet
-	
-	- [Servlet 之 HTTP 篇](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Core/Servlet/HTTP.md)
-	
-	  
+  - [Servlet 之 HTTP 篇](https://github.com/ceezyyy/Backend-developer-roadmap/blob/master/Web/Core/Servlet/HTTP.md)
+- 过滤器 / 监听器
+- Ajax / JSON
 
 
 
 
 
+## :leaves: Framework
 
+- MyBatis
+- Spring
+- Spring MVC
+- Spring Boot
 
 
 

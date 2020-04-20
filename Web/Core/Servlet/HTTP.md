@@ -357,11 +357,23 @@ ServletContext servletContext = this.getServletContext();
 
 #### 为什么要用 ServletContext 对象 ?
 
-1. s
-2. 是
+1. 获取 `MIME` 对象
+
+2. 域对象
+
+3. 获取文件的真实路径
+
+   
 
 
 
 
 
+## 3. 会话技术
+
+### 3.1 Cookie
+
+
+
+### 3.2 Session
 

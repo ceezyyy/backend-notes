@@ -371,9 +371,83 @@ ServletContext servletContext = this.getServletContext();
 
 ## 3. 会话技术
 
-### 3.1 Cookie
+### 3.1 概念
+
+之前我们提过，`HTTP` 协议是**无状态的**，也就是服务器不保存任何关于用户的数据。
 
 
 
-### 3.2 Session
+但是在生活中网购过程中，我们每次浏览商品，点击"添加购物车"，都是客户端给浏览器端发送一次请求，那电商网站如何保存我们购物车里面的内容呢？
+
+
+<div align="center"> <img src="image-20200420160655466.png" width="80%"/> </div><br>
+
+这就用到了**会话技术**。
+
+
+
+### 3.2 Cookie
+
+
+
+一个 Web 网站希望“识别”用户，即希望把内容（用户的动作行为）与用户联系起来。
+
+
+
+为此，HTTP 协议使用了 ​​ Cookie。
+
+
+<div align="center"> <img src="image-20200420162447423.png" width="90%"/> </div><br>
+
+假设你做在电脑前，访问某著名电商网站
+
+
+
+访问之后，该网站会产生一个唯一识别码，并以此作为索引在其后端数据库产生一个表项，并在 `response` 消息中，加入 `set-cookie`头，记录消息返回给客户端，里面会保存访问的主机名称以及唯一标识。
+
+
+
+客户端收到来自服务器的响应之后，会将 `cookie` 存入它管理的特定的 `cookie` 文件中
+
+
+
+之后每当该客户端访问此电商网站，在 `request` 消息体中都会带有 `cookie: xxxx` 的消息，便于服务器端跟踪该用户的行为。（根据用户每一次的点击流，创作用户画像，来为其推荐商品，带来巨大的商业价值），此外，也大大方便了用户，保存了用户名，手机号码，家庭住址等信息，而不用每一次访问都要输入了。
+
+
+
+在 Java 中，有一个 `Cookie` 类
+
+
+<div align="center"> <img src="image-20200420165236504.png" width="40%"/> </div><br>
+
+下面我们就尝试一个 Demo：
+
+1. 创建一个 `Cookie` 对象，将其加到 `response` 中
+
+<div align="center"> <img src="image-20200420165453765.png" width="90%"/> </div><br>
+
+
+2. 在另一个资源发送 `request` 过程中，获取它
+
+<div align="center"> <img src="image-20200420165610312.png" width="90%"/> </div><br>
+
+
+3. Succeeded!
+
+<div align="center"> <img src="image-20200420165636554.png" width="80%"/> </div><br>
+
+:warning: 注意
+
+在 Tomcat 8.5 以上版本，对 `Cookie` 的 `value` 作出了要求，会不支持一些字符比如空格
+
+
+
+
+
+
+
+
+### 3.3 Session
+
+
 

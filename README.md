@@ -1,8 +1,8 @@
-# Java-backend-road
+# Awesome-backend-developer
 
 [![](https://img.shields.io/badge/Java-Notes-orange?style=flat-square)](https://github.com/ceezyyy/Java-study-notes)
 
-:rocket: Awesome backend developer roadmap
+:rocket: The road map of backend developer
 
 ## Mind Mapping
 

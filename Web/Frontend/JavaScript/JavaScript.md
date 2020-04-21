@@ -90,7 +90,7 @@ Js 的一个bug :smile:
 
 ### 3.2 运算符
 
-**3.2.1 `+` 号妙用**
+#### 3.2.1 `+` 号妙用
 
 在 Js 中，`+` 不仅仅是加法运算符
 
@@ -121,10 +121,80 @@ Js 的一个bug :smile:
 
 
 
+#### 3.2.2 `==` 与 `===`
+
+在 Js 中，`==` 号用来判断两个变量的值是否相等
+
+- 若两个变量是同一类型：直接判断
+
+- 若不同类型：转成同一类型再判断
+
+  
+
+
+<div align="center"> <img src="image-20200421161141701.png" width="30%"/> </div><br>
 
 
 
+`===`：判断两个变量的类型和值是否完全相同
 
 
-### 3.3 
+<div align="center"> <img src="image-20200421161441995.png" width="30%"/> </div><br>
 
+
+
+### 3.3 基本对象
+
+1. `Function` 对象
+2. `Array` 对象
+
+
+
+#### 3.3.1 Function 对象
+
+
+
+```javascript
+
+```
+
+:warning:注意
+
+1. 形参类型可省略（弱类型），返回参数可省略
+2. 方法调用只与函数名称有关，与参数列表无关
+3. `function.length` 返回函数形参的个数
+4. 
+
+
+
+#### 3.3.2 Array 对象
+
+
+
+```javascript
+var arr = new Array()  // 创建空数组
+var arr = new Array(5)  // 长度为 5 的数组，默认为空
+var arr = [1,2,3]  // 直接赋值
+```
+
+
+
+<div align="center"> <img src="image-20200421164751259.png" width="60%"/> </div><br>
+
+
+:warning:注意
+
+1. 列表中元素类型可不统一
+2. 数组长度可变（可自动扩容，不存在 `index` 溢出）
+
+
+
+**常用方法**
+
+**join()：拼接字符串**
+
+<div align="center"> <img src="image-20200421165445260.png" width="30%"/> </div><br>
+
+**push()：动态增加元素**
+
+<div align="center"> <img src="image-20200421165753451.png" width="40%"/> </div><br>

@@ -37,7 +37,7 @@
 ## :sunrise: Frontend
 
 - HTML, CSS
-- JavaScript
+- [JavaScript](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Frontend/JavaScript/JavaScript.md)
 - Bootstrap
 
 

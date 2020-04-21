@@ -3,6 +3,32 @@
 
 <div align="center"> <img src="javascript.jpg" width="60%"/> </div><br>
 
+
+
+## 目录
+
+  * [1. 什么是 JavaScript ?](#1-----javascript--)
+  * [2. 为什么要用 JavaScript ?](#2-------javascript--)
+  * [3. JavaScript 快速入门](#3-javascript-----)
+    + [3.1 数据类型](#31-----)
+    + [3.2 运算符](#32----)
+      - [3.2.1 `+` 号妙用](#321--------)
+      - [3.2.2 `==` 与 `===`](#322-------------)
+    + [3.3 基本对象](#33-----)
+      - [3.3.1 Function 对象](#331-function---)
+      - [3.3.2 Array 对象](#332-array---)
+      - [3.3.3 Regex 对象](#333-regex---)
+  * [4. JavaScript 进阶](#4-javascript---)
+    + [4.1 DOM](#41-dom)
+      - [4.1.1 什么是 `DOM` ?](#411------dom---)
+      - [4.1.2 `DOM` 有什么用 ?](#412--dom--------)
+    + [4.2 BOM](#42-bom)
+    + [4.3 事件](#43---)
+
+
+
+
+
 ## 1. 什么是 JavaScript ?
 
 **`JavaScript`是一门客户端脚本语言**

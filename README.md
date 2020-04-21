@@ -51,7 +51,7 @@
 ## :desktop_computer: Java Web
 
 - Servlet
-  - Servlet 之 HTTP 篇
+  - [Servlet 之 HTTP 篇](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Servlet/HTTP.md)
 - Filter
 - Listener
 - Ajax / JSON

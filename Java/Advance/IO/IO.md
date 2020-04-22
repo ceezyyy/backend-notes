@@ -93,7 +93,7 @@ Random-access Memory
 
 字节输出流
 
-   <div align="center"> <img src="image-20200422164127860.png" width="100%"/> </div><br>
+   <div align="center"> <img src="image-20200422164127860.png" width="80%"/> </div><br>
 
 **原理**
 
@@ -122,7 +122,7 @@ Random-access Memory
 
    所以 `a.txt` 的存放位置是：
 
-<div align="center"> <img src="image-20200422164425879.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200422164425879.png" width="40%"/> </div><br>
 
 2. `\r\n` 代表换行
 

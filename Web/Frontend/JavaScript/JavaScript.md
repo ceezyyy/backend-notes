@@ -334,25 +334,81 @@ var reg = /regular expression/
 
 ### 4.2 BOM
 
+#### What is BOM ?
+
+
+
+#### Why we use BOM ?
 
 
 
 
+
+#### Quickstart
+
+使用 `Js` 实现轮播图
+
+```html
+<body>
+    <img id="img" src="../img/1.jpg">
+
+    <script>
+        var number = 1
+        function move() {
+            var img = document.getElementById("img")
+            if (number == 4) {
+                number = 1;
+            } else {
+                img.src = "../img/" + number + ".jpg";
+                number++;
+            }
+        }
+
+        setInterval(move, 1000)  // 设置调用函数时间间隔
+    </script>
+</body>
+```
+
+
+<div align="center"> <img src="image-20200422122113533.png" width="80%"/> </div><br>
+
+
+<div align="center"> <img src="image-20200422122123384.png" width="80%"/> </div><br>
+
+<div align="center"> <img src="image-20200422122134552.png" width="80%"/> </div><br>
 
 
 ### 4.3 Event
 
 #### 4.3.1 What is Event ?
 
+用户在 `html` 页面上会执行某些事件，比如：
+
+1. 点击按钮
+2. 页面完成加载
+3. 输入字段
+4. ...
 
 
 
-
-
+**`Js` 可以应对这些事件**
 
 
 
 #### 4.3.2 Quickstart
+
+需求：
+
+当用户点击灯泡时：（时间）
+
+1. 熄灭的灯泡会点亮（应对事件）
+2. 点亮的灯泡会熄灭（应对事件）
+
+
+
+这里的 `onclick=""` 指用户点击这个行为发生之后，`Js` 通过调用 `control()` 方法来应对这个事件
+
+
 
 ```html
 <body>

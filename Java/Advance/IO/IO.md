@@ -56,7 +56,7 @@ Random-access Memory
 
 
 
-   <div align="center"> <img src="image-20200422213425132.png" width="80%"/> </div><br>
+   <div align="center"> <img src="image-20200422225816865.png" width="100%"/> </div><br>
 
 **原理**
 

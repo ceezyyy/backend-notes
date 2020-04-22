@@ -29,23 +29,27 @@ public class Demo1 {
     }
 
     @Test
-    public void test4() throws IOException {
-        FileInputStream fileInputStream = new FileInputStream("a.txt");
-
+    public void test4() {
+        FileInputStream fileInputStream = null;
         byte[] bytes = new byte[1024];
-
-        // Total length
         int length = 0;
-
-        // Current length
         int temp = 0;
-        while ((temp = fileInputStream.read(bytes)) != -1) {
-            System.out.println(temp);
-            length += temp;
+        try {
+            fileInputStream = new FileInputStream("a.txt");
+            while ((temp = fileInputStream.read(bytes)) != -1) {
+                length += temp;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fileInputStream != null) {
+                try {
+                    fileInputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
-
-        fileInputStream.close();
-
         System.out.println(new String(bytes, 0, length));
     }
 

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo4</title>
+</head>
+
+<body>
+    <p>
+        <span id="countdown">
+            5
+        </span>
+        秒之后，自动跳转到 Google
+    </p>
+
+    <script>
+        var countdown = 5;
+        var time = document.getElementById("countdown");
+
+        function count() {
+            if (countdown <= 0) {
+                location.href = "http://www.google.com";
+            } else {    
+                time.innerHTML = countdown - 1;
+                countdown--;
+            } 
+        }
+
+        setInterval(count, 1000)
+
+    </script>
+</body>
+
+</html>

@@ -285,7 +285,11 @@ var reg = /regular expression/
 
 
 
-<div align="center"> <img src="image-20200422095734808.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200422154432133.png" width="80%"/> </div><br>
+
+
+
+
 
 #### 4.1.2 Why we use DOM ?
 
@@ -336,6 +340,47 @@ var reg = /regular expression/
 
 #### What is BOM ?
 
+`BOM` 就是 `Browser Object Model`
+
+将浏览器封装成一个对象
+
+
+
+<div align="center"> <img src="Window.png" width="40%"/> </div><br>
+
+
+:warning:注意
+
+1. 是 `Window`，单数，当前窗口只有一个，可以默认不写
+
+2. `Location` 和 `History` 属于 `Window` 窗口
+
+   
+
+**Screen**
+
+<div align="center"> <img src="image-20200422142847674.png" width="80%"/> </div><br>
+
+****
+
+**Window**
+
+<div align="center"> <img src="image-20200422142950818.png" width="60%"/> </div><br>
+
+
+
+**Location**
+
+<div align="center"> <img src="image-20200422143008352.png" width="100%"/> </div><br>
+
+
+
+
+
+**History**
+
+<div align="center"> <img src="image-20200422143034349.png" width="60%"/> </div><br>
+
 
 
 #### Why we use BOM ?
@@ -346,7 +391,9 @@ var reg = /regular expression/
 
 #### Quickstart
 
-使用 `Js` 实现轮播图
+
+
+1. 使用 `Js` 实现轮播图
 
 ```html
 <body>
@@ -376,6 +423,49 @@ var reg = /regular expression/
 <div align="center"> <img src="image-20200422122123384.png" width="80%"/> </div><br>
 
 <div align="center"> <img src="image-20200422122134552.png" width="80%"/> </div><br>
+
+2. 自动跳转首页
+
+
+
+<div align="center"> <img src="image-20200422144335200.png" width="80%"/> </div><br>
+
+
+
+<div align="center"> <img src="image-20200422144345286.png" width="80%"/> </div><br>
+
+
+
+```html
+<body>
+    <p>
+        <span id="countdown">
+            5
+        </span>
+        秒之后，自动跳转到 Google
+    </p>
+
+    <script>
+        var countdown = 5;
+        var time = document.getElementById("countdown");
+
+        function count() {
+            if (countdown <= 0) {
+                location.href = "http://www.google.com";
+            } else {    
+                time.innerHTML = countdown - 1;
+                countdown--;
+            } 
+        }
+
+        setInterval(count, 1000)
+
+    </script>
+</body>
+```
+
+
+
 
 
 ### 4.3 Event

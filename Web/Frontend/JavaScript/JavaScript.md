@@ -270,7 +270,9 @@ var reg = /regular expression/
    reg.test()  // 返回 true / false
    ```
 
+   :warning:注意
    
+   `\w` 为反斜杠
 
 
 
@@ -280,20 +282,51 @@ var reg = /regular expression/
 
 #### 4.1.1 什么是 `DOM` ? 
 
-<div align="center"> <img src="image-20200421224823030.png" width="60%"/> </div><br>
 
 
-
-`DOM` 用来操作 html 的内容
-
-
+<div align="center"> <img src="image-20200422095734808.png" width="80%"/> </div><br>
 
 #### 4.1.2 `DOM` 有什么用 ?
 
-`DOM`可以修改 `html` 里面标签的属性 / 标签体内容
+`DOM` 通过特定 `id` 值来获取`html` 元素，通过调用方法来修改其属性
 
 
 
+#### 4.1.3 快速入门
+
+1. 获取 `html` 标签对象
+
+   ```javascript
+   document.getElementById("id")  // 获取 html tag 对象
+   ```
+
+2. 查 `API` 修改属性
+
+   
+
+```html
+<body>
+    <img id="laptop" src="../img/lenovo.jpg">
+    <p id="text"> Hello World! </p>
+
+
+    <script>
+        var laptop = document.getElementById("laptop")
+        alert("I'm gonna change!")
+        laptop.src = "../img/mbp.jpg"
+
+        var text = document.getElementById("text")
+        text.innerHTML = "Succeeded!"
+    </script>
+</body>
+
+```
+
+<div align="center"> <img src="image-20200422100154652.png" width="100%"/> </div><br>
+
+
+
+<div align="center"> <img src="image-20200422100207596.png" width="100%"/> </div><br>
 
 
 

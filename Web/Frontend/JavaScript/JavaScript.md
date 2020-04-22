@@ -5,31 +5,32 @@
 
 
 
-## 目录
+## Category
 
-  * [1. 什么是 JavaScript ?](#1-----javascript--)
-  * [2. 为什么要用 JavaScript ?](#2-------javascript--)
-  * [3. JavaScript 快速入门](#3-javascript-----)
-    + [3.1 数据类型](#31-----)
-    + [3.2 运算符](#32----)
-      - [3.2.1 `+` 号妙用](#321--------)
-      - [3.2.2 `==` 与 `===`](#322-------------)
-    + [3.3 基本对象](#33-----)
-      - [3.3.1 Function 对象](#331-function---)
-      - [3.3.2 Array 对象](#332-array---)
-      - [3.3.3 Regex 对象](#333-regex---)
-  * [4. JavaScript 进阶](#4-javascript---)
+  * [1. What is JavaScript ?](#1-what-is-javascript--)
+  * [2. Why we use JavaScript ?](#2-why-we-use-javascript--)
+  * [3. JavaScript Quickstart](#3-javascript-quickstart)
+    + [3.1 Data type](#31-data-type)
+    + [3.2 Operator](#32-operator)
+      - [3.2.1 `+`](#321----)
+      - [3.2.2 `==` and `===`](#322------and------)
+    + [3.3 Object](#33-object)
+      - [3.3.1 Function](#331-function)
+      - [3.3.2 Array](#332-array)
+      - [3.3.3 Regex](#333-regex)
+  * [4. JavaScript Advanced](#4-javascript-advanced)
     + [4.1 DOM](#41-dom)
-      - [4.1.1 什么是 `DOM` ?](#411------dom---)
-      - [4.1.2 `DOM` 有什么用 ?](#412--dom--------)
+      - [4.1.1 What is DOM ?](#411-what-is-dom--)
+      - [4.1.2 Why we use DOM ?](#412-why-we-use-dom--)
+      - [4.1.3 DOM Quickstart](#413-dom-quickstart)
     + [4.2 BOM](#42-bom)
-    + [4.3 事件](#43---)
+    + [4.3 Event](#43-event)
+      - [4.3.1 What is Event ?](#431-what-is-event--)
+      - [4.3.2 Quickstart](#432-quickstart)
 
 
 
-
-
-## 1. 什么是 JavaScript ?
+## 1. What is JavaScript ?
 
 **`JavaScript`是一门客户端脚本语言**
 
@@ -40,7 +41,7 @@
 
 
 
-## 2. 为什么要用 JavaScript ?
+## 2. Why we use JavaScript ?
 
 在前端三件器中：
 
@@ -52,9 +53,9 @@
 
 
 
-## 3. JavaScript 快速入门
+## 3. JavaScript Quickstart
 
-### 3.1 数据类型
+### 3.1 Data type
 
 1. `number`
 2. `string`
@@ -112,9 +113,9 @@ Js 的一个bug :smile:
 
 <div align="center"> <img src="image-20200421113925994.png" width="30%"/> </div><br>
 
-### 3.2 运算符
+### 3.2 Operator
 
-#### 3.2.1 `+` 号妙用
+#### 3.2.1 `+` 
 
 在 Js 中，`+` 不仅仅是加法运算符
 
@@ -145,7 +146,7 @@ Js 的一个bug :smile:
 
 
 
-#### 3.2.2 `==` 与 `===`
+#### 3.2.2 `==` and `===`
 
 在 Js 中，`==` 号用来判断两个变量的值是否相等
 
@@ -167,14 +168,14 @@ Js 的一个bug :smile:
 
 
 
-### 3.3 基本对象
+### 3.3 Object
 
 1. `Function` 对象
 2. `Array` 对象
 
 
 
-#### 3.3.1 Function 对象
+#### 3.3.1 Function 
 
 
 
@@ -191,7 +192,7 @@ Js 的一个bug :smile:
 
 
 
-#### 3.3.2 Array 对象
+#### 3.3.2 Array 
 
 
 
@@ -223,7 +224,7 @@ var arr = [1,2,3]  // 直接赋值
 
 <div align="center"> <img src="image-20200421165753451.png" width="40%"/> </div><br>
 
-#### 3.3.3 Regex 对象
+#### 3.3.3 Regex 
 
 **正则表达式**
 
@@ -276,23 +277,23 @@ var reg = /regular expression/
 
 
 
-## 4. JavaScript 进阶
+## 4. JavaScript Advanced
 
 ### 4.1 DOM
 
-#### 4.1.1 什么是 `DOM` ? 
+#### 4.1.1 What is DOM ? 
 
 
 
 <div align="center"> <img src="image-20200422095734808.png" width="80%"/> </div><br>
 
-#### 4.1.2 `DOM` 有什么用 ?
+#### 4.1.2 Why we use DOM ?
 
 `DOM` 通过特定 `id` 值来获取`html` 元素，通过调用方法来修改其属性
 
 
 
-#### 4.1.3 快速入门
+#### 4.1.3 DOM Quickstart
 
 1. 获取 `html` 标签对象
 
@@ -339,7 +340,28 @@ var reg = /regular expression/
 
 
 
-### 4.3 事件
+### 4.3 Event
+
+#### 4.3.1 What is Event ?
 
 
 
+
+
+
+
+
+
+#### 4.3.2 Quickstart
+
+```html
+<body>
+    <img id="bulb" src="../img/bulb_off.jpg" onclick="control()">
+</body>
+```
+
+
+
+<div align="center"> <img src="image-20200422105631779.png" width="80%"/> </div><br>
+
+<div align="center"> <img src="image-20200422105640476.png" width="80%"/> </div><br>

@@ -78,17 +78,10 @@
 
 
 
-## :gift: Study Resources
+## :gift: Resources
 
-### Blog
-
+- [如何快速学习新技术]()
 - [技术人员的发展之路-CoolShell](https://coolshell.cn/articles/17583.html)
-
-
-
-### YouTube
-
-- [Back To Back SWE](https://www.youtube.com/channel/UCmJz2DV1a3yfgrR7GqRtUUA)
 
 
 

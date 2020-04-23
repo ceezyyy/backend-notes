@@ -85,3 +85,48 @@
 
 3. 解压到文件夹
 
+4. 配置，添加到环境变量 
+<div align="center"> <img src="image-20200423155852515.png" width="80%"/> </div><br>
+
+5. 修改本地仓库位置
+
+   `local repo`：本地仓库
+   
+   `remote repo`：私服
+   
+   `center repo`：中央仓库
+   
+   
+   
+   <div align="center"> <img src="image-20200423161056336.png" width="60%"/> </div><br>
+
+​			
+
+ <div align="center"> <img src="image-20200423161929738.png" width="100%"/> </div><br>
+
+​	
+
+6. 更换阿里云镜像
+
+   ![image-20200423165617371](image-20200423165617371.png)
+
+### 2.2 Maven 默认生命周期
+
+
+
+
+
+### 2.3 Quickstart
+
+![image-20200423164314590](image-20200423164314590.png)
+
+
+
+
+
+
+
+
+
+
+

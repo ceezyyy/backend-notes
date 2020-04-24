@@ -88,7 +88,7 @@
 4. 配置，添加到环境变量 
 <div align="center"> <img src="image-20200423155852515.png" width="80%"/> </div><br>
 
-5. 修改本地仓库位置
+5. 修改 `settings.xml`
 
    `local repo`：本地仓库
    
@@ -99,16 +99,33 @@
    
    
    <div align="center"> <img src="image-20200423161056336.png" width="60%"/> </div><br>
+   
+   
+   :warning: 填坑指南：
+   
+   1. **注意路径名称！！！**（这里留下一个坑，到时了解一下 `XML` 语法）
+   
+   2. 注意斜杠和反斜杠区别
+   
+   3. 不要出现中文和空格
+   
+      
+   
+      ![image-20200424103118142](image-20200424103118142.png)
+   
+      
 
-​			
 
- <div align="center"> <img src="image-20200423161929738.png" width="100%"/> </div><br>
+   <div align="center"> <img src="image-20200424102836061.png" width="60%"/> </div><br>
 
-​	
 
 6. 更换阿里云镜像
 
-   ![image-20200423165617371](image-20200423165617371.png)
+
+   [两款国内 Java 开发者必备的提速神器](https://mp.weixin.qq.com/s/S5XlfQMUjK_uPRTH3YdSYA)
+
+   
+
 
 ### 2.2 Maven 默认生命周期
 
@@ -116,17 +133,20 @@
 
 
 
-### 2.3 Quickstart
-
-![image-20200423164314590](image-20200423164314590.png)
+### 2.3 Maven 标准目录结构
 
 
 
 
 
+### 2.3 使用 IDEA 创建 Maven 骨架
 
 
 
+1. 选择 `webapp` 骨架
 
+   <div align="center"> <img src="image-20200424103743308.png" width="100%"/> </div><br>
 
+   2. `Maven` 设置
 
+   <div align="center"> <img src="image-20200424102511056.png" width="100%"/> </div><br>

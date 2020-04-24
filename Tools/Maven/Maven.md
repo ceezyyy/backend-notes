@@ -139,19 +139,21 @@
 
 
 
-### 2.3 使用 IDEA 创建 Maven 骨架
+### 2.4 使用 IDEA 创建 Maven 骨架
 
 
 
 1. 选择 `webapp` 骨架
 
-   <div align="center"> <img src="image-20200424103743308.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200424103743308.png" width="90%"/> </div><br>
 
-   2. `Maven` 设置
-
+2. 设置
+   
    <div align="center"> <img src="image-20200424102511056.png" width="100%"/> </div><br>
-   
-   3. 测试
-   <div align="center"> <img src="image-20200424111236336.png" width="100%"/> </div><br>
-   
+
+
+3. 测试
+
+   <div align="center"> <img src="image-20200424111236336.png" width="90%"/> </div><br>
+
 

@@ -54,7 +54,7 @@
 - Servlet
   - [Servlet 之 HTTP 篇](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Servlet/HTTP.md)
 - Filter & Listener
-- 实战案例
+- [实战案例](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Demo/Notes/Demo.md)
 - Ajax / JSON
 
 
@@ -81,7 +81,7 @@
 ## :gift: Resources
 
 - [如何快速学习新技术](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/resources/StudyFastStudySmart/Notes/StudySmart.md)
-- [技术人员的发展之路-CoolShell](https://coolshell.cn/articles/17583.html)
+- [技术人员的发展之路 - CoolShell](https://coolshell.cn/articles/17583.html)
 
 
 

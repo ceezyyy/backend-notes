@@ -150,3 +150,8 @@
    2. `Maven` 设置
 
    <div align="center"> <img src="image-20200424102511056.png" width="100%"/> </div><br>
+   
+   3. 测试
+   <div align="center"> <img src="image-20200424111236336.png" width="100%"/> </div><br>
+   
+

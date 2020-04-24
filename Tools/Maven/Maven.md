@@ -111,9 +111,9 @@
    
       
    
-      ![image-20200424103118142](image-20200424103118142.png)
-   
       
+    <div align="center"> <img src="image-20200424103118142.png" width="60%"/> </div><br>
+   
 
 
    <div align="center"> <img src="image-20200424102836061.png" width="60%"/> </div><br>

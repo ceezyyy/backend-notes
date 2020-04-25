@@ -108,3 +108,29 @@ https://github.com/alibaba/druid
 **Demo**
 
 <div align="center"> <img src="image-20200425002212704.png" width="100%"/> </div><br>
+
+**常用方法**
+
+1. `update()`：执行增，删，改
+
+2. `queryForMap()`
+
+3. `queryForList()`
+
+4. `queryForObject()` 聚合函数的查询
+
+   <div align="center"> <img src="image-20200425120229798.png" width="80%"/> </div><br>
+
+5. `query(sql, new BeanPropertyRowMapper<T>(T.class))`
+
+   将查询对象自动封装成 `JavaBean` 的 `List`
+
+<div align="center"> <img src="image-20200425114812621.png" width="90%"/> </div><br>
+
+   其中，`Emp` 是我们定义的 `Java Bean` 对象
+
+   <div align="center"> <img src="image-20200425114854428.png" width="40%"/> </div><br>
+
+:warning:注意：
+
+1. 基本数据类型不能被赋值为 `null`，但在数据库中，某些字段的值却可以，所以定义的 `Java Bean` 要使用包装类型

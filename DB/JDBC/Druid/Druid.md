@@ -1,4 +1,4 @@
-# Druid 数据库连接池
+# Druid 连接池 & JDBC Template
 
 ## Category
 
@@ -6,7 +6,10 @@
   + [1.1 什么是数据库连接池 ?](#11------------)
   + [1.2 解决了什么问题 ?](#12----------)
 * [2. Quickstart](#2-quickstart)
-
+* [3. JDBC Template](#3-jdbc-template)
+  + [3.1 什么是 JDBC Template ?](#31-----jdbc-template--)
+  + [3.2 为什么要有 JDBC Template ?](#32-------jdbc-template--)
+  + [3.3 QuickStart](#33-quickstart)
 
 
 
@@ -87,13 +90,13 @@ https://github.com/alibaba/druid
 
 ## 3. JDBC Template
 
-### 3.1 什么是 JDBC Template
+### 3.1 什么是 JDBC Template ?
 
 `JDBC Template` 是 `Spring JDBC` 一个简化 `JDBC` 操作的模板
 
 
 
-### 3.2 为什么要有 JDBC Template
+### 3.2 为什么要有 JDBC Template ?
 
 简化工作，让开发者更专注与对 `CRUD` 语句的逻辑上，而封装了获取连接，归还连接等操作。
 

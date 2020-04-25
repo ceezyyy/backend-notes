@@ -51,6 +51,7 @@
 
 ## :desktop_computer: Java Web
 
+- [Tomcat](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Tomcat/Tomcat.md)
 - Servlet
   - [Servlet 之 HTTP 篇](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Servlet/HTTP.md)
 - Filter & Listener
@@ -70,7 +71,7 @@
 
 ## :hammer: Dev Kit
 
-- Linux 
+- [Linux](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Fundamental/Linux/Linux.md) 
 - [Maven](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Tools/Maven/Maven.md)
 - JUnit
 
@@ -82,6 +83,7 @@
 
 - [如何快速学习新技术](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/resources/StudyFastStudySmart/Notes/StudySmart.md)
 - [技术人员的发展之路 - CoolShell](https://coolshell.cn/articles/17583.html)
+- [实例驱动学习](https://github.com/niudai/How-to-be-a-good-programmer/blob/master/doc/abilities/ability_task_driven.md)
 
 
 

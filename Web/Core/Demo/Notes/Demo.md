@@ -65,17 +65,21 @@
 <div align="center"> <img src="image-20200424222457888.png" width="60%"/> </div><br>
 
 
-2. `VIEW` 层：
-   1. 展示页面，将参数提交给 `MODEL`
-
-3. `DAO` 层：
-   1. 从 `MODEL` 获得 `JavaBean` 查询对象进行查询，将结果返回给 `MODEL`
-
-4. `MODEL` 层：
-   1. 从 `request` 获参，封装成 `BeanUtils`，传 `DAO` 查询 
-   2. 根据 `DAO` 返回的结果进行资源转发（共享域）
-
-
+2. `View` 层：
+   
+1. 展示页面，将参数提交给 `Controller`
+   
+3. `Model` ：
+   
+1. 与数据库打交道，查询结果后返回给 `Controller`
+   
+4. `Controller` 层：
+   
+   1. 从 `View` 获参，封装成 `BeanUtils`，传 `Model` 查询 
+   
+   2. 根据 `Model` 返回的结果进行资源转发，给 `View` 展示
+   
+      
 
 ### 1.5 目录结构
 

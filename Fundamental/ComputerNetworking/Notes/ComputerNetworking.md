@@ -4,6 +4,17 @@
 
 <div align="center"> <img src="ComputerNetworking.png" width="100%"/> </div><br>
 
+  * [Application Layer](#application-layer)
+    + [1. DNS](#1-dns)
+      - [1.1 什么是 `DNS` ?](#11------dns---)
+      - [1.2 `DNS` 有什么用 ?](#12--dns--------)
+      - [1.3 域名解析过程](#13-------)
+  * [Transport Layer](#transport-layer)
+  * [Network Layer](#network-layer)
+  * [Data Link Layer](#data-link-layer)
+  * [Physical Layer](#physical-layer)
+
+
 
 ## Application Layer
 
@@ -24,22 +35,10 @@
 域名种类：
 
 1. 根
-
 2. 顶级域名
 
-   `com` ：公司
-
-   `edu`：教育机构（大学）
-
-   `cn`：中国
-
-   ......
-
 3. 二级域名
-
-4. 三级域名
-
-   ......
+4. 三级域名及以下
 
 
 
@@ -50,4 +49,59 @@
 #### 1.3 域名解析过程
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Transport Layer
+
+
+
+
+
+
+
+
+
+
+## Network Layer
+
+
+
+
+
+
+
+## Data Link Layer
+
+
+
+
+
+
+
+
+
+## Physical Layer
 

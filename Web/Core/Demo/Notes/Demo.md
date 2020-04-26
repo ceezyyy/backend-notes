@@ -40,7 +40,9 @@
 
 ### 1.3 需求分析
 
-<div align="center"> <img src="image-20200424210546239.png" width="80%"/> </div><br>
+
+
+<div align="center"> <img src="image-20200426141727113.png" width="80%"/> </div><br>
 
 `view`：登录页面，前端展示
 
@@ -65,21 +67,13 @@
 <div align="center"> <img src="image-20200424222457888.png" width="60%"/> </div><br>
 
 
-2. `View` 层：
+2. `View` 层（页面）
    
-1. 展示页面，将参数提交给 `Controller`
+3. `Model` 层（数据库操作）
+
+4.  `Controller` 层（逻辑）
+
    
-3. `Model` ：
-   
-1. 与数据库打交道，查询结果后返回给 `Controller`
-   
-4. `Controller` 层：
-   
-   1. 从 `View` 获参，封装成 `BeanUtils`，传 `Model` 查询 
-   
-   2. 根据 `Model` 返回的结果进行资源转发，给 `View` 展示
-   
-      
 
 ### 1.5 目录结构
 

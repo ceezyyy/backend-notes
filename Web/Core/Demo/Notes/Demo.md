@@ -42,7 +42,9 @@
 
 
 
-<div align="center"> <img src="image-20200426141727113.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200426142754134.png" width="80%"/> </div><br>
+
+
 
 `view`：登录页面，前端展示
 

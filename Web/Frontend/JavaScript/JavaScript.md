@@ -7,30 +7,31 @@
 
 ## Category
 
-  * [1. What is JavaScript ?](#1-what-is-javascript--)
-  * [2. Why we use JavaScript ?](#2-why-we-use-javascript--)
-  * [3. JavaScript Quickstart](#3-javascript-quickstart)
-    + [3.1 Data type](#31-data-type)
-    + [3.2 Operator](#32-operator)
-      - [3.2.1 `+`](#321----)
-      - [3.2.2 `==` and `===`](#322------and------)
-    + [3.3 Object](#33-object)
-      - [3.3.1 Function](#331-function)
-      - [3.3.2 Array](#332-array)
-      - [3.3.3 Regex](#333-regex)
-  * [4. JavaScript Advanced](#4-javascript-advanced)
-    + [4.1 DOM](#41-dom)
-      - [4.1.1 What is DOM ?](#411-what-is-dom--)
-      - [4.1.2 Why we use DOM ?](#412-why-we-use-dom--)
-      - [4.1.3 DOM Quickstart](#413-dom-quickstart)
-    + [4.2 BOM](#42-bom)
-    + [4.3 Event](#43-event)
-      - [4.3.1 What is Event ?](#431-what-is-event--)
-      - [4.3.2 Quickstart](#432-quickstart)
+* [1. What is JavaScript](#1-what-is-javascript)
+* [2. Why we use JavaScript](#2-why-we-use-javascript)
+* [3. JavaScript Quickstart](#3-javascript-quickstart)
+  + [3.1 Data type](#31-data-type)
+  + [3.2 Operator](#32-operator)
+    - [3.2.1 `+`](#321----)
+    - [3.2.2 `==` and `===`](#322------and------)
+  + [3.3 Object](#33-object)
+    - [3.3.1 Function](#331-function)
+    - [3.3.2 Array](#332-array)
+    - [3.3.3 Regex](#333-regex)
+* [4. JavaScript Advanced](#4-javascript-advanced)
+  + [4.1 DOM](#41-dom)
+    - [4.1.1 What is DOM](#411-what-is-dom)
+    - [4.1.2 Why we use DOM](#412-why-we-use-dom)
+    - [4.1.3 DOM Quickstart](#413-dom-quickstart)
+  + [4.2 BOM](#42-bom)
+    - [What is BOM](#what-is-bom)
+    - [Why we use BOM](#why-we-use-bom)
+    - [Quickstart](#quickstart)
+  + [4.3 Event](#43-event)
+    - [4.3.1 What is Event](#431-what-is-event)
+    - [4.3.2 Quickstart](#432-quickstart)
 
-
-
-## 1. What is JavaScript ?
+## 1. What is JavaScript 
 
 **`JavaScript`是一门客户端脚本语言**
 
@@ -41,7 +42,7 @@
 
 
 
-## 2. Why we use JavaScript ?
+## 2. Why we use JavaScript 
 
 在前端三件器中：
 
@@ -281,17 +282,17 @@ var reg = /regular expression/
 
 ### 4.1 DOM
 
-#### 4.1.1 What is DOM ? 
+#### 4.1.1 What is DOM 
+
+`DOM` 是将标记语言的各个（组成）部分封装成对象，便于进行 `CRUD` 操作 
+
+<div align="center"> <img src="DOM.png" width="80%"/> </div><br>
 
 
 
-<div align="center"> <img src="image-20200422154432133.png" width="80%"/> </div><br>
 
 
-
-
-
-#### 4.1.2 Why we use DOM ?
+#### 4.1.2 Why we use DOM 
 
 `DOM` 通过特定 `id` 值来获取`html` 元素，通过调用方法来修改其属性
 
@@ -307,7 +308,6 @@ var reg = /regular expression/
 
 2. 查 `API` 修改属性
 
-   
 
 ```html
 <body>
@@ -333,12 +333,48 @@ var reg = /regular expression/
 
 <div align="center"> <img src="image-20200422100207596.png" width="100%"/> </div><br>
 
+#### 4.1.4 Demo 实战
+
+**效果**
+
+<div align="center"> <img src="image-20200427203157303.png" width="50%"/> </div><br>
+
+<div align="center"> <img src="image-20200427203131045.png" width="50%"/> </div><br>
+
+点击 `Turn on` 按钮：文本显示为超链接，链接到 `baidu`
+
+点击 `Turn off` 按钮：文本去除超链接
+
+
+
+```javascript
+    <script>
+        var a = document.getElementById("hello")
+        
+        var change = function () {
+            a.setAttribute("href", "https://www.baidu.com")
+        }
+
+        var withdraw = function () {
+            a.removeAttribute("href")
+        }
+    </script>
+```
+
+
+
+**总结**
+
+获取元素之后：
+
+1. 设置属性
+2. 移除属性
 
 
 
 ### 4.2 BOM
 
-#### What is BOM ?
+#### What is BOM 
 
 `BOM` 就是 `Browser Object Model`
 
@@ -383,7 +419,7 @@ var reg = /regular expression/
 
 
 
-#### Why we use BOM ?
+#### Why we use BOM 
 
 
 
@@ -470,20 +506,27 @@ var reg = /regular expression/
 
 ### 4.3 Event
 
-#### 4.3.1 What is Event ?
+#### 4.3.1 What is Event 
 
 用户在 `html` 页面上会执行某些事件，比如：
 
-1. 点击按钮
-2. 页面完成加载
-3. 输入字段
-4. ...
+1. 单击
+
+2. 双击
+
+3. 鼠标移动
+
+4. 键盘按下
+
+   ......
 
 
 
 **`Js` 可以应对这些事件**
 
 
+
+<div align="center"> <img src="image-20200427204957429.png" width="70%"/> </div><br>
 
 #### 4.3.2 Quickstart
 

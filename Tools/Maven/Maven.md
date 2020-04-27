@@ -1,5 +1,23 @@
 # Maven
 
+## Category
+
+  * [1. Cognize](#1-cognize)
+    + [1.1 什么是 Maven ?](#11-----maven--)
+    + [1.2 解决了什么问题 ?](#12----------)
+    + [1.3 同类技术](#13-----)
+    + [1.4 技术主要组成](#14-------)
+    
+  * [2. Quickstart](#2-quickstart)
+    + [2.1 Download](#21-download)
+    + [2.2 Maven 默认生命周期](#22-maven-------)
+    + [2.3 Maven 标准目录结构](#23-maven-------)
+    + [2.4 页面跳转 Demo](#24------demo)
+    
+  * [3. 总结与提高](#3------)
+
+    
+
 ## 1. Cognize
 
 ### 1.1 什么是 Maven ?
@@ -60,14 +78,7 @@
 
 
 
-
-
-
-### 1.5 为什么 Maven 会出现 ?
-
-
-
-## 2. 快速入门
+## 2. Quickstart
 
 ### 2.1 Download
 
@@ -137,23 +148,124 @@
 
 
 
+<div align="center"> <img src="image-20200427231207679.png" width="50%"/> </div><br>
+
+`src`：根目录
+
+`main`：主目录
+
+​	`java`：核心代码目录
+
+​	`resources`：核心代码资源目录
+
+​	`webapp`：网页相关
+
+`test`：测试目录
+
+​	`java`：测试代码
+
+​	`resources`：测试代码资源目录
 
 
-### 2.4 使用 IDEA 创建 Maven 骨架
+
+这是 `Maven` 帮我们定义好的一套标准目录结构，每个文件夹都有着特定的命名和功能，便于识别及管理。
+
+
+
+
+
+
+
+
+
+### 2.4 页面跳转 Demo
 
 
 
 1. 选择 `webapp` 骨架
 
-<div align="center"> <img src="image-20200424103743308.png" width="90%"/> </div><br>
-
-2. 设置
    
-   <div align="center"> <img src="image-20200424102511056.png" width="100%"/> </div><br>
+
+<div align="center"> <img src="image-20200427232824603.png" width="90%"/> </div><br>
+
+<div align="center"> <img src="image-20200424102511056.png" width="100%"/> </div><br>
+
+2. 补全标准目录结构
+
+   <div align="center"> <img src="image-20200427234044129.png" width="40%"/> </div><br>
 
 
-3. 测试
 
-   <div align="center"> <img src="image-20200424111236336.png" width="90%"/> </div><br>
+3. 配置文件
+
+   **依赖**
+
+     <div align="center"> <img src="image-20200427234147672.png" width="60%"/> </div><br>
+
+   1. `groupId`：项目的介绍及标识
+
+      举个例子：`org.apache.maven`，从标识清晰明了明白这是一个名为 `maven` 的项目，来自于 `apache` 的机构
+
+   2. `artifacted`：不带版本号的 `jar` 包名称
+
+   3. `version`：版本号
+
+   4. `scope`：作用域
+      1. `test`：只在测试中起效果
+      2. `provided`：只在编译中起效果 
+
+   
+
+   
+
+   **常见的 `dependencies` / `plugin`：**
+
+   1. `Tomcat plugin`
+
+      开发 Web 项目，当然少不了应用服务器 ——  `Tomcat`
+
+      
+
+      :warning:注意
+
+      使用 `Tomcat 7` 时，运行项目的命令是： `mvn tomcat7:run`
+
+      ![image-20200428004932131](image-20200428004932131.png)
+
+      
+   
+   2. `Servlet`
+   
+   3. `JUnit` 单元测试
+   
+      
+   
+
+<div align="center"> <img src="image-20200428001412324.png" width="100%"/> </div><br>
+
+  <div align="center"> <img src="image-20200428001646434.png" width="80%"/> </div><br>
 
 
+
+
+
+4. 生成项目
+
+  <div align="center"> <img src="image-20200428004832302.png" width="10%"/> </div><br>
+
+  <div align="center"> <img src="image-20200428004935026.png" width="100%"/> </div><br>
+
+
+5. Succeeded!
+
+  <div align="center"> <img src="image-20200428005006957.png" width="100%"/> </div><br>
+
+
+
+
+
+
+## 3. Summary
+
+1. 遇到不会的优先查官方文档
+2. 对于 `jar` 包冲突的解决方法是设置 `<scope>` 属性

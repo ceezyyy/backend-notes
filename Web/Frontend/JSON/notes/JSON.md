@@ -1,5 +1,15 @@
 # JSON
 
+## Category
+
+  * [1. What is JSON?](#1-what-is-json-)
+
+  * [2. Why we use JSON?](#2-why-we-use-json-)
+
+  * [3. How to use JSON ?](#3-how-to-use-json--)
+
+    
+
 ## 1. What is JSON?
 
 `JSON` 的本义是  **J**ava**S**cript **O**bject **N**otation

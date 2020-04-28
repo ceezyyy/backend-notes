@@ -1,5 +1,9 @@
 # jQuery
 
+## Mind map
+
+<div align="center"> <img src="jQuery.png" width="100%"/> </div><br>
+
 ## Category
 
 * [1. What is jQuery](#1-what-is-jquery)
@@ -108,5 +112,24 @@
 
 
 
-### 
+### 3.3 基础知识
+
+1. 事件绑定：对动作进行响应（如：点击鼠标）
+2. 入口函数：资源加载完成后进行函数调用
+3. 样式控制：对 `DOM` 对象进行样式控制
+
+
+
+<div align="center"> <img src="image-20200428162329276.png" width="80%"/> </div><br>
+
+
+
+<div align="center"> <img src="image-20200428162653491.png" width="50%"/> </div><br>
+
+<div align="center"> <img src="image-20200428162703845.png" width="60%"/> </div><br>
+
+
+<div align="center"> <img src="image-20200428162713871.png" width="50%"/> </div><br>
+
+### 3.4 选择器
 

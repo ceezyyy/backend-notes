@@ -46,6 +46,7 @@
 - HTML, CSS
 - [JavaScript](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Frontend/JavaScript/JavaScript.md)
 - Bootstrap
+- [jQuery]()
 
 
 

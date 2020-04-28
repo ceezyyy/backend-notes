@@ -7,16 +7,12 @@
     + [1.2 解决了什么问题 ?](#12----------)
     + [1.3 同类技术](#13-----)
     + [1.4 技术主要组成](#14-------)
-    
   * [2. Quickstart](#2-quickstart)
     + [2.1 Download](#21-download)
     + [2.2 Maven 默认生命周期](#22-maven-------)
     + [2.3 Maven 标准目录结构](#23-maven-------)
     + [2.4 页面跳转 Demo](#24------demo)
-    
-  * [3. 总结与提高](#3------)
-
-    
+  * [3. Summary](#3-summary)
 
 ## 1. Cognize
 
@@ -123,6 +119,7 @@
       
 
       
+
     <div align="center"> <img src="image-20200424103118142.png" width="60%"/> </div><br>
 
 
@@ -197,7 +194,7 @@
 
    - `groupId`：项目的介绍及标识
 
-   举个例子：`org.apache.maven`，从标识清晰明了明白这是一个名为 `maven` 的项目，来自于 `apache` 的机构
+     举个例子：`org.apache.maven`，明白这是名为 `maven` 的项目，来自 `apache` 机构
 
    - `artifacted`：不带版本号的 `jar` 包名称
 

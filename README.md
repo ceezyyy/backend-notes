@@ -86,6 +86,7 @@
 - [技术人员的发展之路 - CoolShell](https://coolshell.cn/articles/17583.html)
 - [实例驱动学习](https://github.com/niudai/How-to-be-a-good-programmer/blob/master/doc/abilities/ability_task_driven.md)
 - [谈谈技术学习的一些方法论](https://www.frankfeekr.cn/2019/05/09/%E8%B0%88%E8%B0%88%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E8%AE%BA/)
+- [Java 学习路线](https://github.com/Snailclimb/JavaGuide/blob/master/docs/questions/java-learning-path-and-methods.md)
 
 
 

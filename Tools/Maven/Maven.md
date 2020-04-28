@@ -101,30 +101,30 @@
 
 5. 修改 `settings.xml`
 
-   `local repo`：本地仓库
+   - `local repo`：本地仓库
+
+   - `remote repo`：私服
+
+   - `center repo`：中央仓库
+
    
-   `remote repo`：私服
-   
-   `center repo`：中央仓库
-   
-   
-   
+
    <div align="center"> <img src="image-20200423161056336.png" width="60%"/> </div><br>
-   
-   
+
+
    :warning: 填坑指南：
-   
+
    1. **注意路径名称！！！**（这里留下一个坑，到时了解一下 `XML` 语法）
-   
+
    2. 注意斜杠和反斜杠区别
-   
+
    3. 不要出现中文和空格
-   
+
       
-   
+
       
     <div align="center"> <img src="image-20200424103118142.png" width="60%"/> </div><br>
-   
+
 
 
    <div align="center"> <img src="image-20200424102836061.png" width="60%"/> </div><br>
@@ -195,17 +195,17 @@
 
      <div align="center"> <img src="image-20200427234147672.png" width="60%"/> </div><br>
 
-   1. `groupId`：项目的介绍及标识
+   - `groupId`：项目的介绍及标识
 
-      举个例子：`org.apache.maven`，从标识清晰明了明白这是一个名为 `maven` 的项目，来自于 `apache` 的机构
+   举个例子：`org.apache.maven`，从标识清晰明了明白这是一个名为 `maven` 的项目，来自于 `apache` 的机构
 
-   2. `artifacted`：不带版本号的 `jar` 包名称
+   - `artifacted`：不带版本号的 `jar` 包名称
 
-   3. `version`：版本号
+   - `version`：版本号
 
-   4. `scope`：作用域
-      1. `test`：只在测试中起效果
-      2. `provided`：只在编译中起效果 
+   - `scope`：作用域
+     - `test`：只在测试中起效果
+     - `provided`：只在编译中起效果 
 
    
 
@@ -213,25 +213,24 @@
 
    **常见的 `dependencies` / `plugin`：**
 
-   1. `Tomcat plugin`
+   - `Tomcat plugin`
 
-      开发 Web 项目，当然少不了应用服务器 ——  `Tomcat`
+   开发 Web 项目，当然少不了应用服务器 ——  `Tomcat`
 
-      
-
-      :warning:注意
-
-      使用 `Tomcat 7` 时，运行项目的命令是： `mvn tomcat7:run`
-
-      ![image-20200428004932131](image-20200428004932131.png)
-
-      
    
-   2. `Servlet`
+
+   :warning:注意
+
+   使用 `Tomcat 7` 时，运行项目的命令是： `mvn tomcat7:run`
+
+   ![image-20200428004932131](image-20200428004932131.png)
+
    
-   3. `JUnit` 单元测试
-   
-      
+
+   - `Servlet`
+
+   - `JUnit` 单元测试
+
    
 
 <div align="center"> <img src="image-20200428001412324.png" width="100%"/> </div><br>

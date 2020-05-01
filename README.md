@@ -55,12 +55,10 @@
 - [Tomcat](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Tomcat/Tomcat.md)
 - Servlet
   - [Servlet 之 HTTP 篇](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Servlet/HTTP.md)
+- [Cookie]()
+- [Session]()
 - Filter & Listener
 - [实战案例](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Demo/Notes/Demo.md)
-- [Ajax](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Frontend/Ajax/notes/Ajax.md)
-- [JSON]()
-
-
 
 ## :leaves: Framework
 

@@ -50,13 +50,11 @@
 
 
 
-## :desktop_computer: Java Web
+## :desktop_computer: Web
 
 - [Tomcat](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Tomcat/Tomcat.md)
+- [HTTP Protocol](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Web/Core/Servlet/HTTP.md)
 - Servlet
-  - [Servlet 之 HTTP 篇](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Servlet/HTTP.md)
-- [Cookie]()
-- [Session]()
 - Filter & Listener
 - [实战案例](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Demo/Notes/Demo.md)
 

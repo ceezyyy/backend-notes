@@ -1,6 +1,6 @@
 # Redis 
 
-<div align="center"> <img src="logo.png" width=""/> </div><br>
+<div align="center"> <img src="logo.png" width="50%"/> </div><br>
 
 
 
@@ -12,7 +12,7 @@
 
 
 
-## What is Redis
+## 1. What is Redis
 
 `Redis` 是一种基于 `key-value` 的 `NoSQL` 数据库
 
@@ -33,7 +33,7 @@
 
 
 
-## Why we use Redis
+## 2. Why we use Redis
 
 1. 速度快
 
@@ -62,13 +62,39 @@
 
    对于一些经常用却不怎么发生改变的数据，使用缓存机制可以极大加快对数据的访问速度且降低后端数据源的压力
 
-   
+   对于客户端发来的数据，先找缓存：
+
+   有：直接读取
+
+   没有：向数据库查询，读取并存到缓存中
+
+2. 排行榜系统
+
+3. 计数器应用
+
+4. 社交网络
+
+5. 消息队列
+
+<div align="center"> <img src="image-20200503171756162.png" width="80%"/> </div><br>
 
 
 
+## 3. Redis Quickstart
+
+### 3.1 安装
+
+:warning:注意
+
+官网不提供 `Windows` 版本
+
+<div align="center"> <img src="image-20200503172707953.png" width="90%"/> </div><br>
+
+当前使用版本：`Redis 2.8.9`
 
 
-## Redis Quickstart
+
+### 3.2 Preparation
 
 
 

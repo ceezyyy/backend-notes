@@ -35,10 +35,11 @@
 
 ## :floppy_disk: DB
 
-- MySQL
-- Redis
 - [Java 操作数据库 JDBC](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/DB/JDBC/JDBC.md)
   - [数据库连接池 Druid & JDBC Template](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/DB/JDBC/Druid/Druid.md)
+- MySQL
+- [Redis](https://github.com/ceezyyy/awesome-backend-developer/blob/master/DB/Redis/Notes/Redis.md)
+
 
 
 

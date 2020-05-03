@@ -1,0 +1,231 @@
+# Redis 
+
+<div align="center"> <img src="logo.png" width="50%"/> </div><br>
+
+
+
+## Category
+
+  * [1. What is Redis](#1-what-is-redis)
+  * [2. Why we use Redis](#2-why-we-use-redis)
+    + [Redis 使用场景](#redis-----)
+  * [3. Redis Quickstart](#3-redis-quickstart)
+    + [3.1 安装](#31---)
+    + [3.2 Preparation](#32-preparation)
+
+
+
+## 1. What is Redis
+
+`Redis` 是一种基于 `key-value` 的 `NoSQL` 数据库
+
+> Q：
+>
+> 关系型数据库与非关系型数据库之间有什么关系？
+>
+> A：
+>
+> 区别：
+>
+> 1. 关系型数据库：数据之间有关系；非关系型数据库：数据与数据之间没有关系
+> 2. 关系型数据库：数据存储在硬盘的文件上；非关系型数据库：数据存储在内存中
+>
+> 关联：
+>
+> 两者相辅相成
+
+
+
+## 2. Why we use Redis
+
+1. 速度快
+
+   `Redis` 所有数据都是放在内存中的（避免了大量与操作系统 IO 打交道）
+
+2. 基于 `key-value` 的数据结构服务器
+
+3. 丰富的功能：
+
+   1. 键过期：实现缓存
+   2. 发布订阅：消息系统
+
+4. 持久化
+
+   将数据保存在内存中是不安全的，当发生断电或者宕机，数据极有可能丢失
+
+   `Redis` 提供了 `RDB` 和 `AOF` 两种持久化方式，将内存的数据保存在硬盘中
+
+5. 高可用和分布式
+
+
+
+### 2.1 Redis 使用场景
+
+1. 缓存
+
+   对于一些经常用却不怎么发生改变的数据，使用缓存机制可以极大加快对数据的访问速度且降低后端数据源的压力
+
+   对于客户端发来的数据，先找缓存：
+
+   有：直接读取
+
+   没有：向数据库查询，读取并存到缓存中
+
+2. 排行榜系统
+
+3. 计数器应用
+
+4. 社交网络
+
+5. 消息队列
+
+<div align="center"> <img src="image-20200503171756162.png" width="80%"/> </div><br>
+
+
+
+## 3. Redis Quickstart
+
+### 3.1 Installation
+
+:warning:注意
+
+官网不提供 `Windows` 版本
+
+<div align="center"> <img src="image-20200503172707953.png" width="90%"/> </div><br>
+
+当前使用版本：`Redis 2.8.9`
+
+
+
+### 3.2 Preparation
+
+**查看所有键**
+
+<div align="center"> <img src="image-20200503180249686.png" width="50%"/> </div><br>
+
+**键总数**
+
+<div align="center"> <img src="image-20200503180348759.png" width="30%"/> </div><br>
+
+:warning:注意
+
+`dbsize` 的时间复杂度是 `O(1)` ，而 `keys *` 的时间复杂度是 `O(n)`，当 `Redis` 保存了大量的键时，线上环境禁止使用
+
+
+
+**键是否存在**
+
+<div align="center"> <img src="image-20200503180919638.png" width="40%"/> </div><br>
+
+
+
+**删除键**
+
+
+<div align="center"> <img src="image-20200503181038487.png" width="40%"/> </div><br>
+
+删除成功：1
+
+删除失败：2
+
+
+
+**键过期**
+
+<div align="center"> <img src="image-20200503181245321.png" width="50%"/> </div><br>
+
+`ttl` 查看键剩余过期时间
+
+大于0：剩余过期时间
+
+-1：未设置过期时间
+
+-2：键不存在 / 键已过期
+
+
+
+**键的数据结构类型**
+
+<div align="center"> <img src="image-20200503181718752.png" width="80%"/> </div><br>
+
+在 `Redis` 中有 5 种外部的数据类型，分别为：
+
+1. String
+2. List
+3. Hash
+4. Set
+5. Zset
+
+其中每种都有自己的底层内部编码实现（不止一种）
+
+这样做的好处：
+
+1. 提供接口供开发者调用，一旦开发出更优秀的源码，无需改动外部的数据结构和命令
+2. 多种内部编码实现在不同的应用场景下发挥更优势的实现
+
+
+
+<div align="center"> <img src="redis-data-structure-types.jpeg" width="100%"/> </div><br>
+
+### 3.3 String
+
+#### 3.3.1 常用命令
+
+`get` 和 `set`
+
+<div align="center"> <img src="image-20200503184301360.png" width="50%"/> </div><br>
+
+批量设置值（`get` 和 `set` 增强版）
+
+<div align="center"> <img src="image-20200503184512248.png" width="60%"/> </div><br>
+
+:bulb:Tips
+
+学会批量操作，有助于提高业务效率，但是注意每次批量操作的命令数不是无节制的，如果数量过多可能造成 `Redis` 阻塞或者网络拥塞
+
+
+
+#### 3.3.2 典型场景
+
+**缓存**
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 3.4 Hash
+
+
+
+
+
+
+
+### 3.5 List
+
+
+
+
+
+
+
+### 3.6 Set
+
+
+
+
+
+
+
+### 3.7 Zset
+
+
+

@@ -6,12 +6,20 @@
 
 ## Category
 
-  * [1. What is Redis](#1-what-is-redis)
-  * [2. Why we use Redis](#2-why-we-use-redis)
-    + [Redis 使用场景](#redis-----)
-  * [3. Redis Quickstart](#3-redis-quickstart)
-    + [3.1 安装](#31---)
-    + [3.2 Preparation](#32-preparation)
+* [Category](#category)
+* [1. What is Redis](#1-what-is-redis)
+* [2. Why we use Redis](#2-why-we-use-redis)
+  + [2.1 Redis 使用场景](#21-redis-----)
+* [3. Redis Quickstart](#3-redis-quickstart)
+  + [3.1 Installation](#31-installation)
+  + [3.2 Preparation](#32-preparation)
+  + [3.3 String](#33-string)
+    - [3.3.1 常用命令](#331-----)
+    - [3.3.2 典型场景](#332-----)
+  + [3.4 Hash](#34-hash)
+  + [3.5 List](#35-list)
+  + [3.6 Set](#36-set)
+  + [3.7 Zset](#37-zset)
 
 
 
@@ -168,6 +176,8 @@
 <div align="center"> <img src="redis-data-structure-types.jpeg" width="100%"/> </div><br>
 
 ### 3.3 String
+<div align="center"> <img src="string.jpg" width="80%"/> </div><br>
+
 
 #### 3.3.1 常用命令
 
@@ -189,31 +199,72 @@
 
 **缓存**
 
+<div align="center"> <img src="image-20200503204043055.png" width="80%"/> </div><br>
+
+缓存通常能起到加快读取速度以及降低后端服务器压力的作用
 
 
 
+**计数**
 
-
-
-
-
-
+许多应用会利用 `Redis` 作为计数的基础工具
 
 
 
 ### 3.4 Hash
 
+<div align="center"> <img src="hash.jpg" width="80%"/> </div><br>
 
+**常用命令**
 
+常见的 `set` 和 `get`
 
+<div align="center"> <img src="image-20200503204722141.png" width="60%"/> </div><br>
 
+查看 `key` 下的所有 `field`
 
+<div align="center"> <img src="image-20200503205210446.png" width="60%"/> </div><br>
+
+使用 `hdel` 删除某个或多个 `field`
+
+用 `hkeys` 查看所有的 `field`（不要给名字误导了）
+
+:warning:注意
+
+是 `hdel` 而不是 `del`
+
+`del` 会删除整个 `key` （所有的 `field`）
+
+<div align="center"> <img src="image-20200503212215487.png" width="70%"/> </div><br>
 
 ### 3.5 List
 
+<div align="center"> <img src="list.png" width="80%"/> </div><br>
+
+**特点**
+
+1. 有序（`index` 从 0 开始）
+
+2. 可存重复元素
+
+   
+
+**常用方法**
+
+**添加**
+
+分为左插入和右插，很好理解
+
+<div align="center"> <img src="image-20200503223318811.png" width="60%"/> </div><br>
+
+**查找**
+
+:warning:注意
+
+与许多编程语言不同，这里的 `start` 和 `end` 是左闭右闭区间
 
 
-
+<div align="center"> <img src="image-20200503223721084.png" width="60%"/> </div><br>
 
 
 

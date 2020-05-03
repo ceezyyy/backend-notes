@@ -64,7 +64,6 @@
   - Servlet
   - Filter & Listener
   - [实战案例](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Demo/Notes/Demo.md)
-
 - MyBatis
 - Spring
 - SpringMVC
@@ -80,7 +79,7 @@
 
 ## :cake: Cache Middleware
 
-- [Redis]()
+- [Redis](https://github.com/ceezyyy/awesome-backend-developer/blob/master/CacheMiddleware/Redis/Notes/Redis.md)
 
   
 

@@ -6,9 +6,12 @@
 
 ## Category
 
-  * [What is Redis](#what-is-redis)
-  * [Why we use Redis](#why-we-use-redis)
-  * [Redis Quickstart](#redis-quickstart)
+  * [1. What is Redis](#1-what-is-redis)
+  * [2. Why we use Redis](#2-why-we-use-redis)
+    + [Redis 使用场景](#redis-----)
+  * [3. Redis Quickstart](#3-redis-quickstart)
+    + [3.1 安装](#31---)
+    + [3.2 Preparation](#32-preparation)
 
 
 
@@ -82,7 +85,7 @@
 
 ## 3. Redis Quickstart
 
-### 3.1 安装
+### 3.1 Installation
 
 :warning:注意
 

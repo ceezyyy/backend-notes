@@ -280,3 +280,55 @@
 
 
 
+
+
+
+
+## 4. Jedis
+
+Java 有很多优秀的 `Redis` 客户端，在此介绍 `Jedis`
+
+:bulb:Tips
+
+获取第三方包通常有两种方式：
+
+1. 官网下载对应的 `jar` 包
+2. 使用集成构建工具（如 `Maven`）将 `Jedis` 目标版本的配置加入到项目中（推荐）
+
+
+
+### 4.1 Quickstart
+
+#### 4.1.1 String 操作
+
+常见的 `set` 和 `get` 方法
+
+<div align="center"> <img src="image-20200504114635447.png" width="90%"/> </div><br>
+
+`setex` 为 `key` 设置过期时间（`s` 为单位）
+
+<div align="center"> <img src="image-20200504115212663.png" width="90%"/> </div><br>
+
+生活中有许多熟悉的身影，比如说注册账号或者找回密码时验证码 `60s` 内有效，背后就是这个原理
+
+#### 4.1.2 Hash 操作
+
+:warning:注意
+
+```java
+jedis.hgetAll(key);
+```
+
+是根据 `key` 获取所有 `field-value` 的值，存储到 `Map` 中，类型是 `String`
+
+
+
+<div align="center"> <img src="image-20200504120657013.png" width="90%"/> </div><br>
+
+<div align="center"> <img src="image-20200504120845022.png" width="70%"/> </div><br>
+
+
+
+
+#### 4.1.6 Jedis 连接池
+

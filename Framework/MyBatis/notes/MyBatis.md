@@ -1,4 +1,5 @@
 # MyBatis
+<div align="center"> <img src="logo.png" width="60%"/> </div><br>
 
 ## Category
 
@@ -26,6 +27,7 @@
 
 
 <div align="center"> <img src="image-20200508182849525.png" width="80%"/> </div><br>
+
    `mysql`：使用 `JDBC` 操作 `mysql` 数据库
 
    `mybatis`：我们当前使用的框架

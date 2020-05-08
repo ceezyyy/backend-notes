@@ -6,7 +6,6 @@
 
 ## Category
 
-* [Category](#category)
 * [1. What is Redis](#1-what-is-redis)
 * [2. Why we use Redis](#2-why-we-use-redis)
   + [2.1 Redis 使用场景](#21-redis-----)
@@ -270,18 +269,108 @@
 
 ### 3.6 Set
 
+集合内保存的都是 `String` 类型，有两个特点：
+
+1. 不允许重复元素
+2. 无序（不能通过索引查找值）
+
+#### 3.6.1 常用命令
+
+**集合内操作**
+
+添加
+
+
+<div align="center"> <img src="image-20200504203708116.png" width="60%"/> </div><br>
+
+移除
+
+`rem` 是 `remove` 的缩写
+
+<div align="center"> <img src="image-20200504203828297.png" width="50%"/> </div><br>
 
 
 
+统计个数
+
+
+<div align="center"> <img src="image-20200504204033075.png" width="50%"/> </div><br>
+
+`scard` 的时间复杂度是 `O(1)` ，它不会遍历所有元素，而是直接用 `Redis` 的内部变量
+
+
+
+判断元素是否在集合中
+
+<div align="center"> <img src="image-20200504204222577.png" width="50%"/> </div><br>
+
+
+
+生成随机元素
+<div align="center"> <img src="image-20200504204459292.png" width="60%"/> </div><br>
+
+**集合外操作**
+
+求交集
+
+<div align="center"> <img src="image-20200504204847252.png" width="70%"/> </div><br>
+
+求并集
+<div align="center"> <img src="image-20200504204933847.png" width="60%"/> </div><br>
+
+
+
+求差集
+
+:warning:注意
+
+差集有顺序先后之分
+
+<div align="center"> <img src="image-20200504210155285.png" width="60%"/> </div><br>
+
+#### 3.6.2 经典场景
+
+集合类型的经典使用场景是标签 `tag` 。例如一个电商网站会对不同标签的用户做不同类型的推荐，为网站带来更多的利益
 
 
 
 ### 3.7 Zset
 
+<div align="center"> <img src="zset.png" width="60%"/> </div><br>
+
+特点：
+
+1. 不允许重复元素
+2. 元素可以通过 `score` 排序
 
 
 
+:warning:注意
 
+元素不可以重复但是 `score` 可以重复
+
+#### 3.7.1 常用命令
+
+**集合内**
+
+添加成员（分数需给出）
+
+<div align="center"> <img src="image-20200504211141482.png" width="100%"/> </div><br>
+
+计算集合总数以及某个元素的分数
+
+<div align="center"> <img src="image-20200504211326808.png" width="60%"/> </div><br>
+
+计算成员排名
+
+既然有分数，那么肯定得有排名（正序反序）
+
+:warning:注意
+
+排名从 0 开始
+
+
+<div align="center"> <img src="image-20200504211511504.png" width="60%"/> </div><br>
 
 
 ## 4. Jedis
@@ -326,6 +415,30 @@ jedis.hgetAll(key);
 <div align="center"> <img src="image-20200504120657013.png" width="90%"/> </div><br>
 
 <div align="center"> <img src="image-20200504120845022.png" width="70%"/> </div><br>
+
+
+
+#### 4.1.3 List 操作
+
+
+
+
+
+
+
+
+
+#### 4.1.4  Set 操作
+
+
+
+
+
+
+
+#### 4.1.5 Zset 操作
+
+
 
 
 

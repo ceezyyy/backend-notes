@@ -3,12 +3,15 @@
 
 ## Category
 
-  * [What is MyBatis](#what-is-mybatis)
-  * [Why we use MyBatis](#why-we-use-mybatis)
-  * [Quickstart](#quickstart)
-    + [使用 XML 配置](#---xml---)
-    + [使用注解配置](#------)
-    + [Quickstart 中的设计模式](#quickstart-------)
+  * [1. What is MyBatis](#1-what-is-mybatis)
+  * [2. Why we use MyBatis](#2-why-we-use-mybatis)
+  * [3. Quickstart](#3-quickstart)
+    + [3.1 使用 XML 配置](#31----xml---)
+    + [3.2 使用注解配置](#32-------)
+    + [3.3 踩坑记录](#33-----)
+      - [3.3.1 Timezone](#331-timezone)
+  * [4. MyBatis 的 CRUD](#4-mybatis---crud)
+    + [4.1 插入操作](#41-----)
 
 
 
@@ -30,8 +33,7 @@
 
 1. 创建 `Maven` 工程，添加依赖
 
-
-<div align="center"> <img src="image-20200508182849525.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200508182849525.png" width="100%"/> </div><br>
 
 - `mysql`：使用 `JDBC` 操作 `mysql` 数据库
 
@@ -61,32 +63,9 @@
 
 <div align="center"> <img src="image-20200508201506417.png" width="40%"/> </div><br>
 
-**Hello World Demo**
+6. 主函数
 
-```java
-public class UserDaoTest {
-    public static void main(String[] args) throws IOException {
-        // load config
-        String resource = "SqlMapConfig.xml";
-        InputStream inputStream = Resources.getResourceAsStream(resource);
-        // create sqlsession factory
-        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        // create sqlsession
-        SqlSession sqlSession = sqlSessionFactory.openSession();
-        // generate mapper
-        UserDao userDao = sqlSession.getMapper(UserDao.class);
-        // execute
-        List<User> users = userDao.findAll();
-        for (User u : users) {
-            System.out.println(u);
-        }
-        // close
-        sqlSession.close();
-        inputStream.close();
-    }
-}
-
-```
+![image-20200509232821635](image-20200509232821635.png)
 
 
 
@@ -112,35 +91,62 @@ public class UserDaoTest {
 
 
 
-### 3.3 Quickstart 中的设计模式
-
-<div align="center"> <img src="image-20200509094736676.png" width="100%"/> </div><br>
 
 
-1. 加载主配置文件
+### 3.3 踩坑记录
 
-   `mybatis` 既然是持久层框架，必然得和数据库打交道。在主配置文件中，包含了数据库相关的信息，例如驱动，端口和数据库名称，登录账号以及密码
+#### 3.3.1 Timezone
 
-   <div align="center"> <img src="image-20200509102122580.png" width="100%"/> </div><br>
-   有了它，就可以有 `Connection` 对象
-   
-<div align="center"> <img src="image-20200509102208165.png" width="70%"/> </div><br>
-   
-   
-   
+<div align="center"> <img src="image-20200509232126129.png" width="100%"/> </div><br>
 
-   此外，（在主配置文件中）还得告诉 `mybatis` 是以注解还是以 `xml` 方式配置映射文件的，注意路径写法的不同
-   
-   
-   
-   其中：
-   
-   ```java
-   Resources.getResourceAsStream(resource);
-   ```
-   <div align="center"> <img src="image-20200509100027487.png" width="100%"/> </div><br>
-   
-2. 创建 `sqlsession` 工厂
+**原因**
 
-   
+<div align="center"> <img src="image-20200509232720408.png" width="100%"/> </div><br>
 
+**解决方案**
+
+```java
+jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
+```
+
+
+
+## 4. MyBatis 的 CRUD
+
+### 4.1 插入操作
+
+在 `dao` 接口类定义方法
+
+<div align="center"> <img src="image-20200509234101205.png" width="60%"/> </div><br>
+
+在映射配置文件中编写 `sql` 语句
+
+<div align="center"> <img src="image-20200509234848482.png" width="100%"/> </div><br>
+
+> :bulb:**Tips:**
+>
+> `#{}` 填属性名称
+
+
+
+编写测试类 `UserDaoTest`
+
+<div align="center"> <img src="image-20200510000155678.png" width="80%"/> </div><br>
+
+我们将初始化以及关闭资源方法抽取出来，让测试方法更专注于 `CRUD` 本身
+
+`init` 方法
+<div align="center"> <img src="image-20200510000318818.png" width="100%"/> </div><br>
+
+`destroy` 方法
+<div align="center"> <img src="image-20200510000656867.png" width="80%"/> </div><br>
+
+> **什么是事务？**
+
+
+
+
+
+:heavy_check_mark:添加成功
+
+<div align="center"> <img src="image-20200510000921216.png" width="60%"/> </div><br>

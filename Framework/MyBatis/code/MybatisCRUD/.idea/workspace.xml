@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e70550dd-5d94-4e19-bc70-cc79ab64598f" name="Default Changelist" comment="" />
+    <list default="true" id="e70550dd-5d94-4e19-bc70-cc79ab64598f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/log4j2.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/dao/UserDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ceezyyy/dao/UserDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/ceezyyy/dao/UserDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/ceezyyy/dao/UserDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ceezyyy/dao/UserDaoTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ceezyyy/dao/UserDaoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ceezyyy/dao/UserDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ceezyyy/dao/UserDao.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/ceezyyy/dao/UserDao.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ceezyyy/dao/UserDao.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ceezyyy/dao/UserDaoTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/ceezyyy/dao/UserDaoTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../notes/MyBatis.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../notes/MyBatis.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,6 +41,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -43,21 +58,30 @@
     </option>
   </component>
   <component name="ProjectId" id="1bftFU97Az27dcbDCspx7OlZRz9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/resources" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
-  <component name="RunManager" selected="JUnit.UserDaoTest.testSave">
-    <configuration name="UserDaoTest.testFindAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Backend\Framework\MyBatis\code\MybatisCRUD\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.UserDaoTest.testFindTotal">
+    <configuration name="UserDaoTest.testDeleteUserById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MybatisCRUD" />
       <extension name="coverage">
         <pattern>
@@ -67,13 +91,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
       <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.UserDaoTest" />
-      <option name="METHOD_NAME" value="testFindAll" />
+      <option name="METHOD_NAME" value="testDeleteUserById" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserDaoTest.testSave" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserDaoTest.testFindTotal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="MybatisCRUD" />
       <extension name="coverage">
         <pattern>
@@ -83,7 +107,55 @@
       </extension>
       <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
       <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.UserDaoTest" />
-      <option name="METHOD_NAME" value="testSave" />
+      <option name="METHOD_NAME" value="testFindTotal" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserDaoTest.testFindUserById" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MybatisCRUD" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.UserDaoTest" />
+      <option name="METHOD_NAME" value="testFindUserById" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserDaoTest.testFindUserByName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MybatisCRUD" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.UserDaoTest" />
+      <option name="METHOD_NAME" value="testFindUserByName" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserDaoTest.testUpdateUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="MybatisCRUD" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.UserDaoTest" />
+      <option name="METHOD_NAME" value="testUpdateUser" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -91,8 +163,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserDaoTest.testSave" />
-        <item itemvalue="JUnit.UserDaoTest.testFindAll" />
+        <item itemvalue="JUnit.UserDaoTest.testFindTotal" />
+        <item itemvalue="JUnit.UserDaoTest.testFindUserByName" />
+        <item itemvalue="JUnit.UserDaoTest.testFindUserById" />
+        <item itemvalue="JUnit.UserDaoTest.testDeleteUserById" />
+        <item itemvalue="JUnit.UserDaoTest.testUpdateUser" />
       </list>
     </recent_temporary>
   </component>
@@ -108,6 +183,10 @@
       <updated>1589034872309</updated>
       <workItem from="1589034877308" duration="475000" />
       <workItem from="1589035672226" duration="4954000" />
+      <workItem from="1589040908427" duration="131000" />
+      <workItem from="1589079317391" duration="1517000" />
+      <workItem from="1589080871815" duration="2372000" />
+      <workItem from="1589083270928" duration="542000" />
     </task>
     <servers />
   </component>
@@ -123,33 +202,37 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser/0.0.1280.720@0.0.1280.720" timestamp="1589036192361" />
-    <state width="1238" height="187" key="GridCell.Tab.0.bottom" timestamp="1589040631205">
+    <state width="1238" height="291" key="GridCell.Tab.0.bottom" timestamp="1589083646631">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1238" height="187" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1589040631205" />
-    <state width="1238" height="187" key="GridCell.Tab.0.center" timestamp="1589040631204">
+    <state width="1238" height="291" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1589083646631" />
+    <state width="1238" height="291" key="GridCell.Tab.0.center" timestamp="1589083646631">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1238" height="187" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1589040631204" />
-    <state width="1238" height="187" key="GridCell.Tab.0.left" timestamp="1589040631204">
+    <state width="1238" height="291" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1589083646631" />
+    <state width="1238" height="291" key="GridCell.Tab.0.left" timestamp="1589083646631">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1238" height="187" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1589040631204" />
-    <state width="1238" height="187" key="GridCell.Tab.0.right" timestamp="1589040631204">
+    <state width="1238" height="291" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1589083646631" />
+    <state width="1238" height="291" key="GridCell.Tab.0.right" timestamp="1589083646631">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1238" height="187" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1589040631204" />
-    <state x="142" y="0" width="1029" height="713" key="SettingsEditor" timestamp="1589037261524">
+    <state width="1238" height="291" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1589083646631" />
+    <state x="142" y="0" width="1029" height="713" key="SettingsEditor" timestamp="1589040971780">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="142" y="0" width="1029" height="713" key="SettingsEditor/0.0.1280.720@0.0.1280.720" timestamp="1589037261524" />
-    <state x="462" y="330" key="com.intellij.ide.util.TipDialog" timestamp="1589035703160">
+    <state x="142" y="0" width="1029" height="713" key="SettingsEditor/0.0.1280.720@0.0.1280.720" timestamp="1589040971780" />
+    <state x="462" y="330" key="com.intellij.ide.util.TipDialog" timestamp="1589083272003">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="462" y="330" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1589035703160" />
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1589039844896">
+    <state x="462" y="330" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1589083272003" />
+    <state x="297" y="161" key="run.anything.popup" timestamp="1589083551929">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1589039844896" />
+    <state x="297" y="161" key="run.anything.popup/0.0.1280.720@0.0.1280.720" timestamp="1589083551929" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1589083747771">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1589083747771" />
   </component>
 </project>

@@ -119,7 +119,7 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 <div align="center"> <img src="image-20200509234101205.png" width="60%"/> </div><br>
 
-在映射配置文件中编写 `sql` 语句
+在映射配置文件中编写 `sql` 语句（让 `mybatis` 框架帮你创建代理对象实现）
 
 <div align="center"> <img src="image-20200509234848482.png" width="100%"/> </div><br>
 
@@ -141,12 +141,176 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 `destroy` 方法
 <div align="center"> <img src="image-20200510000656867.png" width="80%"/> </div><br>
 
-> **什么是事务？**
+> **:bulb:事务**
 
 
+
+**什么是事务？**
+
+如果一个包含多个步骤的业务操作被事务管理，则他们要不同时成功，要不同时失败
+
+**事务操作**
+
+- 开启事务
+- 回滚
+- 提交
+
+**事务四大特征（需记忆）**
+
+1. 原子性
+2. 持久性
+3. 隔离性
+4. 一致性
+
+举个例子，小明和小红各有 1000 元，现在小明要向小红转帐 500 元，则有以下业务操作：
+
+1. 判断小明账户是否大于 500 元（不够钱当然没法转帐）
+
+2. 小明账户减去 500 元
+
+3. 小红账户加上 500 元
+
+   
+
+若以上业务操作没有被事务管理：当第二步之后出现问题了，小明账户的钱少了，但是小红账户却没有收到钱，造成了 500 元不翼而飞，显然这在现实生活中是不可容忍的
+
+
+
+反之，若业务操作被事务管理，当其中的步骤出现问题，事务会回滚，即恢复到最初状态；若没有出现问题，最终会提交，永久存储（写入硬盘）
 
 
 
 :heavy_check_mark:添加成功
 
 <div align="center"> <img src="image-20200510000921216.png" width="60%"/> </div><br>
+
+### 4.2 更新操作
+
+1. 在 `dao` 接口定义方法
+
+
+   <div align="center"> <img src="image-20200510113243656.png" width="60%"/> </div><br>
+
+2. 在映射配置文件中编写 `sql` 语句，让 `mybatis` 框架为我们创建代理对象
+
+```xml
+    <update id="updateUser" parameterType="com.ceezyyy.domain.User">
+        update user set username = #{username}, birthday = #{birthday}, sex = #{sex}, address = #{address} where id = #{id};
+    </update>
+```
+
+3. 在测试类中执行方法，查看结果
+
+   
+    <div align="center"> <img src="image-20200510113411291.png" width="60%"/> </div><br>
+
+4. :heavy_check_mark:更新成功
+
+
+<div align="center"> <img src="image-20200510111358671.png" width="60%"/> </div><br>
+
+### 4.3  删除操作
+
+1. 在 `dao` 接口中定义方法
+
+
+<div align="center"> <img src="image-20200510112422979.png" width="60%"/> </div><br>
+2. 在映射配置文件中编写 `sql` 语句，让 `mybatis` 框架为我们创建代理对象
+
+```xml
+   <delete id="deleteUserById" parameterType="integer">
+        delete from user where id = #{id};
+    </delete>
+```
+
+3. 在测试类中执行方法，查看结果
+
+<div align="center"> <img src="image-20200510113629693.png" width="80%"/> </div><br>
+
+4. :heavy_check_mark:删除成功
+
+   
+
+> **:warning:注意**
+>
+> 当参数只有一个的时候，`#{}` 里面的名称不作强求
+>
+> `parameterType` 中，
+
+
+
+### 4.4 查询操作
+
+1. `dao` 接口定义方法
+
+
+<div align="center"> <img src="image-20200510113024978.png" width="60%"/> </div><br>
+2. 在映射配置文件编写 `sql` 语句，让 `mybatis` 为我们创建实现类
+
+```xml
+    <select id="findUserById" parameterType="integer" resultType="com.ceezyyy.domain.User">
+        select * from user where id = #{id};
+    </select>
+```
+
+3. 在测试类中执行语句，查看结果
+
+
+<div align="center"> <img src="image-20200510113119036.png" width="60%"/> </div><br>
+
+4. :heavy_check_mark:查询成功
+
+<div align="center"> <img src="image-20200510112945059.png" width="80%"/> </div><br>
+
+
+
+
+**模糊查询**
+
+1. `dao` 接口中定义方法
+<div align="center"> <img src="image-20200510114116223.png" width="60%"/> </div><br>
+
+
+2. 在映射配置文件编写 `sql` 语句，让 `mybatis` 为我们创建实现类
+
+   ```xml
+       <select id="findUserByName" parameterType="string" resultType="com.ceezyyy.domain.User">
+           select * from user where username like #{username};
+       </select>
+   ```
+
+   `resultType` 代表需要封装的结果对象
+
+
+3. 在测试类中执行语句，查看结果
+<div align="center"> <img src="image-20200510114312399.png" width="60%"/> </div><br>
+
+> **:warning:注意**
+>
+> 模糊查询的需在传入参数时指定`%`，`*` 等符号
+
+4. :heavy_check_mark:查询成功
+
+<div align="center"> <img src="image-20200510114453626.png" width="80%"/> </div><br>
+
+**聚合函数**
+
+1. `dao` 接口中定义方法
+
+   <div align="center"> <img src="image-20200510121002281.png" width="50%"/> </div><br>
+
+2. 在映射配置文件编写 `sql` 语句，让 `mybatis` 为我们创建实现类
+
+   ```xml
+       <select id="findTotal" resultType="integer">
+           select count(*) from user;
+       </select>
+   ```
+
+3. 在测试类中执行语句，查看结果
+
+   <div align="center"> <img src="image-20200510120946065.png" width="60%"/> </div><br>
+
+4. :heavy_check_mark:查询成功
+
+   <div align="center"> <img src="image-20200510121013728.png" width="40%"/> </div><br>

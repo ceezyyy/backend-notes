@@ -71,4 +71,40 @@ public class UserDaoTest {
         user.setBirthday(new Date());
         userDao.save(user);
     }
+
+    @Test
+    public void testUpdateUser() {
+        User user = new User();
+        user.setId(45);
+        user.setUsername("Burberry");
+        user.setBirthday(new Date());
+        user.setSex("f");
+        user.setAddress("UK");
+        userDao.updateUser(user);
+    }
+
+    @Test
+    public void testDeleteUserById() {
+        userDao.deleteUserById(42);
+    }
+
+    @Test
+    public void testFindUserById() {
+        User user = userDao.findUserById(45);
+        System.out.println(user.toString());
+    }
+
+    @Test
+    public void testFindUserByName() {
+        List<User> users = userDao.findUserByName("%王%");
+        for (User user : users) {
+            System.out.println(user);
+        }
+    }
+
+    @Test
+    public void testFindTotal() {
+        int total = userDao.findTotal();
+        System.out.println(total);
+    }
 }

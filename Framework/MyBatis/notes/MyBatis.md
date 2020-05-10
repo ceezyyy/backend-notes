@@ -386,8 +386,6 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 其中 `ids` 集合定义为要查询的 `id` 集合
 
-
-
 接着我们在 `dao` 接口定义根据用户 `id` 查找用户方法
 
 
@@ -446,6 +444,10 @@ for a in A:
 
 - **多对多**
 
+  一个学生可以选多门课程
+
+  一门课程也可以由多门学生来上
+
 
 
 ### 7.1 Demo
@@ -478,3 +480,11 @@ for a in A:
 <div align="center"> <img src="image-20200510235310741.png" width="100%"/> </div><br>
 
 <div align="center"> <img src="image-20200510235334564.png" width="50%"/> </div><br>
+
+要完成需求，首先得先会写 `sql` 语句（真的很重要！）
+
+<div align="center"> <img src="image-20200511003052254.png" width="100%"/> </div><br>
+
+要想体现出多对一的关系（也就是 `mybatis` 中的一对一）必须在从表中创建主表对象
+
+<div align="center"> <img src="image-20200511003429185.png" width="90%"/> </div><br>

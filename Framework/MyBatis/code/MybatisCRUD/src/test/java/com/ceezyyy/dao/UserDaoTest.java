@@ -1,5 +1,6 @@
 package com.ceezyyy.dao;
 
+import com.ceezyyy.domain.Query;
 import com.ceezyyy.domain.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -11,6 +12,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -110,9 +112,24 @@ public class UserDaoTest {
 
     @Test
     public void testFindUserByCondition() {
+        // object user for query
         User user = new User();
-        user.setUsername("Burberry");
+        user.setUsername("LBJ");
+        user.setSex("m");
         List<User> users = userDao.findUserByCondition(user);
+        for (User u : users) {
+            System.out.println(u);
+        }
+    }
+
+    @Test
+    public void testFindUserByUserIds() {
+        Query query = new Query();
+        List<Integer> list = new ArrayList<>();
+        list.add(41);
+        list.add(43);
+        query.setIds(list);
+        List<User> users = userDao.findUserByUserIds(query);
         for (User u : users) {
             System.out.println(u);
         }

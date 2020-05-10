@@ -1,5 +1,6 @@
 package com.ceezyyy.dao;
 
+import com.ceezyyy.domain.Query;
 import com.ceezyyy.domain.User;
 
 import java.util.List;
@@ -26,7 +27,10 @@ public interface UserDao {
     // find the total number of users
     int findTotal();
 
-    // find user(s) by user condition
+    // find user by condition
     List<User> findUserByCondition(User user);
+
+    // find user by ids
+    List<User> findUserByUserIds(Query query);
 
 }

@@ -366,24 +366,115 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 ## 6. 基于 XML 配置的动态 sql 查询
 
+### 6.1 where 和 if 的使用
+
 用 `<where>` 以及 `<if test>` 标签可以实现动态查询
 
-![image-20200510155212535](image-20200510155212535.png)
+<div align="center"> <img src="image-20200510212329012.png" width="100%"/> </div><br>
 
-在 `sql` 语句中，凡是 `#{}` 里面的值都是 `mybatis` 通过反射寻找出来的属性（值)，这种特殊的语法省略了 `get` 关键字。
+其实很简单，`#{}` 代表参数占位符，我们的参数类型是 `user`
 
-  <div align="center"> <img src="image-20200510153457044.png" width="80%"/> </div><br>
+`#{username}` 就相当于 `User.getUsername()` ，只不过省略了 `get` 关键字以及 `User` 变量（因为在 `parameterType` 已经声明了）
 
 
-**:warning:注意**
 
-  <div align="center"> <img src="image-20200510153837141.png" width="80%"/> </div><br>
+### 6.2 for each 的使用
 
-若将 `<if test>` 标签中的属性值故意改错，则会报错
+首先我们先定义一个 `Query` 对象，也称为复合查询对象。对于复杂查询的结果，可能不止一个类
 
-  <div align="center"> <img src="image-20200510153933281.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200510214216119.png" width="70%"/> </div><br>
+
+其中 `ids` 集合定义为要查询的 `id` 集合
+
+
+
+接着我们在 `dao` 接口定义根据用户 `id` 查找用户方法
+
+
+<div align="center"> <img src="image-20200510214443255.png" width="70%"/> </div><br>
+
+编写映射配置文件，交给 `mybatis` 来帮我们完成
+
+<div align="center"> <img src="image-20200510214555399.png" width="100%"/> </div><br>
+
+我们原先的数据库语句应该为：
+
+```sql
+select * from user where id in (id1, id2, ..., idn)
+```
+
+这里也一样，用 `<where>` 标签取代了 `where` 关键字
+
+- `<for each>` 取代了 后面的部分
+
+- `open` 代表开头， `close` 代表结尾
+
+- `separator` 代表分隔符（显然这里是逗号分隔）
+
+- `collections` 代表要遍历的集合，也就是我们 `query` 下的 `ids` 属性（相当于 `query.getIds()`）
+
+- `item` 代表单个变量，用`#{item}` 来获取每次遍历的值
+
+这点和 `python` 下的 `for loop` 很像
+
+```python
+for a in A:
+	print(a)
+```
 
 
 
 ## 7. MyBatis 多表操作
 
+多表操作，字如其名，涉及到多张表。多表操作中有以下几种关系
+
+- **一对一**
+
+  一个人只能有一个身份证号
+
+  一个身份证号只能属于同一个人
+
+- **一对多**
+
+  一个用户可以有多张订单 / 账号
+
+- **多对一**
+
+  多个订单 / 账号属于同一个用户
+
+  （在 `mybatis` 中 "多对一" 属于一对一，因为每张订单 / 账号属于一个用户）
+
+- **多对多**
+
+
+
+### 7.1 Demo
+
+**背景：**
+
+用户与账号。生活中一个用户可以有多个微信账号 / 多张银行卡
+
+**输出：**
+
+1. 当查询用户时，可以得到所有该用户下包含的账户信息
+2. 当查询账户时，可以得到账户所属用户信息
+
+**步骤：**
+
+1. 数据库相关：用户表，账户表
+
+<div align="center"> <img src="image-20200510232339124.png" width="60%"/> </div><br>
+
+2. 配置文件相关：主配置文件，映射配置文件
+
+3. 类相关：实体类，`dao` 接口
+
+4. 测试相关：测试类
+
+   
+
+:heavy_check_mark:测试成功
+
+<div align="center"> <img src="image-20200510235310741.png" width="100%"/> </div><br>
+
+<div align="center"> <img src="image-20200510235334564.png" width="50%"/> </div><br>

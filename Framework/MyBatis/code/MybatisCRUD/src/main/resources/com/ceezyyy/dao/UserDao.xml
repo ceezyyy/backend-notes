@@ -33,13 +33,21 @@
     <select id="findUserByCondition" parameterType="user" resultType="user">
         select * from user
         <where>
-        <if test="username != null">
-            username = #{username}
-        </if>
+            <if test="username != null">
+                username = #{username}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
         </where>
     </select>
-    
-    <select id="">
 
+    <select id="findUserByUserIds" parameterType="query" resultType="user">
+        select * from user
+        <where>
+            <foreach collection="ids" open="id in (" close=")" item="id" separator=",">
+                #{id}
+            </foreach>
+        </where>
     </select>
 </mapper>

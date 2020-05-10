@@ -25,4 +25,8 @@ public interface UserDao {
 
     // find the total number of users
     int findTotal();
+
+    // find user(s) by user condition
+    List<User> findUserByCondition(User user);
+
 }

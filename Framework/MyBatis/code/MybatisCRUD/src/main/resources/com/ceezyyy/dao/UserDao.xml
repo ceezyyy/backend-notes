@@ -3,14 +3,14 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ceezyyy.dao.UserDao">
-    <select id="findAll" resultType="com.ceezyyy.domain.User">
+    <select id="findAll" resultType="user">
         select * from user;
     </select>
-    <insert id="save" parameterType="com.ceezyyy.domain.User">
+    <insert id="save" parameterType="user">
         insert into user(username, birthday, sex, address) values (#{username}, #{birthday}, #{sex}, #{address});
     </insert>
 
-    <update id="updateUser" parameterType="com.ceezyyy.domain.User">
+    <update id="updateUser" parameterType="user">
         update user set username = #{username}, birthday = #{birthday}, sex = #{sex}, address = #{address} where id = #{id};
     </update>
 
@@ -18,15 +18,28 @@
         delete from user where id = #{id};
     </delete>
 
-    <select id="findUserById" parameterType="integer" resultType="com.ceezyyy.domain.User">
+    <select id="findUserById" parameterType="integer" resultType="user">
         select * from user where id = #{id};
     </select>
 
-    <select id="findUserByName" parameterType="string" resultType="com.ceezyyy.domain.User">
+    <select id="findUserByName" parameterType="string" resultType="user">
         select * from user where username like #{username};
     </select>
 
     <select id="findTotal" resultType="integer">
         select count(*) from user;
+    </select>
+
+    <select id="findUserByCondition" parameterType="user" resultType="user">
+        select * from user
+        <where>
+        <if test="username != null">
+            username = #{username}
+        </if>
+        </where>
+    </select>
+    
+    <select id="">
+
     </select>
 </mapper>

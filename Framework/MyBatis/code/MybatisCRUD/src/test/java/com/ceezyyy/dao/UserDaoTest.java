@@ -107,4 +107,14 @@ public class UserDaoTest {
         int total = userDao.findTotal();
         System.out.println(total);
     }
+
+    @Test
+    public void testFindUserByCondition() {
+        User user = new User();
+        user.setUsername("Burberry");
+        List<User> users = userDao.findUserByCondition(user);
+        for (User u : users) {
+            System.out.println(u);
+        }
+    }
 }

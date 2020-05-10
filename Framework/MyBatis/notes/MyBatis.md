@@ -2,16 +2,24 @@
 <div align="center"> <img src="logo.png" width="60%"/> </div><br>
 
 ## Category
+* [1. What is MyBatis](#1-what-is-mybatis)
+* [2. Why we use MyBatis](#2-why-we-use-mybatis)
+* [3. Quickstart](#3-quickstart)
+  + [3.1 使用 XML 配置](#31----xml---)
+  + [3.2 使用注解配置](#32-------)
+  + [3.3 踩坑记录](#33-----)
+    - [3.3.1 Timezone](#331-timezone)
+* [4. MyBatis 的 CRUD](#4-mybatis---crud)
+  + [4.1 插入操作](#41-----)
+  + [4.2 更新操作](#42-----)
+  + [4.3  删除操作](#43------)
+  + [4.4 查询操作](#44-----)
+  + [4.5 参数 & 结果集深入](#45-----------)
+  + [4.6 别名](#46---)
+* [5. MyBatis 连接池及事务控制](#5-mybatis---------)
+* [6. 基于 XML 配置的动态 sql 查询](#6----xml-------sql---)
+* [7. MyBatis 多表操作](#7-mybatis-----)
 
-  * [1. What is MyBatis](#1-what-is-mybatis)
-  * [2. Why we use MyBatis](#2-why-we-use-mybatis)
-  * [3. Quickstart](#3-quickstart)
-    + [3.1 使用 XML 配置](#31----xml---)
-    + [3.2 使用注解配置](#32-------)
-    + [3.3 踩坑记录](#33-----)
-      - [3.3.1 Timezone](#331-timezone)
-  * [4. MyBatis 的 CRUD](#4-mybatis---crud)
-    + [4.1 插入操作](#41-----)
 
 
 
@@ -314,3 +322,68 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 4. :heavy_check_mark:查询成功
 
    <div align="center"> <img src="image-20200510121013728.png" width="40%"/> </div><br>
+
+
+
+### 4.5 参数 & 结果集深入
+
+- `id`：方法名
+
+- `parameterType`：参数类型
+
+  当参数为 JavaBean 时，`#{}` 里面的内容为实体类属性值
+
+- `resultType`：结果类型
+
+- `resultMap`：查询结果的列名与实体类属性的对应关系（用于列名与属性名不一致的情况）
+
+  >  **:warning:注意**
+  >
+  > `resultType` 和 `resultMap` 只能二选一！
+
+### 4.6 别名
+
+<div align="center"> <img src="image-20200510131557743.png" width="80%"/> </div><br>
+
+
+通过 `typeAliases` 设置别名，达到简化开发的效果
+
+当参数是基本类型或者是包装类型时，我们可以直接写 `int`，`integer` 等等，都是基于这个原理
+
+<div align="center"> <img src="image-20200510131618183.png" width="90%"/> </div><br>
+
+
+
+## 5. MyBatis 连接池及事务控制
+
+
+
+
+
+
+
+
+
+## 6. 基于 XML 配置的动态 sql 查询
+
+用 `<where>` 以及 `<if test>` 标签可以实现动态查询
+
+![image-20200510155212535](image-20200510155212535.png)
+
+在 `sql` 语句中，凡是 `#{}` 里面的值都是 `mybatis` 通过反射寻找出来的属性（值)，这种特殊的语法省略了 `get` 关键字。
+
+  <div align="center"> <img src="image-20200510153457044.png" width="80%"/> </div><br>
+
+
+**:warning:注意**
+
+  <div align="center"> <img src="image-20200510153837141.png" width="80%"/> </div><br>
+
+若将 `<if test>` 标签中的属性值故意改错，则会报错
+
+  <div align="center"> <img src="image-20200510153933281.png" width="100%"/> </div><br>
+
+
+
+## 7. MyBatis 多表操作
+

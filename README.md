@@ -15,7 +15,7 @@
 - 计算机网络
 - 操作系统
 - 数据结构与算法
-  - 数组
+  - [数组](https://github.com/ceezyyy/awesome-backend-developer/blob/master/CS/DataStructures/Array/notes/Array.md)
   - 栈和队列
   - 链表
   - 二分搜索树

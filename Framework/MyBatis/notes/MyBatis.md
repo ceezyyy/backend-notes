@@ -1,4 +1,7 @@
+
+
 # MyBatis
+
 <div align="center"> <img src="logo.png" width="60%"/> </div><br>
 
 ## Category
@@ -15,10 +18,14 @@
   + [4.3  删除操作](#43------)
   + [4.4 查询操作](#44-----)
   + [4.5 参数 & 结果集深入](#45-----------)
-  + [4.6 别名](#46---)
 * [5. MyBatis 连接池及事务控制](#5-mybatis---------)
 * [6. 基于 XML 配置的动态 sql 查询](#6----xml-------sql---)
+  + [6.1 where 和 if 的使用](#61-where---if----)
+  + [6.2 for each 的使用](#62-for-each----)
 * [7. MyBatis 多表操作](#7-mybatis-----)
+  + [7.1 一对一关联](#71------)
+  + [7.2 一对多](#72----)
+  + [7.3 多对多](#73----)
 
 
 
@@ -327,30 +334,116 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 ### 4.5 参数 & 结果集深入
 
-- `id`：方法名
-
-- `parameterType`：参数类型
-
-  当参数为 JavaBean 时，`#{}` 里面的内容为实体类属性值
-
-- `resultType`：结果类型
-
-- `resultMap`：查询结果的列名与实体类属性的对应关系（用于列名与属性名不一致的情况）
-
-  >  **:warning:注意**
-  >
-  > `resultType` 和 `resultMap` 只能二选一！
-
-### 4.6 别名
-
-<div align="center"> <img src="image-20200510131557743.png" width="80%"/> </div><br>
+​	在 `MyBatis` 中，当选择一个查询进行映射时，返回类型可以是结果类型或结果映射，结果类型可以是返回类型的直接表示，而结果映射是对外部的 `ResultMap` 的引用，但结果类型和结果映射不能同时存在。当 `MyBatis` 执行查询映射时，实际上，每个被查询的属性都会被放置在对应的 `Map` 中，其中 `key` 是属性名，`value` 是其对应的值。当所提供的返回类型属性为 `resultType` 时，`MyBatis` 会将 `Map` 中的 `key-value` 对取出，并将相应的属性分配给 `resultType` 指定的对象。所以实际上，`MyBatis` 的每一个查询映射都是 `ResultMap`，但是当我们提供的返回类型属性为 `resultType` 时，`MyBatis` 会自动将相应的值分配给由 `resultType` 指定的对象的属性。当我们提供的返回类型为 `resultMap` 时，因为 `Map` 不能很好的表示域模型，所以需要我们自己。进一步将其转换为相应的对象，在复杂的查询中往往很有用。
 
 
-通过 `typeAliases` 设置别名，达到简化开发的效果
 
-当参数是基本类型或者是包装类型时，我们可以直接写 `int`，`integer` 等等，都是基于这个原理
+举个例子
 
-<div align="center"> <img src="image-20200510131618183.png" width="90%"/> </div><br>
+**Blog.java**
+
+```java
+import java.util.List;
+
+public class Blog {
+    private int id;
+    private String title;
+    private String content;
+    private String owner;
+    private List<Comment> comments;
+
+    //getter and setter methods
+}
+```
+
+
+
+**SQL Mapping file BlogMapper.xml**
+
+`resultType` 类型：
+
+```xml
+<typeAlias alias="Blog" type="com.tiantian.mybatis.model.Blog"/>
+<select id="selectBlog" parameterType="int" resultType="Blog">
+        select * from t_blog where id = #{id}
+</select><!--Come from SQL Mapping file BlogMapper.xml-->
+```
+
+`resultMap` 类型：
+
+
+```xml
+<resultMap type="Blog" id="BlogResult">
+    <id column="id" property="id"/>
+    <result column="title" property="title"/>
+    <result column="content" property="content"/>
+    <result column="owner" property="owner"/>
+</resultMap>
+<select id="selectBlog" parameterType="int" resultMap="BlogResult">
+    select * from t_blog where id = #{id}
+</select>
+```
+
+
+
+- `typeAlias` ：别名
+
+  **那有什么用？**
+
+  我们知道，必须写出全限定类名，`mybatis` 才能找到相应的类和对应的方法，但在实际开发中，预先定义好类名，可以起到简化的作用
+
+- `parameterType` ：传入参数的类型
+
+- `resultType`：封装结果类型（用于简单情况以及封装结果对象属性与数据库列名一致的情况）
+
+- `resultMap`：封装结果映射
+
+- `resultMap` 十分强大
+
+举个例子
+
+假如我们的 `Blog` 实体类对象的属性名与数据库列名不一致：
+
+```java
+import java.util.List;
+  
+public class Blog {
+    private int blogId;
+    private String blogTitle;
+    private String blogContent;
+    private String blogOwner;
+    private List<Comment> comments;
+  
+      //getter and setter methods
+}
+```
+
+那我们应该手动编写一个 `resultMap`：
+
+```xml
+<resultMap type="Blog" id="BlogResult">
+    <id column="id" property="blogId"/>
+    <result column="title" property="blogTitle"/>
+    <result column="content" property="blogContent"/>
+    <result column="owner" property="blogOwner"/>
+</resultMap>
+```
+
+做一个简单的字段映射
+
+并将查询语句中改为 `resultMap`：
+
+```xml
+<select id="selectBlog" parameterType="int" resultMap="BlogResult">
+    select * from t_blog where id = #{id}
+</select>
+```
+
+当然，这是最简单的映射
+
+
+
+
 
 
 
@@ -447,10 +540,10 @@ for a in A:
   一个学生可以选多门课程
 
   一门课程也可以由多门学生来上
+  
+  
 
-
-
-### 7.1 Demo
+### 7.1 一对一关联
 
 **背景：**
 
@@ -461,34 +554,182 @@ for a in A:
 1. 当查询用户时，可以得到所有该用户下包含的账户信息
 2. 当查询账户时，可以得到账户所属用户信息
 
-**准备工作：**
 
-1. 数据库相关：用户表，账户表
+
+**需求一：查询账户时，获得账户所属用户信息**
+
+
+
+
 
 <div align="center"> <img src="image-20200510232339124.png" width="60%"/> </div><br>
 
-2. 配置文件相关：主配置文件，映射配置文件
 
-3. 类相关：实体类，`dao` 接口
 
-4. 测试相关：测试类
+`sql` 语句如下：
 
-   
+```sql
+USE mybatis;
+SELECT 
+	a.id as aid, 
+	a.UID as uid,
+	a.MONEY as money,
+	u.*
+FROM
+	user u, account a 
+WHERE
+	u.id = a.UID;
+```
+
+这是我们预期的结果：
+
+<div align="center"> <img src="image-20200511162605961.png" width="60%"/> </div><br>
+
+
+那么如何让 `mybatis` 来完成呢？
+
+
+
+**Account.java**
+
+```java
+public class Account implements Serializable {
+    private Integer ID;
+    private Integer UID;
+    private Double MONEY;
+
+    // find the info of USER by account
+    private User user;
+    
+    // getter and setter
+```
+
+要想通过查询账户获得所属用户信息，我们得在 `account` 增加 `User` 实体类属性
+
+这时，如果单单的 `resultType = account` 已经不能满足我们了（因为查询结果对象是 `account` 的话，我们无法获取 `user` 实体类详细的属性）
+
+
+
+此时，强大的 `resultMap` 就出现了！
+
+我们在 `resultMap` 中定义关联对象，`javaType` 的作用是告诉 `mybatis` 查询后封装的对象
+
+```xml
+<resultMap id="accountUserMap" type="account">
+        <id property="id" column="aid"></id>
+        <result property="uid" column="uid"></result>
+        <result property="money" column="money"></result>
+        <association property="user" column="uid" javaType="user">
+            <id property="id" column="id"></id>
+            <result property="username" column="username"></result>
+            <result property="birthday" column="birthday"></result>
+            <result property="sex" column="sex"></result>
+            <result property="address" column="address"></result>
+        </association>
+</resultMap>
+```
+
+:heavy_check_mark:查询成功
+
+
+<div align="center"> <img src="image-20200511170218636.png" width="100%"/> </div><br>
+
+
+### 7.2 一对多
+
+**需求二：查询所有用户名下所有账户信息**
+
+不管用户用没有账号，都需显示，所以我们要用左（外连接）
+
+> :bulb: **三张图彻底搞懂内连接，左连接，右连接**
+>
+> **内连接**
+>
+> ```sql
+> select * from a_table a inner join b_table bon a.a_id = b.b_id;
+> ```
+>
+> <div align="center"> <img src="20171209135846780.png" width="70%"/> </div><br>
+> 
+> **左（外）连接**
+>
+> ```sql
+> select * from a_table a left join b_table bon a.a_id = b.b_id;
+> ```
+><div align="center"> <img src="20171209142610819.png" width="70%"/></div><br>
+>
+> **右（外）连接**
+>
+> ```sql
+> select * from a_table a right outer join b_table b on a.a_id = b.b_id;
+> ```
+><div align="center"> <img src="20171209144056668.png" width="70%"/></div><br>
+
+
+
+**数据库查询语句**
+
+<div align="center"> <img src="image-20200511204027426.png" width="100%"/></div><br>
+
+**User.java**
+
+```java
+public class User implements Serializable {
+    private Integer id;
+    private String username;
+    private Date birthday;
+    private String sex;
+    private String address;
+
+    // the total accounts of specific user
+    private List<Account> accountList;
+    
+    // getter and setter
+```
+
+**UserDao.xml**
+
+```xml
+    <resultMap id="userAccountMap" type="User">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+        <collection property="accountList" ofType="account">
+            <id property="id" column="aid"></id>
+            <result property="uid" column="uid"></result>
+            <result property="money" column="money"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findAllAccountsOfUser" resultMap="userAccountMap">
+    SELECT
+	    u.*,
+	    a.ID as aid,
+	    a.UID as uid,
+	    a.MONEY as money
+    FROM
+	    user u
+    LEFT JOIN
+	    account a
+    ON
+	u.id = a.uid
+    </select>
+
+```
+
+其中  `collection`  代表集合映射，也就是一对多中的"多"，`ofType` 代表封装的对象
+
+对于重复元素，`mybatis` 会自动封装（太强大了！）
+
+
 
 :heavy_check_mark:测试成功
 
-<div align="center"> <img src="image-20200510235310741.png" width="100%"/> </div><br>
-
-<div align="center"> <img src="image-20200510235334564.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200511205914752.png" width="90%"/> </div><br>
 
 
 
-**需求分析：**
+### 7.3 多对多
 
-1. 要完成需求，首先得先会写 `sql` 语句（真的很重要！）
-
-<div align="center"> <img src="image-20200511003052254.png" width="100%"/> </div><br>
-
-2. 要想体现出多对一的关系（也就是 `mybatis` 中的一对一）必须在从表中创建主表对象
-
-<div align="center"> <img src="image-20200511003429185.png" width="90%"/> </div><br>

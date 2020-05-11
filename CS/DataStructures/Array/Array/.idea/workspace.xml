@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c498d08d-79e1-4fd7-83b3-2fcfe60cb3d3" name="Default Changelist" comment="" />
+    <list default="true" id="c498d08d-79e1-4fd7-83b3-2fcfe60cb3d3" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,14 +16,20 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
   <component name="ProjectId" id="1bkB7izcqAK8P8O4zzN8nE46TN6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../Framework/MyBatis/code/MybatisCRUD" />
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -51,6 +59,8 @@
       <option name="presentableId" value="Default" />
       <updated>1589166045914</updated>
       <workItem from="1589166049524" duration="2614000" />
+      <workItem from="1589169043331" duration="613000" />
+      <workItem from="1589180123199" duration="15000" />
     </task>
     <servers />
   </component>
@@ -62,6 +72,10 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser/0.0.1280.720@0.0.1280.720" timestamp="1589166780365" />
+    <state x="421" y="116" key="FileChooserDialogImpl" timestamp="1589180137723">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="421" y="116" key="FileChooserDialogImpl/0.0.1280.720@0.0.1280.720" timestamp="1589180137723" />
     <state width="1236" height="177" key="GridCell.Tab.0.bottom" timestamp="1589166683472">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
@@ -78,5 +92,9 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state width="1236" height="177" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1589166683472" />
+    <state x="432" y="262" key="com.intellij.ide.util.TipDialog" timestamp="1589180122223">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="432" y="262" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1589180122223" />
   </component>
 </project>

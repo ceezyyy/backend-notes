@@ -4,39 +4,60 @@
 
 <div align="center"> <img src="logo.png" width="60%"/> </div><br>
 
-## Category
-* [1. What is MyBatis](#1-what-is-mybatis)
-* [2. Why we use MyBatis](#2-why-we-use-mybatis)
+## 目录
+* [1. 什么是 MyBatis](#1-----mybatis)
+
+* [2. 为什么使用 MyBatis](#2-------mybatis)
+
 * [3. Quickstart](#3-quickstart)
   + [3.1 使用 XML 配置](#31----xml---)
   + [3.2 使用注解配置](#32-------)
   + [3.3 踩坑记录](#33-----)
     - [3.3.1 Timezone](#331-timezone)
-* [4. MyBatis 的 CRUD](#4-mybatis---crud)
+  
+* [4. XML 配置开发下单表 CRUD](#4-xml---------crud)
   + [4.1 插入操作](#41-----)
   + [4.2 更新操作](#42-----)
   + [4.3  删除操作](#43------)
   + [4.4 查询操作](#44-----)
   + [4.5 参数 & 结果集深入](#45-----------)
+  
 * [5. MyBatis 连接池及事务控制](#5-mybatis---------)
-* [6. 基于 XML 配置的动态 sql 查询](#6----xml-------sql---)
+
+* [6. XML 配置开发下动态 sql 查询](#6-xml---------sql---)
   + [6.1 where 和 if 的使用](#61-where---if----)
   + [6.2 for each 的使用](#62-for-each----)
-* [7. MyBatis 多表操作](#7-mybatis-----)
+  
+* [7. XML 配置开发下多表操作](#7-xml----------)
   + [7.1 一对一关联](#71------)
   + [7.2 一对多](#72----)
   + [7.3 多对多](#73----)
+  
+* [8. 加载](#8---)
+  + [8.1 延迟加载](#81-----)
+  + [8.2 立即加载](#82-----)
+  
+* [9. 缓存](#9---)
+  + [9.1 什么是缓存](#91------)
+  + [9.2 为什么使用缓存](#92--------)
+  + [9.3 缓存对象](#93-----)
+  + [9.4 一级缓存](#94-----)
+  + [9.5 二级缓存](#95-----)
+  
+* [10. 注解开发下单表 CRUD](#10---------crud)
+
+* [11. 注解开发下多表查询](#11----------)
+
+  
 
 
-
-
-## 1. What is MyBatis
+## 1. 什么是 MyBatis
 
 `MyBatis` 是一个用 Java 编写的持久层框架，
 
 
 
-## 2. Why we use MyBatis
+## 2. 为什么使用 MyBatis
 
 开发中讲究极简编程，让开发者更专注于开发本身，`MyBatis` 帮我们封装了许多底层实现，让我们更专注于开发
 
@@ -126,7 +147,7 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 
 
-## 4. MyBatis 的 CRUD
+## 4. XML 配置开发下单表 CRUD
 
 ### 4.1 插入操作
 
@@ -457,7 +478,7 @@ public class Blog {
 
 
 
-## 6. 基于 XML 配置的动态 sql 查询
+## 6. XML 配置开发下动态 sql 查询
 
 ### 6.1 where 和 if 的使用
 
@@ -515,7 +536,7 @@ for a in A:
 
 
 
-## 7. MyBatis 多表操作
+## 7. XML 配置开发下多表操作
 
 多表操作，字如其名，涉及到多张表。多表操作中有以下几种关系
 
@@ -721,7 +742,7 @@ public class User implements Serializable {
 
 其中  `collection`  代表集合映射，也就是一对多中的"多"，`ofType` 代表封装的对象
 
-对于重复元素，`mybatis` 会自动封装（太强大了！）
+对于重复元素，`mybatis` 会自动封装
 
 
 
@@ -732,4 +753,130 @@ public class User implements Serializable {
 
 
 ### 7.3 多对多
+
+首先我们先修改一下 `mybatis` 主配置文件：
+
+**SqlMapConfig.xml**
+
+```xml
+    <mappers>
+        <!-- Register all interfaces in a package as mappers -->
+        <package name="com.ceezyyy.dao"/>
+        <!--        <mapper resource="com/ceezyyy/dao/AccountDao.xml"/>-->
+        <!--        <mapper resource="com/ceezyyy/dao/UserDao.xml"/>-->
+    </mappers>
+```
+
+使用 `<package>` 标签可以使所有的 `dao` 接口注册为 `mappers`
+
+
+
+**数据库相关**
+
+<div align="center"> <img src="image-20200511221944145.png" width="70%"/> </div><br>
+
+**Role.java**
+
+```java
+public class Role implements Serializable {
+    private Integer roleId;
+    private String roleName;
+    private String roleDesc;
+    private List<User> users;
+    
+    // getter and setter
+```
+
+
+
+**User.java**
+
+```java
+public class User implements Serializable {
+    private Integer id;
+    private String username;
+    private Date birthday;
+    private String sex;
+    private String address;
+    private List<Role> roles;
+    
+    // getter and setter
+```
+
+
+
+
+
+
+
+## 8. 加载
+
+### 8.1 延迟加载
+
+
+
+### 8.2 立即加载
+
+
+
+
+
+
+
+## 9. 缓存
+
+
+
+### 9.1 什么是缓存
+
+
+
+### 9.2 为什么使用缓存
+
+
+
+
+
+
+
+### 9.3 缓存对象
+
+
+
+
+
+### 9.4 一级缓存
+
+
+
+
+
+### 9.5 二级缓存
+
+
+
+
+
+
+
+## 10. 注解开发下单表 CRUD
+
+
+
+
+
+
+## 11. 注解开发下多表查询
+
+
+
+
+
+
+
+
+
+
+
+
 

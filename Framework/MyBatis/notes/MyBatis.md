@@ -754,6 +754,12 @@ public class User implements Serializable {
 
 ### 7.3 多对多
 
+**需求一：**
+
+查询所有 **角色** 所对应的用户
+
+
+
 首先我们先修改一下 `mybatis` 主配置文件：
 
 **SqlMapConfig.xml**
@@ -774,6 +780,41 @@ public class User implements Serializable {
 **数据库相关**
 
 <div align="center"> <img src="image-20200511221944145.png" width="70%"/> </div><br>
+
+
+
+**sql 语句**
+
+```sql
+SELECT 
+	r.*,
+	u.id as uid,
+	u.username,
+	u.birthday,
+	u.sex,
+	u.address
+FROM
+	role r
+LEFT JOIN
+	user_role ur
+ON
+	r.id = ur.rid
+LEFT JOIN
+	user u
+ON
+	ur.uid = u.id;
+
+```
+
+
+
+**预期查询结果**
+
+
+<div align="center"> <img src="image-20200512111947048.png" width="70%"/> </div><br>
+
+
+
 
 **Role.java**
 
@@ -805,7 +846,160 @@ public class User implements Serializable {
 
 
 
+**RoleDao.xml**
 
+```xml
+  <resultMap id="roleUserMap" type="role">
+        <id property="roleId" column="id"></id>
+        <result property="roleName" column="role_name"></result>
+        <result property="roleDesc" column="role_desc"></result>
+        <collection property="users" ofType="user">
+            <id property="id" column="uid"></id>
+            <result property="username" column="username"></result>
+            <result property="birthday" column="birthday"></result>
+            <result property="sex" column="sex"></result>
+            <result property="address" column="address"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findAllRoles" resultMap="roleUserMap">
+    SELECT
+	    r.*,
+	    u.id as uid,
+	    u.username,
+	    u.birthday,
+	    u.sex,
+	    u.address
+    FROM
+	    role r
+    LEFT JOIN
+	    user_role ur
+    ON
+	    r.id = ur.rid
+    LEFT JOIN
+	    user u
+    ON
+	    ur.uid = u.id;
+    </select>
+```
+
+
+
+:heavy_check_mark:测试成功
+
+<div align="center"> <img src="image-20200512113054069.png" width="100%"/> </div><br>
+
+
+
+**需求二：**
+
+查询所有 **用户** 所对应的角色
+
+
+
+**sql 语句**
+
+```sql
+SELECT 
+	u.*,
+	r.id as rid,
+	r.ROLE_NAME, 
+	r.ROLE_DESC
+FROM
+	`user` u
+LEFT JOIN
+	user_role ur
+ON
+	u.id = ur.UID
+LEFT JOIN
+	role r
+ON
+	ur.RID = r.ID;
+
+```
+
+
+
+**预期结果**
+
+<div align="center"> <img src="image-20200512114206311.png" width="70%"/> </div><br>
+
+
+
+**User.java**
+
+```java
+public class User implements Serializable {
+    private Integer id;
+    private String username;
+    private Date birthday;
+    private String sex;
+    private String address;
+    private List<Role> roles;
+    
+```
+
+
+
+**Role.java**
+
+```java
+public class Role implements Serializable {
+    private Integer roleId;
+    private String roleName;
+    private String roleDesc;
+    private List<User> users;
+    
+```
+
+
+
+**UserDao.xml**
+
+```xml
+	<resultMap id="userRoleMap" type="user">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+        <collection property="roles" ofType="role">
+            <id property="roleId" column="rid"></id>
+            <result property="roleName" column="ROLE_NAME"></result>
+            <result property="roleDesc" column="ROLE_DESC"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findAllUsers" resultMap="userRoleMap">
+    SELECT
+	    u.*,
+	    r.id as rid,
+	    r.ROLE_NAME,
+	    r.ROLE_DESC
+    FROM
+	    user u
+    LEFT JOIN
+	    user_role ur
+    ON
+	    u.id = ur.UID
+    LEFT JOIN
+	    role r
+    ON
+	    ur.RID = r.ID;
+    </select>
+```
+
+
+
+:heavy_check_mark:测试成功
+
+<div align="center"> <img src="image-20200512115358576.png" width="90%"/> </div><br>
+
+
+
+> **:warning:注意**
+>
+> Windows 环境下 `mysql` 数据库列名不区分大小写，而 Linux 下区分大小写！
 
 
 

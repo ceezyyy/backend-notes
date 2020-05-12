@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ceezyyy.dao.UserDao">
+
+    <resultMap id="userAccountMap" type="User">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+        <collection property="accountList" ofType="account">
+            <id property="id" column="aid"></id>
+            <result property="uid" column="uid"></result>
+            <result property="money" column="money"></result>
+        </collection>
+    </resultMap>
+
+    <resultMap id="userRoleMap" type="user">
+        <id property="id" column="id"></id>
+        <result property="username" column="username"></result>
+        <result property="birthday" column="birthday"></result>
+        <result property="sex" column="sex"></result>
+        <result property="address" column="address"></result>
+        <collection property="roles" ofType="role">
+            <id property="roleId" column="rid"></id>
+            <result property="roleName" column="ROLE_NAME"></result>
+            <result property="roleDesc" column="ROLE_DESC"></result>
+        </collection>
+    </resultMap>
+
+    <select id="findAllUsers" resultMap="userRoleMap">
+    SELECT
+	    u.*,
+	    r.id as rid,
+	    r.ROLE_NAME,
+	    r.ROLE_DESC
+    FROM
+	    user u
+    LEFT JOIN
+	    user_role ur
+    ON
+	    u.id = ur.UID
+    LEFT JOIN
+	    role r
+    ON
+	    ur.RID = r.ID;
+    </select>
+
+
+    <select id="findAllAccountsOfUser" resultMap="userAccountMap">
+    SELECT
+	    u.*,
+	    a.ID as aid,
+	    a.UID as uid,
+	    a.MONEY as money
+    FROM
+	    user u
+    LEFT JOIN
+	    account a
+    ON
+	u.id = a.uid
+    </select>
+
+    <select id="findAll" resultType="user">
+    select * from user
+    </select>
+
+</mapper>

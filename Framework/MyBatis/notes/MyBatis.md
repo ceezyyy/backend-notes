@@ -1,59 +1,54 @@
-
-
 # MyBatis
 
 <div align="center"> <img src="logo.png" width="60%"/> </div><br>
 
 ## 目录
 * [1. 什么是 MyBatis](#1-----mybatis)
-
 * [2. 为什么使用 MyBatis](#2-------mybatis)
-
 * [3. Quickstart](#3-quickstart)
   + [3.1 使用 XML 配置](#31----xml---)
   + [3.2 使用注解配置](#32-------)
   + [3.3 踩坑记录](#33-----)
     - [3.3.1 Timezone](#331-timezone)
-  
+    - [3.3.2 log4j 配置文件](#332-log4j-----)
 * [4. XML 配置开发下单表 CRUD](#4-xml---------crud)
-  + [4.1 插入操作](#41-----)
-  + [4.2 更新操作](#42-----)
-  + [4.3  删除操作](#43------)
-  + [4.4 查询操作](#44-----)
+  + [4.1 Create](#41-create)
+  + [4.2 Update](#42-update)
+  + [4.3  Delete](#43--delete)
+  + [4.4 Read](#44-read)
   + [4.5 参数 & 结果集深入](#45-----------)
-  
 * [5. MyBatis 连接池及事务控制](#5-mybatis---------)
-
 * [6. XML 配置开发下动态 sql 查询](#6-xml---------sql---)
   + [6.1 where 和 if 的使用](#61-where---if----)
   + [6.2 for each 的使用](#62-for-each----)
-  
 * [7. XML 配置开发下多表操作](#7-xml----------)
   + [7.1 一对一关联](#71------)
   + [7.2 一对多](#72----)
   + [7.3 多对多](#73----)
-  
 * [8. 加载](#8---)
   + [8.1 延迟加载](#81-----)
   + [8.2 立即加载](#82-----)
-  
 * [9. 缓存](#9---)
   + [9.1 什么是缓存](#91------)
   + [9.2 为什么使用缓存](#92--------)
   + [9.3 缓存对象](#93-----)
   + [9.4 一级缓存](#94-----)
   + [9.5 二级缓存](#95-----)
-  
 * [10. 注解开发下单表 CRUD](#10---------crud)
-
+  + [10.1 Create](#101-create)
+  + [10.2 Read](#102-read)
+  + [10.3 Update](#103-update)
+  + [10.4 Delete](#104-delete)
 * [11. 注解开发下多表查询](#11----------)
+  + [11.1 一对一（多对一）](#111---------)
+  + [11.2 一对多](#112----)
 
-  
+
 
 
 ## 1. 什么是 MyBatis
 
-`MyBatis` 是一个用 Java 编写的持久层框架，
+​	`MyBatis` 是一款优秀的持久层框架，它支持自定义 `SQL`、存储过程以及高级映射。`MyBatis` 免除了几乎所有的 JDBC 代码以及设置参数和获取结果集的工作。`MyBati`s 可以通过简单的 XML 或注解来配置和映射原始类型、接口和 `Java POJO`（Plain Old Java Objects，普通老式 Java 对象）为数据库中的记录。
 
 
 
@@ -68,8 +63,6 @@
 ### 3.1 使用 XML 配置
 
 1. 创建 `Maven` 工程，添加依赖
-
-<div align="center"> <img src="image-20200508182849525.png" width="100%"/> </div><br>
 
 - `mysql`：使用 `JDBC` 操作 `mysql` 数据库
 
@@ -91,7 +84,7 @@
 
 5. 对应 `dao` 接口的配置文件
 
-<div align="center"> <img src="image-20200508201330321.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200508201330321.png" width="80%"/> </div><br>
 
 > :warning:**注意**
 >
@@ -135,10 +128,6 @@
 
 <div align="center"> <img src="image-20200509232126129.png" width="100%"/> </div><br>
 
-**原因**
-
-<div align="center"> <img src="image-20200509232720408.png" width="100%"/> </div><br>
-
 **解决方案**
 
 ```java
@@ -147,13 +136,42 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 
 
+**原因**
+
+<div align="center"> <img src="image-20200509232720408.png" width="100%"/> </div><br>
+
+#### 3.3.2 log4j 配置文件
+
+
+<div align="center"> <img src="image-20200512183954976.png" width="100%"/> </div><br>
+
+
+**解决方案**
+
+在资源文件夹下新建 `log4j.properties` 文件
+
+<div align="center"> <img src="image-20200512184046993.png" width="50%"/> </div><br>
+
+**log4j.properties**
+
+```properties
+# Global logging configuration \u5F00\u53D1\u65F6\u5019\u5EFA\u8BAE\u4F7F\u7528 debug
+log4j.rootLogger=DEBUG, stdout
+# Console output...
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
+```
+
+
+
 ## 4. XML 配置开发下单表 CRUD
 
-### 4.1 插入操作
+### 4.1 Create
 
 在 `dao` 接口类定义方法
 
-<div align="center"> <img src="image-20200509234101205.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200509234101205.png" width="50%"/> </div><br>
 
 在映射配置文件中编写 `sql` 语句（让 `mybatis` 框架帮你创建代理对象实现）
 
@@ -171,15 +189,40 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 我们将初始化以及关闭资源方法抽取出来，让测试方法更专注于 `CRUD` 本身
 
-`init` 方法
-<div align="center"> <img src="image-20200510000318818.png" width="100%"/> </div><br>
-
-`destroy` 方法
-<div align="center"> <img src="image-20200510000656867.png" width="80%"/> </div><br>
-
-> **:bulb:事务**
 
 
+**UserDaoTest.java**
+
+```java
+public class UserDaoTest {
+    private String resource;
+    private InputStream inputStream;
+    private SqlSessionFactory sqlSessionFactory;
+    private SqlSession sqlSession;
+    private UserDao userDao;
+    private AccountDao accountDao;
+
+    @Before
+    public void init() throws IOException {
+        resource = "SqlMapConfig.xml";
+        inputStream = Resources.getResourceAsStream(resource);
+        sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        sqlSession = sqlSessionFactory.openSession();
+        userDao = sqlSession.getMapper(UserDao.class);
+        accountDao = sqlSession.getMapper(AccountDao.class);
+    }
+
+    @After
+    public void destroy() throws IOException {
+        sqlSession.commit();
+        sqlSession.close();
+        inputStream.close();
+    }
+```
+
+
+
+**事务**
 
 **什么是事务？**
 
@@ -220,12 +263,11 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 <div align="center"> <img src="image-20200510000921216.png" width="60%"/> </div><br>
 
-### 4.2 更新操作
+### 4.2 Update
 
 1. 在 `dao` 接口定义方法
 
-
-   <div align="center"> <img src="image-20200510113243656.png" width="60%"/> </div><br>
+   <div align="center"> <img src="image-20200510113243656.png" width="40%"/> </div><br>
 
 2. 在映射配置文件中编写 `sql` 语句，让 `mybatis` 框架为我们创建代理对象
 
@@ -237,20 +279,19 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 3. 在测试类中执行方法，查看结果
 
+   <div align="center"> <img src="image-20200510113411291.png" width="40%"/> </div><br>
    
-    <div align="center"> <img src="image-20200510113411291.png" width="60%"/> </div><br>
-
 4. :heavy_check_mark:更新成功
 
 
 <div align="center"> <img src="image-20200510111358671.png" width="60%"/> </div><br>
 
-### 4.3  删除操作
+### 4.3  Delete
 
 1. 在 `dao` 接口中定义方法
 
+<div align="center"> <img src="image-20200510112422979.png" width="40%"/> </div><br>
 
-<div align="center"> <img src="image-20200510112422979.png" width="60%"/> </div><br>
 2. 在映射配置文件中编写 `sql` 语句，让 `mybatis` 框架为我们创建代理对象
 
 ```xml
@@ -275,12 +316,12 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 
 
-### 4.4 查询操作
+### 4.4 Read
 
 1. `dao` 接口定义方法
 
+<div align="center"> <img src="image-20200510113024978.png" width="40%"/> </div><br>
 
-<div align="center"> <img src="image-20200510113024978.png" width="60%"/> </div><br>
 2. 在映射配置文件编写 `sql` 语句，让 `mybatis` 为我们创建实现类
 
 ```xml
@@ -291,8 +332,7 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 3. 在测试类中执行语句，查看结果
 
-
-<div align="center"> <img src="image-20200510113119036.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200510113119036.png" width="40%"/> </div><br>
 
 4. :heavy_check_mark:查询成功
 
@@ -304,7 +344,7 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 **模糊查询**
 
 1. `dao` 接口中定义方法
-<div align="center"> <img src="image-20200510114116223.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200510114116223.png" width="40%"/> </div><br>
 
 
 2. 在映射配置文件编写 `sql` 语句，让 `mybatis` 为我们创建实现类
@@ -349,7 +389,7 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 4. :heavy_check_mark:查询成功
 
-   <div align="center"> <img src="image-20200510121013728.png" width="40%"/> </div><br>
+   <div align="center"> <img src="image-20200510121013728.png" width="30%"/> </div><br>
 
 
 
@@ -484,7 +524,7 @@ public class Blog {
 
 用 `<where>` 以及 `<if test>` 标签可以实现动态查询
 
-<div align="center"> <img src="image-20200510212329012.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200510212329012.png" width="80%"/> </div><br>
 
 其实很简单，`#{}` 代表参数占位符，我们的参数类型是 `user`
 
@@ -670,21 +710,21 @@ public class Account implements Serializable {
 > select * from a_table a inner join b_table bon a.a_id = b.b_id;
 > ```
 >
-> <div align="center"> <img src="20171209135846780.png" width="70%"/> </div><br>
+> <div align="center"> <img src="20171209135846780.png" width="50%"/> </div><br>
 > 
 > **左（外）连接**
 >
 > ```sql
 > select * from a_table a left join b_table bon a.a_id = b.b_id;
 > ```
-><div align="center"> <img src="20171209142610819.png" width="70%"/></div><br>
+><div align="center"> <img src="20171209142610819.png" width="50%"/></div><br>
 >
 > **右（外）连接**
 >
 > ```sql
 > select * from a_table a right outer join b_table b on a.a_id = b.b_id;
 > ```
-><div align="center"> <img src="20171209144056668.png" width="70%"/></div><br>
+><div align="center"> <img src="20171209144056668.png" width="50%"/></div><br>
 
 
 
@@ -1055,6 +1095,114 @@ public class Role implements Serializable {
 
 ## 10. 注解开发下单表 CRUD
 
+<div align="center"> <img src="image-20200512184947619.png" width="80%"/> </div><br>
+
+
+### 10.1 Create
+
+**UserDao.java**
+
+```java
+    // create user
+    @Insert("insert into user(id, username, birthday, sex, address) values (#{id}, #{username}, #{birthday}, #{sex}, #{address})")
+    void createUser(User user);
+```
+
+
+
+:heavy_check_mark:Succeeded
+
+<div align="center"> <img src="image-20200512202012431.png" width="70%"/> </div><br>
+
+
+### 10.2 Read
+
+**UserDao.java**
+
+```java
+    // find all users
+    @Select("select id, username, birthday, sex, address from user")
+    List<User> findAll();
+```
+
+
+
+:heavy_check_mark:Succeeded
+
+
+<div align="center"> <img src="image-20200512201527108.png" width="100%"/> </div><br>
+
+
+
+
+**UserDao.java**
+
+```java
+    @Select("select count(*) from user")
+    int getTotalCount();
+```
+
+
+
+:heavy_check_mark:Succeeded
+
+<div align="center"> <img src="image-20200512205049156.png" width="40%"/> </div><br>
+
+
+
+> **:warning:注意**
+>
+> 关键字不能错，否则会查询不出（返回 -1）
+
+
+
+### 10.3 Update
+
+**UserDao.java**
+
+```java
+    // update user
+    @Update("update user set username = #{username}, sex = #{sex}, address = #{address} where id = #{id}")
+    void updateUser(User user);
+```
+
+:heavy_check_mark:Succeeded
+
+
+
+<div align="center"> <img src="image-20200512202040106.png" width="70%"/> </div><br>
+
+
+
+
+
+
+
+<div align="center"> <img src="image-20200512202057447.png" width="70%"/> </div><br>
+
+
+### 10.4 Delete
+
+**UserDao.java**
+
+```java
+    @Delete("delete from user where id = #{id}")
+    void deleteUserById(int id);
+```
+
+
+
+:heavy_check_mark:Succeeded
+
+
+
+<div align="center"> <img src="image-20200512202207991.png" width="70%"/> </div><br>
+
+
+
+
+
+<div align="center"> <img src="image-20200512202430990.png" width="70%"/> </div><br>
 
 
 
@@ -1062,9 +1210,68 @@ public class Role implements Serializable {
 
 ## 11. 注解开发下多表查询
 
+### 11.1 列名与表名映射
+
+若存在实体类的属性名与数据库列名不对应的情况，有以下两种解决办法：
+
+1. 给 `column` 起别名
+2. 编写映射关系
+
+下面介绍第二种方法：
+
+<div align="center"> <img src="image-20200512211241685.png" width="50%"/> </div><br>
+
+<div align="center"> <img src="image-20200512211219939.png" width="40%"/> </div><br>
 
 
 
+**User.java**
+
+```java
+public class User implements Serializable {
+    private Integer id;
+    private String username;
+    private Date birthday;
+    private String sex;
+    private String address;
+    
+    // getter and setter
+```
+
+
+
+**UserDao.java**
+
+其中 `id` 为该映射关系的唯一标识
+
+```java
+    @Results(id = "userMap", value = {
+            @Result(id = true, property = "id", column = "id"),
+            @Result(property = "username", column = "username"),
+            @Result(property = "birthday", column = "birthday"),
+            @Result(property = "sex", column = "sex"),
+            @Result(property = "address", column = "address")
+    })
+    @Select("select * from user where id = #{id}")
+    User findUserById(int id);
+```
+
+
+
+:heavy_check_mark:Succeeded
+
+
+<div align="center"> <img src="image-20200512213228323.png" width="100%"/> </div><br>
+
+
+
+### 11.2 一对一（多对一）
+
+
+
+
+
+### 11.3 一对多
 
 
 

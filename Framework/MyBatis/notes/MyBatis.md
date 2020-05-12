@@ -40,8 +40,9 @@
   + [10.3 Update](#103-update)
   + [10.4 Delete](#104-delete)
 * [11. 注解开发下多表查询](#11----------)
-  + [11.1 一对一（多对一）](#111---------)
-  + [11.2 一对多](#112----)
+  + [11.1 列名与表名映射](#111--------)
+  + [11.2 一对一（多对一）](#112---------)
+  + [11.3 一对多](#113----)
 
 
 
@@ -259,7 +260,7 @@ public class UserDaoTest {
 
 
 
-:heavy_check_mark:添加成功
+:heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200510000921216.png" width="60%"/> </div><br>
 
@@ -281,7 +282,7 @@ public class UserDaoTest {
 
    <div align="center"> <img src="image-20200510113411291.png" width="40%"/> </div><br>
    
-4. :heavy_check_mark:更新成功
+4. :heavy_check_mark:Succeeded!
 
 
 <div align="center"> <img src="image-20200510111358671.png" width="60%"/> </div><br>
@@ -304,7 +305,7 @@ public class UserDaoTest {
 
 <div align="center"> <img src="image-20200510113629693.png" width="80%"/> </div><br>
 
-4. :heavy_check_mark:删除成功
+4. :heavy_check_mark:Succeeded!
 
    
 
@@ -334,7 +335,7 @@ public class UserDaoTest {
 
 <div align="center"> <img src="image-20200510113119036.png" width="40%"/> </div><br>
 
-4. :heavy_check_mark:查询成功
+4. :heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200510112945059.png" width="80%"/> </div><br>
 
@@ -365,7 +366,7 @@ public class UserDaoTest {
 >
 > 模糊查询的需在传入参数时指定`%`，`*` 等符号
 
-4. :heavy_check_mark:查询成功
+4. :heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200510114453626.png" width="80%"/> </div><br>
 
@@ -387,7 +388,7 @@ public class UserDaoTest {
 
    <div align="center"> <img src="image-20200510120946065.png" width="60%"/> </div><br>
 
-4. :heavy_check_mark:查询成功
+4. :heavy_check_mark:Succeeded!
 
    <div align="center"> <img src="image-20200510121013728.png" width="30%"/> </div><br>
 
@@ -536,7 +537,7 @@ public class Blog {
 
 首先我们先定义一个 `Query` 对象，也称为复合查询对象。对于复杂查询的结果，可能不止一个类
 
-<div align="center"> <img src="image-20200510214216119.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200510214216119.png" width="60%"/> </div><br>
 
 其中 `ids` 集合定义为要查询的 `id` 集合
 
@@ -690,7 +691,7 @@ public class Account implements Serializable {
 </resultMap>
 ```
 
-:heavy_check_mark:查询成功
+:heavy_check_mark:Succeeded!
 
 
 <div align="center"> <img src="image-20200511170218636.png" width="100%"/> </div><br>
@@ -786,7 +787,7 @@ public class User implements Serializable {
 
 
 
-:heavy_check_mark:测试成功
+:heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200511205914752.png" width="90%"/> </div><br>
 
@@ -925,7 +926,7 @@ public class User implements Serializable {
 
 
 
-:heavy_check_mark:测试成功
+:heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200512113054069.png" width="100%"/> </div><br>
 
@@ -1031,7 +1032,7 @@ public class Role implements Serializable {
 
 
 
-:heavy_check_mark:测试成功
+:heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200512115358576.png" width="90%"/> </div><br>
 
@@ -1110,7 +1111,7 @@ public class Role implements Serializable {
 
 
 
-:heavy_check_mark:Succeeded
+:heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200512202012431.png" width="70%"/> </div><br>
 
@@ -1127,7 +1128,7 @@ public class Role implements Serializable {
 
 
 
-:heavy_check_mark:Succeeded
+:heavy_check_mark:Succeeded!
 
 
 <div align="center"> <img src="image-20200512201527108.png" width="100%"/> </div><br>
@@ -1144,7 +1145,7 @@ public class Role implements Serializable {
 
 
 
-:heavy_check_mark:Succeeded
+:heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200512205049156.png" width="40%"/> </div><br>
 
@@ -1166,7 +1167,7 @@ public class Role implements Serializable {
     void updateUser(User user);
 ```
 
-:heavy_check_mark:Succeeded
+:heavy_check_mark:Succeeded!
 
 
 
@@ -1192,7 +1193,7 @@ public class Role implements Serializable {
 
 
 
-:heavy_check_mark:Succeeded
+:heavy_check_mark:Succeeded!
 
 
 
@@ -1256,9 +1257,7 @@ public class User implements Serializable {
     User findUserById(int id);
 ```
 
-
-
-:heavy_check_mark:Succeeded
+:heavy_check_mark:Succeeded!
 
 
 <div align="center"> <img src="image-20200512213228323.png" width="100%"/> </div><br>

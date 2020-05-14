@@ -24,8 +24,7 @@ Spring 框架是一个开源的 [J2EE](https://baike.baidu.com/item/J2EE/110838)
 
 
 
-![image-20200513102726539](image-20200513102726539.png)
-
+<div align="center"> <img src="image-20200513102726539.png" width="100%"/> </div><br>
 
 
 ### 1.1 Spring 核心
@@ -154,62 +153,366 @@ public class UserServiceImpl implements UserService {
 
 ### 2.4 工厂模式解耦
 
-#### 
+**预备知识：**
+
+`Bean`：可重用组件
+
+`Java Bean`：用 Java 编写的可重用组件（`Java Bean` 的范围要大于实体类）
 
 
 
+**bean.properties**
+
+```properties
+UserDaoImpl=com.ceezyyy.dao.impl.UserDaoImpl
+UserServiceImpl=com.ceezyyy.service.impl.UserServiceImpl
+```
+
+`bean` 配置文件：
+
+`id`=`全限定类名`
+
+根据 `id` 找到响应的类
 
 
 
+**BeanFactory.java**
+
+```java
+public class BeanFactory {
+
+    private static Properties properties;
+
+    static {
+        try {
+            properties = new Properties();
+            InputStream inputStream = BeanFactory.class.getClassLoader().getResourceAsStream("bean.properties");
+            properties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // get bean
+    public static Object getBean(String beanName) {
+        Object bean = null;
+        try {
+            String beanPath = properties.getProperty(beanName);
+            bean = Class.forName(beanPath).newInstance();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return bean;
+    }
+}
+
+```
 
 
 
+**View.java**
+
+```java
+public class View {
+    public static void main(String[] args) {
+//        UserService userService = new UserServiceImpl();
+        UserService userService = (UserService) BeanFactory.getBean("UserServiceImpl");
+        userService.save();
+    }
+}
+
+```
 
 
 
+**UserServiceImpl.java**
+
+```java
+public class UserServiceImpl implements UserService {
+//    private UserDao userDao = new UserDaoImpl();
+
+    private UserDao userDao = (UserDao) BeanFactory.getBean("UserDaoImpl");
+    public void save() {
+        userDao.save();
+    }
+}
+
+```
 
 
 
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200514142934472.png" width="100%"/> </div><br>
+
+
+**:bulb:TIPS**
+
+1. 使用加载配置文件利用反射来创建实体类对象，减少类之间的强耦合关系
+
+   
 
 
 
+### 2.5 工厂模式解耦 Pro
 
 
 
+**LET'S GO MORE IN DEPTH**
 
 
 
+**View.java**
+
+```java
+    public static void main(String[] args) {
+//        UserService userService = new UserServiceImpl();
+        for (int i = 0; i < 10; i++) {
+            UserService userService = (UserService) BeanFactory.getBean("UserServiceImpl");
+            System.out.println(userService);
+//            userService.save();
+        }
+    }
+```
 
 
 
+我们这样的写法存在一个问题：`bean` 是多例的
 
 
+
+**:bulb:什么是单例和多例？**
+
+**单例：**只有一个共享的实例存在，所有对这个 `bean` 的请求都会返回这个唯一的实例。不管 `new` 多少次，只生成一个对象。
+
+**多例：**每次请求都会创建一个新的对象，类似于 `new`
+
+
+
+**:bulb:为什么使用单例/多例？**
+
+
+<div align="center"> <img src="image-20200514144623179.png" width="80%"/> </div><br>
+
+<div align="center"> <img src="image-20200514143504505.png" width="80%"/> </div><br>
+
+
+
+**工厂模式解耦 Pro**
+
+下面进行升级，使得每次调用 `getBean` 所获得的对象都是单例的（`service` 和 `dao` 的属性没有频繁改变的需求，显然单例更合适，减少资源消耗）
+
+ **BeanFactory.java**
+
+```java
+public class BeanFactory {
+
+    private static Properties properties;
+    // store id-object
+    private static Map<String, Object> map = new HashMap<String, Object>();
+
+    static {
+        try {
+            properties = new Properties();
+            // load properties
+            InputStream inputStream = BeanFactory.class.getClassLoader().getResourceAsStream("bean.properties");
+            properties.load(inputStream);
+
+            // get keys from properties
+            Enumeration<Object> keys = properties.keys();
+            while (keys.hasMoreElements()) {
+                String id = String.valueOf(keys.nextElement());
+                // get beanPath by key
+                String beanPath = properties.getProperty(id);
+                // create a object by reflection
+                Object value = Class.forName(beanPath).newInstance();
+                // put id-value into our map
+                map.put(id, value);
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Object getBean(String beanName) {
+        Object value = null;
+        try {
+            value = map.get(beanName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return value;
+    }
+
+}
+
+```
+
+**:bulb:注意：**
+
+1. `map` 是我们用来存储 `id` 和 `bean` 的容器，这样可以确保 `bean` 是单例
+
+
+
+这样我们获得的 `bean` 对象就是单例的
+
+<div align="center"> <img src="image-20200514153500054.png" width="70%"/> </div><br>
 
 
 
 
 ## 3. IOC
 
-
-
 ### 3.1 什么是 IOC？
 
+<div align="center"> <img src="ioc.png" width="60%"/> </div><br>
 
 
 
+`IOC` 是 `inverse of control` 的缩写，控制反转
+
+<div align="center"> <img src="image-20200514204134781.png" width="60%"/> </div><br>
+
+以前在 `new` 实体类的时候，选择权在我们自己手上，而现在选择权交给了工厂，由工厂帮我们决定新建的对象，称控制反转
 
 
 
 ### 3.2 Spring 中的 IOC
 
+**Spring 体系结构**
 
-
+<div align="center"> <img src="arch1.png" width="50%"/> </div><br>
 
 
 
 
 ### 3.3 Spring 基于 XML 的 IOC 环境搭建
 
+1. 引入 `maven` 坐标
+
+2. 定义 `bean.xml` （此时我们不用自己创建 `beanFactory`，交给 `Spring` 帮我们实现）
+
+   
+
+   **bean.xml**
+
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <beans xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd">
+   
+       <bean id="UserServiceImpl" class="com.ceezyyy.service.impl.UserServiceImpl">
+           <!-- collaborators and configuration for this bean go here -->
+       </bean>
+   
+       <bean id="UserDaoImpl" class="com.ceezyyy.dao.impl.UserDaoImpl">
+           <!-- collaborators and configuration for this bean go here -->
+       </bean>
+   
+       <!-- more bean definitions go here -->
+   
+   </beans>
+   ```
+
+   
+
+3. 利用 `ApplicationContext` 读取 `bean.xml` 中的内容，创建具体对象的事就交给 `Spring` 来完成
+
+   
+
+   **View.java**
+
+   ```java
+   public class View {
+       public static void main(String[] args) {
+           ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+           UserService userServiceImpl = applicationContext.getBean("UserServiceImpl", UserServiceImpl.class);
+           UserDao userDaoImpl = applicationContext.getBean("UserDaoImpl", UserDaoImpl.class);
+   
+           // result
+           System.out.println(userServiceImpl);
+           System.out.println(userDaoImpl);
+       }
+   }
+   ```
+
+   
+
+   :heavy_check_mark:Succeeded!
+
+   <div align="center"> <img src="image-20200514210633613.png" width="70%"/> </div><br>
+
+
+
+### 3.4 BeanFactory 接口与 ApplicationContext 的区别
+
+![image-20200514211910676](image-20200514211910676.png)
+
+
+
+`BeanFactory`：延迟加载，适用于多例
+
+`ApplicationContext`：立即加载，适用于单例
+
+
+
+
+
+### 3.5 Spring 对 Bean 的管理细节
+
+#### 3.5.1 创建 bean 的三种方式
+
+1. 指定 `id` 和 `class` 属性
+
+   ```xml
+   <bean id="UserServiceImpl" class="com.ceezyyy.service.impl.UserServiceImpl">
+           <!-- collaborators and configuration for this bean go here -->
+   </bean>
+   ```
+
+   `id`：唯一标识
+
+   `class`：实现类全限定类名
+
+   若没有指定方法，则是默认选择实现类的（默认）`constructor`，若修改该 `constructor`，则会报错：
+
+<div align="center"> <img src="image-20200514223717734.png" width="80%"/> </div><br>
+
+2. 
+
+
+
+
+
+
+
+
+
+#### 3.5.2 bean 对象的作用范围
+
+
+
+
+
+
+
+
+
+
+
+
+
+#### 3.5.3 bean 对象的生命周期
 
 
 

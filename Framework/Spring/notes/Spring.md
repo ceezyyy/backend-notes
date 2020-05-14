@@ -1,20 +1,29 @@
 # Spring
 
 ## 目录
-
 * [1. 什么是 Spring?](#1-----spring-)
   + [1.1 Spring 核心](#11-spring---)
-  + [1.2 Spring 发展历程](#12-spring-----)
-  + [1.3 Spring 优势](#13-spring---)
-  + [1.4 Spring 体系结构](#14-spring-----)
+  + [1.2 Spring 优势](#12-spring---)
+  + [1.3 Spring 体系结构](#13-spring-----)
 * [2. 程序的耦合和解耦](#2---------)
-  + [2.1 问题回顾](#21-----)
-  + [2.2 工厂模式解耦](#22-------)
+  + [2.1 什么是耦合](#21------)
+  + [2.2 什么是解耦](#22------)
+  + [2.3 问题回顾](#23-----)
+  + [2.4 工厂模式解耦](#24-------)
+  + [2.5 工厂模式解耦 Pro](#25--------pro)
 * [3. IOC](#3-ioc)
   + [3.1 什么是 IOC？](#31-----ioc-)
   + [3.2 Spring 中的 IOC](#32-spring----ioc)
   + [3.3 Spring 基于 XML 的 IOC 环境搭建](#33-spring----xml---ioc-----)
+  + [3.4 BeanFactory 接口与 ApplicationContext 的区别](#34-beanfactory-----applicationcontext----)
+  + [3.5 Spring 对 Bean 的管理细节](#35-spring---bean------)
+    - [3.5.1 创建 bean 的三种方式](#351----bean------)
+    - [3.5.2 bean 对象的作用范围](#352-bean--------)
+    - [3.5.3 bean 对象的生命周期](#353-bean--------)
 * [4. 依赖注入](#4-----)
+
+
+
 
 
 
@@ -64,7 +73,7 @@ Spring 框架是一个开源的 [J2EE](https://baike.baidu.com/item/J2EE/110838)
 
  
 
-
+<div align="center"> <img src="arch1.png" width="50%"/> </div><br>
 
 
 
@@ -389,7 +398,7 @@ public class BeanFactory {
 
 **Spring 体系结构**
 
-<div align="center"> <img src="arch1.png" width="50%"/> </div><br>
+
 
 
 
@@ -508,15 +517,20 @@ public class BeanFactory {
    **这类方法的特征在于：**
 
    1. 我们无法直接获得其全限定类名以及了解其构造函数（许多类被封装在 `jar` 包中，我们无法直接访问或直接了解其体系结构）
-2. 已知该工厂类的全限定类名以及返回值是 `bean` 
+
+   2. 已知该工厂类的全限定类名以及返回值是 `bean` 
+
    
+
    **bean.xml**
 
    ```xml
-<bean id="TempFactory" class="com.ceezyyy.factory.TempFactory"></bean>
+   <bean id="TempFactory" class="com.ceezyyy.factory.TempFactory"></bean>
    <bean id="UserServiceImpl" factory-bean="TempFactory" factory-method="getBean"></bean>
    ```
+
    
+
    第一行是用来"绑定"工厂 `TempFactory`
 
    第二行用来告诉 `spring` 工厂 `bean` 的位置（全限定类名）以及该调用哪个方法
@@ -619,7 +633,9 @@ public class BeanFactory {
 
 
 
-对于小明来说，他将 3 台手机的选择权交给救世主（也就是我们的 `spring` 容器），由其指定自己每天使用的手机（依赖注入）。即小明只关心每天的手机使用，而不理会选哪台手机
+对于小明来说，他将 3 台手机的选择权交给救世主（也就是我们的 `spring` 容器），由其指定自己每天使用的手机（依赖注入）。
+
+即小明只关心每天的手机使用，而不理会选哪台手机
 
 
 

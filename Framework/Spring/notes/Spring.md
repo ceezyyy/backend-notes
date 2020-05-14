@@ -287,9 +287,9 @@ public class UserServiceImpl implements UserService {
 
 **:bulb:什么是单例和多例？**
 
-**单例：**只有一个共享的实例存在，所有对这个 `bean` 的请求都会返回这个唯一的实例。不管 `new` 多少次，只生成一个对象。
+**单例：** 只有一个共享的实例存在，所有对这个 `bean` 的请求都会返回这个唯一的实例。不管 `new` 多少次，只生成一个对象。
 
-**多例：**每次请求都会创建一个新的对象，类似于 `new`
+**多例：** 每次请求都会创建一个新的对象，类似于 `new`
 
 
 
@@ -456,8 +456,7 @@ public class BeanFactory {
 
 ### 3.4 BeanFactory 接口与 ApplicationContext 的区别
 
-![image-20200514211910676](image-20200514211910676.png)
-
+<div align="center"> <img src="image-20200514211910676.png" width="100%"/> </div><br>
 
 
 `BeanFactory`：延迟加载，适用于多例
@@ -486,46 +485,164 @@ public class BeanFactory {
 
    若没有指定方法，则是默认选择实现类的（默认）`constructor`，若修改该 `constructor`，则会报错：
 
-<div align="center"> <img src="image-20200514223717734.png" width="80%"/> </div><br>
+   <div align="center"> <img src="image-20200514223717734.png" width="90%"/> </div><br>
 
-2. 
+   当指指定 `class`，`Spring bean` 会去找该全限定类名下的默认构造函数从而存入 `spring` 容器
 
+   
 
+2. 指定 `id` ，`factory-bean` 和 `factory-method`
 
+   我们模拟一个临时工厂：
 
+   **TempFactory.java**
 
+   ```java
+   public class TempFactory {
+       public Object getBean() {
+           return new UserServiceImpl();
+       }
+   }
+   ```
 
+   **这类方法的特征在于：**
 
+   1. 我们无法直接获得其全限定类名以及了解其构造函数（许多类被封装在 `jar` 包中，我们无法直接访问或直接了解其体系结构）
+2. 已知该工厂类的全限定类名以及返回值是 `bean` 
+   
+   **bean.xml**
 
+   ```xml
+<bean id="TempFactory" class="com.ceezyyy.factory.TempFactory"></bean>
+   <bean id="UserServiceImpl" factory-bean="TempFactory" factory-method="getBean"></bean>
+   ```
+   
+   第一行是用来"绑定"工厂 `TempFactory`
+
+   第二行用来告诉 `spring` 工厂 `bean` 的位置（全限定类名）以及该调用哪个方法
+
+   
+
+3. 静态工厂方法
+
+   **TempFactory.java**
+
+   ```java
+   public class TempFactory {
+       public static Object getBean() {
+           return new UserServiceImpl();
+       }
+   }
+   ```
+
+   **bean.xml**
+
+   ```xml
+   <bean id="UserServiceImpl" class="com.ceezyyy.factory.TempFactory" factory-method="getBean"></bean>
+   ```
+
+   
 
 #### 3.5.2 bean 对象的作用范围
 
+**`scope` 属性：**
 
+`prototype`：多例
 
+`singleton`：单例（默认）
 
+`request`：web 应用中 `request` 范围
 
+`session`：web 应用中 `session` 范围
 
-
-
-
-
-
+<div align="center"> <img src="image-20200514231746424.png" width="80%"/> </div><br>
 
 
 #### 3.5.3 bean 对象的生命周期
 
+- **单例对象**
+
+  出生：当创建容器时，对象出生
+
+  活着：容器在，对象在
+
+  死亡：容器销毁，对象死亡
+
+- **多例对象**
+
+  出生：使用时出生
+
+  活着：对象在使用的过程中
+
+  死亡：对象长时间不用，且没有别的对象引用时，由 Java 垃圾回收机制回收
 
 
 
 
 
+## 4. 依赖注入 
+
+**依赖注入是 `IOC` 最为常见的一种技术**
 
 
-## 4. 依赖注入
+
+举个例子，
+
+小明是手机重度依赖者
+
+
+
+他先买了一部 `XR`，摄像头坏了，于是他去买了 `11`，并且换了电话卡
+
+这时他需要重新改造，因为他的生活已经被手机牢牢绑定了
+
+
+
+可 `11` 用了不久又碎屏了，他买了 `11 pro` ，再一次地彻头彻尾改造自己
+
+倒霉的他，新买的 `11 pro` 又因为功能故障无法使用。
+
+他深深地意识到：**自己过于依赖手机，产生了极高的耦合度**，每一次换手机都是刻骨铭心的记忆
 
 
 
 
+<div align="center"> <img src="image-20200515002021797.png" width="80%"/> </div><br>
+
+这时，他将自己的选择权给了救世主，这就是 `IOC`，即**控制反转**（控制反转是一种思想，而 `spring` 中的 `IOC` 是容器）
+
+
+
+那么将如何实现 **控制反转** ？
+
+这就需要**依赖注入**
+
+
+
+对于小明来说，他将 3 台手机的选择权交给救世主（也就是我们的 `spring` 容器），由其指定自己每天使用的手机（依赖注入）。即小明只关心每天的手机使用，而不理会选哪台手机
+
+
+
+
+参考文章：
+
+[浅谈控制反转与依赖注入](https://zhuanlan.zhihu.com/p/33492169)
+
+
+
+**UserServiceImpl.java**
+
+```java
+public class UserServiceImpl implements UserService {
+    private String a;
+    private Integer b;
+    private Date c;
+    private List<Integer> list;
+    private Set<Integer> set;
+    private Map<String, Integer> map;
+
+    // setter
+```
 
 
 

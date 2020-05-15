@@ -30,7 +30,7 @@
 - 设计模式
   - 让你的对象知悉现况：观察者模式
   - 装饰对象：装饰者模式
-  - 烘烤 OO 的精华：工厂模式
+  - [烘烤 OO 的精华：工厂模式](https://github.com/ceezyyy/awesome-backend-developer/blob/master/CS/DesignPatterns/FactoryPattern/notes/FactoryPattern.md)
   - 独一无二的对象：单件模式
   - 封装调用：命令模式
   - 随遇而安：适配器与外观模式

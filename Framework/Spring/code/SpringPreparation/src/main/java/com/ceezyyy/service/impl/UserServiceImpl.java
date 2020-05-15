@@ -3,13 +3,15 @@ package com.ceezyyy.service.impl;
 
 import com.ceezyyy.service.UserService;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Component(value = "UserServiceImpl")
+
+@Service("UserServiceImpl")
 public class UserServiceImpl implements UserService {
     private String a;
     private Integer b;
@@ -72,15 +74,4 @@ public class UserServiceImpl implements UserService {
         return map;
     }
 
-    @Override
-    public String toString() {
-        return "UserServiceImpl{" +
-                "a='" + a + '\'' +
-                ", b=" + b +
-                ", c=" + c +
-                ", list=" + list +
-                ", set=" + set +
-                ", map=" + map +
-                '}';
-    }
 }

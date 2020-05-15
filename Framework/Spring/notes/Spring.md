@@ -307,9 +307,9 @@ public class UserServiceImpl implements UserService {
 
 **:bulb:什么是单例和多例？**
 
-**单例：** 只有一个共享的实例存在，所有对这个 `bean` 的请求都会返回这个唯一的实例。不管 `new` 多少次，只生成一个对象。
+**单例：**  只有一个共享的实例存在，所有对这个 `bean` 的请求都会返回这个唯一的实例。不管 `new` 多少次，只生成一个对象。
 
-**多例：** 每次请求都会创建一个新的对象，类似于 `new`
+**多例：**  每次请求都会创建一个新的对象，类似于 `new`
 
 
 
@@ -866,28 +866,73 @@ public class UserServiceImpl implements UserService {
 
 
 
+### 6.3 由 Component 的衍生注解
 
-### 6.3 注入数据
+以下三个都用于创建对象，与 `Component` 有略微的区别：
 
-
-
-
-
-
-
-
-
-### 6.4 改变作用范围
+- `@Controller`：用于表现层使用
+- `@Service`：用于业务层使用
+- `@Repository`：用于 `dao` 层使用
 
 
 
+**UserServiceImpl.java**
+
+```java
+@Service("UserServiceImpl")
+public class UserServiceImpl implements UserService {
+    private String a;
+    private Integer b;
+    private Date c;
+    private List<Integer> list;
+    private Set<Integer> set;
+    private Map<Integer, String> map;
+    
+    // getter and setter
+```
+
+
+
+**UserDaoImpl.java**
+
+```java
+@Repository("UserDaoImpl")
+public class UserDaoImpl implements UserDao {
+
+    @Override
+   // method
+}
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200516003231436.png" width="60%"/> </div><br>
+
+
+
+### 6.4 注入数据
 
 
 
 
 
 
-### 6.5 生命周期相关
+
+
+
+### 6.5 改变作用范围
+
+
+
+
+
+
+
+
+
+### 6.6 生命周期相关
 
 
 

@@ -2,12 +2,14 @@ package com.ceezyyy.service.impl;
 
 
 import com.ceezyyy.service.UserService;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Component(value = "UserServiceImpl")
 public class UserServiceImpl implements UserService {
     private String a;
     private Integer b;
@@ -15,6 +17,7 @@ public class UserServiceImpl implements UserService {
     private List<Integer> list;
     private Set<Integer> set;
     private Map<Integer, String> map;
+
 
     public void setA(String a) {
         this.a = a;

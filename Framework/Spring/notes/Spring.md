@@ -21,8 +21,19 @@
     - [3.5.2 bean 对象的作用范围](#352-bean--------)
     - [3.5.3 bean 对象的生命周期](#353-bean--------)
 * [4. 依赖注入](#4-----)
-
-
+  + [4.1 什么是依赖注入？](#41---------)
+  + [4.2 小明与救世主](#42-------)
+  + [4.3 Demo](#43-demo)
+* [5. 注解](#5---)
+  + [5.1 什么是注解？](#51-------)
+  + [5.2 注解有什么用？](#52--------)
+  + [5.3 JDK 内置注解](#53-jdk-----)
+* [6. 基于注解的 IOC 配置](#6-------ioc---)
+  + [6.1 注解的分类](#61------)
+  + [6.2 创建对象](#62-----)
+  + [6.3 注入数据](#63-----)
+  + [6.4 改变作用范围](#64-------)
+  + [6.5 生命周期相关](#65-------)
 
 
 
@@ -396,10 +407,6 @@ public class BeanFactory {
 
 ### 3.2 Spring 中的 IOC
 
-**Spring 体系结构**
-
-
-
 
 
 
@@ -466,7 +473,6 @@ public class BeanFactory {
 ### 3.4 BeanFactory 接口与 ApplicationContext 的区别
 
 <div align="center"> <img src="image-20200514211910676.png" width="100%"/> </div><br>
-
 
 `BeanFactory`：延迟加载，适用于多例
 
@@ -596,9 +602,13 @@ public class BeanFactory {
 
 ## 4. 依赖注入 
 
-**依赖注入是 `IOC` 最为常见的一种技术**
+### 4.1 什么是依赖注入？
+
+依赖注入是 `IOC` 最为常见的一种技术
 
 
+
+### 4.2 小明与救世主
 
 举个例子，
 
@@ -645,6 +655,8 @@ public class BeanFactory {
 [浅谈控制反转与依赖注入](https://zhuanlan.zhihu.com/p/33492169)
 
 
+
+### 4.3 Demo
 
 **UserServiceImpl.java**
 
@@ -713,3 +725,169 @@ public class UserServiceImpl implements UserService {
 :heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200515103931730.png" width="100%"/> </div><br>
+
+
+
+## 5. 注解
+
+### 5.1 什么是注解？
+
+**注释：**说明，给开发者看
+
+**注解：**说明程序，给计算机看
+
+
+
+### 5.2 注解有什么用？
+
+1. 代码分析
+2. 编译检查（例如 `@Override`）
+3. 编写文档（生成 `Java doc` 文档）
+
+
+
+### 5.3 JDK 内置注解
+
+- `@SuppressWarnings("all")` 用于忽视所有警告（一般写在类）
+
+```java
+@SuppressWarnings("all")
+public class UserServiceImpl implements UserService {
+    private String a;
+    private Integer b;
+    private Date c;
+    private List<Integer> list;
+    private Set<Integer> set;
+    private Map<Integer, String> map;
+
+    // getter and setter
+```
+
+
+
+- `@Override` 用于检查是否重写父类方法
+
+```java
+@Override
+public int hashCode() {
+    return super.hashCode();
+}
+```
+
+
+
+- `@Deprecated` 该方法已过时（但不影响使用）
+
+```java
+@Deprecated
+public void setA(String a) {
+    this.a = a;
+}
+```
+
+
+
+## 6. 基于注解的 IOC 配置
+
+**注解和 XML 配置是两种不同的方式，实现目的都是为了降低程序的耦合性**
+
+
+
+### 6.1 注解的分类
+
+1. 创建对象
+2. 注入数据
+3. 改变作用范围
+4. 生命周期相关
+
+
+
+### 6.2 创建对象
+
+**UserServiceImpl.java**
+
+```java
+@Component(value = "UserServiceImpl")
+public class UserServiceImpl implements UserService {
+    private String a;
+    private Integer b;
+    private Date c;
+    private List<Integer> list;
+    private Set<Integer> set;
+    private Map<Integer, String> map;
+    
+    // getter and setter
+```
+
+使用注解方式 `@Component(value = "UserServiceImpl")` 方式将该 `bean` 对象注入到 `Spring` 容器中（容器以 `key-value` 形式存储）
+
+其中 `value` 是该对象标识，默认为类名首字母小写（相当于 `key-value` 中的 `key`，不要弄混淆了）
+
+
+
+使用注解需要告知 `Spring`：
+
+"我正在以注解方式开发！"
+
+
+
+所以，我们在仍需配置 `bean.xml` 文件，其中 ` <context:component-scan base-package=""` 的作用是告诉 `Spring` 去扫描该全限定路径包名下的类，找到带有 `@Component` 注解标识的 `bean` 对象并注册到容器中
+
+
+
+<div align="center"> <img src="image-20200515121153452.png" width="50%"/> </div><br>
+
+**bean.xml**
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- this switches on the load-time weaving -->
+    <context:component-scan base-package="com.ceezyyy.service"></context:component-scan>
+    
+</beans>
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200515121430112.png" width="100%"/> </div><br>
+
+（等于 `null` 是因为我们还没有注入数据）
+
+
+
+
+### 6.3 注入数据
+
+
+
+
+
+
+
+
+
+### 6.4 改变作用范围
+
+
+
+
+
+
+
+
+
+### 6.5 生命周期相关
+
+
+

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    <bean id="UserServiceImpl" class="com.ceezyyy.service.impl.UserServiceImpl">-->
+    <!--        &lt;!&ndash; collaborators and configuration for this bean go here &ndash;&gt;-->
+    <!--    </bean>-->
+    <bean id="UserServiceImpl" class="com.ceezyyy.service.impl.UserServiceImpl">
+        <property name="a" value="LBJ"></property>
+        <property name="b" value="23"></property>
+        <property name="c" ref="birthday"></property>
+        <property name="list">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+                <value>4</value>
+            </list>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="1" value="INDIA"></entry>
+                <entry key="2" value="Pakistan"></entry>
+                <entry key="3" value="USA"></entry>
+                <entry key="4" value="USA"></entry>
+            </map>
+        </property>
+        <property name="set">
+            <set>
+                <value>100</value>
+                <value>200</value>
+                <value>300</value>
+                <value>400</value>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="birthday" class="java.util.Date"></bean>
+
+    <!-- more bean definitions go here -->
+
+</beans>

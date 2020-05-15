@@ -655,10 +655,61 @@ public class UserServiceImpl implements UserService {
     private Date c;
     private List<Integer> list;
     private Set<Integer> set;
-    private Map<String, Integer> map;
+    private Map<Integer, String> map;
 
-    // setter
+    // getter and setter
 ```
 
 
 
+**bean.xml**
+
+```xml
+<bean id="UserServiceImpl" class="com.ceezyyy.service.impl.UserServiceImpl">
+        <property name="a" value="LBJ"></property>
+        <property name="b" value="23"></property>
+        <property name="c" ref="birthday"></property>
+        <property name="list">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+                <value>4</value>
+            </list>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="1" value="INDIA"></entry>
+                <entry key="2" value="Pakistan"></entry>
+                <entry key="3" value="USA"></entry>
+                <entry key="4" value="USA"></entry>
+            </map>
+        </property>
+        <property name="set">
+            <set>
+                <value>100</value>
+                <value>200</value>
+                <value>300</value>
+                <value>400</value>
+            </set>
+        </property>
+    </bean>
+
+    <bean id="birthday" class="java.util.Date"></bean>
+```
+
+
+
+**:warning:注意：**
+
+1. 对于基本类型和包装类型：`name-value` 即可实现依赖注入
+2. 对于复杂类型：需要先定义 `<bean>` 对象，`name-ref` 即可实现依赖注入
+3. 对于集合类型（容器）：
+   1. 单列：`<collection>-value` 即可实现依赖注入
+   2. 双列：`<collection>-entry` 即可实现依赖注入
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200515103931730.png" width="100%"/> </div><br>

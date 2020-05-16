@@ -1051,17 +1051,13 @@ public class UserServiceImpl implements UserService {
 
 使用 `xml` 配置方式在 `Spring IOC` 中实现单表 `CRUD`
 
-
-
-
-
 ### 7.2 项目结构
 
 <div align="center"> <img src="image-20200516183517838.png" width="40%"/> </div><br>
 
 
 
-### 7.3 项目复盘
+### 7.3 项目分析
 
 1. 数据库相关
 
@@ -1132,7 +1128,7 @@ public class UserServiceImpl implements UserService {
        </bean>
    
        <!--jdbc template-->
-       <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+       <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">
            <property name="dataSource" ref="dataSource"></property>
        </bean>
    
@@ -1187,8 +1183,8 @@ public class UserServiceImpl implements UserService {
 2. DataSource 配置
 
    ```xml
-       <!--jdbc template-->
-       <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+      <!--jdbc template-->
+       <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">
            <property name="dataSource" ref="dataSource"></property>
        </bean>
    
@@ -1211,6 +1207,62 @@ public class UserServiceImpl implements UserService {
 
    2. 搜索某个类的全限定类名可以使用全局搜索
 
+3. `Jdbc Template` 作用范围是多例（连接池中不可能只有单例）
+
+
+
+## 8. IOC Demo (Annotation)
+
+
+
+
+
+## 9. Spring 整合 Junit
+
+### 9.1 原理
+
+`Junit` 是单元测试框架，`Spring` 的存在并不会影响他的功能
+
+但 `Spring` 集合其他优秀的框架是 `Spring` 的优势之一
+
+<div align="center"> <img src="image-20200516205822012.png" width="80%"/> </div><br>
+
+### 9.2 实现
+
+**TestAccountDao.java**
+
+```java
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:bean.xml"})
+public class TestAccountDao {
+    @Autowired
+    private AccountService accountService;
+    
+    // test methods
+}
+```
+
+
+
+- `@RunWith(SpringJUnit4ClassRunner.class)` ：整合 `Spring` 和 `Junit` 的核心代码
+- `@ContextConfiguration` ：说明当前的配置方式：注解 or `xml`，并给出路径
+- `@Autowired`：自动装配（这里是唯一的 `accountService` 所以用该注解）
+
+
+
+**好处：**
+
+测试与开发分开，让测试人员更沉浸于测试
+
+省去写 `ApplicationContext` 获取 `Spring` 容器的步骤
+
+
+
+
+
+## 10. 项目复盘
+
+### 10.1 
 
 
 
@@ -1219,4 +1271,24 @@ public class UserServiceImpl implements UserService {
 
 
 
+
+
+
+
+
+
+
+## 11. AOP
+
+
+
+
+
+
+
+
+
+
+
+## 12. Jdbc Template
 

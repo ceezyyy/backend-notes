@@ -1,10 +1,10 @@
-# Awesome-backend-developer
+# backend-notes
 
 [![](https://img.shields.io/badge/Java-Notes-orange?style=flat-square)](https://github.com/ceezyyy/Java-study-notes)
 
-:rocket: The road map of backend developer
+:rocket: Backend notes for humans
 
-## Mind Mapping
+## Road map
 
 <div align="center"> <img src="BackendDeveloper.png" width="80%"/> </div><br>
 
@@ -68,7 +68,7 @@
 
   
 
-## :floppy_disk: Database
+## :floppy_disk: DB
 
 - JDBC
 - MySQL
@@ -84,7 +84,7 @@
   - [HTTP Protocol](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Web/Core/Servlet/HTTP.md)
   - Servlet
   - Filter & Listener
-  - [实战案例](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Demo/Notes/Demo.md)
+  - [Demo](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Demo/Notes/Demo.md)
 - [MyBatis](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Framework/MyBatis/notes/MyBatis.md)
 - [Spring](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Framework/Spring/notes/Spring.md)
 - SpringMVC

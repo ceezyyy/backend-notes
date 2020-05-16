@@ -17,7 +17,7 @@
   + [3.3 Spring 基于 XML 的 IOC 环境搭建](#33-spring----xml---ioc-----)
   + [3.4 BeanFactory 接口与 ApplicationContext 的区别](#34-beanfactory-----applicationcontext----)
   + [3.5 Spring 对 Bean 的管理细节](#35-spring---bean------)
-    - [3.5.1 创建 bean 的三种方式](#351----bean------)
+    - [3.5.1 创建 bean 的三种方式（XML 配置）](#351----bean-------xml----)
     - [3.5.2 bean 对象的作用范围](#352-bean--------)
     - [3.5.3 bean 对象的生命周期](#353-bean--------)
 * [4. 依赖注入](#4-----)
@@ -31,11 +31,15 @@
 * [6. 基于注解的 IOC 配置](#6-------ioc---)
   + [6.1 注解的分类](#61------)
   + [6.2 创建对象](#62-----)
-  + [6.3 注入数据](#63-----)
-  + [6.4 改变作用范围](#64-------)
-  + [6.5 生命周期相关](#65-------)
-
-
+  + [6.3 由 Component 的衍生注解](#63---component------)
+  + [6.4 注入数据](#64-----)
+  + [6.5 改变作用范围](#65-------)
+  + [6.6 生命周期相关](#66-------)
+* [7.  IOC Demo (XML)](#7--ioc-demo--xml-)
+  + [7.1 项目需求](#71-----)
+  + [7.2 项目结构](#72-----)
+  + [7.3 项目复盘](#73-----)
+  + [7.4 填坑指南](#74-----)
 
 
 ## 1. 什么是 Spring?
@@ -732,9 +736,9 @@ public class UserServiceImpl implements UserService {
 
 ### 5.1 什么是注解？
 
-**注释：**说明，给开发者看
+**注释：** 说明，给开发者看
 
-**注解：**说明程序，给计算机看
+**注解：** 说明程序，给计算机看
 
 
 
@@ -1043,17 +1047,169 @@ public class UserServiceImpl implements UserService {
 
 ## 7.  IOC Demo (XML)
 
+### 7.1 项目需求
+
+使用 `xml` 配置方式在 `Spring IOC` 中实现单表 `CRUD`
+
+
+
+
+
+### 7.2 项目结构
+
+<div align="center"> <img src="image-20200516183517838.png" width="40%"/> </div><br>
+
+
+
+### 7.3 项目复盘
+
+1. 数据库相关
+
 <div align="center"> <img src="image-20200516121134897.png" width="30%"/> </div><br>
 
+2. `service` & `dao` & `entity`
 
+   **Account.java**
+   
+   ```java
+   public class Account {
+       private Integer id;
+       private String name;
+       private Double money;
+       
+       // getter and setter
+   }
+   ```
+   
+   **AccountServiceImpl.java**
+   
+   ```java
+   public class AccountServiceImpl implements AccountService {
+       private AccountDao accountDao;
+   
+       public void setAccountDao(AccountDao accountDao) {
+           this.accountDao = accountDao;
+       }
+       
+       // override methods
+   }
+   ```
+   
+   **AccountDaoImpl.java**
+   
+   ```java
+   public class AccountDaoImpl implements AccountDao {
+       private JdbcTemplate jdbcTemplate;
+       private String sql;
+   
+       public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+           this.jdbcTemplate = jdbcTemplate;
+       }
+       
+       // override methods
+   }
+   ```
 
+3. `bean` 注入 `Spring` 容器
 
+   **bean.xml**
 
+   ```xml
+   <?xml version="1.0" encoding="UTF-8"?>
+   <beans xmlns="http://www.springframework.org/schema/beans"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://www.springframework.org/schema/beans
+           https://www.springframework.org/schema/beans/spring-beans.xsd">
+   
+       <!--userService-->
+       <bean id="accountService" class="com.ceezyyy.service.impl.AccountServiceImpl">
+           <property name="accountDao" ref="accountDao"></property>
+       </bean>
+   
+       <!--userDao-->
+       <bean id="accountDao" class="com.ceezyyy.dao.impl.AccountDaoImpl">
+           <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+       </bean>
+   
+       <!--jdbc template-->
+       <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+           <property name="dataSource" ref="dataSource"></property>
+       </bean>
+   
+       <!--datasource-->
+       <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+           <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+           <property name="url" value="jdbc:mysql://localhost:3306/spring?serverTimezone=UTC"/>
+           <property name="username" value="root"/>
+           <property name="password" value="727800"/>
+       </bean>
+   
+   
+   </beans>
+   ```
 
+   
 
+4. 测试
 
+   **TestAccountDao.java**
 
+   ```java
+   public class TestAccountDao {
+       private ApplicationContext applicationContext;
+       private AccountService accountService;
+   
+       @Before
+       public void init() {
+           /**
+            * Description: initialization and get bean
+            * @param: []
+            * @return: void
+            */
+           applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+           accountService = applicationContext.getBean("accountService", AccountService.class);
+       }
+       
+       // test methods
+   }
+   ```
 
+5. :heavy_check_mark:Succeeded!
+
+   
+
+### 7.4 填坑指南
+
+1. 注入 `bean` 对象时需要注意：
+
+   <div align="center"> <img src="image-20200516184807758.png" width="100%"/> </div><br>
+
+2. DataSource 配置
+
+   ```xml
+       <!--jdbc template-->
+       <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+           <property name="dataSource" ref="dataSource"></property>
+       </bean>
+   
+       <!--datasource-->
+       <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+           <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+           <property name="url" value="jdbc:mysql://localhost:3306/spring?serverTimezone=UTC"/>
+           <property name="username" value="root"/>
+           <property name="password" value="727800"/>
+       </bean>
+   ```
+
+   > 若不使用数据库连接池，程序频繁地向 **DB** 请求并获取数据显然不是一个明智的选择
+   >
+   > 这里我们选用阿里的 **Druid** 连接池
+
+   1. `datasource` 配置属性可以翻阅 `documentation` 和 `Github` 查阅
+
+      一定要准确，否则会 `error`
+
+   2. 搜索某个类的全限定类名可以使用全局搜索
 
 
 

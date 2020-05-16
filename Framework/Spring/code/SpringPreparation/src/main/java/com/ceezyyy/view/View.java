@@ -10,12 +10,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class View {
     public static void main(String[] args) {
         ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
-        UserService userServiceImpl = applicationContext.getBean("UserServiceImpl", UserServiceImpl.class);
-        UserDao userDaoImpl = applicationContext.getBean("UserDaoImpl", UserDaoImpl.class);
-
-        // result
-        System.out.println(userServiceImpl);
-        System.out.println(userDaoImpl);
-
+        UserService userService = applicationContext.getBean("UserServiceImpl", UserServiceImpl.class);
+//        UserDao userDaoImpl = applicationContext.getBean("UserDaoImpl", UserDaoImpl.class);
+        userService.save();
     }
 }

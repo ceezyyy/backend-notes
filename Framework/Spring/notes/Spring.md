@@ -484,7 +484,7 @@ public class BeanFactory {
 
 ### 3.5 Spring 对 Bean 的管理细节
 
-#### 3.5.1 创建 bean 的三种方式
+#### 3.5.1 创建 bean 的三种方式（XML 配置）
 
 1. 指定 `id` 和 `class` 属性
 
@@ -914,11 +914,110 @@ public class UserDaoImpl implements UserDao {
 
 ### 6.4 注入数据
 
+让我们先看一个例子：
+
+**View.java**
+
+```java
+public class View {
+    public static void main(String[] args) {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("bean.xml");
+        UserService userService = applicationContext.getBean("UserServiceImpl", UserServiceImpl.class);
+//        UserDao userDaoImpl = applicationContext.getBean("UserDaoImpl", UserDaoImpl.class);
+        userService.save();
+    }
+}
+```
 
 
 
+**UserServiceImpl.java**
+
+```java
+@Service("UserServiceImpl")
+public class UserServiceImpl implements UserService {
+    private UserDao userDao;
+
+    @Override
+    public void save() {
+        userDao.save();
+    }
+}
+```
 
 
+
+**UserDaoImpl.java**
+
+```java
+@Repository("UserDaoImpl")
+public class UserDaoImpl implements UserDao {
+
+    @Override
+    public void save() {
+        System.out.println("Saved!");
+    }
+}
+```
+
+
+
+显然地，在 `UserServiceImpl` 中， `userDao` 对象为 `null`
+
+运行会报空指针异常
+
+
+<div align="center"> <img src="image-20200516105812445.png" width="80%"/> </div><br>
+
+
+
+那如何注入数据呢？
+
+使用 `@Resource` 指定要注入的数据（bean）对象
+
+使用 `@Value` 指定要注入的包装类型 / 基本类型对象
+
+此时的 `Spring IOC` 容器中：
+
+<div align="center"> <img src="image-20200516105545028.png" width="80%"/> </div><br>
+
+**UserServiceImpl.java**
+
+```java
+@Service("UserServiceImpl")
+public class UserServiceImpl implements UserService {
+    @Resource(name = "UserDaoImpl")
+    private UserDao userDao;
+    @Value("1")
+    private int a;
+    @Value("2")
+    private double b;
+
+    public void save() {
+        userDao.save();
+        System.out.println(a);
+        System.out.println(b);
+    }
+}
+```
+
+从 `Spring IOC` 容器中获取 `UserDaoImpl` 注入到数据中
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200516111131989.png" width="40%"/> </div><br>
+
+**:warning: 填坑**
+
+使用 `@Resource` 注解需要先导入 `maven` 坐标
+
+```xml
+<dependency>
+        <groupId>javax.annotation</groupId>
+        <artifactId>javax.annotation-api</artifactId>
+        <version>1.3.2</version>
+</dependency>
+```
 
 
 
@@ -932,7 +1031,36 @@ public class UserDaoImpl implements UserDao {
 
 
 
+
+
 ### 6.6 生命周期相关
+
+
+
+
+
+
+
+## 7.  IOC Demo (XML)
+
+<div align="center"> <img src="image-20200516121134897.png" width="30%"/> </div><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

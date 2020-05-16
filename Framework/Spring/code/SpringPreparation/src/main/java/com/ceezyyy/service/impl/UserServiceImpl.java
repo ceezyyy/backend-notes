@@ -1,10 +1,13 @@
 package com.ceezyyy.service.impl;
 
 
+import com.ceezyyy.dao.UserDao;
 import com.ceezyyy.service.UserService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,65 +16,16 @@ import java.util.Set;
 
 @Service("UserServiceImpl")
 public class UserServiceImpl implements UserService {
-    private String a;
-    private Integer b;
-    private Date c;
-    private List<Integer> list;
-    private Set<Integer> set;
-    private Map<Integer, String> map;
-
-
-    public void setA(String a) {
-        this.a = a;
-    }
-
-    public void setB(Integer b) {
-        this.b = b;
-    }
-
-    public void setC(Date c) {
-        this.c = c;
-    }
-
-    public void setList(List<Integer> list) {
-        this.list = list;
-    }
-
-    public void setSet(Set<Integer> set) {
-        this.set = set;
-    }
-
-    public void setMap(Map<Integer, String> map) {
-        this.map = map;
-    }
-
+    @Resource(name = "UserDaoImpl")
+    private UserDao userDao;
+    @Value("1")
+    private int a;
+    @Value("2")
+    private double b;
 
     public void save() {
-        System.out.println("Saved");
+        userDao.save();
+        System.out.println(a);
+        System.out.println(b);
     }
-
-    public String getA() {
-        return a;
-    }
-
-    public Integer getB() {
-        return b;
-    }
-
-    public Date getC() {
-        return c;
-    }
-
-    public List<Integer> getList() {
-        return list;
-    }
-
-    public Set<Integer> getSet() {
-        return set;
-    }
-
-    public Map<Integer, String> getMap() {
-        return map;
-    }
-
 }

@@ -18,9 +18,13 @@
   + [3.4 内存图解](#34-----)
   + [3.5 线程睡眠](#35-----)
 * [4. 线程安全](#4-----)
-  + [4.1 同步代码块](#41------)
-  + [4.2 同步方法](#42-----)
-  + [4.3 锁机制](#43----)
+  + [4.1 电影院的例子](#41-------)
+  + [4.2 Lock 锁](#42-lock--)
+* [5. 线程状态](#5-----)
+  + [5.1 Timed waiting](#51-timed-waiting)
+  + [5.2 Blocked](#52-blocked)
+  + [5.3 Waiting](#53-waiting)
+* [6. 等待唤醒机制](#6-------)
 
 
 
@@ -130,7 +134,7 @@ public class Main {
 }
 ```
 
-**运行结果：**（部分截图）
+:heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200517183930716.png" width="70%"/> </div><br>
 
@@ -183,7 +187,7 @@ public class Main {
 
 
 
-**运行结果：**（部分截图）
+:heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200517185637493.png" width="70%"/> </div><br>
 
@@ -224,7 +228,7 @@ public class Main {
 
 
 
-**运行结果：**
+:heavy_check_mark:Succeeded!
 
 <div align="center"> <img src="image-20200517184630699.png" width="70%"/> </div><br>
 
@@ -284,6 +288,8 @@ public class Main {
 }
 ```
 
+:heavy_check_mark:Succeeded!
+
 <div align="center"> <img src="image-20200517161113894.png" width="60%"/> </div><br>
 
 
@@ -294,41 +300,144 @@ public class Main {
 
 
 
+### 4.1 电影院的例子
 
+<div align="center"> <img src="cinema.png" width="80%"/> </div><br>
 
-### 4.1 同步代码块
+**Tickets.java**
 
+```java
+public class Tickets implements Runnable {
+    private int tickets = 5;
 
-
-
-
-
-
-### 4.2 同步方法
-
-
-
-
-
-
-
-
-
-### 4.3 锁机制
-
-
-
-
-
-
-
-
-
-
-
+    // sell tickets
+    @Override
+    public void run() {
+        while (true) {
+            if (tickets > 0) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                // print info
+                System.out.println(Thread.currentThread().getName() + " is selling " + tickets);
+                // sold
+                tickets--;
+            }
+        }
+    }
+}
+```
 
 
 
+**Main.java**
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+        Runnable tickets = new Tickets();
+        new Thread(tickets).start();
+        new Thread(tickets).start();
+        new Thread(tickets).start();
+
+    }
+}
+```
 
 
 
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200517191535553.png" width="70%"/> </div><br>
+
+
+
+### 4.2 Lock 锁
+
+锁是控制多个线程对共享资源进行访问的工具。通常，锁提供了对共享资源的独占访问。一次只能有一个线程获得锁，对共享资源的所有访问都需要首先获得锁。
+
+**Lock**
+
+<div align="center"> <img src="image-20200517210700609.png" width="80%"/> </div><br>
+
+**ReentrantLock**
+
+<div align="center"> <img src="image-20200517210752507.png" width="100%"/> </div><br>
+
+**Tickets.java**
+
+```java
+public class Tickets implements Runnable {
+    private int tickets = 100;
+    Lock lock = new ReentrantLock();
+
+    // sell tickets
+    @Override
+    public void run() {
+        while (true) {
+            lock.lock();
+            try {
+                if (tickets > 0) {
+                    Thread.sleep(10);
+                    // print info
+                    System.out.println(Thread.currentThread().getName() + " is selling " + tickets);
+                    // sold
+                    tickets--;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                lock.unlock();
+            }
+        }
+    }
+}
+```
+
+
+
+**Main,java**
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+        Runnable tickets = new Tickets();
+        // create threads
+        for (int i = 0; i < 5; i++) {
+            new Thread(tickets).start();
+        }
+    }
+}
+```
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200517211430108.png" width="80%"/> </div><br>
+
+**:warning:注意**
+
+使用 `try...catch...finally` 代码块，将要执行的逻辑放在 `try` 中，且必须要确保锁正常释放，否则会报错： `Maximum lock count exceeded ERROR` 
+
+
+
+
+
+## 5. 线程状态
+
+### 5.1 Timed waiting
+
+<div align="center"> <img src="image-20200517212418736.png" width="70%"/> </div><br>
+
+### 5.2 Blocked
+
+<div align="center"> <img src="image-20200517212507300.png" width="70%"/> </div><br>
+
+### 5.3 Waiting
+
+<div align="center"> <img src="image-20200517212716449.png" width="90%"/> </div><br>
+
+## 6. 等待唤醒机制

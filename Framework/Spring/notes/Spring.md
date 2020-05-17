@@ -38,8 +38,19 @@
 * [7.  IOC Demo (XML)](#7--ioc-demo--xml-)
   + [7.1 项目需求](#71-----)
   + [7.2 项目结构](#72-----)
-  + [7.3 项目复盘](#73-----)
+  + [7.3 项目分析](#73-----)
   + [7.4 填坑指南](#74-----)
+* [8. IOC Demo (Annotation)](#8-ioc-demo--annotation-)
+* [9. Spring 整合 Junit](#9-spring----junit)
+  + [9.1 原理](#91---)
+  + [9.2 实现](#92---)
+* [10. AOP 铺垫](#10-aop---)
+  + [10.1 转帐事务](#101-----)
+    - [10.1.1 Threadlocal 快速入门](#1011-threadlocal-----)
+* [11. AOP](#11-aop)
+* [12. Jdbc Template](#12-jdbc-template)
+
+
 
 
 ## 1. 什么是 Spring?
@@ -1260,9 +1271,13 @@ public class TestAccountDao {
 
 
 
-## 10. 项目复盘
+## 10. AOP 铺垫
 
-### 10.1 
+### 10.1 转帐事务
+
+#### 10.1.1 Threadlocal 快速入门
+
+
 
 
 

@@ -132,8 +132,7 @@ public class Main {
 
 **运行结果：**（部分截图）
 
-
-<div align="center"> <img src="image-20200517183930716.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200517183930716.png" width="70%"/> </div><br>
 
 
 **:warning:注意**
@@ -169,22 +168,24 @@ public class Main {
 
     public static void main(String[] args) {
         MyThread myThread = new MyThread();
+        // start thread
+        myThread.start();
         // print main thread info
         for (int i = 0; i < 100; i++) {
             System.out.println("MAINTHREAD " + i);
         }
-        // start thread
-        myThread.start();
     }
 }
+
 ```
-
-
 
 此时是两条线程并发执行，Java 中采用抢占式调度，两条线程互相争夺 `CPU` 资源
 
 
-<div align="center"> <img src="image-20200517120838043.png" width="60%"/> </div><br>
+
+**运行结果：**（部分截图）
+
+<div align="center"> <img src="image-20200517185637493.png" width="70%"/> </div><br>
 
 ### 3.2 实现 Runnable 接口
 

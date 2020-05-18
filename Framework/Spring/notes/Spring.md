@@ -50,8 +50,13 @@
     - [10.2.1 什么是 Threadlocal?](#1021-----threadlocal-)
     - [10.2.2 为什么要用 Threadlocal?](#1022-------threadlocal-)
     - [10.2.3 Threadlocal 与 Synchronized 区别](#1023-threadlocal---synchronized---)
+  + [10.3 转账事务解决](#103-------)
+    - [10.3.1 解决目标](#1031-----)
+    - [10.3.2 思路图示](#1032-----)
 * [11. AOP](#11-aop)
 * [12. Jdbc Template](#12-jdbc-template)
+
+
 
 
 
@@ -1322,7 +1327,15 @@ public class TestAccountDao {
 
 <div align="center"> <img src="image-20200518093323833.png" width="70%"/> </div><br>
 
-999 元不翼而飞，显然，这种情况在现实生活中一旦发生，后果不堪设想！、
+999 元不翼而飞，显然，这种情况在现实生活中一旦发生，后果不堪设想！
+
+**那为什么会失败呢？**
+
+<div align="center"> <img src="image-20200518114831842.png" width="90%"/> </div><br>
+
+在 `transfer()` 方法中有 4 个 `connection`，每个 `connection` 成功就被 `commit`，所以会造成上述情况
+
+我们要确保每个业务逻辑都使用同个 `connection`
 
 
 
@@ -1334,42 +1347,75 @@ public class TestAccountDao {
 
 ### 10.2 Threadlocal 快速入门
 
-
-
-
-
 #### 10.2.1 什么是 Threadlocal?
 
+<div align="center"> <img src="image-20200518103650222.png" width="70%"/> </div><br>
+
+举个例子：
+
+**Main.java**
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+        Demo demo = new Demo();
+        // create threads
+        for (int i = 0; i < 10; i++) {
+            Thread thread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    // save and get
+                    demo.setContent(Thread.currentThread().getName() + "'s data");
+                    System.out.println();
+                    System.out.println(Thread.currentThread().getName() + " gets data from " + demo.getContent());
+                }
+            });
+            thread.start();
+        }
+    }
+}
+```
+
+每个线程的任务是设置变量值，然后再请取出变量值
+
+但是，Java 中线程是抢占式调度，并发访问变量时会出问题
+
+<div align="center"> <img src="image-20200518110335252.png" width="70%"/> </div><br>
 
 
 
 
 #### 10.2.2 为什么要用 Threadlocal?
 
+`Threadlocal` 为并发时解决访问变量问题而生
 
-
-
+目的是确保线程安全，互不影响
 
 
 
 #### 10.2.3 Threadlocal 与 Synchronized 区别
 
+|      | synchronized                             | Threadlocal                                                  |
+| ---- | ---------------------------------------- | ------------------------------------------------------------ |
+| 原理 | 时间换空间，提供一份变量，让线程排队访问 | 空见换时间，为每个线程提供了一份变量的副本，从而时间同时访问并互不干扰 |
+| 侧重 | 多线程间访问资源同步                     | 多线程间每个线程数据互相隔离                                 |
 
 
 
 
 
+### 10.3 转账事务解决
+
+#### 10.3.1 解决目标
+
+业务方法中调用的 `dao` 方法来自同一个 `connection` 对象，以便进行事务管理
+
+#### 10.3.2 思路图示
 
 
 
-
-
-
-
-
-
-
-
+<div align="center"> <img src="image-20200518132623616.png" width="80%"/> </div><br>
 
 
 

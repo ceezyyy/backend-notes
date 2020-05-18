@@ -3,16 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d58b583a-e857-4964-a067-4205f15045a8" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/dao/AccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ceezyyy/dao/AccountDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/dao/impl/AccountDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ceezyyy/dao/impl/AccountDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/service/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ceezyyy/service/AccountService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/service/impl/AccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ceezyyy/service/impl/AccountServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ceezyyy/dao/TestAccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ceezyyy/dao/TestAccountDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/SpringCrudDemo.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ceezyyy/service/AccountService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ceezyyy/service/AccountService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ceezyyy/service/impl/AccountServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ceezyyy/service/impl/AccountServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/META-INF/SpringCrudDemo.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ceezyyy/dao/TestAccountDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/ceezyyy/dao/TestAccountDao.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../notes/Spring.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../notes/Spring.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -45,12 +35,15 @@
     </option>
   </component>
   <component name="ProjectId" id="1byQgQGmp0SFHkxWSJUdoCbrdGa" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
@@ -167,7 +160,7 @@
       <workItem from="1589642950013" duration="241000" />
       <workItem from="1589682732540" duration="124000" />
       <workItem from="1589722577006" duration="2031000" />
-      <workItem from="1589760674142" duration="6546000" />
+      <workItem from="1589760674142" duration="11531000" />
     </task>
     <servers />
   </component>
@@ -175,10 +168,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser" timestamp="1589762632789">
+    <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser" timestamp="1589778573355">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser/0.0.1280.720@0.0.1280.720" timestamp="1589762632789" />
+    <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser/0.0.1280.720@0.0.1280.720" timestamp="1589778573355" />
     <state x="0" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1589621208406">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
@@ -191,22 +184,22 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="421" y="116" key="FileChooserDialogImpl/0.0.1280.720@0.0.1280.720" timestamp="1589768077150" />
-    <state width="1238" height="448" key="GridCell.Tab.0.bottom" timestamp="1589766121066">
+    <state width="1238" height="448" key="GridCell.Tab.0.bottom" timestamp="1589779377335">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1238" height="448" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1589766121066" />
-    <state width="1238" height="448" key="GridCell.Tab.0.center" timestamp="1589766121066">
+    <state width="1238" height="448" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1589779377335" />
+    <state width="1238" height="448" key="GridCell.Tab.0.center" timestamp="1589779377335">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1238" height="448" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1589766121066" />
-    <state width="1238" height="448" key="GridCell.Tab.0.left" timestamp="1589766121066">
+    <state width="1238" height="448" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1589779377335" />
+    <state width="1238" height="448" key="GridCell.Tab.0.left" timestamp="1589779377335">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1238" height="448" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1589766121066" />
-    <state width="1238" height="448" key="GridCell.Tab.0.right" timestamp="1589766121066">
+    <state width="1238" height="448" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1589779377335" />
+    <state width="1238" height="448" key="GridCell.Tab.0.right" timestamp="1589779377335">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1238" height="448" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1589766121066" />
+    <state width="1238" height="448" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1589779377335" />
     <state x="-27" y="13" width="1034" height="707" key="SettingsEditor" timestamp="1589763589570">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
@@ -219,9 +212,9 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="0" y="0" key="new project wizard/0.0.1280.720@0.0.1280.720" timestamp="1589724078967" />
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1589765330683">
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1589779120233">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1589765330683" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1589779120233" />
   </component>
 </project>

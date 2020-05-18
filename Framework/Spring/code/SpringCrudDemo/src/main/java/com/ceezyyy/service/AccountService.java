@@ -21,6 +21,5 @@ public interface AccountService {
     void deleteAccountById(int id);
 
     // transfer
-
-
+    boolean transfer(int from, int to, double amount);
 }

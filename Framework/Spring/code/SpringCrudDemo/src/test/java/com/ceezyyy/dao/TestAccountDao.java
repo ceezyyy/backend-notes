@@ -2,6 +2,7 @@ package com.ceezyyy.dao;
 
 import com.ceezyyy.entity.Account;
 import com.ceezyyy.service.AccountService;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -62,4 +63,11 @@ public class TestAccountDao {
     public void testDeleteAccount() {
         accountService.deleteAccountById(4);
     }
+
+    @Test
+    public void testTransfer() {
+        boolean transfer = accountService.transfer(2, 4, 999);
+        System.out.println(transfer);
+    }
+
 }

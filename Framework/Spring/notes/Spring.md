@@ -46,7 +46,10 @@
   + [9.2 实现](#92---)
 * [10. AOP 铺垫](#10-aop---)
   + [10.1 转帐事务](#101-----)
-    - [10.1.1 Threadlocal 快速入门](#1011-threadlocal-----)
+  + [10.2 Threadlocal 快速入门](#102-threadlocal-----)
+    - [10.2.1 什么是 Threadlocal?](#1021-----threadlocal-)
+    - [10.2.2 为什么要用 Threadlocal?](#1022-------threadlocal-)
+    - [10.2.3 Threadlocal 与 Synchronized 区别](#1023-threadlocal---synchronized---)
 * [11. AOP](#11-aop)
 * [12. Jdbc Template](#12-jdbc-template)
 
@@ -132,18 +135,12 @@ Spring 框架是一个开源的 [J2EE](https://baike.baidu.com/item/J2EE/110838)
 **View.java**
 
 ```java
-package com.ceezyyy.view;
-
-import com.ceezyyy.service.UserService;
-import com.ceezyyy.service.impl.UserServiceImpl;
-
 public class View {
     public static void main(String[] args) {
         UserService userService = new UserServiceImpl();
         userService.save();
     }
 }
-
 ```
 
 
@@ -151,12 +148,9 @@ public class View {
 **UserService.java**
 
 ```java
-package com.ceezyyy.service;
-
 public interface UserService {
     void save();
 }
-
 ```
 
 
@@ -164,12 +158,6 @@ public interface UserService {
 **UserServiceImpl.java**
 
 ```java
-package com.ceezyyy.service.impl;
-
-import com.ceezyyy.dao.UserDao;
-import com.ceezyyy.dao.impl.UserDaoImpl;
-import com.ceezyyy.service.UserService;
-
 public class UserServiceImpl implements UserService {
     private UserDao userDao = new UserDaoImpl();
 
@@ -177,7 +165,6 @@ public class UserServiceImpl implements UserService {
         userDao.save();
     }
 }
-
 ```
 
 
@@ -1275,7 +1262,125 @@ public class TestAccountDao {
 
 ### 10.1 转帐事务
 
-#### 10.1.1 Threadlocal 快速入门
+除了基本的单表 `CRUD` ，我们新增一个功能：
+
+转帐
+
+**AccountService.java**
+
+```java
+ // transfer
+    boolean transfer(int from, int to, double amount);
+```
+
+
+
+**AccountServiceImpl.java**
+
+```java
+    public boolean transfer(int from, int to, double amount) {
+        /**
+         * Description: transfer amount from a to b
+         * @param: [from, to, amount]
+         * @return: boolean
+         */
+        // find account by id
+        Account a = accountDao.findAccountById(from);
+        Account b = accountDao.findAccountById(to);
+        // check account
+        if (a != null && b != null) {
+            // money available
+            if (a.getMoney() >= amount) {
+                // transfer
+                a.setMoney(a.getMoney() - amount);
+                b.setMoney(b.getMoney() + amount);
+                // update
+                accountDao.updateAccount(a);
+                accountDao.updateAccount(b);
+                return true;
+            }
+        }
+        return false;
+    }
+```
+
+
+
+在普通情况下，测试成功
+
+但如果程序异常中断呢？
+
+比如，我们在更新 `b` 账户之前故意设置一个 `error` ：
+
+<div align="center"> <img src="image-20200518092939611.png" width="70%"/> </div><br>
+
+转账之前：
+
+<div align="center"> <img src="image-20200518093139921.png" width="60%"/> </div><br>
+
+转账之后：
+
+<div align="center"> <img src="image-20200518093323833.png" width="70%"/> </div><br>
+
+999 元不翼而飞，显然，这种情况在现实生活中一旦发生，后果不堪设想！、
+
+
+
+**:warning:注意：**
+
+测试的时候一定要多几组 `testcase` ！！！否则发现不了 `bug` （多刷 `LC`）
+
+
+
+### 10.2 Threadlocal 快速入门
+
+
+
+
+
+#### 10.2.1 什么是 Threadlocal?
+
+
+
+
+
+#### 10.2.2 为什么要用 Threadlocal?
+
+
+
+
+
+
+
+#### 10.2.3 Threadlocal 与 Synchronized 区别
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

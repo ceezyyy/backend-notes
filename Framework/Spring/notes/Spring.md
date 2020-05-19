@@ -44,19 +44,19 @@
 * [9. Spring 整合 Junit](#9-spring----junit)
   + [9.1 原理](#91---)
   + [9.2 实现](#92---)
-* [10. AOP 铺垫](#10-aop---)
+* [10. AOP 前夕](#10-aop---)
   + [10.1 转帐事务](#101-----)
   + [10.2 Threadlocal 快速入门](#102-threadlocal-----)
     - [10.2.1 什么是 Threadlocal?](#1021-----threadlocal-)
     - [10.2.2 为什么要用 Threadlocal?](#1022-------threadlocal-)
     - [10.2.3 Threadlocal 与 Synchronized 区别](#1023-threadlocal---synchronized---)
-  + [10.3 转账事务解决](#103-------)
-    - [10.3.1 解决目标](#1031-----)
-    - [10.3.2 思路图示](#1032-----)
+  + [10.3 代理](#103---)
+    - [10.3.1 代理模式](#1031-----)
+    - [10.3.2 静态代理](#1032-----)
+    - [10.3.3 基于接口的动态代理](#1033----------)
+    - [10.3.4 基于子类的动态代理](#1034----------)
 * [11. AOP](#11-aop)
 * [12. Jdbc Template](#12-jdbc-template)
-
-
 
 
 
@@ -1263,7 +1263,7 @@ public class TestAccountDao {
 
 
 
-## 10. AOP 铺垫
+## 10. AOP 前夕
 
 ### 10.1 转帐事务
 
@@ -1277,8 +1277,6 @@ public class TestAccountDao {
  // transfer
     boolean transfer(int from, int to, double amount);
 ```
-
-
 
 **AccountServiceImpl.java**
 
@@ -1403,19 +1401,209 @@ public class Main {
 
 
 
+### 10.3 代理
+
+#### 10.3.1 代理模式
 
 
-### 10.3 转账事务解决
+<div align="center"> <img src="image-20200519093313919.png" width="70%"/> </div><br>
 
-#### 10.3.1 解决目标
-
-业务方法中调用的 `dao` 方法来自同一个 `connection` 对象，以便进行事务管理
-
-#### 10.3.2 思路图示
+举个例子，`apple` 公司的总部在美国加利福尼亚，为了将自己的产品销售到全国各地，`apple` 下有许多代理，每个代理下也有二级代理，三级代理......
 
 
 
-<div align="center"> <img src="image-20200518132623616.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200519093955202.png" width="70%"/> </div><br>
+
+代理模式的好处：
+
+
+
+
+
+
+
+#### 10.3.2 静态代理
+
+话不多说，直接上代码
+
+`Producer` 接口，定义了一套商家规范（必须提供售卖和售后服务）
+
+**Producer.java**
+
+```java
+public interface Producer {
+    void sell(double money);
+
+    void afterSalesService();
+}
+```
+
+
+
+`ProducerImpl` 生产者，遵循（实现）规范（接口）
+
+**ProducerImpl.java**
+
+```java
+public class ProducerImpl implements Producer {
+
+    public void sell(double money) {
+        System.out.println("Things sold, get " + money + " usd");
+    }
+
+    public void afterSalesService() {
+        System.out.println("Provide after-sales service");
+    }
+}
+```
+
+
+
+`Proxy` 代理商，在生产者的基础上对方法进行了增强（比如说提供售前推荐和售后线下指导）
+
+**Proxy.java**
+
+```java
+public class Proxy {
+    private Producer producer = new ProducerImpl();
+
+    public void setProducer(Producer producer) {
+        this.producer = producer;
+    }
+
+    public void doSomethingBefore() {
+        System.out.println("Do something before");
+    }
+
+    public void sell(double money) {
+        producer.sell(money);
+    }
+
+    public void afterSalesService() {
+        producer.afterSalesService();
+    }
+
+    public void doSomethingAfter() {
+        System.out.println("Do something after");
+    }
+}
+```
+
+`Client` 客户，直接与 `proxy` 打交道，不直接接触 `producer`
+
+**ClientStatic.java**
+
+```java
+public class ClientStatic {
+    private static Proxy proxy = new Proxy();
+
+    public static void main(String[] args) {
+        proxy.doSomethingBefore();
+        proxy.sell(20000);
+        proxy.doSomethingAfter();
+    }
+}
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200519124503286.png" width="60%"/> </div><br>
+
+静态代理的**缺陷**：
+
+- 违反了对扩展开发，对修改关闭的设计原则
+
+  
+
+
+
+
+#### 10.3.3 基于接口的动态代理
+
+<div align="center"> <img src="image-20200519093955202.png" width="70%"/> </div><br>
+
+**动态代理** 即 **动态** :heavy_plus_sign: **代理**
+
+**Producer.java**
+
+```java
+public interface Producer {
+    void sell(double money);
+
+    void afterSalesService();
+}
+```
+
+**ProducerImpl.java**
+
+```java
+public class ProducerImpl implements Producer {
+
+    public void sell(double money) {
+        System.out.println("Things sold, get " + money + " usd");
+    }
+
+    public void afterSalesService() {
+        System.out.println("Provide after-sales service");
+    }
+}
+```
+
+**Client.java**
+
+```java
+public class Client {
+    public static void main(String[] args) {
+        // include producer
+        final ProducerImpl producer = new ProducerImpl();
+        // create proxyProducer
+        Producer proxyProducer = (Producer) Proxy.newProxyInstance(producer.getClass().getClassLoader(), producer.getClass().getInterfaces(), new InvocationHandler() {
+            // enhance method
+            public Object invoke(Object o, Method method, Object[] objects) throws Throwable {
+                if ("sell".equals(method.getName())) {
+                    // get parameters
+                    Double money = (Double) objects[0];
+                    // With the Method instance in place,
+                    // we can now call invoke() to execute the underlying method and get the returned object.
+                    return method.invoke(producer, money * 0.8);
+                }
+                return method.invoke(producer, objects);
+            }
+        });
+        proxyProducer.sell(10000);
+        proxyProducer.afterSalesService();
+    }
+}
+```
+
+
+
+`newProxyInstance()` 源码：
+
+<div align="center"> <img src="image-20200519134039413.png" width="100%"/> </div><br>
+
+显然，要求提供的参数：你代理谁？遵循什么规范？是否方法增强？
+
+
+- `loader`：类加载器对象，使用的是 `producer` 类加载器（`proxy` 只是搬运工）
+
+- `interfaces`：遵循的规范（接口）
+
+- `InvocationHandler`：
+
+  源码：
+  
+<div align="center"> <img src="image-20200519133815204.png" width="90%"/> </div><br>
+
+利用 `reflect` 调用方法
+<div align="center"> <img src="image-20200519133714212.png" width="100%"/> </div><br>
+
+
+#### 10.3.4 基于子类的动态代理
+
+
 
 
 

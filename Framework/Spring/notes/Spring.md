@@ -1609,12 +1609,29 @@ public class Client {
 
 
 
+面向切片编程
+
+通过预编译以及运行期间动态代理实现程序功能的统一维护的一种技术
+
+利用 `AOP` 可以对业务逻辑各个部分进行隔离，降低耦合度，提高程序可重用性
 
 
 
-### 11.2 AOP 有什么优势？
+### 11.2 为什么要有 AOP 思想？
+
+**主要功能**
+
+- 日志记录
+- 性能统计
+- 安全控制
+- 事务处理
+- 异常处理
 
 
+
+**主要意图**
+
+将以上功能代码从业务逻辑中划分出来，对行为进行隔离，进而改变这些行为 的时候不影响业务逻辑的代码
 
 
 
@@ -1624,20 +1641,19 @@ public class Client {
 
 ### 12.1 AOP 相关术语
 
+<div align="center"> <img src="aop.jpg" width="90%"/> </div><br>
+
+- `Join Points`：
+- `Pointcut`：
+- `Advice`：
 
 
 
+<div align="center"> <img src="image-20200520014233185.png" width="100%"/> </div><br>
 
+`Visualization` 是总是容易帮人理解的！
 
-
-
-
-
-
-
-
-
-
+<div align="center"> <img src="image-20200520015501063.png" width="80%"/> </div><br>
 
 
 

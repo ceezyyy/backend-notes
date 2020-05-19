@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d58b583a-e857-4964-a067-4205f15045a8" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/dao/impl/AccountDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ceezyyy/dao/impl/AccountDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/service/impl/AccountServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ceezyyy/service/impl/AccountServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/utils/TransactionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ceezyyy/utils/TransactionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/bean.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/bean.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ceezyyy/dao/TestAccountDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/ceezyyy/dao/TestAccountDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/bean.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/bean.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ceezyyy/dao/impl/AccountDaoImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ceezyyy/dao/impl/AccountDaoImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/ceezyyy/service/impl/AccountServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/ceezyyy/service/impl/AccountServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/ceezyyy/dao/TestAccountDao.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/ceezyyy/dao/TestAccountDao.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../notes/Spring.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../notes/Spring.md" afterDir="false" />
-    </list>
+    <list default="true" id="d58b583a-e857-4964-a067-4205f15045a8" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -181,6 +168,7 @@
       <workItem from="1589896777419" duration="1765000" />
       <workItem from="1589898751417" duration="769000" />
       <workItem from="1589900037131" duration="228000" />
+      <workItem from="1589901692122" duration="175000" />
     </task>
     <servers />
   </component>
@@ -224,14 +212,14 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="-27" y="13" width="1034" height="707" key="SettingsEditor/0.0.1280.720@0.0.1280.720" timestamp="1589881710105" />
-    <state x="286" y="276" key="com.intellij.ide.util.TipDialog" timestamp="1589900146307">
+    <state x="286" y="276" key="com.intellij.ide.util.TipDialog" timestamp="1589901718103">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="286" y="276" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1589900146307" />
-    <state x="0" y="0" key="new project wizard" timestamp="1589850270837">
+    <state x="286" y="276" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1589901718103" />
+    <state x="0" y="0" key="new project wizard" timestamp="1589901865406">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="0" y="0" key="new project wizard/0.0.1280.720@0.0.1280.720" timestamp="1589850270837" />
+    <state x="0" y="0" key="new project wizard/0.0.1280.720@0.0.1280.720" timestamp="1589901865406" />
     <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1589897277693">
       <screen x="0" y="0" width="1280" height="720" />
     </state>

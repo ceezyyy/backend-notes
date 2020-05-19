@@ -1598,41 +1598,49 @@ public class Client {
 <div align="center"> <img src="image-20200519133815204.png" width="90%"/> </div><br>
 
 利用 `reflect` 调用方法
-<div align="center"> <img src="image-20200519133714212.png" width="100%"/> </div><br>
-
-
-#### 10.3.4 基于子类的动态代理
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
 
 ## 11. AOP
+
+### 11.1 什么是 AOP？
+
+
+
+
+
+
+
+### 11.2 AOP 有什么优势？
+
+
+
+
+
+
+
+## 12. Spring 中的 AOP
+
+### 12.1 AOP 相关术语
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

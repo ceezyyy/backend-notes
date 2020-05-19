@@ -1,5 +1,6 @@
 package com.ceezyyy.utils;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 public class TransactionManager {
@@ -17,7 +18,6 @@ public class TransactionManager {
          * @return: void
          */
         try {
-            // manual
             connectionUtil.getThreadConnection().setAutoCommit(false);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -57,9 +57,7 @@ public class TransactionManager {
          * @return: void
          */
         try {
-            // release
             connectionUtil.getThreadConnection().close();
-            // unbind
             connectionUtil.removeThreadConnection();
         } catch (SQLException e) {
             e.printStackTrace();

@@ -7,17 +7,19 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:bean.xml"})
 public class TestAccountDao {
-    @Autowired
+    @Resource()
     private AccountService accountService;
 
     @Test
@@ -52,9 +54,9 @@ public class TestAccountDao {
     // OK
     public void testUpdateAccount() {
         Account account = new Account();
-        account.setId(1);
+        account.setId(3);
         account.setName("zzz");
-        account.setMoney(9999.0);
+        account.setMoney(10000.0);
         accountService.updateAccount(account);
     }
 
@@ -66,7 +68,7 @@ public class TestAccountDao {
 
     @Test
     public void testTransfer() {
-        boolean transfer = accountService.transfer(2, 4, 999);
+        boolean transfer = accountService.transfer(1, 4, 10);
         System.out.println(transfer);
     }
 

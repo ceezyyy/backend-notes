@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="20fc1387-72a1-4600-9f02-328affd5284e" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$PROJECT_DIR$/../installer/tools/Maven/apache-maven-3.5.2" />
+        <option name="userSettingsFile" value="D:\installer\tools\Maven\apache-maven-3.5.2\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1c9b41ETO791WU9j6pzwRRALsCW" />
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
+  </component>
+  <component name="RunManager" selected="JUnit.TestAccountService.findAll">
+    <configuration name="TestAccountDao.testDelete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringAopXml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.TestAccountDao" />
+      <option name="METHOD_NAME" value="testDelete" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestAccountDao.testReadAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringAopXml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.TestAccountDao" />
+      <option name="METHOD_NAME" value="testReadAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestAccountDao.testUpdate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringAopXml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.TestAccountDao" />
+      <option name="METHOD_NAME" value="testUpdate" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestAccountService.findAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringAopXml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.service" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.service.TestAccountService" />
+      <option name="METHOD_NAME" value="findAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestAccountService.testTransfer" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SpringAopXml" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.service" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.service.TestAccountService" />
+      <option name="METHOD_NAME" value="testTransfer" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestAccountService.findAll" />
+        <item itemvalue="JUnit.TestAccountService.testTransfer" />
+        <item itemvalue="JUnit.TestAccountDao.testDelete" />
+        <item itemvalue="JUnit.TestAccountDao.testUpdate" />
+        <item itemvalue="JUnit.TestAccountDao.testReadAll" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="20fc1387-72a1-4600-9f02-328affd5284e" name="Default Changelist" comment="" />
+      <created>1589943562255</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1589943562255</updated>
+      <workItem from="1589943566334" duration="3479000" />
+      <workItem from="1589960721613" duration="4032000" />
+      <workItem from="1589976117599" duration="12878000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="446" y="77" key="#com.intellij.ide.util.MemberChooser" timestamp="1589986733715">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="446" y="77" key="#com.intellij.ide.util.MemberChooser/0.0.1280.720@0.0.1280.720" timestamp="1589986733715" />
+    <state width="1222" height="292" key="GridCell.Tab.0.bottom" timestamp="1589991676587">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1222" height="292" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1589991676587" />
+    <state width="1222" height="292" key="GridCell.Tab.0.center" timestamp="1589991676586">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1222" height="292" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1589991676586" />
+    <state width="1222" height="292" key="GridCell.Tab.0.left" timestamp="1589991676586">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1222" height="292" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1589991676586" />
+    <state width="1222" height="292" key="GridCell.Tab.0.right" timestamp="1589991676586">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1222" height="292" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1589991676586" />
+    <state x="117" y="0" width="1163" height="713" key="SettingsEditor" timestamp="1589989776215">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="117" y="0" width="1163" height="713" key="SettingsEditor/0.0.1280.720@0.0.1280.720" timestamp="1589989776215" />
+    <state x="286" y="338" key="com.intellij.ide.util.TipDialog" timestamp="1589976126121">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="286" y="338" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1589976126121" />
+    <state x="297" y="161" key="run.anything.popup" timestamp="1589945965381">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="297" y="161" key="run.anything.popup/0.0.1280.720@0.0.1280.720" timestamp="1589945965381" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1589989818138">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1589989818138" />
+  </component>
+</project>

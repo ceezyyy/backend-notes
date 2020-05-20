@@ -68,8 +68,12 @@
   + [12.1 Create Example](#121-create-example)
   + [12.2 Read all Example](#122-read-all-example)
   + [12.3 Read one Example](#123-read-one-example)
-  + [12.4 Update](#124-update)
-  + [12.5 Delete](#125-delete)
+  + [12.4 Update Example](#124-update-example)
+  + [12.5 Delete Example](#125-delete-example)
+* [13. Spring 中事务控制](#13-spring------)
+  + [13.1 为什么事务加在 service 层？](#131---------service---)
+  + [13.2 基于 XML 声明式事务控制](#132----xml--------)
+  + [13.3 基于注解声明式事务控制](#133------------)
 
 
 
@@ -1990,7 +1994,7 @@ public Account findAccountById(int id) {
 
 
 
-### 12.4 Update
+### 12.4 Update Example
 
 ```java
 public void updateAccount(Account account) {
@@ -2005,7 +2009,7 @@ public void updateAccount(Account account) {
 
 
 
-### 12.5 Delete
+### 12.5 Delete Example
 
 ```java
 public void deleteAccountById(int id) {
@@ -2017,6 +2021,134 @@ public void deleteAccountById(int id) {
         }
     }
 ```
+
+
+
+
+
+## 13. Spring 中事务控制
+
+### 13.1 为什么事务加在 service 层？
+
+<div align="center"> <img src="image-20200520225709751.png" width="80%"/> </div><br>
+
+### 13.2 基于 XML 声明式事务控制
+
+**pom.xml**
+
+```xml
+<!-- https://mvnrepository.com/artifact/org.springframework/spring-tx -->
+<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-tx</artifactId>
+    <version>5.2.2.RELEASE</version>
+</dependency>
+```
+
+**bean.xml**
+
+```xml
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--accountService-->
+    <bean id="accountService" class="com.ceezyyy.service.impl.AccountServiceImpl">
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
+
+    <!--accountDao-->
+    <bean id="accountDao" class="com.ceezyyy.dao.impl.AccountDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"></property>
+    </bean>
+
+    <!--jdbc template-->
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!--dataSource-->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+        <property name="url" value="jdbc:mysql://localhost:3306/spring?serverTimezone=UTC"></property>
+        <property name="username" value="root"></property>
+        <property name="password" value="727800"></property>
+    </bean>
+    
+    <!--transactionManager-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- the transactional advice (what 'happens'; see the <aop:advisor/> bean below) -->
+    <tx:advice id="txAdvice" transaction-manager="txManager">
+        <!-- the transactional semantics... -->
+        <tx:attributes>
+            <!-- all methods starting with 'get' are read-only -->
+            <tx:method name="find*" read-only="true"/>
+            <!-- other methods use the default transaction settings (see below) -->
+            <tx:method name="*"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- ensure that the above transactional advice runs for any execution
+        of an operation defined by the  interface -->
+    <aop:config>
+        <aop:pointcut id="pt1" expression="execution(* com.ceezyyy.service.impl.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="pt1"/>
+    </aop:config>
+
+</beans>
+```
+
+**多看官方文档！**
+
+**多看官方文档！**
+
+**多看官方文档！**
+
+
+
+<div align="center"> <img src="image-20200521001703786.png" width="100%"/> </div><br>
+
+**测试前**
+
+<div align="center"> <img src="image-20200521000247834.png" width="60%"/> </div><br>
+
+**TestAccountService.java**
+
+```java
+@Test
+public void testTransfer() {
+    boolean transfer = accountService.transferById(2, 3, 9888);
+    System.out.println(transfer);
+}
+```
+
+<div align="center"> <img src="image-20200521000712767.png" width="80%"/> </div><br>
+
+
+**测试后**
+
+<div align="center"> <img src="image-20200521000756179.png" width="60%"/> </div><br>
+
+:heavy_check_mark:Succeeded!
+
+### 13.3 基于注解声明式事务控制
+
+
+
+
+
+
 
 
 

@@ -54,8 +54,15 @@
     - [10.3.1 代理模式](#1031-----)
     - [10.3.2 静态代理](#1032-----)
     - [10.3.3 基于接口的动态代理](#1033----------)
-    - [10.3.4 基于子类的动态代理](#1034----------)
 * [11. AOP](#11-aop)
+  + [11.1 什么是 AOP？](#111-----aop-)
+  + [11.2 为什么要有 AOP 思想？](#112-------aop----)
+* [12. Spring 中的 AOP](#12-spring----aop)
+  + [12.1 AOP 相关术语](#121-aop-----)
+  + [12.2 Spring AOP Quickstart](#122-spring-aop-quickstart)
+  + [12.3 pointcut 表达式](#123-pointcut----)
+  + [12.4 四种通知类型](#124-------)
+  + [12.5 通用化切入点表达式](#125----------)
 * [12. Jdbc Template](#12-jdbc-template)
 
 
@@ -1654,6 +1661,264 @@ public class Client {
 `Visualization` 是总是容易帮人理解的！
 
 <div align="center"> <img src="image-20200520015501063.png" width="80%"/> </div><br>
+
+
+
+### 12.2 Spring 基于 XML 的 AOP
+
+**项目结构**
+
+<div align="center"> <img src="image-20200520114625705.png" width="50%"/> </div><br>
+
+**测试 findAllAccounts 方法**
+
+**AccountService.java**
+
+```java
+public interface AccountService {
+    boolean saveAccount();
+
+    void findAccountById(int id);
+
+    void findAllAccounts();
+
+}
+```
+
+**AccountServiceImpl.java**
+
+```java
+public class AccountServiceImpl implements AccountService {
+
+    public AccountServiceImpl() {
+    }
+
+    public boolean saveAccount() {
+        System.out.println("Account saved!");
+        return true;
+    }
+
+    public void findAccountById(int id) {
+        System.out.println("This is Account " + id);
+    }
+
+    public void findAllAccounts() {
+        System.out.println("This is all accounts!");
+
+    }
+}
+```
+
+**bean.xml**
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--accountService-->
+    <bean id="accountService" class="com.ceezyyy.service.impl.AccountServiceImpl"></bean>
+
+    <!--logger-->
+    <bean id="logger" class="com.ceezyyy.utils.Logger"></bean>
+
+    <aop:config>
+        <aop:aspect id="loggerAdvice" ref="logger">
+            <aop:before method="log"
+                        pointcut="execution(public boolean com.ceezyyy.service.impl.AccountServiceImpl.saveAccount())"></aop:before>
+        </aop:aspect>
+    </aop:config>
+
+</beans>
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200520114957815.png" width="80%"/> </div><br>
+
+
+
+**测试 findAllAccounts 方法**
+
+修改 `pointcut`：
+
+```xml
+<aop:config>
+        <aop:aspect id="loggerAdvice" ref="logger">
+            <aop:before method="log"
+                        pointcut="execution(public boolean com.ceezyyy.service.impl.AccountServiceImpl.saveAccount())"></aop:before>
+        </aop:aspect>
+</aop:config>
+```
+
+:heavy_check_mark:Succeeded!
+
+
+<div align="center"> <img src="image-20200520115356959.png" width="80%"/> </div><br>
+
+**测试 findAccoutById 方法**
+
+修改 `pointcut`：
+
+```xml
+<aop:config>
+        <aop:aspect id="loggerAdvice" ref="logger">
+            <aop:before method="log"
+                        pointcut="execution(public void com.ceezyyy.service.impl.AccountServiceImpl.findAccountById(..)) "></aop:before>
+        </aop:aspect>
+</aop:config>
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+
+<div align="center"> <img src="image-20200520120213490.png" width="80%"/> </div><br>
+
+### 12.3 pointcut 表达式
+
+**常用写法**
+
+<div align="center"> <img src="image-20200520160138590.png" width="100%"/> </div><br>
+
+- 函数返回值：通配符 `*`
+- 类名 / 方法名：通配符 `*` （例如 `service` 下所有类以及业务逻辑方法）
+- 函数参数：`(..)` 可有可无参数
+
+**bean.xml**
+
+```xml
+<aop:config>
+        <aop:aspect id="loggerAdvice" ref="logger">
+            <aop:before method="log"
+                        pointcut="execution(* com.ceezyyy.service.impl.*.*(..)) "></aop:before>
+        </aop:aspect>
+</aop:config>
+```
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200520160747989.png" width="70%"/> </div><br>
+
+
+
+### 12.4 四种通知类型
+
+**Logger.java**
+
+```java
+public class Logger {
+    public void before() {
+        System.out.println("Before logging...");
+    }
+
+    public void afterReturning() {
+        System.out.println("After returning logging...");
+    }
+
+    public void afterThrowing() {
+        System.out.println("After throwing logging...");
+    }
+
+    public void after() {
+        System.out.println("After logging...");
+    }
+}
+```
+
+**bean.xml**
+
+```xml
+<aop:config>
+        <aop:aspect id="loggerAdvice" ref="logger">
+            <aop:before method="before"
+                        pointcut="execution(* com.ceezyyy.service.impl.*.*(..))"></aop:before>
+
+            <aop:after-returning method="afterReturning"
+                                 pointcut="execution(* com.ceezyyy.service.impl.*.*(..))"></aop:after-returning>
+
+            <aop:after-throwing method="afterThrowing"
+                                pointcut="execution(* com.ceezyyy.service.impl.*.*(..))"></aop:after-throwing>
+
+            <aop:after method="after" pointcut="execution(* com.ceezyyy.service.impl.*.*(..))"></aop:after>
+        </aop:aspect>
+</aop:config>
+```
+
+
+
+**正常情况**
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200520163045639.png" width="70%"/> </div><br>
+
+
+
+**异常情况**
+
+在 `pointcut` 设置错误
+
+
+<div align="center"> <img src="image-20200520162702815.png" width="70%"/> </div><br>
+
+:heavy_check_mark:Succeeded!
+
+
+<div align="center"> <img src="image-20200520163208312.png" width="70%"/> </div><br>
+
+**:warning:注意**
+
+- `after-returning` 是 `pointcut` 正常执行后才执行的，相当于在 `try` 中 
+- `after-throwing` 是 `pointcut` 执行异常才执行的，相当于在 `catch` 中
+- `after` 是无论 `pointcut` 是否执行与否都执行，相当于 `finally` 中
+
+
+
+
+
+### 12.5 通用化切入点表达式
+
+**bean.xml**
+
+```xml
+<aop:config>
+        <aop:aspect id="loggerAdvice" ref="logger">
+            <aop:pointcut id="pt1" expression="execution(* com.ceezyyy.service.impl.*.*(..))"/>
+            <aop:before method="before"
+                        pointcut-ref="pt1"></aop:before>
+
+            <aop:after-returning method="afterReturning"
+                                 pointcut-ref="pt1"></aop:after-returning>
+
+            <aop:after-throwing method="afterThrowing"
+                                pointcut-ref="pt1"></aop:after-throwing>
+
+            <aop:after method="after" pointcut-ref="pt1"></aop:after>
+        </aop:aspect>
+</aop:config>
+```
+
+
+
+
+
+### 12.6 Spring 基于 annotation 的 AOP
+
+
+
+
+
+
+
 
 
 

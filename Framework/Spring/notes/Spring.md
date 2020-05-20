@@ -59,11 +59,17 @@
   + [11.2 为什么要有 AOP 思想？](#112-------aop----)
 * [12. Spring 中的 AOP](#12-spring----aop)
   + [12.1 AOP 相关术语](#121-aop-----)
-  + [12.2 Spring AOP Quickstart](#122-spring-aop-quickstart)
+  + [12.2 Spring 基于 XML 的 AOP](#122-spring----xml---aop)
   + [12.3 pointcut 表达式](#123-pointcut----)
   + [12.4 四种通知类型](#124-------)
   + [12.5 通用化切入点表达式](#125----------)
+  + [12.6 Spring 基于 annotation 的 AOP](#126-spring----annotation---aop)
 * [12. Jdbc Template](#12-jdbc-template)
+  + [12.1 Create Example](#121-create-example)
+  + [12.2 Read all Example](#122-read-all-example)
+  + [12.3 Read one Example](#123-read-one-example)
+  + [12.4 Update](#124-update)
+  + [12.5 Delete](#125-delete)
 
 
 
@@ -1934,4 +1940,91 @@ public class Logger {
 
 
 ## 12. Jdbc Template
+
+### 12.1 Create Example
+
+```java
+public void createAccount(Account account) {
+        try {
+            sql = "insert into account(name, money) values (?,?)";
+            jdbcTemplate.update(sql, account.getName(), account.getMoney());
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+
+
+### 12.2 Read all Example
+
+```java
+public List<Account> findAll() {
+        List<Account> accounts = null;
+        try {
+            sql = "select id, name, money from account";
+            accounts = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Account>(Account.class));
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return accounts;
+    }
+```
+
+
+
+### 12.3 Read one Example
+
+```java
+public Account findAccountById(int id) {
+        List<Account> accounts = null;
+        try {
+            sql = "select id, name, money from account where id = ?";
+            accounts = jdbcTemplate.query(sql, new BeanPropertyRowMapper<Account>(Account.class), id);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+        return accounts == null ? null : accounts.get(0);
+    }
+```
+
+
+
+### 12.4 Update
+
+```java
+public void updateAccount(Account account) {
+        try {
+            sql = "update account set name = ?, money = ? where id = ?";
+            jdbcTemplate.update(sql, account.getName(), account.getMoney(), account.getId());
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+
+
+### 12.5 Delete
+
+```java
+public void deleteAccountById(int id) {
+        try {
+            sql = "delete from account where id = ?";
+            jdbcTemplate.update(sql, id);
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }
+    }
+```
+
+
+
+
+
+
+
+
+
+
 

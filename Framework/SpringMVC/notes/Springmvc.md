@@ -27,20 +27,24 @@ A Spring MVC provides an elegant solution to use MVC in spring framework by the 
 
 
 ### 1.2 Understanding the flow of Spring Web MVC
+<div align="center"> <img src="1.png" width="70%"/> </div><br>
 
-
-
-
-
-
-
-
+- As displayed in the figure, all the incoming request is intercepted by the DispatcherServlet that works as the front controller.
+- The DispatcherServlet gets an entry of handler mapping from the XML file and forwards the request to the controller.
+- The controller returns an object of ModelAndView.
+- The DispatcherServlet checks the entry of view resolver in the XML file and invokes the specified view component.
 
 
 
 ### 1.3 Advantages of Spring MVC Framework
 
-
+- **Separate roles** - The Spring MVC separates each role, where the model object, controller, command object, view resolver, DispatcherServlet, validator, etc. can be fulfilled by a specialized object.
+- **Light-weight** - It uses light-weight servlet container to develop and deploy your application.
+- **Powerful Configuration** - It provides a robust configuration for both framework and application classes that includes easy referencing across contexts, such as from web controllers to business objects and validators.
+- **Rapid development** - The Spring MVC facilitates fast and parallel development.
+- **Reusable business code** - Instead of creating new objects, it allows us to use the existing business objects.
+- **Easy to test** - In Spring, generally we create JavaBeans classes that enable you to inject test data using the setter methods.
+- **Flexible Mapping** - It provides the specific annotations that easily redirect the page.
 
 
 

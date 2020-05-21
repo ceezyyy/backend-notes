@@ -14,6 +14,14 @@
     - [2.4.1 组件化开发思想](#241--------)
     - [2.4.2 为什么要有 web.xml?](#242-------webxml-)
     - [2.4.3 为什么要有 spring-servlet.xml?](#243-------spring-servletxml-)
+* [3. 请求参数的绑定](#3--------)
+  + [3.1 Quickstart](#31-quickstart)
+    - [3.1.1 基本类型](#311-----)
+    - [3.1.2 Java Bean 类型](#312-java-bean---)
+    - [3.1.3 Collection 类型](#313-collection---)
+    - [3.1.4 总结](#314---)
+
+
 
 
 
@@ -27,12 +35,12 @@ A Spring MVC provides an elegant solution to use MVC in spring framework by the 
 
 
 
-<div align="center"> <img src="spring-web-model-view-controller.png" width="70%"/> </div><br>
+<div align="center"> <img src="spring-web-model-view-controller.png" width="50%"/> </div><br>
 
 
 
 ### 1.2 Understanding the flow of Spring Web MVC
-<div align="center"> <img src="1.png" width="90%"/> </div><br>
+<div align="center"> <img src="1.png" width="80%"/> </div><br>
 
 - As displayed in the figure, all the incoming request is intercepted by the DispatcherServlet that works as the front controller.
 - The DispatcherServlet gets an entry of handler mapping from the XML file and forwards the request to the controller.
@@ -57,18 +65,18 @@ A Spring MVC provides an elegant solution to use MVC in spring framework by the 
 
 ### 2.1 项目需求
 
-<div align="center"> <img src="image-20200521203418242.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200521203418242.png" width="50%"/> </div><br>
 
-<div align="center"> <img src="image-20200521203512528.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200521203512528.png" width="50%"/> </div><br>
 
 
 ### 2.2 项目结构
 
-<div align="center"> <img src="image-20200521201609117.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20200521201609117.png" width="35%"/> </div><br>
 
 ### 2.3 步骤
 
-<div align="center"> <img src="1.png" width="90%"/> </div><br>
+<div align="center"> <img src="1.png" width="80%"/> </div><br>
 
 - `pom.xml`：搭建环境（这里使用 `tomcat 7` 的 plugin 直接部署）
 - `web.xml`：配置 `DispatcherServlet`
@@ -294,8 +302,7 @@ public class HelloController {
 
   定义在 `web.xml` 中，角色相当于篮球场上的组织控卫，负责总体调度
   
-  <div align="center"> <img src="lbj.jpg" width="70%"/> </div><br>
-  
+  <div align="center"> <img src="lbj.jpg" width="50%"/> </div><br>
 
 
 - `HandlerMapping` 
@@ -304,7 +311,7 @@ public class HelloController {
 
   <div align="center"> <img src="image-20200521210008872.png" width="50%"/> </div><br>
   
-  <div align="center"> <img src="image-20200521210151962.png" width="90%"/> </div><br>
+  <div align="center"> <img src="image-20200521210151962.png" width="80%"/> </div><br>
 
 
 - `Controller`
@@ -323,11 +330,130 @@ public class HelloController {
 
 #### 2.4.2 为什么要有 web.xml?
 
-<div align="center"> <img src="image-20200521205756799.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200521205756799.png" width="80%"/> </div><br>
+
+**需要加载 spring-servlet 配置文件！！！**
+
+
+<div align="center"> <img src="image-20200521212829302.png" width="80%"/> </div><br>
+
 
 #### 2.4.3 为什么要有 spring-servlet.xml?
 
-<div align="center"> <img src="image-20200521205853074.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200521205853074.png" width="80%"/> </div><br>
 
-### 3. 请求参数的绑定
+## 3. 请求参数的绑定
 
+### 3.1 Quickstart
+
+#### 3.1.1 基本类型
+
+<div align="center"> <img src="image-20200521232020693.png" width="30%"/> </div><br>
+
+**index.jsp**
+
+```jsp
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Quickstart</title>
+</head>
+<body>
+<h1>Quickstart</h1>
+<form action="hello" method="post">
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br>
+    <label for="password">Password:</label><br>
+    <input type="password" id="password" name="password"><br>
+    <label for="age">Age:</label><br>
+    <input type="text" id="age" name="age"><br>
+    <input type="submit" value="submit"><br>
+</form>
+
+</body>
+</html>
+```
+
+
+
+**HelloController.java**
+
+```java
+@Controller("HelloController")
+public class HelloController {
+
+    @RequestMapping(value = "/hello", method = RequestMethod.POST)
+    public void hello(String username, String password, Integer age) {
+        System.out.println(username);
+        System.out.println(password);
+        System.out.println(age);
+    }
+}
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200521232219793.png" width="50%"/> </div><br>
+
+#### 3.1.2 Java Bean 类型
+
+
+<div align="center"> <img src="image-20200521232803254.png" width="30%"/> </div><br>
+
+**index.jsp**
+
+```jsp
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+<head>
+    <title>Quickstart</title>
+</head>
+<body>
+<h1>Quickstart</h1>
+<form action="hello" method="post">
+    <label for="accountId">AccountId:</label><br>
+    <input type="text" id="accountId" name="id"><br>
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br>
+    <label for="money">Money:</label><br>
+    <input type="text" id="money" name="money"><br>
+    <input type="submit" value="submit"><br>
+</form>
+
+</body>
+</html>
+```
+
+
+
+**HelloController.java**
+
+```java
+@Controller("HelloController")
+public class HelloController {
+
+    @RequestMapping(value = "/hello", method = RequestMethod.POST)
+    public void hello(Account account) {
+        System.out.println(account.getId());
+        System.out.println(account.getUsername());
+        System.out.println(account.getMoney());
+    }
+}
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200521233109870.png" width="30%"/> </div><br>
+
+#### 3.1.3 Collection 类型
+
+
+
+#### 3.1.4 总结
+
+- 参数类型是以 `key-value` 形式，从浏览器发来的请求参数都是 `string` 类型
+- 

@@ -24,7 +24,8 @@
     - [3.3.1 List](#331-list)
     - [3.3.2 Map](#332-map)
   + [3.4 总结](#34---)
-* [4. 常用注解](#4-----)
+* [4. Restful 编程风格](#4-restful-----)
+* [5. 常用注解](#5-----)
 
 
 
@@ -784,9 +785,48 @@ public class HelloController {
 
   
 
-## 4. 常用注解
+## 4. Restful 编程风格
 
 
+
+
+
+
+
+## 5. 常用注解
+
+`@RequestParam`
+
+<div align="center"> <img src="image-20200522164043237.png" width="40%"/> </div><br>
+
+**index.jsp**
+
+```html
+  <a href="test?username=root&password=123">Click me!</a>
+```
+
+**:warning:注意**
+
+此方式为 `GET` request
+
+  **RequestParam 源码**
+
+  <div align="center"> <img src="image-20200522164259240.png" width="80%"/> </div><br>
+
+
+  **HelloController.java**
+
+  ```java
+  	@RequestMapping(value = "test", method = RequestMethod.GET)
+      public void test(@RequestParam(name = "username") String name, String password) {
+          System.out.println(name);
+          System.out.println(password);
+      }
+  ```
+
+  
+
+  `@Req`
 
 
 

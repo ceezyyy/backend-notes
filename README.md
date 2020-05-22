@@ -102,7 +102,21 @@
 
 - [Redis](https://github.com/ceezyyy/awesome-backend-developer/blob/master/CacheMiddleware/Redis/Notes/Redis.md)
 
-  
+
+
+## :bullettrain_side: Big Data
+
+- Introduction
+- Hadoop
+- HDFS
+- MapReduce
+- Spark
+
+
+
+
+
+
 
 ## :book: Reading
 

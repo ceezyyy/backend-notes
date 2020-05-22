@@ -42,8 +42,6 @@
 
 ## :hammer:Tools
 
-- Git
-- IDEA
 - Maven
 
 
@@ -60,7 +58,6 @@
 
 ## :desktop_computer: Frontend
 
-- HTML, CSS
 - JavaScript
 - jQuery
 - Ajax
@@ -68,10 +65,11 @@
 
   
 
-## :floppy_disk: DB
+## :floppy_disk: Database
 
-- JDBC
 - MySQL
+- [Redis](https://github.com/ceezyyy/awesome-backend-developer/blob/master/CacheMiddleware/Redis/Notes/Redis.md)
+
 
 
 
@@ -91,17 +89,6 @@
 - Spring Boot
 
  
-
-## :traffic_light: Message Queue
-
-- RabbitMQ
-
-
-
-## :cake: Cache Middleware
-
-- [Redis](https://github.com/ceezyyy/awesome-backend-developer/blob/master/CacheMiddleware/Redis/Notes/Redis.md)
-
 
 
 ## :bullettrain_side: Big Data

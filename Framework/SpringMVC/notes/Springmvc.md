@@ -15,13 +15,16 @@
     - [2.4.2 为什么要有 web.xml?](#242-------webxml-)
     - [2.4.3 为什么要有 spring-servlet.xml?](#243-------spring-servletxml-)
 * [3. 请求参数的绑定](#3--------)
-  + [3.1 Quickstart](#31-quickstart)
-    - [3.1.1 基本类型](#311-----)
-    - [3.1.2 Java Bean 类型](#312-java-bean---)
-    - [3.1.3 Collection 类型](#313-collection---)
-    - [3.1.4 总结](#314---)
-
-
+  + [3.1. Primitive / Wrapper Example](#31-primitive---wrapper-example)
+  + [3.2 Java Bean Example](#32-java-bean-example)
+    - [3.2.1 Example 1](#321-example-1)
+    - [3.2.2 Example 2](#322-example-2)
+    - [3.2.3 解决中文乱码问题](#323---------)
+  + [3.3 Collection Example](#33-collection-example)
+    - [3.3.1 List](#331-list)
+    - [3.3.2 Map](#332-map)
+  + [3.4 总结](#34---)
+* [4. 常用注解](#4-----)
 
 
 
@@ -344,22 +347,13 @@ public class HelloController {
 
 ## 3. 请求参数的绑定
 
-### 3.1 Quickstart
-
-#### 3.1.1 基本类型
+### 3.1. Primitive / Wrapper Example
 
 <div align="center"> <img src="image-20200521232020693.png" width="30%"/> </div><br>
 
 **index.jsp**
 
-```jsp
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Quickstart</title>
-</head>
-<body>
-<h1>Quickstart</h1>
+```html
 <form action="hello" method="post">
     <label for="username">Username:</label><br>
     <input type="text" id="username" name="username"><br>
@@ -369,9 +363,6 @@ public class HelloController {
     <input type="text" id="age" name="age"><br>
     <input type="submit" value="submit"><br>
 </form>
-
-</body>
-</html>
 ```
 
 
@@ -397,21 +388,16 @@ public class HelloController {
 
 <div align="center"> <img src="image-20200521232219793.png" width="50%"/> </div><br>
 
-#### 3.1.2 Java Bean 类型
+### 3.2 Java Bean Example
+
+#### 3.2.1 Example 1
 
 
 <div align="center"> <img src="image-20200521232803254.png" width="30%"/> </div><br>
 
 **index.jsp**
 
-```jsp
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Quickstart</title>
-</head>
-<body>
-<h1>Quickstart</h1>
+```html
 <form action="hello" method="post">
     <label for="accountId">AccountId:</label><br>
     <input type="text" id="accountId" name="id"><br>
@@ -421,9 +407,21 @@ public class HelloController {
     <input type="text" id="money" name="money"><br>
     <input type="submit" value="submit"><br>
 </form>
+```
 
-</body>
-</html>
+
+
+**Account.java**
+
+```java
+public class Account {
+    private Integer id;
+    private String username;
+    private Double money;
+    
+    // getter and setter
+    // toString
+}
 ```
 
 
@@ -449,11 +447,374 @@ public class HelloController {
 
 <div align="center"> <img src="image-20200521233109870.png" width="30%"/> </div><br>
 
-#### 3.1.3 Collection 类型
+#### 3.2.2 Example 2
+
+<div align="center"> <img src="image-20200522110836282.png" width="30%"/> </div><br>
+**index.jsp**
+
+```html
+<form action="hello" method="post">
+    <label for="accountId">AccountId:</label><br>
+    <input type="text" id="accountId" name="id"><br>
+
+    <label for="username">Username:</label><br>
+    <input type="text" id="username" name="username"><br>
+
+    <label for="money">Money:</label><br>
+    <input type="text" id="money" name="money"><br>
+
+    <label for="companyName">Company Name:</label><br>
+    <input type="text" id="companyName" name="Company.companyName"><br>
+
+    <label for="location">Location:</label><br>
+    <input type="text" id="location" name="Company.location"><br>
+
+    <label for="type">Type:</label><br>
+    <input type="text" id="type" name="Company.type"><br>
+
+    <input type="submit" value="submit"><br>
+</form>
+```
+
+**Account.java**
+
+```java
+public class Account {
+    private Integer id;
+    private String username;
+    private Double money;
+
+    private Company company;
+    
+    // getter and setter
+    // override toString()
+}
+```
 
 
 
-#### 3.1.4 总结
+**Company.java**
 
-- 参数类型是以 `key-value` 形式，从浏览器发来的请求参数都是 `string` 类型
-- 
+```java
+public class Company {
+    private String companyName;
+    private String location;
+    private String type;
+    
+    // getter and setter
+    // override toString()
+}
+```
+
+
+
+**HelloController.java**
+
+```java
+@Controller("HelloController")
+public class HelloController {
+
+    @RequestMapping(value = "/hello", method = RequestMethod.POST)
+    public void hello(Account account) {
+        System.out.println(account.toString());
+    }
+}
+```
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200522111125413.png" width="90%"/> </div><br>
+
+#### 3.2.3 解决中文乱码问题
+
+在国内不可回避的一个问题
+
+<div align="center"> <img src="image-20200522111347585.png" width="30%"/> </div><br>
+
+<div align="center"> <img src="image-20200522111423019.png" width="90%"/> </div><br>
+
+**设置 filter**
+
+**web.xml**
+
+```xml
+ <filter>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+
+        <!-- 配置encoding，告诉我们指定的编码格式 -->
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+        <init-param>
+            <!--是否强制设置request的编码为encoding，默认false，不建议更改-->
+            <param-name>forceRequestEncoding</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <init-param>
+            <!--是否强制设置response的编码为encoding，建议设置为true，下面有关于这个参数的解释-->
+            <param-name>forceResponseEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>CharacterEncodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+```
+
+
+
+**解决控制台输出中文乱码**
+
+```bash
+-Dfile.encoding=GB2312
+```
+
+<div align="center"> <img src="image-20200522141528268.png" width="80%"/> </div><br>
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200522120422294.png" width="90%"/> </div><br>
+
+
+
+### 3.3 Collection Example
+
+#### 3.3.1 List
+
+
+<div align="center"> <img src="image-20200522144622843.png" width="30%"/> </div><br>
+
+
+
+`Company` Java Bean 中含有一个 `accounts` 变量
+
+类型为 `List` ，其数据类型为 `Account` Java Bean
+
+**Company.java**
+
+```java
+public class Company {
+    private String companyName;
+    private String location;
+    private String type;
+    private List<Account> accounts;
+    
+    // getter and setter
+    // override toString()
+    
+}    
+```
+
+**Account.java**
+
+```java
+public class Account {
+    private Integer id;
+    private String username;
+    private Double money;
+    
+    // getter and setter
+    // override toString()
+}
+```
+
+
+
+**HelloController.java**
+
+```java
+@Controller("HelloController")
+public class HelloController {
+
+    @RequestMapping(value = "/hello", method = RequestMethod.POST)
+    public void hello(Company company) {
+        System.out.println(company);
+    }
+}
+```
+
+
+
+**index.jsp**
+
+```html
+<form action="hello" method="post">
+    <label for="companyName">Company name:</label><br>
+    <input type="text" id="companyName" name="companyName"><br>
+
+    <label for="location">Location:</label><br>
+    <input type="text" id="location" name="location"><br>
+
+    <label for="type">Type:</label><br>
+    <input type="text" id="type" name="type"><br>
+
+    <label for="id">AccountId1:</label><br>
+    <input type="text" id="id" name="accounts[0].id"><br>
+
+    <label for="username">AccountUsername1:</label><br>
+    <input type="text" id="username" name="accounts[0].username"><br>
+
+    <label for="money">AccountMoney1:</label><br>
+    <input type="text" id="money" name="accounts[0].money"><br>
+
+    <label for="id2">AccountId2:</label><br>
+    <input type="text" id="id2" name="accounts[1].id"><br>
+
+    <label for="username2">AccountUsername2:</label><br>
+    <input type="text" id="username2" name="accounts[1].username"><br>
+
+    <label for="money2">AccountMoney2:</label><br>
+    <input type="text" id="money2" name="accounts[1].money"><br>
+
+    <input type="submit" value="submit"><br>
+</form>
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200522145338371.png" width="90%"/> </div><br>
+
+
+
+#### 3.3.2 Map
+
+
+<div align="center"> <img src="image-20200522150034420.png" width="30%"/> </div><br>
+
+`Company` Java Bean 中含有一个 `accountMap` 变量
+
+类型为 `Map`，其 `kv` 类型为 `<String, Account>` 
+
+**Company.java**
+
+```java
+public class Company {
+    private String companyName;
+    private String location;
+    private String type;
+    private Map<String, Account> accountMap;
+    
+    // getter and setter
+    // override toString()
+    
+}
+```
+
+**Account.java**
+
+```java
+public class Account {
+    private Integer id;
+    private String username;
+    private Double money;
+    
+    // getter and setter
+    // override toString()
+    
+}
+```
+
+**HelloController.java**
+
+```java
+@Controller("HelloController")
+public class HelloController {
+
+    @RequestMapping(value = "/hello", method = RequestMethod.POST)
+    public void hello(Company company) {
+        System.out.println(company);
+    }
+}
+```
+
+**index.jsp**
+
+```html
+<form action="hello" method="post">
+    <label for="companyName">Company name:</label><br>
+    <input type="text" id="companyName" name="companyName"><br>
+
+    <label for="location">Location:</label><br>
+    <input type="text" id="location" name="location"><br>
+
+    <label for="type">Type:</label><br>
+    <input type="text" id="type" name="type"><br>
+
+    <label for="id">AccountId1:</label><br>
+    <input type="text" id="id" name="accountMap['one'].id"><br>
+
+    <label for="username">AccountUsername1:</label><br>
+    <input type="text" id="username" name="accountMap['one'].username"><br>
+
+    <label for="money">AccountMoney1:</label><br>
+    <input type="text" id="money" name="accountMap['one'].money"><br>
+
+    <label for="id2">AccountId2:</label><br>
+    <input type="text" id="id2" name="accountMap['two'].id"><br>
+
+    <label for="username2">AccountUsername2:</label><br>
+    <input type="text" id="username2" name="accountMap['two'].username"><br>
+
+    <label for="money2">AccountMoney2:</label><br>
+    <input type="text" id="money2" name="accountMap['two'].money"><br>
+
+    <input type="submit" value="submit"><br>
+</form>
+```
+
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200522150004953.png" width="80%"/> </div><br>
+
+### 3.4 总结
+
+- 参数类型是以 `key-value` 形式，（浏览器发来的请求参数都是 `string` 类型）
+
+- 流程示意图
+
+   <div align="center"> <img src="image-20200522152239260.png" width="85%"/> </div><br>
+
+  
+
+## 4. 常用注解
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

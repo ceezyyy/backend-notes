@@ -795,7 +795,7 @@ public class HelloController {
 
 ## 5. 常用注解
 
-`@RequestParam`
+**@RequestParam**
 
 <div align="center"> <img src="image-20200522164043237.png" width="40%"/> </div><br>
 
@@ -826,12 +826,64 @@ public class HelloController {
 
   
 
-  `@Req`
+**@RequestBody**
+
+**HelloController.java**
+
+```java
+@RequestMapping(value = "/test", method = {RequestMethod.POST, RequestMethod.GET})
+    public void test(@RequestBody String json) {
+        System.out.println(json);
+    }
+```
+
+ <div align="center"> <img src="image-20200523205452547.png" width="90%"/> </div><br>
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200523205640863.png" width="60%"/> </div><br>
 
 
 
+**HelloController.java**
+
+```java
+	@RequestMapping(value = "/test", method = {RequestMethod.POST, RequestMethod.GET})
+    public void test(@RequestBody User user) {
+        System.out.println(user);
+    }
+```
 
 
+
+**User.java**
+
+```java
+public class User implements Serializable {
+    private String name;
+    private Integer age;
+    private String city;
+    
+    // constructors
+    // getter and setter
+    
+}
+```
+
+<div align="center"> <img src="image-20200523214545311.png" width="90%"/> </div><br>
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200523214627993.png" width="50%"/> </div><br>
+
+
+**:warning:填坑指南**
+
+1. 从 `postman` 发送请求时带的请求体若为 `json` 格式，一定要正确！（中文符号，漏标点，多了双引号都是不允许的）
+
+2. 将 `json` 格式的数据封装成 `Java Bean` 需要导入 `jackson` 相关坐标
+
+   <div align="center"> <img src="image-20200523214245534.png" width="80%"/> </div><br>
 
 
 

@@ -93,10 +93,9 @@
 
 ## :bullettrain_side: Big Data
 
-- Introduction
-- Hadoop
-- HDFS
-- MapReduce
+- [Hadoop]()
+- [HDFS]()
+- [MapReduce]()
 - Spark
 
 

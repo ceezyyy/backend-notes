@@ -93,8 +93,8 @@
 
 ## :bullettrain_side: Big Data
 
-- [Hadoop]()
-- [HDFS]()
+- [Hadoop](https://github.com/ceezyyy/backend-notes/blob/master/BigData/Hadoop/notes/Hadoop.md)
+- [HDFS](https://github.com/ceezyyy/backend-notes/blob/master/BigData/HDFS/notes/HDFS.md)
 - [MapReduce]()
 - Spark
 

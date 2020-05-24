@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="7fb3869a-b30c-4026-aab9-01528dd08a88" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Jsp File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="D:/installer/tools/Maven/apache-maven-3.5.2" />
+        <option name="userSettingsFile" value="D:\installer\tools\Maven\apache-maven-3.5.2\conf\settings.xml" />
+      </MavenGeneralSettings>
+    </option>
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="MavenRunner">
+    <option name="vmOptions" value="-Dfile.encoding=GB2312" />
+  </component>
+  <component name="ProjectId" id="1cCnEanLOvxhyZCTf3szAAUQFbw" />
+  <component name="ProjectViewState">
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="settings.editor.selected.configurable" value="reference.settings.project.maven.runner" />
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn tomcat7:run," />
+      <command value="mvn clean install" />
+      <command value="mvn tomcat7:run" />
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7fb3869a-b30c-4026-aab9-01528dd08a88" name="Default Changelist" comment="" />
+      <created>1590041332185</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1590041332185</updated>
+      <workItem from="1590041336025" duration="1624000" />
+      <workItem from="1590046964732" duration="8677000" />
+      <workItem from="1590072994616" duration="2357000" />
+      <workItem from="1590115683242" duration="3119000" />
+      <workItem from="1590119165520" duration="1191000" />
+      <workItem from="1590123663471" duration="601000" />
+      <workItem from="1590127877905" duration="5763000" />
+      <workItem from="1590231859933" duration="1144000" />
+      <workItem from="1590236767262" duration="4896000" />
+      <workItem from="1590242639985" duration="129000" />
+      <workItem from="1590290716142" duration="168000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser" timestamp="1590240854532">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser/0.0.1280.720@0.0.1280.720" timestamp="1590240854532" />
+    <state width="1238" height="389" key="GridCell.Tab.0.bottom" timestamp="1590241667017">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1238" height="389" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1590241667017" />
+    <state width="1238" height="389" key="GridCell.Tab.0.center" timestamp="1590241667017">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1238" height="389" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1590241667017" />
+    <state width="1238" height="389" key="GridCell.Tab.0.left" timestamp="1590241667017">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1238" height="389" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1590241667017" />
+    <state width="1238" height="389" key="GridCell.Tab.0.right" timestamp="1590241667017">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state width="1238" height="389" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1590241667017" />
+    <state x="171" y="16" key="Maven.ArtifactSearchDialog" timestamp="1590047646297">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="171" y="16" key="Maven.ArtifactSearchDialog/0.0.1280.720@0.0.1280.720" timestamp="1590047646297" />
+    <state x="133" y="0" width="1041" height="713" key="SettingsEditor" timestamp="1590128351879">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="133" y="0" width="1041" height="713" key="SettingsEditor/0.0.1280.720@0.0.1280.720" timestamp="1590128351879" />
+    <state x="286" y="185" key="com.intellij.ide.util.TipDialog" timestamp="1590290783690">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="286" y="185" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1590290783690" />
+    <state x="0" y="56" key="new project wizard" timestamp="1590290881075">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="0" y="56" key="new project wizard/0.0.1280.720@0.0.1280.720" timestamp="1590290881075" />
+    <state x="297" y="161" width="672" height="677" key="run.anything.popup" timestamp="1590240969266">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="297" y="161" width="672" height="677" key="run.anything.popup/0.0.1280.720@0.0.1280.720" timestamp="1590240969266" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1590240417557">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1590240417557" />
+  </component>
+</project>

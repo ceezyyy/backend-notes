@@ -817,11 +817,11 @@ public class HelloController {
   **HelloController.java**
 
   ```java
-  	@RequestMapping(value = "test", method = RequestMethod.GET)
-      public void test(@RequestParam(name = "username") String name, String password) {
-          System.out.println(name);
-          System.out.println(password);
-      }
+    @RequestMapping(value = "test", method = RequestMethod.GET)
+    public void test(@RequestParam(name = "username") String name, String password) {
+        System.out.println(name);
+        System.out.println(password);
+    }
   ```
 
   
@@ -831,7 +831,7 @@ public class HelloController {
 **HelloController.java**
 
 ```java
-@RequestMapping(value = "/test", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/test", method = {RequestMethod.POST, RequestMethod.GET})
     public void test(@RequestBody String json) {
         System.out.println(json);
     }
@@ -848,7 +848,7 @@ public class HelloController {
 **HelloController.java**
 
 ```java
-	@RequestMapping(value = "/test", method = {RequestMethod.POST, RequestMethod.GET})
+    @RequestMapping(value = "/test", method = {RequestMethod.POST, RequestMethod.GET})
     public void test(@RequestBody User user) {
         System.out.println(user);
     }
@@ -866,6 +866,7 @@ public class User implements Serializable {
     
     // constructors
     // getter and setter
+    // override toString()
     
 }
 ```

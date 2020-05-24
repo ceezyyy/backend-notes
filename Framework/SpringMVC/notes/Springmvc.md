@@ -787,8 +787,150 @@ public class HelloController {
 
 ## 4. Restful 编程风格
 
+### 4.1 什么是 Restful API？
+
+​	`RESTFUL` 是一种网络应用程序的设计风格和开发方式，基于 `HTTP`，可以使用 `XML` 格式定义或 `JSON` 格式定义。`RESTFUL` 适用于移动互联网厂商作为业务使能接口的场景，实现第三方 `OTT` 调用移动网络资源的功能，动作类型为新增、变更、删除所调用资源。
 
 
+
+### 4.2 Quickstart
+
+假如你在一家精品咖啡店
+<div align="center"> <img src="cafe.jpg" width="50%"/> </div><br>
+
+此时你需要点餐，你向前台发送：
+
+```json
+{
+    "addOrder": {
+        "orderName": "latte"
+    }
+}
+```
+
+前台收到了，并给你响应：
+
+```json
+{
+    "orderId": "123456"
+}
+```
+
+加入我们办了一张会员卡，需要查看卡内余额，我们会发送请求;
+
+```json
+{
+    "queryBalance": {
+        "cardId": "447031335"
+    }
+}
+```
+
+之后我们收到响应，即卡内的查询结果
+
+```json
+{
+    "balance": "100"
+}
+```
+
+当我们想取消订单，我们发送请求：
+
+```json
+{
+    "deleteOrder": {
+        "orderId": "123456"
+    }
+}
+```
+
+
+
+但随着生意的做大，服务前台面对杂乱无章的请求忙不过来，需要分门别类
+
+如果你需要订单相关的操作，如创建订单，查询订单，更新订单，取消订单（`CRUD`）
+
+```json
+/orders
+{
+    "addOrder": {
+        "orderName": "latte"
+    }
+}
+```
+
+
+
+我们需要在开头发送 `/oders`
+
+让对方知道我们这个请求是发给 `orders` 相关资源的
+
+同理，
+
+我们要查询卡内余额
+
+```json
+/cards
+{
+    "queryBalance": {
+        "cardId": "447031335"
+    }
+}
+```
+
+或是取消订单：
+
+```json
+/orders
+{
+    "deleteOrder": {
+        "orderId": "123456"
+    }
+}
+```
+
+
+
+咖啡店主还想继续优化流程，
+
+新增订单：
+
+```json
+POST /orders
+{
+    "orderName": "latte"
+}
+```
+
+或者查询余额：
+
+```json
+GET /cards
+{
+    "cardId": "447031335"
+}
+```
+
+更简洁写成一行：
+
+```http
+GET /cards /447031335
+```
+
+删除订单：
+
+```http
+DELETE /orders /123456
+```
+
+`http` 请求方法刚好对应上了我们的 `CRUD` 操作
+
+| HTTP   | CRUD   |
+| :----- | ------ |
+| post   | create |
+| get    | read   |
+| put    | update |
+| delete | delete |
 
 
 
@@ -797,7 +939,13 @@ public class HelloController {
 
 **@RequestParam**
 
+**作用**
+
+获取请求参数
+
 <div align="center"> <img src="image-20200522164043237.png" width="40%"/> </div><br>
+
+
 
 **index.jsp**
 
@@ -805,11 +953,13 @@ public class HelloController {
   <a href="test?username=root&password=123">Click me!</a>
 ```
 
+
+
 **:warning:注意**
 
 此方式为 `GET` request
 
-  **RequestParam 源码**
+**RequestParam 源码**
 
   <div align="center"> <img src="image-20200522164259240.png" width="80%"/> </div><br>
 
@@ -827,6 +977,10 @@ public class HelloController {
   
 
 **@RequestBody**
+
+**作用**
+
+获得 `request body`
 
 **HelloController.java**
 
@@ -877,24 +1031,42 @@ public class User implements Serializable {
 
 <div align="center"> <img src="image-20200523214627993.png" width="50%"/> </div><br>
 
-
 **:warning:填坑指南**
 
-1. 从 `postman` 发送请求时带的请求体若为 `json` 格式，一定要正确！（中文符号，漏标点，多了双引号都是不允许的）
+1. `post` 请求才有 `requestbody` （`get` 请求没有）
+2. 从 `postman` 发送请求时带的请求体若为 `json` 格式，一定要正确！（中文符号，漏标点，多了双引号都是不允许的）
+3. 将 `json` 格式的数据封装成 `Java Bean` 需要导入 `jackson` 相关坐标
 
-2. 将 `json` 格式的数据封装成 `Java Bean` 需要导入 `jackson` 相关坐标
-
-   <div align="center"> <img src="image-20200523214245534.png" width="80%"/> </div><br>
-
-
+<div align="center"> <img src="image-20200523214245534.png" width="70%"/> </div><br>
 
 
 
+**@PathVariable**
+
+**作用**
+
+获取资源占位符的值
+
+**HelloController.java**
+
+```java
+    @RequestMapping(value = "/test/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    public void testVariable(@PathVariable(name = "id") String id) {
+        System.out.println(id);
+    }
+```
 
 
 
+**@PathVariable 源码**
 
+  <div align="center"> <img src="image-20200524164106399.png" width="50%"/> </div><br>
 
+  <div align="center"> <img src="image-20200524164223505.png" width="100%"/> </div><br>
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200524164324287.png" width="40%"/> </div><br>
 
 
 

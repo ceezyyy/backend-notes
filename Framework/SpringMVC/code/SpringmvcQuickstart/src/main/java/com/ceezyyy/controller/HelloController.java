@@ -17,10 +17,16 @@ public class HelloController {
         System.out.println(company);
     }
 
-    @RequestMapping(value = "test", method = RequestMethod.GET)
-    public void test(@RequestParam(name = "username") String name, String password) {
-        System.out.println(name);
-        System.out.println(password);
+    @RequestMapping(value = "test", method = RequestMethod.POST)
+    public void test(@RequestBody User user) {
+        System.out.println(user.getName());
+        System.out.println(user.getAge());
+        System.out.println(user.getCity());
+    }
+
+    @RequestMapping(value = "/test/{id}", method = {RequestMethod.GET, RequestMethod.POST})
+    public void testVariable(@PathVariable(name = "id") String id) {
+        System.out.println(id);
     }
 
 }

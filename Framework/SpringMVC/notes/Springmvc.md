@@ -1070,14 +1070,47 @@ public class User implements Serializable {
 
 
 
+## 6. 响应
 
+### 6.1 String
 
+其中一级目录是 `/user`
 
+**HelloController.java**
 
+```java
+    @RequestMapping("/testString")
+    public String testString(Model model) {
+        System.out.println("test string");
+        // simulate a model
+        User user = new User("LBJ", 35, "Cleveland");
+        model.addAttribute("user", user);
+        return "Succeeded";
+    }
+```
 
+**Succeeded.jsp**
 
+```jsp
+<%@ page contentType="text/html;charset=UTF-8" language="java" isELIgnored="false" %>
+<html>
+<head>
+    <title>Succeeded</title>
+</head>
+<body>
+<h1>Congratulations! Succeeded!</h1>
+${user}
+</body>
+</html>
+```
 
+其中要写 `isELIgnored="false"`，开启支持 `EL` 表达式
 
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200526181039623.png" width="90%"/> </div><br>
+
+### 6.2 ModelAndView
 
 
 

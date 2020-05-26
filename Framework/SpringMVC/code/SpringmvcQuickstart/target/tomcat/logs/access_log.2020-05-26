@@ -1,0 +1,17 @@
+0:0:0:0:0:0:0:1 - - [26/May/2020:17:56:21 +0800] "GET /SpringmvcQuickstart/user/testString HTTP/1.1" 404 1045 http-bio-9090-exec-1 137
+0:0:0:0:0:0:0:1 - - [26/May/2020:17:56:44 +0800] "GET /SpringmvcQuickstart HTTP/1.1" 302 - http-bio-9090-exec-3 0
+0:0:0:0:0:0:0:1 - - [26/May/2020:17:56:44 +0800] "GET /SpringmvcQuickstart HTTP/1.1" 302 - http-bio-9090-exec-5 0
+0:0:0:0:0:0:0:1 - - [26/May/2020:17:56:44 +0800] "GET /SpringmvcQuickstart/ HTTP/1.1" 200 228 http-bio-9090-exec-6 45
+0:0:0:0:0:0:0:1 - - [26/May/2020:17:56:44 +0800] "GET /SpringmvcQuickstart/ HTTP/1.1" 200 228 http-bio-9090-exec-7 1
+0:0:0:0:0:0:0:1 - - [26/May/2020:17:56:44 +0800] "GET /favicon.ico HTTP/1.1" 404 - http-bio-9090-exec-8 0
+0:0:0:0:0:0:0:1 - - [26/May/2020:17:56:51 +0800] "GET /SpringmvcQuickstart/user/testString HTTP/1.1" 404 1045 http-bio-9090-exec-9 3
+0:0:0:0:0:0:0:1 - - [26/May/2020:17:57:22 +0800] "GET /SpringmvcQuickstart/user/testString HTTP/1.1" 200 123 http-bio-9090-exec-3 213
+0:0:0:0:0:0:0:1 - - [26/May/2020:17:59:37 +0800] "GET /SpringmvcQuickstart/user/testString HTTP/1.1" 200 130 http-bio-9090-exec-1 533
+0:0:0:0:0:0:0:1 - - [26/May/2020:18:04:42 +0800] "GET /SpringmvcQuickstart/user/testString HTTP/1.1" 200 164 http-bio-9090-exec-1 521
+0:0:0:0:0:0:0:1 - - [26/May/2020:18:04:47 +0800] "GET /SpringmvcQuickstart HTTP/1.1" 302 - http-bio-9090-exec-3 0
+0:0:0:0:0:0:0:1 - - [26/May/2020:18:04:47 +0800] "GET /SpringmvcQuickstart HTTP/1.1" 302 - http-bio-9090-exec-5 0
+0:0:0:0:0:0:0:1 - - [26/May/2020:18:04:47 +0800] "GET /SpringmvcQuickstart/ HTTP/1.1" 200 228 http-bio-9090-exec-6 13
+0:0:0:0:0:0:0:1 - - [26/May/2020:18:04:47 +0800] "GET /SpringmvcQuickstart/ HTTP/1.1" 200 228 http-bio-9090-exec-7 1
+0:0:0:0:0:0:0:1 - - [26/May/2020:18:04:55 +0800] "GET /SpringmvcQuickstart/user/testString HTTP/1.1" 200 164 http-bio-9090-exec-8 3
+0:0:0:0:0:0:0:1 - - [26/May/2020:18:05:27 +0800] "GET /SpringmvcQuickstart/user/testString HTTP/1.1" 500 3957 http-bio-9090-exec-9 23
+0:0:0:0:0:0:0:1 - - [26/May/2020:18:06:47 +0800] "GET /SpringmvcQuickstart/user/testString HTTP/1.1" 200 143 http-bio-9090-exec-1 563

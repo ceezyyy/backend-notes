@@ -5,6 +5,6 @@
 </head>
 <body>
 <h1>Congratulations! Succeeded!</h1>
-${user}
+${hello}
 </body>
 </html>

@@ -28,9 +28,13 @@
   + [4.1 什么是 Restful API？](#41-----restful-api-)
   + [4.2 Quickstart](#42-quickstart)
 * [5. 常用注解](#5-----)
-* [6. 响应](#6---)
+* [6. Model And View](#6-model-and-view)
   + [6.1 String](#61-string)
-  + [6.2 ModelAndView](#62-modelandview)
+  + [6.2 Model](#62-model)
+  + [6.3 ModelMap](#63-modelmap)
+  + [6.4 ModelAndView](#64-modelandview)
+  
+  
 
 
 
@@ -1075,7 +1079,7 @@ public class User implements Serializable {
 
 
 
-## 6. 响应
+## 6. Model And View
 
 ### 6.1 String
 
@@ -1093,6 +1097,19 @@ public class User implements Serializable {
         return "Succeeded";
     }
 ```
+
+其中`return` 语句实现跳转成功页面多亏了我们设置的 `viewResolver`
+
+**spring-servlet.xml**
+
+```xml
+<bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/"></property>
+        <property name="suffix" value=".jsp"></property>
+</bean>
+```
+
+
 
 **Succeeded.jsp**
 
@@ -1115,9 +1132,113 @@ ${user}
 
 <div align="center"> <img src="image-20200526181039623.png" width="90%"/> </div><br>
 
-### 6.2 ModelAndView
+### 6.2 Model
+
+Simply put, the model can supply attributes used for rendering views.
+
+To provide a view with usable data, we simply add this data to its *Model* object. Additionally, maps with attributes can be merged with *Model* instances:
+
+**HelloController.java**
+
+```java
+    @RequestMapping("/testModel")
+    public String testModel(Model model) {
+        Map<String, String> map = new HashMap<>();
+        model.addAttribute("hello", "world");
+        map.put("spring", "mvc");
+        model.mergeAttributes(map);
+        return "Succeeded";
+    }
+```
+
+**Succeeded.jsp**
+
+```html
+<body>
+<h1>Congratulations! Succeeded!</h1>
+${hello}
+${spring}
+</body>
+```
+
+:heavy_check_mark:Succeeded!
+
+
+<div align="center"> <img src="image-20200528201159093.png" width="90%"/> </div><br>
 
 
 
+
+### 6.3 ModelMap
+
+Just like the *Model* interface above, *ModelMap* is also used to pass values to render a view.
+
+The advantage of *ModelMap* is it gives us the ability to pass a collection of values and treat these values as if they were within a *Map*:
+
+**HelloController.java**
+
+```java
+    @RequestMapping("/testModelMap")
+    public String testModelMap(ModelMap modelMap) {
+        List<String> fruits = new ArrayList<>();
+        fruits.add("apple");
+        fruits.add("banana");
+        fruits.add("watermelon");
+        modelMap.addAttribute("fruits", fruits);
+        return "Succeeded";
+    }
+```
+
+**index.jsp**
+
+```html
+<body>
+<h1>Congratulations! Succeeded!</h1>
+${fruits}<br>
+${fruits.get(0)}<br>
+${fruits.get(1)}<br>
+${fruits.get(2)}<br>
+</body>
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200528202131214.png" width="90%"/> </div><br>
+
+
+### 6.4 ModelAndView
+
+The final interface to pass values to a view is the *ModelAndView*.
+
+This interface allows us to pass all the information required by Spring MVC in one return
+
+**HelloController.java**
+
+```java
+    @RequestMapping("/testModelAndView")
+    public ModelAndView testModelAndView() {
+        ModelAndView modelAndView = new ModelAndView("Succeeded");
+        modelAndView.addObject("hello", "Model And View");
+        return modelAndView;
+    }
+```
+
+**Succeeded.jsp**
+
+```html
+<body>
+<h1>Congratulations! Succeeded!</h1>
+${hello}
+</body>
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+
+<div align="center"> <img src="image-20200528203105561.png" width="90%"/> </div><br>
 
 

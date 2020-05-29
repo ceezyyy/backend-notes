@@ -1,4 +1,4 @@
-# Spring MVC
+#  Spring MVC
 
 ## 目录
 
@@ -33,8 +33,10 @@
   + [6.2 Model](#62-model)
   + [6.3 ModelMap](#63-modelmap)
   + [6.4 ModelAndView](#64-modelandview)
-  
-  
+  + [6.5 ResponseBody 响应 JSON](#65-responsebody----json)
+    - [6.5.1 Serve Static Resources with Spring](#651-serve-static-resources-with-spring)
+
+
 
 
 
@@ -1241,4 +1243,88 @@ ${hello}
 
 <div align="center"> <img src="image-20200528203105561.png" width="90%"/> </div><br>
 
+### 6.5 ResponseBody 响应 JSON
+
+#### 6.5.1 Serve Static Resources with Spring
+
+引入 `jquery` 资源
+
+<div align="center"> <img src="image-20200529185630607.png" width="30%"/> </div><br>
+
+**index.jsp**
+
+```javascript
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function () {
+            $("#button").click(function () {
+                alert("Hello")
+            })
+        })
+    </script>
+```
+
+<div align="center"> <img src="image-20200529203155963.png" width="50%"/> </div><br>
+
+当我们点击 `click me` 时并没有达到预期的效果，并没有 `alert` 弹窗
+
+这是因为：
+
+**web.xml**
+
+```xml
+    <servlet>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>dispatcherServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+```
+
+`dispatcherServlet` 是背后的始作俑者
+
+1. `<url-pattern>/</url-pattern>` 这句中，`dispatcherServlet` 拦截了所有的路径，交给 `Spring` 容器管理
+2. `Spring` 容器根据 `@RequestMapping` 来寻找相当于应的资源（方法）
+3. 显然静态资源就被其拦截了
+
+
+
+**解决方案**
+
+If you need to go the old fashion way with XML-based configuration, you can make good use of the *mvc:resources* element to point to the location of resources with a specific public URL pattern.
+
+For example – the following line will serve all requests for resources coming in with a public URL pattern like “*/resources/***” by searching in the “/*resources/*” directory under the root folder in our application.
+
+```xml
+<mvc:resources mapping="/resources/**" location="/resources/" />
+```
+
+**spring-servlet.xml**
+
+```xml
+ <mvc:resources mapping="/js/**" location="/js/"></mvc:resources>
+```
+
+- `location`：对应的资源位置（`webapp` 目录下）
+- `mapping`：对应的请求 `URL`
+
+<div align="center"> <img src="image-20200529185630607.png" width="30%"/> </div><br>
+
+**:warning:填坑指南**
+
+- `location` 不正确会提示
+
+  <div align="center"> <img src="image-20200529204312220.png" width="75%"/> </div><br>
+
+- `jquery` 根据元素 `id` 获取值一定要加 `#` ！
+
+  <div align="center"> <img src="image-20200529204507324.png" width="45%"/> </div><br>
 

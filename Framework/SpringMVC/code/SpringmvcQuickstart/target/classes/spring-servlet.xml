@@ -17,9 +17,13 @@
     <!--Provide support for conversion, formatting and validation -->
     <mvc:annotation-driven/>
 
+
     <bean id="internalResourceViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/pages/"></property>
         <property name="suffix" value=".jsp"></property>
     </bean>
+
+    <mvc:resources mapping="/jd/**" location="/js"></mvc:resources>
+
 
 </beans>

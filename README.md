@@ -3,7 +3,7 @@
 [![](https://img.shields.io/badge/Java-Notes-orange?style=flat-square)](https://github.com/ceezyyy/Java-study-notes)
 
 :rocket: Backend notes for humans
-<div align="center"> <img src="cover_front.png" width="90%"/> </div><br>
+<div align="center"> <img src="cover_front.png" width="100%"/> </div><br>
 
 
 ## Road map

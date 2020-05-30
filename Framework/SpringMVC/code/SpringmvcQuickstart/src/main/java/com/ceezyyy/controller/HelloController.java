@@ -71,4 +71,18 @@ public class HelloController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/testAjax", method = RequestMethod.POST)
+    public @ResponseBody User testAjax(@RequestBody User user) {
+        System.out.println("testing ajax");
+        // result
+        System.out.println(user);
+
+        // set user
+        user.setName("Masiwei");
+        user.setAge(22);
+        user.setCity("Chengdu");
+
+        return user;
+    }
+
 }

@@ -33,8 +33,9 @@
   + [6.2 Model](#62-model)
   + [6.3 ModelMap](#63-modelmap)
   + [6.4 ModelAndView](#64-modelandview)
-  + [6.5 ResponseBody 响应 JSON](#65-responsebody----json)
-    - [6.5.1 Serve Static Resources with Spring](#651-serve-static-resources-with-spring)
+  + [6.5 Serve Static Resources with Spring](#65-serve-static-resources-with-spring)
+  + [6.6 Responsebody](#66-responsebody)
+* [7. Fileupload](#7-fileupload)
 
 
 
@@ -1243,9 +1244,7 @@ ${hello}
 
 <div align="center"> <img src="image-20200528203105561.png" width="90%"/> </div><br>
 
-### 6.5 ResponseBody 响应 JSON
-
-#### 6.5.1 Serve Static Resources with Spring
+### 6.5 Serve Static Resources with Spring
 
 引入 `jquery` 资源
 
@@ -1327,4 +1326,71 @@ For example – the following line will serve all requests for resources coming 
 - `jquery` 根据元素 `id` 获取值一定要加 `#` ！
 
   <div align="center"> <img src="image-20200529204507324.png" width="45%"/> </div><br>
+
+### 6.6 Responsebody
+
+  <div align="center"> <img src="image-20200530221951376.png" width="70%"/> </div><br>
+
+<div align="center"> <img src="image-20200530222100511.png" width="40%"/> </div><br>
+
+
+**index.jsp**
+
+```javascript
+ <script>
+        $(function () {
+            $("button").click(function(){
+                $.ajax({
+                    url: "user/testAjax",
+                    dataType: "json",
+                    contentType:"application/json; charset=utf-8",
+                    data: JSON.stringify({
+                        "name":"LBJ",
+                        "age":22,
+                        "city":"LA"
+                    }),
+                    type: "POST",
+                    // A function to be run when the request succeeds
+                    success: function(data){
+                        alert(data.name);
+                        alert(data.age);
+                        alert(data.city);
+                    }
+                });
+            });
+        })
+</script>
+```
+
+**HelloController.java**
+
+```java
+    @RequestMapping(value = "/testAjax", method = RequestMethod.POST)
+    public @ResponseBody User testAjax(@RequestBody User user) {
+        System.out.println("testing ajax");
+        // result
+        System.out.println(user);
+
+        // set user
+        user.setName("Masiwei");
+        user.setAge(22);
+        user.setCity("Chengdu");
+
+        return user;
+    }
+```
+
+
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200530222301688.png" width="50%"/> </div><br>
+
+<div align="center"> <img src="image-20200530222346847.png" width="50%"/> </div><br>
+
+<div align="center"> <img src="image-20200530222411394.png" width="50%"/> </div><br>
+
+<div align="center"> <img src="image-20200530222442485.png" width="50%"/> </div><br>
+
+## 7. Fileupload
 

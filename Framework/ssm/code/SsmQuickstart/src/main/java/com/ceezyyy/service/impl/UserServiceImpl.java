@@ -11,11 +11,10 @@ import java.util.List;
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
-
     private UserDao userDao;
 
     @Autowired
-    public void setUserDao(UserDao userDao) {
+    public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
     }
 

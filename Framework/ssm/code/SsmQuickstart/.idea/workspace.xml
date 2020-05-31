@@ -38,8 +38,8 @@
       <list>
         <option value="Interface" />
         <option value="spring-beans.schema" />
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -71,7 +71,10 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
   </component>
   <component name="RunAnythingCache">
     <option name="myCommands">
@@ -80,18 +83,82 @@
       <command value="mvn tomcat7:run" />
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="testService.testService" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.testDao.testSaveUser">
+    <configuration name="testDao.testDelete" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="SsmQuickstart" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.ceezyyy.service.*" />
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.ceezyyy.service" />
-      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.service.testService" />
-      <option name="METHOD_NAME" value="testService" />
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.testDao" />
+      <option name="METHOD_NAME" value="testDelete" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testDao.testFindAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SsmQuickstart" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.testDao" />
+      <option name="METHOD_NAME" value="testFindAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testDao.testSave" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SsmQuickstart" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.testDao" />
+      <option name="METHOD_NAME" value="testSave" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testDao.testSaveUser" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SsmQuickstart" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.testDao" />
+      <option name="METHOD_NAME" value="testSaveUser" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="testDao.testUpdate" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="SsmQuickstart" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.ceezyyy.dao.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.ceezyyy.dao" />
+      <option name="MAIN_CLASS_NAME" value="com.ceezyyy.dao.testDao" />
+      <option name="METHOD_NAME" value="testUpdate" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -99,7 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.testService.testService" />
+        <item itemvalue="JUnit.testDao.testSaveUser" />
+        <item itemvalue="JUnit.testDao.testFindAll" />
+        <item itemvalue="JUnit.testDao.testUpdate" />
+        <item itemvalue="JUnit.testDao.testSave" />
+        <item itemvalue="JUnit.testDao.testDelete" />
       </list>
     </recent_temporary>
   </component>
@@ -118,6 +189,8 @@
       <workItem from="1590910249658" duration="7364000" />
       <workItem from="1590928685695" duration="396000" />
       <workItem from="1590929112883" duration="3029000" />
+      <workItem from="1590935293586" duration="4670000" />
+      <workItem from="1590940134944" duration="2550000" />
     </task>
     <servers />
   </component>
@@ -125,37 +198,59 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser" timestamp="1590932805114">
+    <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser" timestamp="1590942090133">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser/0.0.1280.720@0.0.1280.720" timestamp="1590932805114" />
-    <state width="1236" height="347" key="GridCell.Tab.0.bottom" timestamp="1590934008515">
+    <state x="440" y="77" key="#com.intellij.ide.util.MemberChooser/0.0.1280.720@0.0.1280.720" timestamp="1590942090133" />
+    <state x="371" y="108" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590941380464">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="347" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1590934008515" />
-    <state width="1236" height="347" key="GridCell.Tab.0.center" timestamp="1590934008515">
+    <state x="371" y="108" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.720@0.0.1280.720" timestamp="1590941380464" />
+    <state width="1236" height="239" key="GridCell.Tab.0.bottom" timestamp="1590942687675">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="347" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1590934008515" />
-    <state width="1236" height="347" key="GridCell.Tab.0.left" timestamp="1590934008514">
+    <state width="1236" height="239" key="GridCell.Tab.0.bottom/0.0.1280.720@0.0.1280.720" timestamp="1590942687675" />
+    <state width="1236" height="239" key="GridCell.Tab.0.center" timestamp="1590942687675">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="347" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1590934008514" />
-    <state width="1236" height="347" key="GridCell.Tab.0.right" timestamp="1590934008515">
+    <state width="1236" height="239" key="GridCell.Tab.0.center/0.0.1280.720@0.0.1280.720" timestamp="1590942687675" />
+    <state width="1236" height="239" key="GridCell.Tab.0.left" timestamp="1590942687675">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state width="1236" height="347" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1590934008515" />
-    <state x="286" y="185" key="com.intellij.ide.util.TipDialog" timestamp="1590929121226">
+    <state width="1236" height="239" key="GridCell.Tab.0.left/0.0.1280.720@0.0.1280.720" timestamp="1590942687675" />
+    <state width="1236" height="239" key="GridCell.Tab.0.right" timestamp="1590942687675">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="286" y="185" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1590929121226" />
-    <state x="297" y="161" width="672" height="677" key="run.anything.popup" timestamp="1590917414246">
+    <state width="1236" height="239" key="GridCell.Tab.0.right/0.0.1280.720@0.0.1280.720" timestamp="1590942687675" />
+    <state x="121" y="0" width="1053" height="713" key="SettingsEditor" timestamp="1590937101050">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="297" y="161" width="672" height="677" key="run.anything.popup/0.0.1280.720@0.0.1280.720" timestamp="1590917414246" />
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1590933892299">
+    <state x="121" y="0" width="1053" height="713" key="SettingsEditor/0.0.1280.720@0.0.1280.720" timestamp="1590937101050" />
+    <state x="286" y="185" key="com.intellij.ide.util.TipDialog" timestamp="1590940141054">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1590933892299" />
+    <state x="286" y="185" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1590940141054" />
+    <state x="297" y="161" width="672" height="677" key="run.anything.popup" timestamp="1590937455680">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="297" y="161" width="672" height="677" key="run.anything.popup/0.0.1280.720@0.0.1280.720" timestamp="1590937455680" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1590942317799">
+      <screen x="0" y="0" width="1280" height="720" />
+    </state>
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1590942317799" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/com/ceezyyy/service/UserService.java</url>
+          <line>11</line>
+          <properties class="com.ceezyyy.service.UserService" method="saveUser">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

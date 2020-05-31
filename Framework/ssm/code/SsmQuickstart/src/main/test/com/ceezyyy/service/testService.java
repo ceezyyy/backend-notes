@@ -1,5 +1,6 @@
 package com.ceezyyy.service;
 
+import com.ceezyyy.dao.UserDao;
 import com.ceezyyy.entity.User;
 import com.ceezyyy.service.impl.UserServiceImpl;
 import org.junit.Test;
@@ -11,7 +12,7 @@ public class testService {
     @Test
     public void testService() {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
-        UserService userService = context.getBean("userService", UserServiceImpl.class);
-        userService.findAll();
+        UserDao userDao = context.getBean("userDao", UserDao.class);
+        userDao.findAll();
     }
 }

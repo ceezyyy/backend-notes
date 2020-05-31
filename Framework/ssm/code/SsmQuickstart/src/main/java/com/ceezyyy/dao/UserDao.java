@@ -12,7 +12,7 @@ import java.util.List;
 @Repository("userDao")
 public interface UserDao {
     // create
-    @Insert("insert into user(id, username) values (null, #{username})")
+    @Insert("insert into user(id, username) values (#{id}, #{username})")
     void saveUser(User user);
 
     // read one
@@ -24,7 +24,7 @@ public interface UserDao {
     List<User> findAll();
 
     // update
-    @Update("update user set id = #{id}, username = #{username}")
+    @Update("update user set username = #{username} where id = #{id}")
     void updateUser(User user);
 
     // delete

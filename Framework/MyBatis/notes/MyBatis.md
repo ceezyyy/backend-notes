@@ -11,6 +11,8 @@
   + [3.3 踩坑记录](#33-----)
     - [3.3.1 Timezone](#331-timezone)
     - [3.3.2 log4j 配置文件](#332-log4j-----)
+    - [3.3.3 MyBatis version](#333-mybatis-version)
+    - [3.3.4 CUD 失败](#334-cud---)
 * [4. XML 配置开发下单表 CRUD](#4-xml---------crud)
   + [4.1 Create](#41-create)
   + [4.2 Update](#42-update)
@@ -43,6 +45,8 @@
   + [11.1 列名与表名映射](#111--------)
   + [11.2 一对一（多对一）](#112---------)
   + [11.3 一对多](#113----)
+
+
 
 
 
@@ -162,6 +166,22 @@ log4j.appender.stdout=org.apache.log4j.ConsoleAppender
 log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
 log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
 ```
+
+
+
+
+
+#### 3.3.3 MyBatis version
+
+<div align="center"> <img src="image-20200531230737382.png" width="60%"/> </div><br>
+
+<div align="center"> <img src="image-20200531230820365.png" width="60%"/> </div><br>
+
+
+
+#### 3.3.4 CUD 失败
+
+当 `R` 能正确，而 `CUD` 失败时，查看是否是没有手动提交事务
 
 
 

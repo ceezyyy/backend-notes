@@ -1,10 +1,13 @@
 package com.ceezyyy.service;
 
+import com.ceezyyy.dao.UserDao;
 import com.ceezyyy.entity.User;
 
 import java.util.List;
 
 public interface UserService {
+
+
     // create
     void saveUser(User user);
 

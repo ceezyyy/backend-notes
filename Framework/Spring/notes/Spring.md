@@ -14,12 +14,13 @@
 * [3. IOC](#3-ioc)
   + [3.1 什么是 IOC？](#31-----ioc-)
   + [3.2 Spring 中的 IOC](#32-spring----ioc)
-  + [3.3 Spring 基于 XML 的 IOC 环境搭建](#33-spring----xml---ioc-----)
-  + [3.4 BeanFactory 接口与 ApplicationContext 的区别](#34-beanfactory-----applicationcontext----)
-  + [3.5 Spring 对 Bean 的管理细节](#35-spring---bean------)
-    - [3.5.1 创建 bean 的三种方式（XML 配置）](#351----bean-------xml----)
-    - [3.5.2 bean 对象的作用范围](#352-bean--------)
-    - [3.5.3 bean 对象的生命周期](#353-bean--------)
+  + [3.3 Spring 中的约束](#33-spring-----)
+  + [3.4 Spring 基于 XML 的 IOC 环境搭建](#34-spring----xml---ioc-----)
+  + [3.5 BeanFactory 接口与 ApplicationContext 的区别](#35-beanfactory-----applicationcontext----)
+  + [3.6 Spring 对 Bean 的管理细节](#36-spring---bean------)
+    - [3.6.1 创建 bean 的三种方式（XML 配置）](#361----bean-------xml----)
+    - [3.6.2 bean 对象的作用范围](#362-bean--------)
+    - [3.6.3 bean 对象的生命周期](#363-bean--------)
 * [4. 依赖注入](#4-----)
   + [4.1 什么是依赖注入？](#41---------)
   + [4.2 小明与救世主](#42-------)
@@ -433,8 +434,20 @@ public class BeanFactory {
 
 
 
+### 3.3 Spring 中的约束
 
-### 3.3 Spring 基于 XML 的 IOC 环境搭建
+- xsi：基础 `IOC` 约束，必备
+- context：开启注解管理 `bean` 对象的约束
+- aop：`aop` 的注解约束
+- tx：开启事务管理的约束
+
+**如何查找约束？**
+
+官方文档 `ctrl + f`
+
+<div align="center"> <img src="image-20200531163348505.png" width="100%"/> </div><br>
+
+### 3.4 Spring 基于 XML 的 IOC 环境搭建
 
 1. 引入 `maven` 坐标
 
@@ -494,7 +507,7 @@ public class BeanFactory {
 
 
 
-### 3.4 BeanFactory 接口与 ApplicationContext 的区别
+### 3.5 BeanFactory 接口与 ApplicationContext 的区别
 
 <div align="center"> <img src="image-20200514211910676.png" width="100%"/> </div><br>
 
@@ -506,9 +519,9 @@ public class BeanFactory {
 
 
 
-### 3.5 Spring 对 Bean 的管理细节
+### 3.6 Spring 对 Bean 的管理细节
 
-#### 3.5.1 创建 bean 的三种方式（XML 配置）
+#### 3.6.1 创建 bean 的三种方式（XML 配置）
 
 1. 指定 `id` 和 `class` 属性
 
@@ -587,7 +600,7 @@ public class BeanFactory {
 
    
 
-#### 3.5.2 bean 对象的作用范围
+#### 3.6.2 bean 对象的作用范围
 
 **`scope` 属性：**
 
@@ -602,7 +615,7 @@ public class BeanFactory {
 <div align="center"> <img src="image-20200514231746424.png" width="80%"/> </div><br>
 
 
-#### 3.5.3 bean 对象的生命周期
+#### 3.6.3 bean 对象的生命周期
 
 - **单例对象**
 

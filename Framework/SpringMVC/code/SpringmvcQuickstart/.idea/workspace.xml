@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="7fb3869a-b30c-4026-aab9-01528dd08a88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/spring-servlet.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/spring-servlet.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../notes/Springmvc.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../notes/Springmvc.md" afterDir="false" />
     </list>
@@ -15,8 +14,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Jsp File" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -92,6 +91,8 @@
       <workItem from="1590747594921" duration="7408000" />
       <workItem from="1590806666645" duration="73000" />
       <workItem from="1590844815389" duration="6964000" />
+      <workItem from="1590894241166" duration="1312000" />
+      <workItem from="1590896261287" duration="67000" />
     </task>
     <servers />
   </component>
@@ -131,25 +132,25 @@
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="133" y="0" width="1041" height="713" key="SettingsEditor/0.0.1280.720@0.0.1280.720" timestamp="1590128351879" />
-    <state x="286" y="185" key="com.intellij.ide.util.TipDialog" timestamp="1590844819983">
+    <state x="286" y="185" key="com.intellij.ide.util.TipDialog" timestamp="1590896265254">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="286" y="185" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1590844819983" />
+    <state x="286" y="185" key="com.intellij.ide.util.TipDialog/0.0.1280.720@0.0.1280.720" timestamp="1590896265254" />
     <state x="400" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590667741749">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="400" y="278" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1280.720@0.0.1280.720" timestamp="1590667741749" />
-    <state x="0" y="21" width="1280" height="663" key="new project wizard" timestamp="1590585684694">
+    <state x="0" y="21" width="1280" height="663" key="new project wizard" timestamp="1590896327102">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="0" y="21" width="1280" height="663" key="new project wizard/0.0.1280.720@0.0.1280.720" timestamp="1590585684694" />
+    <state x="0" y="21" width="1280" height="663" key="new project wizard/0.0.1280.720@0.0.1280.720" timestamp="1590896327102" />
     <state x="297" y="161" width="672" height="677" key="run.anything.popup" timestamp="1590851017399">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
     <state x="297" y="161" width="672" height="677" key="run.anything.popup/0.0.1280.720@0.0.1280.720" timestamp="1590851017399" />
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1590852406724">
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup" timestamp="1590894836998">
       <screen x="0" y="0" width="1280" height="720" />
     </state>
-    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1590852406724" />
+    <state x="303" y="41" width="672" height="678" key="search.everywhere.popup/0.0.1280.720@0.0.1280.720" timestamp="1590894836998" />
   </component>
 </project>

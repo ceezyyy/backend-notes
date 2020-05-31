@@ -2,6 +2,8 @@
 
 ## 目录
 
+
+
 * [1. Wiki](#1-wiki)
   + [1.1 What is Spring mvc?](#11-what-is-spring-mvc-)
   + [1.2 Understanding the flow of Spring Web MVC](#12-understanding-the-flow-of-spring-web-mvc)
@@ -1416,13 +1418,47 @@ After configuring the *MultipartResolver* we'll see how to upload a single file 
 
 <div align="center"> <img src="image-20200530233236879.png" width="70%"/> </div><br>
 
-
-
-
-
-
-
 ### 7.4 Demo
+
+有两种方式实现文件上传
+
+1. Commons FileUpload
+2. With Servlet 3.0
+
+
+
+**在这我们介绍第一种方法**
+
+这个需要导入依赖
+
+**pom.xml**
+
+```xml
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+```
+
+**spring-servlet.xml**
+
+```xml
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+        <!-- one of the properties available; the maximum file size in bytes -->
+        <property name="maxUploadSize" value="100000"/>
+    </bean>
+```
+
+将 `multipartResolver` 注册到 `spring` 容器
+
+
+
+
+
+
 
 
 

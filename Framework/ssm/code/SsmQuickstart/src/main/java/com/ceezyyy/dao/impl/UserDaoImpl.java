@@ -15,11 +15,13 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User findUserById(int id) {
+        System.out.println("Find user by id");
         return null;
     }
 
     @Override
     public List<User> findAll() {
+        System.out.println("Find all users");
         return null;
     }
 

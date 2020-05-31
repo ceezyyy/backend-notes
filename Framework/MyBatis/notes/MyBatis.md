@@ -74,13 +74,13 @@
 2. 创建数据库，表
 3. 创建实体类，`dao` 接口
 
-<div align="center"> <img src="image-20200508200607809.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200508200607809.png" width="35%"/> </div><br>
 
 4. `MyBatis` 主配置文件
 
    在 `SqlMapConfig.xml` 下编写 `MyBatis` 主配置文件（名字不做强求）
 
-<div align="center"> <img src="image-20200508201019098.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200508201019098.png" width="90%"/> </div><br>
 
 
 5. 对应 `dao` 接口的配置文件
@@ -91,12 +91,12 @@
 >
 >`MyBatis` 的映射数据文件需要和 `dao` 接口的包结构一致
 
-<div align="center"> <img src="image-20200508201506417.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20200508201506417.png" width="35%"/> </div><br>
 
 6. 主函数
 
-![image-20200509232821635](image-20200509232821635.png)
 
+<div align="center"> <img src="image-20200509232821635.png" width="80%"/> </div><br>
 
 
 ### 3.2 使用注解配置
@@ -109,12 +109,12 @@
 >
 > 包名和文件名的写法不同，前者是 '.' 后者是 '/'
 
-<div align="center"> <img src="image-20200508202949069.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200508202949069.png" width="90%"/> </div><br>
 
 
 并在 `dao` 的接口增加注解
 
-<div align="center"> <img src="image-20200508203328827.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200508203328827.png" width="40%"/> </div><br>
 
 
 可见使用注解配置比 `XML` 要更方便
@@ -127,7 +127,7 @@
 
 #### 3.3.1 Timezone
 
-<div align="center"> <img src="image-20200509232126129.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200509232126129.png" width="80%"/> </div><br>
 
 **解决方案**
 
@@ -143,15 +143,14 @@ jdbc:mysql://localhost:3306/mybatis?serverTimezone=GMT
 
 #### 3.3.2 log4j 配置文件
 
-
-<div align="center"> <img src="image-20200512183954976.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200512183954976.png" width="80%"/> </div><br>
 
 
 **解决方案**
 
 在资源文件夹下新建 `log4j.properties` 文件
 
-<div align="center"> <img src="image-20200512184046993.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200512184046993.png" width="30%"/> </div><br>
 
 **log4j.properties**
 
@@ -186,7 +185,7 @@ log4j.appender.stdout.layout.ConversionPattern=%5p [%t] - %m%n
 
 编写测试类 `UserDaoTest`
 
-<div align="center"> <img src="image-20200510000155678.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200510000155678.png" width="70%"/> </div><br>
 
 我们将初始化以及关闭资源方法抽取出来，让测试方法更专注于 `CRUD` 本身
 
@@ -374,7 +373,7 @@ public class UserDaoTest {
 
 1. `dao` 接口中定义方法
 
-   <div align="center"> <img src="image-20200510121002281.png" width="50%"/> </div><br>
+   <div align="center"> <img src="image-20200510121002281.png" width="45%"/> </div><br>
 
 2. 在映射配置文件编写 `sql` 语句，让 `mybatis` 为我们创建实现类
 
@@ -386,7 +385,7 @@ public class UserDaoTest {
 
 3. 在测试类中执行语句，查看结果
 
-   <div align="center"> <img src="image-20200510120946065.png" width="60%"/> </div><br>
+   <div align="center"> <img src="image-20200510120946065.png" width="50%"/> </div><br>
 
 4. :heavy_check_mark:Succeeded!
 
@@ -537,18 +536,17 @@ public class Blog {
 
 首先我们先定义一个 `Query` 对象，也称为复合查询对象。对于复杂查询的结果，可能不止一个类
 
-<div align="center"> <img src="image-20200510214216119.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200510214216119.png" width="50%"/> </div><br>
 
 其中 `ids` 集合定义为要查询的 `id` 集合
 
 接着我们在 `dao` 接口定义根据用户 `id` 查找用户方法
 
-
-<div align="center"> <img src="image-20200510214443255.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200510214443255.png" width="50%"/> </div><br>
 
 编写映射配置文件，交给 `mybatis` 来帮我们完成
 
-<div align="center"> <img src="image-20200510214555399.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200510214555399.png" width="80%"/> </div><br>
 
 我们原先的数据库语句应该为：
 
@@ -693,8 +691,7 @@ public class Account implements Serializable {
 
 :heavy_check_mark:Succeeded!
 
-
-<div align="center"> <img src="image-20200511170218636.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200511170218636.png" width="80%"/> </div><br>
 
 
 ### 7.2 一对多
@@ -789,7 +786,7 @@ public class User implements Serializable {
 
 :heavy_check_mark:Succeeded!
 
-<div align="center"> <img src="image-20200511205914752.png" width="90%"/> </div><br>
+<div align="center"> <img src="image-20200511205914752.png" width="80%"/> </div><br>
 
 
 
@@ -1113,7 +1110,7 @@ public class Role implements Serializable {
 
 :heavy_check_mark:Succeeded!
 
-<div align="center"> <img src="image-20200512202012431.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200512202012431.png" width="60%"/> </div><br>
 
 
 ### 10.2 Read
@@ -1171,7 +1168,7 @@ public class Role implements Serializable {
 
 
 
-<div align="center"> <img src="image-20200512202040106.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200512202040106.png" width="50%"/> </div><br>
 
 
 
@@ -1179,7 +1176,7 @@ public class Role implements Serializable {
 
 
 
-<div align="center"> <img src="image-20200512202057447.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200512202057447.png" width="50%"/> </div><br>
 
 
 ### 10.4 Delete
@@ -1197,13 +1194,13 @@ public class Role implements Serializable {
 
 
 
-<div align="center"> <img src="image-20200512202207991.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200512202207991.png" width="50%"/> </div><br>
 
 
 
 
 
-<div align="center"> <img src="image-20200512202430990.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200512202430990.png" width="50%"/> </div><br>
 
 
 
@@ -1220,9 +1217,9 @@ public class Role implements Serializable {
 
 下面介绍第二种方法：
 
-<div align="center"> <img src="image-20200512211241685.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200512211241685.png" width="40%"/> </div><br>
 
-<div align="center"> <img src="image-20200512211219939.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20200512211219939.png" width="30%"/> </div><br>
 
 
 
@@ -1259,8 +1256,7 @@ public class User implements Serializable {
 
 :heavy_check_mark:Succeeded!
 
-
-<div align="center"> <img src="image-20200512213228323.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200512213228323.png" width="90%"/> </div><br>
 
 
 

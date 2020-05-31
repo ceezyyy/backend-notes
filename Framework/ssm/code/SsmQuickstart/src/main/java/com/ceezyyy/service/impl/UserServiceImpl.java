@@ -10,32 +10,32 @@ import java.util.List;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
-    private UserDao userDao;
+//    private UserDao userDao;
 
     @Override
     public void saveUser(User user) {
-        userDao.saveUser(user);
+        System.out.println("Save user");
     }
 
     @Override
     public User findUserById(int id) {
-        User user = userDao.findUserById(id);
-        return user;
+        System.out.println("Find user by id");
+        return null;
     }
 
     @Override
     public List<User> findAll() {
-        List<User> users = userDao.findAll();
-        return users;
+        System.out.println("Find all users");
+        return null;
     }
 
     @Override
     public void updateUser(User user) {
-        userDao.updateUser(user);
+        System.out.println("Update user");
     }
 
     @Override
     public void deleteUserById(int id) {
-        userDao.deleteUserById(id);
+        System.out.println("Delete user by id");
     }
 }

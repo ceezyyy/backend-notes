@@ -11,6 +11,13 @@ import javax.sql.DataSource;
 @RequestMapping("/user")
 public class UserController {
 
+    private DataSource dataSource;
+
+    @Autowired
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
     @RequestMapping("/test")
     public String test() {
         return "I'm UserController";

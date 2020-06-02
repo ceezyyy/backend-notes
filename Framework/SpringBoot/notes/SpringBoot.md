@@ -12,17 +12,21 @@
 * [3. Springboot Quickstart Pro](#3-springboot-quickstart-pro)
 * [4. JavaConfig](#4-javaconfig)
   + [4.1 Annotation in Spring](#41-annotation-in-spring)
-  + [4.2 JdbcConfig](#42-jdbcconfig)
-* [5. 属性注入](#5-----)
-* [6. 自动配置原理](#6-------)
-* [7. Springboot 整合](#7-springboot---)
-* [8. Springboot Demo](#8-springboot-demo)
+  + [4.2 DataSourceConfig](#42-datasourceconfig)
+* [5. Properties With Spring Boot](#5-properties-with-spring-boot)
+* [6. Springboot 整合](#6-springboot---)
+  + [6.1 Springmvc](#61-springmvc)
+  + [6.2 Datasource](#62-datasource)
+  + [6.3 Mybatis](#63-mybatis)
+* [7. Demo](#7-demo)
 
 
 
-## 0. Springboot 2.0.6 Reference Guide
+## 0. Reference Guide
 
 [Springboot 2.0.6 Reference Guide](https://docs.spring.io/spring-boot/docs/2.0.6.RELEASE/reference/html/)
+
+[Learn Spring Boot](https://www.baeldung.com/spring-boot)
 
 
 
@@ -249,44 +253,96 @@ public class UserController {
 
 
 
-### 4.2 JdbcConfig
+### 4.2 DataSourceConfig
 
+通过使用 `Java Config` 方式配 `dataSource`
 
+取代 `xml` 配置，我们使用 `Java` 配置类
 
 
 
+引入 `Druid starter`
 
+**pom.xml**
 
+```xml
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+```
 
 
 
+**db.properties**
 
+```properties
+datasource.driverClassName=com.mysql.cj.jdbc.Driver
+datasource.url=jdbc:mysql://localhost:3306/db?serverTimezone=UTC
+datasource.username=root
+datasource.password=root
+```
 
 
 
+**DataSourceConfig.java**
 
+```java
+@Configuration
+@PropertySource("classpath:db.properties")
+public class DataSourceConfig {
 
+    /* DI */
+    @Value("${datasource.driverClassName}")
+    private String driverClassName;
 
+    @Value("${datasource.url}")
+    private String url;
 
+    @Value("${datasource.username}")
+    private String username;
 
+    @Value("${datasource.password}")
+    private String password;
 
+    /* Inject datasource to Spring IoC container */
+    @Bean
+    public DataSource dataSource() {
+        DruidDataSource druidDataSource = new DruidDataSource();
+        druidDataSource.setDriverClassName(driverClassName);
+        druidDataSource.setUrl(url);
+        druidDataSource.setUsername(username);
+        druidDataSource.setPassword(password);
+        return druidDataSource;
 
+    }
+}
+```
 
+:hammer: 断点测试
 
+<div align="center"> <img src="image-20200602211357494.png" width="60%"/> </div><br>
 
 
 
+:heavy_check_mark: Build Succeeded!
 
+<div align="center"> <img src="image-20200602211548857.png" width="60%"/> </div><br>
 
 
 
+**:bulb:TIPS**
 
-## 5. 属性注入
+- 使用 `properties` 的好处：
 
+  敏捷，迅速修改，缓解 "牵一发而动全身" 
 
+- `debug` 模式要在主函数中进行调用，不要用 `mvn command`
 
 
 
+## 5. Properties With Spring Boot
 
 
 
@@ -297,13 +353,14 @@ public class UserController {
 
 
 
-## 6. 自动配置原理
 
 
 
 
 
+## 6. Springboot 整合
 
+### 6.1 Springmvc
 
 
 
@@ -311,16 +368,17 @@ public class UserController {
 
 
 
+### 6.2 Datasource
 
 
 
 
-## 7. Springboot 整合
 
 
 
 
 
+### 6.3 Mybatis
 
 
 
@@ -333,4 +391,7 @@ public class UserController {
 
 
 
-## 8. Springboot Demo
+
+
+
+## 7. Demo

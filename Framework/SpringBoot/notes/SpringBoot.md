@@ -10,7 +10,9 @@
   + [1.2 Why we use springboot](#12-why-we-use-springboot)
 * [2. Springboot Quickstart](#2-springboot-quickstart)
 * [3. Springboot Quickstart Pro](#3-springboot-quickstart-pro)
-* [4. Java-configuration](#4-java-configuration)
+* [4. JavaConfig](#4-javaconfig)
+  + [4.1 Annotation in Spring](#41-annotation-in-spring)
+  + [4.2 JdbcConfig](#42-jdbcconfig)
 * [5. 属性注入](#5-----)
 * [6. 自动配置原理](#6-------)
 * [7. Springboot 整合](#7-springboot---)
@@ -232,7 +234,26 @@ public class UserController {
 
 
 
-## 4. Java-configuration
+## 4. JavaConfig
+
+基于 `Java` 类的配置是从 `Spring 3.0` 后开始流行起来的，技术永远迭代，趋势还是向封装底层，更便于开发者敏捷开发
+
+### 4.1 Annotation in Spring
+
+特别棒的教程！强烈推荐食用！（大致浏览一下，遇到再回来查）
+
+- [Core - Baeldung](https://www.baeldung.com/spring-core-annotations)
+- [Bean - Baeldung](https://www.baeldung.com/spring-bean-annotations)
+- [Web - Baeldung](https://www.baeldung.com/spring-mvc-annotations)
+- [Spring Boot - Baeldung](https://www.baeldung.com/spring-boot-annotations)
+
+
+
+### 4.2 JdbcConfig
+
+
+
+
 
 
 

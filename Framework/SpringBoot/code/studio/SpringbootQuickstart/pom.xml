@@ -22,6 +22,15 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.15</version>
+        </dependency>
+
+
     </dependencies>
 
     <repositories>
@@ -42,7 +51,6 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-
 
 
 </project>

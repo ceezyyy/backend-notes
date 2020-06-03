@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Demo/Demo.iml" filepath="$PROJECT_DIR$/Demo/Demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/SpringbootQuickstart/SpringbootQuickstart.iml" filepath="$PROJECT_DIR$/SpringbootQuickstart/SpringbootQuickstart.iml" />
     </modules>
   </component>

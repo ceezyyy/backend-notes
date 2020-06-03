@@ -4,7 +4,7 @@
 
 ## 目录
 
-* [0. Springboot 2.0.6 Reference Guide](#0-springboot-206-reference-guide)
+* [0. Reference Guide](#0-reference-guide)
 * [1. 了解 Springboot](#1----springboot)
   + [1.1 What is springboot](#11-what-is-springboot)
   + [1.2 Why we use springboot](#12-why-we-use-springboot)
@@ -14,11 +14,10 @@
   + [4.1 Annotation in Spring](#41-annotation-in-spring)
   + [4.2 DataSourceConfig](#42-datasourceconfig)
 * [5. Properties With Spring Boot](#5-properties-with-spring-boot)
-* [6. Springboot 整合](#6-springboot---)
+* [6. Springboot 实战](#6-springboot---)
   + [6.1 Springmvc](#61-springmvc)
   + [6.2 Datasource](#62-datasource)
   + [6.3 Mybatis](#63-mybatis)
-* [7. Demo](#7-demo)
 
 
 
@@ -358,10 +357,19 @@ public class DataSourceConfig {
 
 
 
-## 6. Springboot 整合
+## 6. Springboot 实战
 
 ### 6.1 Springmvc
 
+在 `spring boot` 中有一个 `application.properties` 文件，
+
+Various properties can be specified inside your application.properties file, inside your application.yml file, or as command line switches. This appendix provides a list of common Spring Boot properties and references to the underlying classes that consume them.
+
+里面预定义了许许多多的配置
+
+https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+
+<div align="center"> <img src="image-20200603115252077.png" width="25%"/> </div><br>
 
 
 
@@ -390,8 +398,30 @@ public class DataSourceConfig {
 
 
 
+### 6.4 填坑指南
+
+使用 `mvn spring-boot:run` 命令要在当前的目录下，要不然 `Springboot` 找不到 `main` 入口（`cmd` 命令）
+
+<div align="center"> <img src="image-20200603122927348.png" width="60%"/> </div><br>
+
+<div align="center"> <img src="image-20200603123034891.png" width="60%"/> </div><br>
+
+:hammer: Build project
+
+:heavy_check_mark: Succeeded!
+
+<div align="center"> <img src="image-20200603123119609.png" width="60%"/> </div><br>
 
 
 
 
-## 7. Demo
+
+
+
+
+
+
+
+
+
+

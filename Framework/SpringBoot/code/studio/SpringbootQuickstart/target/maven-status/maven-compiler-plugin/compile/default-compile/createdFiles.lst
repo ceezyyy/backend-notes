@@ -1,2 +1,2 @@
-com\ceezyyy\springboot\TestApplication.class
+com\ceezyyy\springboot\config\DataSourceConfig.class
 com\ceezyyy\springboot\controller\UserController.class

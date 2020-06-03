@@ -371,6 +371,18 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-applicat
 
 <div align="center"> <img src="image-20200603115252077.png" width="25%"/> </div><br>
 
+**server.port**
+
+
+<div align="center"> <img src="image-20200603124451290.png" width="100%"/> </div><br>
+
+
+
+**static resources**
+
+<div align="center"> <img src="image-20200603124316051.png" width="100%"/> </div><br>
+
+
 
 
 
@@ -400,7 +412,7 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-applicat
 
 ### 6.4 填坑指南
 
-使用 `mvn spring-boot:run` 命令要在当前的目录下，要不然 `Springboot` 找不到 `main` 入口（`cmd` 命令）
+使用 `mvn spring-boot:run` 命令要在当前项目的目录下，要不然 `Springboot` 找不到 `main` 入口（`cmd` 命令）
 
 <div align="center"> <img src="image-20200603122927348.png" width="60%"/> </div><br>
 

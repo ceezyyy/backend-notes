@@ -60,15 +60,9 @@
 
 ## :desktop_computer: Frontend
 
-- JavaScript
+- [JavaScript]()
 
-- jQuery
-
-- Ajax
-
-- JSON
-
-- Vue.js
+- [Vue.js]()
 
   
 

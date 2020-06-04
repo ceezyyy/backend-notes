@@ -21,7 +21,6 @@
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-logging:2.0.6.RELEASE" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-classic:1.2.3" />
           <element id="library" level="project" name="Maven: ch.qos.logback:logback-core:1.2.3" />
-          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
           <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-to-slf4j:2.10.0" />
           <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.10.0" />
           <element id="library" level="project" name="Maven: org.slf4j:jul-to-slf4j:1.7.25" />
@@ -50,6 +49,17 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.0.10.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.0.10.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.0.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.0.6.RELEASE" />
+          <element id="library" level="project" name="Maven: com.zaxxer:HikariCP:2.7.9" />
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.0.10.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.0.10.RELEASE" />
+          <element id="library" level="project" name="Maven: mysql:mysql-connector-java:8.0.15" />
+          <element id="library" level="project" name="Maven: com.google.protobuf:protobuf-java:3.6.1" />
+          <element id="library" level="project" name="Maven: org.mybatis.spring.boot:mybatis-spring-boot-starter:2.0.1" />
+          <element id="library" level="project" name="Maven: org.mybatis.spring.boot:mybatis-spring-boot-autoconfigure:2.0.1" />
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.5.1" />
+          <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:2.0.1" />
         </element>
       </element>
       <element id="directory" name="META-INF">

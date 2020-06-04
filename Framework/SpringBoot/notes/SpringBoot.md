@@ -1,3 +1,5 @@
+
+
 # SpringBoot
 
 <div align="center"> <img src="logo.jpg" width="80%"/> </div><br>
@@ -436,6 +438,14 @@ public class InterceptorDemo implements HandlerInterceptor {
 
 To add our interceptors into Spring configuration, we need to override *addInterceptors()* method inside *WebConfig* class that implements *WebMvcConfigurer:*
 
+The *@EnableWebMvc* annotation is used for **enabling Spring MVC in an application** and works by importing the Spring MVC Configuration from *WebMvcConfigurationSupport*.
+
+The XML equivalent with similar functionality is *.*
+
+The configuration can be customized by the *@Configuration* class implementing the *WebMvcConfigurer*:
+
+
+
 （这里采用 `JavaConfig` 的方式配置）
 
 **WebConfig.java**
@@ -474,21 +484,79 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 ### 6.2 Datasource
 
+```xml
+<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-jdbc -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-jdbc</artifactId>
+    <version>2.0.6.RELEASE</version>
+</dependency>
+```
+
+别忘了导入 `mysql` 依赖
+
+```xml
+<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+<dependency>
+  <groupId>mysql</groupId>
+  <artifactId>mysql-connector-java</artifactId>
+  <version>8.0.15</version>
+</dependency>
+```
 
 
 
+<div align="center"> <img src="image-20200604113207465.png" width="80%"/> </div><br>
 
 
+<div align="center"> <img src="image-20200604113405523.png" width="80%"/> </div><br>
+
+`Springboot 2.x` 选用 `hikari` 作为默认 `cp`
+
+**db.properties**
+
+```properties
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/ssm?serverTimezone=GMT+8
+spring.datasource.username=root
+spring.datasource.password=root
+```
+
+`springboot` 会自动加载 `spring.datasource.*` 的配置，注入到 `sqlSessionFactory` 中，`sqlSessionFactory` 注入到 `mapper` 中（`dao`），**开箱即用**
 
 
 
 ### 6.3 Mybatis
 
+#### 6.3.1 Reference
+
+- [MyBatis with Spring](https://www.baeldung.com/spring-mybatis)
+- [Quick Start](https://github.com/mybatis/spring-boot-starter/wiki/Quick-Start)
+- [mybatis-spring-boot-autoconfigure](https://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/)
 
 
 
+导入依赖
+
+```xml
+<!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
+<dependency>
+    <groupId>org.mybatis.spring.boot</groupId>
+    <artifactId>mybatis-spring-boot-starter</artifactId>
+    <version>2.0.1</version>
+</dependency>
+```
 
 
+
+As you may already know, to use MyBatis with Spring you need at least an `SqlSessionFactory` and at least one mapper interface.
+
+MyBatis-Spring-Boot-Starter will:
+
+- Autodetect an existing `DataSource`
+- Will create and register an instance of a `SqlSessionFactory` passing that `DataSource` as an input using the `SqlSessionFactoryBean`
+- Will create and register an instance of a `SqlSessionTemplate` got out of the `SqlSessionFactory`
+- Auto-scan your mappers, link them to the `SqlSessionTemplate` and register them to Spring context so they can be injected into your beans
 
 
 

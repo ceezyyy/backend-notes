@@ -14,10 +14,14 @@
   + [4.1 Annotation in Spring](#41-annotation-in-spring)
   + [4.2 DataSourceConfig](#42-datasourceconfig)
 * [5. Properties With Spring Boot](#5-properties-with-spring-boot)
-* [6. Springboot 实战](#6-springboot---)
+* [6. Springboot Demo](#6-springboot-demo)
   + [6.1 Springmvc](#61-springmvc)
+    - [6.1.1 Server port](#611-server-port)
+    - [6.1.2 Static resources](#612-static-resources)
+    - [6.1.3 Interceptor](#613-interceptor)
   + [6.2 Datasource](#62-datasource)
   + [6.3 Mybatis](#63-mybatis)
+  + [6.4 填坑指南](#64-----)
 
 
 
@@ -357,7 +361,7 @@ public class DataSourceConfig {
 
 
 
-## 6. Springboot 实战
+## 6. Springboot Demo
 
 ### 6.1 Springmvc
 
@@ -371,20 +375,100 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-applicat
 
 <div align="center"> <img src="image-20200603115252077.png" width="25%"/> </div><br>
 
+#### 6.1.1 Server port
+
 **server.port**
 
 
 <div align="center"> <img src="image-20200603124451290.png" width="100%"/> </div><br>
 
-
+#### 6.1.2 Static resources
 
 **static resources**
 
 <div align="center"> <img src="image-20200603124316051.png" width="100%"/> </div><br>
 
+#### 6.1.3 Interceptor
+
+<div align="center"> <img src="image-20200604101436997.png" width="70%"/> </div><br>
+
+
+<div align="center"> <img src="image-20200604100333858.png" width="35%"/> </div><br>
+
+Interceptors working with the *HandlerMapping* on the framework must implement the *HandlerInterceptor* interface.
+
+This interface contains three main methods:
+
+- *prehandle()* – called before the actual handler is executed, but the view is not generated yet
+- *postHandle()* – called after the handler is executed
+- *afterCompletion() –* called after the complete request has finished and view was generated
+
+These three methods provide flexibility to do all kinds of pre- and post-processing.
+
+And a quick note – the main difference between *HandlerInterceptor* and *HandlerInterceptorAdapter* is that in the first one we need to override all three methods: *preHandle()*, *postHandle()* and *afterCompletion()*, whereas in the second we may implement only required methods.
 
 
 
+**InterceptorDemo.java**
+
+```java
+public class InterceptorDemo implements HandlerInterceptor {
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        System.out.println("Inside preHandle");
+        return true;
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        System.out.println("Inside postHandle");
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        System.out.println("After completion");
+    }
+}
+```
+
+
+
+To add our interceptors into Spring configuration, we need to override *addInterceptors()* method inside *WebConfig* class that implements *WebMvcConfigurer:*
+
+（这里采用 `JavaConfig` 的方式配置）
+
+**WebConfig.java**
+
+```java
+@EnableWebMvc
+@Configuration
+public class WebConfig extends WebMvcConfigurerAdapter {
+
+    /* Inject to spring ioc container */
+    @Bean
+    InterceptorDemo interceptorDemo() {
+        return new InterceptorDemo();
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(interceptorDemo());
+    }
+}
+```
+
+:hammer: Build project
+
+:heavy_check_mark: Succeeded!
+
+<div align="center"> <img src="image-20200604100632821.png" width="80%"/> </div><br>
+
+
+
+**:bulb:HINTS**
+
+[Quick Guide to the Spring @Enable Annotations](https://www.baeldung.com/spring-enable-annotations)
 
 
 
@@ -412,17 +496,13 @@ https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-applicat
 
 ### 6.4 填坑指南
 
-使用 `mvn spring-boot:run` 命令要在当前项目的目录下，要不然 `Springboot` 找不到 `main` 入口（`cmd` 命令）
+使用 `mvn spring-boot:run` 命令要在当前项目的目录下，要不然 `Springboot` 找不到 `main` 入口
 
-<div align="center"> <img src="image-20200603122927348.png" width="60%"/> </div><br>
 
-<div align="center"> <img src="image-20200603123034891.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200604100231675.png" width="60%"/> </div><br>
 
-:hammer: Build project
 
-:heavy_check_mark: Succeeded!
 
-<div align="center"> <img src="image-20200603123119609.png" width="60%"/> </div><br>
 
 
 

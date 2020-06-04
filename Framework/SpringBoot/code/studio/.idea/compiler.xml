@@ -12,6 +12,7 @@
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Demo" target="1.8" />
+      <module name="InterceptorQuickstart" target="1.5" />
       <module name="SpringbootQuickstart" target="1.8" />
     </bytecodeTargetLevel>
   </component>

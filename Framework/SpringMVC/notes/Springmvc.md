@@ -1398,9 +1398,55 @@ For example – the following line will serve all requests for resources coming 
 
 <div align="center"> <img src="image-20200530222442485.png" width="50%"/> </div><br>
 
-## 7. File Upload with Spring MVC
 
-### 7.1 Overview
+
+
+
+
+
+
+
+
+
+## 7. Interceptor
+
+### 7.1 Spring MVC Handler
+
+And in order to understand the interceptor, let's take a step back and look at the *HandlerMapping*. This maps a method to a URL, so that the *DispatcherServlet* will be able to invoke it when processing a request.
+
+And the *DispatcherServlet* uses the *HandlerAdapter* to actually invoke the method.
+
+Now that we understand the overall context – this is where the handler interceptor comes in. **We'll use the *HandlerInterceptor* to perform actions before handling, after handling or after completion (when the view is rendered) of a request.**
+
+The interceptor **can be used for** cross-cutting concerns and to avoid repetitive handler code like: logging, changing globally used parameters in Spring model etc.
+
+In next few sections that's exactly what we're going to be looking at – the differences between various interceptor implementations.
+
+
+
+### 7.2 Spring Handler Interceptor
+
+Interceptors working with the *HandlerMapping* on the framework must implement the *HandlerInterceptor* interface.
+
+This interface contains three main methods:
+
+- *prehandle()* – called before the actual handler is executed, but the view is not generated yet
+- *postHandle()* – called after the handler is executed
+- *afterCompletion() –* called after the complete request has finished and view was generated
+
+These three methods provide flexibility to do all kinds of pre- and post-processing.
+
+And a quick note – the main difference between *HandlerInterceptor* and *HandlerInterceptorAdapter* is that in the first one we need to override all three methods: *preHandle()*, *postHandle()* and *afterCompletion()*, whereas in the second we may implement only required methods.
+
+
+
+
+
+
+
+## 8. File Upload with Spring MVC
+
+### 8.1 Overview
 
 In this article, we focus on what Spring offers for **multipart (file upload) support** in web applications.
 
@@ -1408,17 +1454,17 @@ Spring allows us to enable this multipart support with pluggable *MultipartResol
 
 After configuring the *MultipartResolver* we'll see how to upload a single file and multiple files.
 
-### 7.2 What is multipart/form-data?
+### 8.2 What is multipart/form-data?
 
 <div align="center"> <img src="image-20200530232201056.png" width="80%"/> </div><br>
 
 <div align="center"> <img src="image-20200530232237591.png" width="90%"/> </div><br>
 
-### 7.3 multipartResolver
+### 8.3 multipartResolver
 
 <div align="center"> <img src="image-20200530233236879.png" width="70%"/> </div><br>
 
-### 7.4 Demo
+### 8.4 Demo
 
 有两种方式实现文件上传
 

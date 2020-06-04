@@ -29,6 +29,8 @@
 
 
 
+
+
 ## 0. Reference Guide
 
 [Springboot 2.0.6 Reference Guide](https://docs.spring.io/spring-boot/docs/2.0.6.RELEASE/reference/html/)
@@ -589,8 +591,21 @@ public class User {
 ```java
 @Repository
 public interface UserMapper {
+
+    @Insert("insert into user(id, username) values (#{id}, #{username}) ")
+    void saveUser(User user);
+
     @Select("select * from user")
     List<User> findAll();
+
+    @Select("select * from user where id = #{id}")
+    User findUserById(int id);
+
+    @Update("update user set username = #{username} where id = #{id}")
+    void updateUser(User user);
+
+    @Delete("delete from user where id = #{id}")
+    void deleteUserById(int id);
     
 }
 ```
@@ -626,11 +641,31 @@ public class TestMapper {
     }
 
     @Test
+    public void testSaveUser() {
+        User user = new User();
+        user.setUsername("KnowKnow");
+        userMapper.saveUser(user);
+    }
+
+    @Test
     public void testFindAll() {
         List<User> users = userMapper.findAll();
         for (User user : users) {
             System.out.println(user);
         }
+    }
+
+    @Test
+    public void testUpdateUser() {
+        User user = new User();
+        user.setId(3);
+        user.setUsername("Yellow Dude");
+        userMapper.updateUser(user);
+    }
+
+    @Test
+    public void testDeleteUser() {
+        userMapper.deleteUserById(6);
     }
 }
 ```
@@ -643,17 +678,106 @@ public class TestMapper {
 
 <div align="center"> <img src="image-20200604145532272.png" width="70%"/> </div><br>
 
-
 ### 6.4 Transaction Manager
 
+在 `springboot` 中无需担心返回 `json` 数据的问题，`jackson` 已内嵌于 `springboot`
+
+<div align="center"> <img src="image-20200604182242409.png" width="80%"/> </div><br>
+
+**UserController.java**
+
+```java
+@RestController
+@RequestMapping("/user")
+public class UserController {
+
+    private UserService userService;
+
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
+    @RequestMapping("/get/{id}")
+    public User findUserById(@PathVariable int id) {
+        return this.userService.findUserById(id);
+    }
+
+}
+```
+
+<div align="center"> <img src="image-20200604182802941.png" width="80%"/> </div><br>
+
+`Spring` 官方建议我们将 `@Transactional` 和 `@Service` 加到对应的实现类中以免 `misuse`
+
+**UserService.java**
+
+```java
+public interface UserService {
+
+    User findUserById(int id);
+
+}
+```
 
 
 
+**UserServiceImpl.java**
+
+```java
+@Service
+@Transactional
+public class UserServiceImpl implements UserService {
+
+    private UserMapper userMapper;
+
+    @Autowired
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
+    @Override
+    public User findUserById(int id) {
+        return this.userMapper.findUserById(id);
+    }
+
+}
+```
 
 
 
+**UserMapper.java**
+
+```java
+@Repository
+public interface UserMapper {
+
+    @Insert("insert into user(id, username) values (#{id}, #{username}) ")
+    void saveUser(User user);
+
+    @Select("select * from user")
+    List<User> findAll();
+
+    @Select("select * from user where id = #{id}")
+    User findUserById(int id);
+
+    @Update("update user set username = #{username} where id = #{id}")
+    void updateUser(User user);
+
+    @Delete("delete from user where id = #{id}")
+    void deleteUserById(int id);
+
+}
+```
 
 
+
+:hammer: Build project
+
+:heavy_check_mark: Succeeded!
+
+
+<div align="center"> <img src="image-20200604182712401.png" width="70%"/> </div><br>
 
 
 
@@ -671,7 +795,7 @@ public class TestMapper {
 
 一个很莫名其妙的错误，后来去 `csdn` 有人提到的 `junit` 版本冲突问题，再去 `mvn repository` 一看，`spring-boot-starter` 最少支持 `junit 4.1.2`（也是一个非常常用的版本），换一下依赖问题解决
 
-
+3. 没事不要加 `@EnableWebMvc`，埋伏笔
 
 
 

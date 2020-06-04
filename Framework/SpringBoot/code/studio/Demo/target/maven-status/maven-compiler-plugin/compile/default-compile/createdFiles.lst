@@ -1,4 +1,8 @@
 com\ceezyyy\springboot\entity\User.class
 com\ceezyyy\springboot\interceptor\InterceptorDemo.class
+com\ceezyyy\springboot\service\impl\UserServiceImpl.class
+com\ceezyyy\springboot\service\UserService.class
 com\ceezyyy\springboot\config\WebConfig.class
+com\ceezyyy\springboot\controller\UserController.class
 com\ceezyyy\springboot\mapper\UserMapper.class
+com\ceezyyy\springboot\TestApplication.class

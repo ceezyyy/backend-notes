@@ -22,10 +22,30 @@ public class TestMapper {
     }
 
     @Test
+    public void testSaveUser() {
+        User user = new User();
+        user.setUsername("KnowKnow");
+        userMapper.saveUser(user);
+    }
+
+    @Test
     public void testFindAll() {
         List<User> users = userMapper.findAll();
         for (User user : users) {
             System.out.println(user);
         }
+    }
+
+    @Test
+    public void testUpdateUser() {
+        User user = new User();
+        user.setId(3);
+        user.setUsername("Yellow Dude");
+        userMapper.updateUser(user);
+    }
+
+    @Test
+    public void testDeleteUser() {
+        userMapper.deleteUserById(6);
     }
 }

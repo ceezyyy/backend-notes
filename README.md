@@ -59,10 +59,8 @@
   
 
 ## :desktop_computer: Frontend
-
-- [JavaScript]()
-
-- [Vue.js]()
+- [JavaScript](https://github.com/ceezyyy/backend-notes/blob/master/Frontend/JavaScript/JavaScript.md#432-quickstart)
+- [Vue.js](https://github.com/ceezyyy/backend-notes/blob/master/Frontend/Vue.js/notes/Vue.js.md)
 
   
 

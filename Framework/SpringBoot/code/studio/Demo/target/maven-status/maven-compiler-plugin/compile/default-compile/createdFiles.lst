@@ -1,2 +1,4 @@
+com\ceezyyy\springboot\entity\User.class
 com\ceezyyy\springboot\interceptor\InterceptorDemo.class
 com\ceezyyy\springboot\config\WebConfig.class
+com\ceezyyy\springboot\mapper\UserMapper.class

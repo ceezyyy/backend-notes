@@ -23,7 +23,9 @@
     - [6.1.3 Interceptor](#613-interceptor)
   + [6.2 Datasource](#62-datasource)
   + [6.3 Mybatis](#63-mybatis)
-  + [6.4 填坑指南](#64-----)
+    - [6.3.1 Reference](#631-reference)
+  + [6.4 Transaction Manager](#64-transaction-manager)
+  + [6.5 填坑指南](#65-----)
 
 
 
@@ -558,21 +560,116 @@ MyBatis-Spring-Boot-Starter will:
 - Will create and register an instance of a `SqlSessionTemplate` got out of the `SqlSessionFactory`
 - Auto-scan your mappers, link them to the `SqlSessionTemplate` and register them to Spring context so they can be injected into your beans
 
+定义一个 `POJO`
+
+**User.java**
+
+```java
+public class User {
+
+    private Integer id;
+    private String username;
+    
+    // getter and setter 
+    // @override toString()
+    
+}
+```
+
+
+
+为了避免每个 `mapper` （也就是 `dao` ）都要写 `@Mapper`，我们在 `application` 启动类加上 `@mapperScan(classpath)` ，实现自动注入
+
+这里的 `@Repository` 是显式声明，让 `spring` 知道，要注入到 `Spring Ioc container`（不写也行，但在 `DI` 的时候会有红色波浪线警告）
+
+
+
+**UserMapper.java**
+
+```java
+@Repository
+public interface UserMapper {
+    @Select("select * from user")
+    List<User> findAll();
+    
+}
+```
+
+**testApplication.java**
+
+```java
+@SpringBootApplication
+@MapperScan(value = "com.ceezyyy.springboot.mapper")
+public class TestApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(TestApplication.class, args);
+    }
+
+}
+```
+
+
+
+**TestMapper.java**
+
+```java
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class TestMapper {
+
+    private UserMapper userMapper;
+
+    @Autowired
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
+    @Test
+    public void testFindAll() {
+        List<User> users = userMapper.findAll();
+        for (User user : users) {
+            System.out.println(user);
+        }
+    }
+}
+```
+
+
+
+:hammer: 进行测试
+
+:heavy_check_mark: Succeeded!
+
+<div align="center"> <img src="image-20200604145532272.png" width="70%"/> </div><br>
+
+
+### 6.4 Transaction Manager
 
 
 
 
-### 6.4 填坑指南
 
-使用 `mvn spring-boot:run` 命令要在当前项目的目录下，要不然 `Springboot` 找不到 `main` 入口
+
+
+
+
+
+
+
+
+### 6.5 填坑指南
+
+1. 使用 `mvn spring-boot:run` 命令要在当前项目的目录下，要不然 `Springboot` 找不到 `main` 入口
 
 
 <div align="center"> <img src="image-20200604100231675.png" width="60%"/> </div><br>
 
+2. `junit` 版本与 `Springboot test starter` 冲突
 
+<div align="center"> <img src="image-20200604144013552.png" width="80%"/> </div><br>
 
-
-
+一个很莫名其妙的错误，后来去 `csdn` 有人提到的 `junit` 版本冲突问题，再去 `mvn repository` 一看，`spring-boot-starter` 最少支持 `junit 4.1.2`（也是一个非常常用的版本），换一下依赖问题解决
 
 
 

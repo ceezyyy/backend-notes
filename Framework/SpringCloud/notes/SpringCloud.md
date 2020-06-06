@@ -17,8 +17,7 @@
 
 ## 2. Preparation
 
-
-
+<div align="center"> <img src="image-20200606122949197.png" width="40%"/> </div><br>
 
 
 

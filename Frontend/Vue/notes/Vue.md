@@ -7,6 +7,11 @@
 * [3. v-html](#3-v-html)
 * [4. @click](#4--click)
 * [5. Counter demo](#5-counter-demo)
+* [6. v-show](#6-v-show)
+* [7. v-if](#7-v-if)
+* [8. Slideshow demo](#8-slideshow-demo)
+
+
 
 
 
@@ -185,14 +190,82 @@ var app = new Vue({
 
 
 
+## 6. v-show
+
+```html
+<body>
+    <div id="app">
+        <button @click="changeToFalse">CHANGE</button>
+        <h1 v-show="flag">Can u see me</h1>
+    </div>
+</body>
+```
+
+```javascript
+var app = new Vue({
+    el: "#app",
+    data: {
+        num: 2,
+        flag: true,
+    },
+    methods: {
+        changeToFalse: function () {
+            this.flag = !this.flag
+        }
+    }
+})
+```
+
+
+<div align="center"> <img src="image-20200609214149452.png" width="30%"/> </div><br>
 
 
 
+## 7. v-if
+
+与 `v-show` 类似
+
+## 8. Slideshow demo
+
+```html
+<body>
+    <div id="app">
+        <img :src="images[index]"><br>
+        <button @click="left" v-show="index > 0">LEFT</button>
+        <button @click="right" v-show="index < images.length - 1">RIGHT</button>
+    </div>
+</body>
+```
+
+```javascript
+var app = new Vue({
+    el: "#app",
+    data: {
+        index: 1,
+        images: [
+            "./img/1.jpg",
+            "./img/2.jpg",
+            "./img/3.jpg"
+        ],
+    },
+    methods: {
+        left: function () {
+            this.index--;
+        },
+        right: function () {
+            this.index++;
+        }
+    }
+})
+```
 
 
 
+<div align="center"> <img src="image-20200609223716790.png" width="50%"/> </div><br>
 
+<div align="center"> <img src="image-20200609223725512.png" width="50%"/> </div><br>
 
+<div align="center"> <img src="image-20200609223734850.png" width="50%"/> </div><br>
 
-
+在 `v-show` 里面写 `js` 逻辑十分便捷！
 

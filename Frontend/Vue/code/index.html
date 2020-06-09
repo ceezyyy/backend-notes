@@ -13,9 +13,9 @@
 
 <body>
     <div id="app">
-        <button @click="minus">minus</button>
-        <input type="text" v-model="num">
-        <button @click="plus">plus</button>
+        <img :src="images[index]"><br>
+        <button @click="left" v-show="index > 0">LEFT</button>
+        <button @click="right" v-show="index < images.length - 1">RIGHT</button>
     </div>
 </body>
 
@@ -24,22 +24,19 @@
     var app = new Vue({
         el: "#app",
         data: {
-            num: 2,
+            index: 1,
+            images: [
+                "./img/1.jpg",
+                "./img/2.jpg",
+                "./img/3.jpg"
+            ],
         },
         methods: {
-            plus: function () {
-                if (this.num < 10) {
-                    this.num++;
-                } else {
-                    alert("Plus failed!");
-                }
+            left: function () {
+                this.index--;
             },
-            minus: function () {
-                if (this.num > 0) {
-                    this.num--
-                } else {
-                    alert("Minus failed")
-                }
+            right: function () {
+                this.index++;
             }
         }
     })

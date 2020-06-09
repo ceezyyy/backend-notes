@@ -13,9 +13,9 @@
 
 <body>
     <div id="app">
-        <p v-text="message"></p>
-        <p v-html="message"></p>
-        <p>{{message}}</p>
+        <button @click="minus">minus</button>
+        <input type="text" v-model="num">
+        <button @click="plus">plus</button>
     </div>
 </body>
 
@@ -24,7 +24,23 @@
     var app = new Vue({
         el: "#app",
         data: {
-            message: "<h1>Hello World</h1>"
+            num: 2,
+        },
+        methods: {
+            plus: function () {
+                if (this.num < 10) {
+                    this.num++;
+                } else {
+                    alert("Plus failed!");
+                }
+            },
+            minus: function () {
+                if (this.num > 0) {
+                    this.num--
+                } else {
+                    alert("Minus failed")
+                }
+            }
         }
     })
 </script>

@@ -5,7 +5,8 @@
 * [1. data](#1-data)
 * [2. v-text](#2-v-text)
 * [3. v-html](#3-v-html)
-* [4. v-on](#4-v-on)
+* [4. @click](#4--click)
+* [5. Counter demo](#5-counter-demo)
 
 
 
@@ -109,4 +110,89 @@ var app = new Vue({
 
 <div align="center"> <img src="image-20200609200655326.png" width="30%"/> </div><br>
 
-## 4. v-on
+## 4. @click
+
+`vue` 通过数据来改变 `dom` 属性
+
+```html
+<body>
+    <div id="app">
+        <h1>{{ num }}</h1>
+        <button @click="plus_one">Click me</button>
+    </div>
+</body>
+```
+
+```javascript
+var app = new Vue({
+    el: "#app",
+    data: {
+        num: 1,
+    },
+    methods: {
+        plus_one: function () {
+            this.num++
+        }
+    }
+})
+```
+
+
+
+## 5. Counter demo
+
+实现一个简单的 `counter` ，其中下界是 0，上界是 10
+
+```html
+<body>
+    <div id="app">
+        <button @click="minus">minus</button>
+        <input type="text" v-model="num">
+        <button @click="plus">plus</button>
+    </div>
+</body>
+```
+
+注意，操作 `data` 要使用 `this` 
+
+```javascript
+var app = new Vue({
+    el: "#app",
+    data: {
+        num: 2,
+    },
+    methods: {
+        plus: function () {
+            if (this.num < 10) {
+                this.num++;
+            } else {
+                alert("Plus failed!");
+            }
+        },
+        minus: function () {
+            if (this.num > 0) {
+                this.num--
+            } else {
+                alert("Minus failed")
+            }
+        }
+    }
+})
+```
+<div align="center"> <img src="image-20200609203733149.png" width="40%"/> </div><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

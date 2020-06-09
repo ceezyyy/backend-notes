@@ -60,7 +60,7 @@
 
 ## :desktop_computer: Frontend
 - [JavaScript](https://github.com/ceezyyy/backend-notes/blob/master/Frontend/JavaScript/JavaScript.md#432-quickstart)
-- [Vue]()
+- [Vue](https://github.com/ceezyyy/backend-notes/blob/master/Frontend/Vue/notes/Vue.md)
 
   
 

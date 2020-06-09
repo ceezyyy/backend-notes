@@ -269,3 +269,5 @@ var app = new Vue({
 
 在 `v-show` 里面写 `js` 逻辑十分便捷！
 
+## 9. v-for
+

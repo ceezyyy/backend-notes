@@ -8,38 +8,18 @@
 
     <!-- development version, includes helpful console warnings -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
     <div id="app">
-        <img :src="images[index]"><br>
-        <button @click="left" v-show="index > 0">LEFT</button>
-        <button @click="right" v-show="index < images.length - 1">RIGHT</button>
+
     </div>
 </body>
 
 
 <script>
-    var app = new Vue({
-        el: "#app",
-        data: {
-            index: 1,
-            images: [
-                "./img/1.jpg",
-                "./img/2.jpg",
-                "./img/3.jpg"
-            ],
-        },
-        methods: {
-            left: function () {
-                this.index--;
-            },
-            right: function () {
-                this.index++;
-            }
-        }
-    })
+
 </script>
 
 </html>

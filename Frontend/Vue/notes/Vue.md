@@ -1,6 +1,6 @@
-# Vue
+# Vue Quickstart
 
-## 目录
+## Category
 * [0. Hello World!](#0-hello-world-)
 * [1. data](#1-data)
 * [2. v-text](#2-v-text)
@@ -10,7 +10,8 @@
 * [6. v-show](#6-v-show)
 * [7. v-if](#7-v-if)
 * [8. Slideshow demo](#8-slideshow-demo)
-
+* [9. v-for](#9-v-for)
+* [10. v-model](#10-v-model)
 
 
 
@@ -270,4 +271,65 @@ var app = new Vue({
 在 `v-show` 里面写 `js` 逻辑十分便捷！
 
 ## 9. v-for
+
+```html
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="car in cars">{{car}}</li>
+        </ul>
+    </div>
+</body>
+```
+
+```javascript
+var app = new Vue({
+    el: "#app",
+    data: {
+        nums: [1, 2, 3, 4],
+        cars: [
+            "Bentley",
+            "Lamborghini",
+            "Benz",
+            "BMW",
+        ]
+    },
+    methods: {
+    }
+})
+```
+
+<div align="center"> <img src="image-20200609230242967.png" width="40%"/> </div><br>
+
+## 10. v-model
+
+```html
+<body>
+    <div id="app">
+      <input type="text" v-model="message">
+      <h2>{{message}}</h2>
+    </div>
+</body>
+```
+
+```javascript
+var app = new Vue({
+    el: "#app",
+    data: {
+        message: "Hello"
+    },
+    methods: {
+    }
+})
+```
+
+<div align="center"> <img src="image-20200609230625074.png" width="30%"/> </div><br>
+
+
+
+
+
+
+
+
 

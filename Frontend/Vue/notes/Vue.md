@@ -2,16 +2,21 @@
 
 ## Category
 * [0. Hello World!](#0-hello-world-)
-* [1. data](#1-data)
-* [2. v-text](#2-v-text)
-* [3. v-html](#3-v-html)
-* [4. @click](#4--click)
-* [5. Counter demo](#5-counter-demo)
-* [6. v-show](#6-v-show)
-* [7. v-if](#7-v-if)
-* [8. Slideshow demo](#8-slideshow-demo)
-* [9. v-for](#9-v-for)
-* [10. v-model](#10-v-model)
+* [1. Vue basic](#1-vue-basic)
+  + [1.1 data](#11-data)
+  + [1.2 v-text](#12-v-text)
+  + [1.3 v-html](#13-v-html)
+  + [1.4 @click](#14--click)
+  + [1.5 Counter demo](#15-counter-demo)
+  + [1.6 v-show](#16-v-show)
+  + [1.7 v-if](#17-v-if)
+  + [1.8 Slideshow demo](#18-slideshow-demo)
+  + [1.9 v-for](#19-v-for)
+  + [1.10 v-model](#110-v-model)
+* [2. Vue cli](#2-vue-cli)
+* [3. axios & Vue](#3-axios---vue)
+
+
 
 
 
@@ -39,7 +44,9 @@ var app = new Vue({
 
 
 
-## 1. data
+## 1. Vue basic
+
+### 1.1 data
 
 ```html
 <body>
@@ -66,7 +73,7 @@ var app = new Vue({
 
 <div align="center"> <img src="image-20200609195323383.png" width="30%"/> </div><br>
 
-## 2. v-text
+### 1.2 v-text
 
 ```html
 <body>
@@ -93,7 +100,7 @@ var app = new Vue({
 
 
 
-## 3. v-html
+### 1.3 v-html
 
 ```html
 <body>
@@ -116,7 +123,7 @@ var app = new Vue({
 
 <div align="center"> <img src="image-20200609200655326.png" width="30%"/> </div><br>
 
-## 4. @click
+### 1.4 @click
 
 `vue` 通过数据来改变 `dom` 属性
 
@@ -145,7 +152,7 @@ var app = new Vue({
 
 
 
-## 5. Counter demo
+### 1.5 Counter demo
 
 实现一个简单的 `counter` ，其中下界是 0，上界是 10
 
@@ -191,7 +198,7 @@ var app = new Vue({
 
 
 
-## 6. v-show
+### 1.6 v-show
 
 ```html
 <body>
@@ -222,11 +229,11 @@ var app = new Vue({
 
 
 
-## 7. v-if
+### 1.7 v-if
 
 与 `v-show` 类似
 
-## 8. Slideshow demo
+### 1.8 Slideshow demo
 
 ```html
 <body>
@@ -270,7 +277,7 @@ var app = new Vue({
 
 在 `v-show` 里面写 `js` 逻辑十分便捷！
 
-## 9. v-for
+### 1.9 v-for
 
 ```html
 <body>
@@ -301,7 +308,7 @@ var app = new Vue({
 
 <div align="center"> <img src="image-20200609230242967.png" width="40%"/> </div><br>
 
-## 10. v-model
+### 1.10 v-model
 
 ```html
 <body>
@@ -327,7 +334,13 @@ var app = new Vue({
 
 
 
+## 2. Vue cli
 
+
+
+
+
+## 3. axios & Vue
 
 
 

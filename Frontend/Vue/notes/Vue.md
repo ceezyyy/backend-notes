@@ -21,10 +21,6 @@
 
 
 
-
-
-
-
 ## 0. Hello World!
 
 ```html
@@ -363,51 +359,80 @@ cnpm install -g @vue/cli
 
 ### 2.2 Quickstart
 
+**项目目录**
+
+<div align="center"> <img src="image-20200610212124850.png" width="20%"/> </div><br>
+
+在 `components` 文件夹下创建一个组件 `HelloWorld`
+
+```vue
+<template>
+  <div>
+    <h1>Hello World</h1>
+  </div>
+</template>
+```
+
+在 `router` 文件夹下引入该组件
+
+```javascript
+import HelloWorld from "../components/HelloWorld.vue"
+```
+
+
+
+设置 `routes` 
+
+```javascript
+const routes = [
+    {
+        path: '/',
+        name: 'HelloWorld',
+        component: HelloWorld
+    },
+    {
+        path: '/about',
+        name: 'About',
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    }
+]
+```
+
+:heavy_check_mark:Succeeded!
+
+<div align="center"> <img src="image-20200610212348722.png" width="90%"/> </div><br>
+
+## 3. axios 
+
+### 3.1 Installation
+
+```bash
+npm install axios
+```
+
+:heavy_check_mark: Installed
+
+<div align="center"> <img src="image-20200611114012427.png" width="40%"/> </div><br>
+
+### 3.2 What is axios?
+
+
+
+### 3.3 Why we use axios?
 
 
 
 
 
+### 3.4 axios quickstart
 
+```javascript
 
+```
+:heavy_check_mark: Succeeded!
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 3. axios & Vue
-
-
-
-
+<div align="center"> <img src="image-20200611115904494.png" width="60%"/> </div><br>
 

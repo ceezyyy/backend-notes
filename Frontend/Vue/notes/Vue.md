@@ -16,7 +16,12 @@
 * [2. Vue cli3](#2-vue-cli3)
   + [2.1 Installation](#21-installation)
   + [2.2 Quickstart](#22-quickstart)
-* [3. axios & Vue](#3-axios---vue)
+* [3. axios](#3-axios)
+  + [3.1 Installation](#31-installation)
+  + [3.2 What is axios?](#32-what-is-axios-)
+  + [3.3 axios quickstart](#33-axios-quickstart)
+    - [3.3.1 get](#331-get)
+    - [3.3.2 post](#332-post)
 
 
 
@@ -419,20 +424,63 @@ npm install axios
 
 ### 3.2 What is axios?
 
-
-
-### 3.3 Why we use axios?
-
+就像 `ajax` 基于 `jQuery` 一样，`axios` 和 `Vue` 也是一对
 
 
 
+### 3.3 axios quickstart
 
-### 3.4 axios quickstart
+#### 3.3.1 get 
 
 ```javascript
-
+axios.get("http://localhost:9090/movie/findAll").then(res => {
+    console.log(res)
+})
+    .catch(err => {
+    console.log("timeout")
+    console.log(err)
+})
 ```
 :heavy_check_mark: Succeeded!
 
-<div align="center"> <img src="image-20200611115904494.png" width="60%"/> </div><br>
+可以获取后台的数据
+
+<div align="center"> <img src="image-20200611163335677.png" width="100%"/> </div><br>
+
+`catch` 用来捕捉错误信息
+
+
+<div align="center"> <img src="image-20200611163546189.png" width="100%"/> </div><br>
+
+带参的 `get` 
+
+```javascript
+axios.get("http://localhost:9090/movie/find", {
+    params: {
+        id: 6
+    }
+})
+    .then(res => {
+    console.log(res)
+})
+    .catch(err => {
+    console.log("timeout")
+    console.log(err)
+})
+```
+
+:heavy_check_mark: Succeeded!
+
+<div align="center"> <img src="image-20200611165649800.png" width="100%"/> </div><br>
+
+
+
+
+
+
+
+
+
+
+#### 3.3.2 post
 

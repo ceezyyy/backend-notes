@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Axios Demo</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
+
 <body>
     <h1>Hello</h1>
 </body>
 
 
 <script>
-    axiso
-
+    axios.get("http://localhost:9090/movie/find", {
+        params: {
+            id: 6
+        }
+    })
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log("timeout")
+            console.log(err)
+        })
 </script>
 
 </html>

@@ -14,11 +14,9 @@
 
 
 <script>
-    axios.get("http://localhost:9090/movie/find", {
-        params: {
-            id: 6
-        }
-    })
+    var data = { "id": 2 }
+
+    axios.post("http://localhost:9090/movie/get", data)
         .then(res => {
             console.log(res)
         })

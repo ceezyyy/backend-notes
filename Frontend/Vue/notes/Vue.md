@@ -22,6 +22,11 @@
   + [3.3 axios quickstart](#33-axios-quickstart)
     - [3.3.1 get](#331-get)
     - [3.3.2 post](#332-post)
+  + [3.4 填坑指南](#34-----)
+    - [3.4.1 params](#341-params)
+    - [3.4.2 body](#342-body)
+
+
 
 
 
@@ -433,7 +438,7 @@ npm install axios
 #### 3.3.1 get 
 
 ```javascript
-axios.get("http://localhost:9090/movie/findAll").then(res => {
+axios.get("http://localhost:9090/movie/getAll").then(res => {
     console.log(res)
 })
     .catch(err => {
@@ -455,7 +460,7 @@ axios.get("http://localhost:9090/movie/findAll").then(res => {
 带参的 `get` 
 
 ```javascript
-axios.get("http://localhost:9090/movie/find", {
+axios.get("http://localhost:9090/movie/get", {
     params: {
         id: 6
     }
@@ -474,13 +479,75 @@ axios.get("http://localhost:9090/movie/find", {
 <div align="center"> <img src="image-20200611165649800.png" width="100%"/> </div><br>
 
 
-
-
-
-
-
-
-
-
 #### 3.3.2 post
+
+无参的 `post` 请求与 `get` 类似
+
+```javascript
+axios.post("http://localhost:9090/movie/getAll")
+    .then(res => {
+    console.log(res)
+})
+    .catch(err => {
+    console.log("timeout")
+    console.log(err)
+})
+```
+
+:heavy_check_mark: Succeeded!
+
+<div align="center"> <img src="image-20200611211042149.png" width="55%"/> </div><br>
+
+带参的 `post` 请求
+
+```javascript
+var data = { "id": 1 }
+
+axios.post("http://localhost:9090/movie/get", data)
+    .then(res => {
+    console.log(res)
+})
+    .catch(err => {
+    console.log("timeout")
+    console.log(err)
+})
+```
+
+**MovieController.java**
+
+```java
+@RequestMapping("get")
+@CrossOrigin
+public Movie getMovieById(@RequestBody Movie movie) {
+    return movieService.getMovieById(movie.getId());
+}
+```
+
+:heavy_check_mark: Succeeded!
+
+<div align="center"> <img src="image-20200611213142255.png" width="70%"/> </div><br>
+
+### 3.4 填坑指南
+
+`post` 中两种方式：
+
+- `params`
+- `body`
+
+#### 3.4.1 params
+
+在 `postman` / `axios` 中，使用 `params` ，会自动将其自动拼接到 `url` 后
+
+后台可用 `@requestParams` 接收
+
+<div align="center"> <img src="image-20200611213628820.png" width="90%"/> </div><br>
+
+
+
+#### 3.4.2 body
+
+将前台传入的数据封装到 `Java bean` 中，为 `json` 格式
+
+
+<div align="center"> <img src="image-20200611214101789.png" width="90%"/> </div><br>
 

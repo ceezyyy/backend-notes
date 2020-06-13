@@ -35,5 +35,27 @@ class CarMapperTest {
         System.out.println(car);
     }
 
+    @Test
+    void testGe() {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.ge("cid", 3);
+        List list = carMapper.selectList(queryWrapper);
+        for (Object o : list) {
+            System.out.println(o);
+        }
+    }
+
+    @Test
+    void test() {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.like("country", "U");
+
+        List list = carMapper.selectList(queryWrapper);
+        for (Object o : list) {
+            System.out.println(o);
+        }
+
+    }
+
 
 }

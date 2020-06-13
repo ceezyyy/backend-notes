@@ -1,4 +1,4 @@
-# MyBatis Plus
+# MyBatis-plus Quickstart
 
 <div align="center"> <img src="mp.png" width="60%"/> </div><br>
 
@@ -12,17 +12,14 @@
   + [1.4 mapper](#14-mapper)
   + [1.5 configuration](#15-configuration)
   + [1.6 test](#16-test)
-* [2. CRUD](#2-crud)
-  + [2.1 Create](#21-create)
-  + [2.2 Read](#22-read)
-  + [2.3 Update](#23-update)
-  + [2.4 Delete](#24-delete)
+
+  
 
 
 
 ## 0. Reference
 
-[MyBatis-Plus](https://mp.baomidou.com/en/)
+[MyBatis-Plus documentation](https://mp.baomidou.com/en/)
 
 
 
@@ -142,48 +139,6 @@ class CarMapperTest {
 :heavy_check_mark: Succeeded!
 
 <div align="center"> <img src="image-20200613173827543.png" width="80%"/> </div><br>
-
-
-
-## 2. CRUD
-
-### 2.1 Create
-
-
-
-### 2.2 Read
-
-
-
-
-
-**read one**
-
-```java
-@Test
-void readOne() {
-    // read one
-    QueryWrapper wrapper = new QueryWrapper<Car>();
-    wrapper.eq("id", 1);
-    Car car = carMapper.selectOne(wrapper);
-    System.out.println(car);
-}
-```
-
-:heavy_check_mark: Succeeded!
-
-<div align="center"> <img src="image-20200613191336630.png" width="80%"/> </div><br>
-
-
-
-
-### 2.3 Update
-
-
-
-
-
-### 2.4 Delete
 
 
 

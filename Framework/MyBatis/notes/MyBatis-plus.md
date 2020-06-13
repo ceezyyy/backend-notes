@@ -12,10 +12,11 @@
   + [1.4 mapper](#14-mapper)
   + [1.5 configuration](#15-configuration)
   + [1.6 test](#16-test)
-
-
-
-
+* [2. CRUD](#2-crud)
+  + [2.1 Create](#21-create)
+  + [2.2 Read](#22-read)
+  + [2.3 Update](#23-update)
+  + [2.4 Delete](#24-delete)
 
 
 
@@ -39,11 +40,7 @@
 
 ### 1.2 table
 
-`DB`：cars
-
-`Table`：cars_info
-
-<div align="center"> <img src="image-20200613172910188.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200613191218123.png" width="90%"/> </div><br>
 
 ### 1.3 entity
 
@@ -145,6 +142,50 @@ class CarMapperTest {
 :heavy_check_mark: Succeeded!
 
 <div align="center"> <img src="image-20200613173827543.png" width="80%"/> </div><br>
+
+
+
+## 2. CRUD
+
+### 2.1 Create
+
+
+
+### 2.2 Read
+
+
+
+
+
+**read one**
+
+```java
+@Test
+void readOne() {
+    // read one
+    QueryWrapper wrapper = new QueryWrapper<Car>();
+    wrapper.eq("id", 1);
+    Car car = carMapper.selectOne(wrapper);
+    System.out.println(car);
+}
+```
+
+:heavy_check_mark: Succeeded!
+
+<div align="center"> <img src="image-20200613191336630.png" width="80%"/> </div><br>
+
+
+
+
+### 2.3 Update
+
+
+
+
+
+### 2.4 Delete
+
+
 
 
 

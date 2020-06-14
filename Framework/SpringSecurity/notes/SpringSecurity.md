@@ -1,2 +1,0 @@
-# Spring Security Quickstart
-

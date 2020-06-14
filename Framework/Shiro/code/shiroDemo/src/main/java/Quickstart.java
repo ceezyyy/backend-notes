@@ -1,91 +1,21 @@
-# Shiro Quickstart
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.*;
 
-<div align="center"> <img src="logo.png" width="40%"/> </div><br>
+import org.apache.shiro.config.IniSecurityManagerFactory;
+import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.Subject;
 
-
-
-## Category
-
-* [0. Reference](#0-reference)
-* [1. Quickstart](#1-quickstart)
-  + [1.1 maven dependencies](#11-maven-dependencies)
-  + [1.2 properties](#12-properties)
-  + [1.3 main](#13-main)
+import org.apache.shiro.util.Factory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
-
-## 0. Reference
-
-[Shiro - documentation](https://shiro.apache.org/)
-
-[Shiro - GitHub](https://github.com/apache/shiro)
-
-[What Is JWT and Why Should You Use JWT - YouTube](https://www.youtube.com/watch?v=7Q17ubqLfaM)
-
-[【狂神说Java】SpringBoot整合Shiro框架 - bilibili](https://www.bilibili.com/video/BV1NE411i7S8?p=1)
-
-
-
-## 1. Quickstart
-
-
-
-<div align="center"> <img src="image-20200614183520133.png" width="25%"/> </div><br>
-
-### 1.1 maven dependencies
-
-**pom.xml**
-
-```xml
-<dependencies>
-
-    <!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-core -->
-    <dependency>
-        <groupId>org.apache.shiro</groupId>
-        <artifactId>shiro-core</artifactId>
-        <version>1.2.3</version>
-    </dependency>
-
-    <!-- https://mvnrepository.com/artifact/log4j/log4j -->
-    <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.17</version>
-    </dependency>
-
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>1.7.5</version>
-    </dependency>
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-log4j12</artifactId>
-        <version>1.7.5</version>
-    </dependency>
-
-</dependencies>
-```
-
-
-
-**:warning: 注意：**
-
-这里的 `slf4j` 以及 `log4j` 组合起来实现日志功能，且我们需要引入 `shiro` 依赖
-
-### 1.2 properties
-
-包括 `log4j.properties` 以及 `shiro.ini` 文件
-
-其中 `IDEA` 操作 `ini` 需要安装插件
-
-
-
-### 1.3 main
-
-**Quickstart.java**
-
-```java
+/**
+ * Simple Quickstart application showing how to use Shiro's API.
+ *
+ * @since 0.9 RC2
+ */
 public class Quickstart {
 
     private static final transient Logger log = LoggerFactory.getLogger(Quickstart.class);
@@ -176,12 +106,3 @@ public class Quickstart {
         System.exit(0);
     }
 }
-```
-
-
-
-:heavy_check_mark: Succeeded!
-
-<div align="center"> <img src="image-20200614184939767.png" width="90%"/> </div><br>
-
-

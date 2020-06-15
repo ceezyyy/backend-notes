@@ -2,17 +2,18 @@
 
 ## Category
 
-  * [1. Cognize](#1-cognize)
-    + [1.1 什么是 Maven ?](#11-----maven--)
-    + [1.2 解决了什么问题 ?](#12----------)
-    + [1.3 同类技术](#13-----)
-    + [1.4 技术主要组成](#14-------)
-  * [2. Quickstart](#2-quickstart)
-    + [2.1 Download](#21-download)
-    + [2.2 Maven 默认生命周期](#22-maven-------)
-    + [2.3 Maven 标准目录结构](#23-maven-------)
-    + [2.4 页面跳转 Demo](#24------demo)
-  * [3. Summary](#3-summary)
+* [1. Cognize](#1-cognize)
+  + [1.1 什么是 Maven ?](#11-----maven--)
+  + [1.2 解决了什么问题 ?](#12----------)
+  + [1.3 同类技术](#13-----)
+  + [1.4 技术主要组成](#14-------)
+* [2. Quickstart](#2-quickstart)
+  + [2.1 Download](#21-download)
+  + [2.2 Maven 默认生命周期](#22-maven-------)
+  + [2.3 Maven 标准目录结构](#23-maven-------)
+  + [2.4 Demo](#24-demo)
+
+
 
 ## 1. Cognize
 
@@ -61,16 +62,13 @@
 
 
 
-
-<div align="center"> <img src="image-20200423132132892.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200423132132892.png" width="60%"/> </div><br>
 
 
 2. 项目的一键构建
 
    
-<div align="center"> <img src="image-20200423132558329.png" width="80%"/> </div><br>
-
-
+<div align="center"> <img src="image-20200423132558329.png" width="60%"/> </div><br>
 
 
 
@@ -80,8 +78,7 @@
 
 1. 进入官网
 
-
-<div align="center"> <img src="image-20200423133526668.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200423133526668.png" width="60%"/> </div><br>
 
 
 2. 下载
@@ -93,7 +90,7 @@
 3. 解压到文件夹
 
 4. 配置，添加到环境变量 
-<div align="center"> <img src="image-20200423155852515.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20200423155852515.png" width="60%"/> </div><br>
 
 5. 修改 `settings.xml`
 
@@ -118,9 +115,7 @@
 
       
 
-      
-
-    <div align="center"> <img src="image-20200424103118142.png" width="60%"/> </div><br>
+      <div align="center"> <img src="image-20200424103118142.png" width="60%"/> </div><br>
 
 
 
@@ -145,7 +140,7 @@
 
 
 
-<div align="center"> <img src="image-20200427231207679.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200427231207679.png" width="30%"/> </div><br>
 
 - `src`：根目录
 
@@ -168,21 +163,19 @@
 
 
 
-### 2.4 页面跳转 Demo
-
-
+### 2.4 Demo
 
 1. 选择 `webapp` 骨架
 
    
 
-<div align="center"> <img src="image-20200427232824603.png" width="90%"/> </div><br>
+<div align="center"> <img src="image-20200427232824603.png" width="70%"/> </div><br>
 
 <div align="center"> <img src="image-20200424102511056.png" width="100%"/> </div><br>
 
 2. 补全标准目录结构
 
-   <div align="center"> <img src="image-20200427234044129.png" width="40%"/> </div><br>
+   <div align="center"> <img src="image-20200427234044129.png" width="30%"/> </div><br>
 
 
 
@@ -190,7 +183,7 @@
 
    **依赖**
 
-     <div align="center"> <img src="image-20200427234147672.png" width="60%"/> </div><br>
+     <div align="center"> <img src="image-20200427234147672.png" width="40%"/> </div><br>
 
    - `groupId`：项目的介绍及标识
 
@@ -201,60 +194,40 @@
    - `version`：版本号
 
    - `scope`：作用域
+     
      - `test`：只在测试中起效果
-     - `provided`：只在编译中起效果 
-
-   
-
-   
-
-   **常见的 `dependencies` / `plugin`：**
-
-   - `Tomcat plugin`
-
-   开发 Web 项目，当然少不了应用服务器 ——  `Tomcat`
-
-   
-
-   :warning:注意
-
-   使用 `Tomcat 7` 时，运行项目的命令是： `mvn tomcat7:run`
-
-   ![image-20200428004932131](image-20200428004932131.png)
-
-   
-
-   - `Servlet`
-
-   - `JUnit` 单元测试
-
-   
-
-<div align="center"> <img src="image-20200428001412324.png" width="100%"/> </div><br>
-
-  <div align="center"> <img src="image-20200428001646434.png" width="80%"/> </div><br>
+  - `provided`：只在编译中起效果 
 
 
+
+
+
+**常见的 `dependencies` / `plugin`：**
+
+- `Tomcat plugin`
+  
+
+开发 Web 项目，当然少不了应用服务器 ——  `Tomcat`
+
+
+
+:warning:注意
+
+使用 `Tomcat 7` 时，运行项目的命令是： `mvn tomcat7:run`
+
+   <div align="center"> <img src="image-20200428004932131.png" width="70%"/> </div><br>
 
 
 
 4. 生成项目
 
-  <div align="center"> <img src="image-20200428004832302.png" width="10%"/> </div><br>
-
-  <div align="center"> <img src="image-20200428004935026.png" width="100%"/> </div><br>
+  <div align="center"> <img src="image-20200428004935026.png" width="80%"/> </div><br>
 
 
-5. Succeeded!
+5. :heavy_check_mark: Succeeded!
 
-  <div align="center"> <img src="image-20200428005006957.png" width="100%"/> </div><br>
+  <div align="center"> <img src="image-20200428005006957.png" width="80%"/> </div><br>
 
 
 
 
-
-
-## 3. Summary
-
-1. 遇到不会的优先查官方文档
-2. 对于 `jar` 包冲突的解决方法是设置 `<scope>` 属性

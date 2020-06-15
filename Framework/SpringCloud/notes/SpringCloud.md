@@ -162,3 +162,67 @@ public class EurekaServerApplication {
 :heavy_check_mark: SUCCEEDED!
 
 <div align="center"> <img src="image-20200615121528370.png" width="100%"/> </div><br
+
+### 4.2 Eureka Client 服务提供者
+
+**pom.xml**
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    <version>2.0.2.RELEASE</version>
+</dependency>
+```
+
+
+
+**:warning:注意**
+
+这里的依赖需要与 `server` 的依赖型号一样！
+
+第一次的时候导入依赖没导入带 `starter` 的结果 `provider` 无法注册到 `server`（但又不报错）
+
+
+
+
+
+**application.yml**
+
+```yaml
+spring:
+  application:
+    name: provider
+server:
+  port: 8010
+eureka:
+  client:
+    instance:
+      prefer-ip-address: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+```
+
+`provider` ：当前注册者的名字
+
+`prefer-ip-address` ：显示注册者 `ip` 
+
+`service-url` ：注册中心的 `url`
+
+**ProviderApplication.java**
+
+```java
+@SpringBootApplication
+public class ProviderApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ProviderApplication.class, args);
+    }
+}
+```
+
+:hammer: BUILD
+
+:heavy_check_mark: SUCCEEDED!
+
+<div align="center"> <img src="image-20200615174733668.png" width="100%"/> </div><br>

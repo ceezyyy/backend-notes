@@ -67,9 +67,7 @@
 ## :floppy_disk: Database
 
 - MySQL
-- [Redis](https://github.com/ceezyyy/awesome-backend-developer/blob/master/CacheMiddleware/Redis/Notes/Redis.md)
-
-
+- [Redis](https://github.com/ceezyyy/backend-notes/blob/master/Database/Redis/notes/Redis.md)
 
 
 

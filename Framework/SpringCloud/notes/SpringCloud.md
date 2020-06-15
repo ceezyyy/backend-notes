@@ -231,6 +231,22 @@ public class ProviderApplication {
 
 现在模拟微服务的 `CRUD` 操作，使用 `RESTful` 风格接口
 
+
+
+**user.java**
+
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class User implements Serializable {
+    private long id;
+    private String username;
+}
+```
+
+
+
 **userMapper.java**
 
 ```java
@@ -255,7 +271,7 @@ public interface UserMapper {
 
 静态代码块与构造代码块不同的是，它只执行一次，用于对整个类进行初始化，通常是对类变量进行初始化处理。
 
-一开始没有创建 `userMap`，启动时报错，无法注入 `userMapper`（可见基础的重要性！）
+一开始没有创建 `userMap` 对象，启动时报错：无法注入 `userMapper`
 
 **userMapperImpl.java**
 

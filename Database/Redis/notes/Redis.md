@@ -18,13 +18,20 @@
   + [3.4 Hash](#34-hash)
   + [3.5 List](#35-list)
   + [3.6 Set](#36-set)
+    - [3.6.1 常用命令](#361-----)
+    - [3.6.2 经典场景](#362-----)
   + [3.7 Zset](#37-zset)
+    - [3.7.1 常用命令](#371-----)
+* [4. SpringBoot 整合 redis](#4-springboot----redis)
+  + [4.1 Quickstart](#41-quickstart)
+
+
 
 
 
 ## 1. What is Redis
 
-`Redis` 是一种基于 `key-value` 的 `NoSQL` 数据库
+`Redis` 是一种基于 `key-value` 的 `NoSQL` 数据库，没有数据表的概念
 
 > Q：
 >
@@ -373,75 +380,110 @@
 <div align="center"> <img src="image-20200504211511504.png" width="60%"/> </div><br>
 
 
-## 4. Jedis
 
-Java 有很多优秀的 `Redis` 客户端，在此介绍 `Jedis`
-
-:bulb:Tips
-
-获取第三方包通常有两种方式：
-
-1. 官网下载对应的 `jar` 包
-2. 使用集成构建工具（如 `Maven`）将 `Jedis` 目标版本的配置加入到项目中（推荐）
-
-
+## 4. SpringBoot 整合 redis
 
 ### 4.1 Quickstart
 
-#### 4.1.1 String 操作
+使用 `Spring data redis` 整合 `redis`
 
-常见的 `set` 和 `get` 方法
+引入相关依赖
 
-<div align="center"> <img src="image-20200504114635447.png" width="90%"/> </div><br>
+**pom.xml**
 
-`setex` 为 `key` 设置过期时间（`s` 为单位）
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
 
-<div align="center"> <img src="image-20200504115212663.png" width="90%"/> </div><br>
-
-生活中有许多熟悉的身影，比如说注册账号或者找回密码时验证码 `60s` 内有效，背后就是这个原理
-
-#### 4.1.2 Hash 操作
-
-:warning:注意
-
-```java
-jedis.hgetAll(key);
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <optional>true</optional>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+        <exclusions>
+            <exclusion>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+</dependencies>
 ```
 
-是根据 `key` 获取所有 `field-value` 的值，存储到 `Map` 中，类型是 `String`
 
 
+这里的 `user` 必须实现序列化接口
 
-<div align="center"> <img src="image-20200504120657013.png" width="90%"/> </div><br>
+**User.java**
 
-<div align="center"> <img src="image-20200504120845022.png" width="70%"/> </div><br>
-
-
-
-#### 4.1.3 List 操作
-
-
-
-
-
-
-
-
-
-#### 4.1.4  Set 操作
+```java
+@Data
+public class User implements Serializable {
+    private long id;
+    private String username;
+}
+```
 
 
 
 
 
+**UserController.java**
+
+```java
+@RequestMapping("user")
+@RestController
+public class UserController {
+
+    private RedisTemplate redisTemplate;
+
+    @Autowired
+    public void setRedisTemplate(RedisTemplate redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
+    // create
+    @PostMapping("set")
+    public void set(@RequestBody User user) {
+        redisTemplate.opsForValue().set("user", user);
+    }
+
+    // read one
+    @GetMapping("get/{key}")
+    public User get(@PathVariable String key) {
+        return (User) redisTemplate.opsForValue().get(key);
+    }
+
+    // delete
+    @DeleteMapping("delete/{key}")
+    public boolean delete(@PathVariable String key) {
+        redisTemplate.delete(key);
+        return !redisTemplate.hasKey(key);
+    }
+}
+```
+
+添加数据
+
+<div align="center"> <img src="image-20200615235717716.png" width="100%"/> </div><br>
+
+根据 `key` 获取 `object` （我们设置的 `key` 是 `user`）
 
 
-#### 4.1.5 Zset 操作
+<div align="center"> <img src="image-20200615235923700.png" width="100%"/> </div><br>
 
+删除数据，返回 `true` 代表删除成功
+<div align="center"> <img src="image-20200616000108254.png" width="100%"/> </div><br>
 
-
-
-
-
-#### 4.1.6 Jedis 连接池
 

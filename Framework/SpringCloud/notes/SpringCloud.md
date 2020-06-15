@@ -8,24 +8,21 @@
 * [1. 单体应用存在的问题](#1----------)
 * [2. 分布式架构](#2------)
 * [3. 什么是微服务](#3-------)
-* 
+* [4. 服务治理 Eureka](#4------eureka)
+  + [4.1 Quickstart](#41-quickstart)
+
+
 
 
 
 ## 0. References
 
-**Read these articles before you start**
-
-- [一文详解微服务架构](https://www.cnblogs.com/skabyy/p/11396571.html)
-- [如何给老婆解释什么是微服务 - 知乎](https://zhuanlan.zhihu.com/p/34287582)
-- [什么是微服务 - 知乎](https://www.zhihu.com/question/65502802/answer/802678798)
-- [什么是微服务 - CSDN](https://blog.csdn.net/wuxiaobingandbob/article/details/78642020)
-
 - [Spring Cloud从入门到实战 - bilibili](https://www.bilibili.com/video/BV1p4411K7pz)
+- [Introduction to Spring Cloud Netflix – Eureka](https://www.baeldung.com/spring-cloud-netflix-eureka)
 
-<div align="center"> <img src="microservices.png" width="70%"/> </div><br>
+<div align="center"> <img src="microservices.png" width="60%"/> </div><br>
 
-<div align="center"> <img src="pic.jpg" width="70%"/> </div><br>
+<div align="center"> <img src="pic.jpg" width="60%"/> </div><br>
 
 
 
@@ -81,7 +78,87 @@
 
 
 
-### 4.1 Quickstart
+### 4.1 Eureka Server 注册中心
 
+创建父工程 `springcloudall`
 
+**pom.xml**
 
+```xml
+<parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.0.6.RELEASE</version>
+</parent>
+
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+</dependencies>
+
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-dependencies</artifactId>
+            <version>Finchley.SR2</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
+```
+
+创建子工程 `eurekaserver`
+
+**pom.xml**
+
+```xml
+<dependencies>
+    <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-server -->
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+        <version>2.0.2.RELEASE</version>
+    </dependency>
+</dependencies>
+```
+
+添加配置
+
+**application.yml**
+
+```yaml
+server:
+  port: 8761
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+```
+
+`port` 指定注册中心的端口号
+
+`registerWithEureka` 为 `false` 是指不注册自己（作为 `server`）
+
+编写启动类
+
+**EurekaServerApplication.java**
+
+```java
+@SpringBootApplication
+@EnableEurekaServer
+public class EurekaServerApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(EurekaServerApplication.class, args);
+    }
+}
+```
+
+:hammer: ​ BUILD 
+
+:heavy_check_mark: SUCCEEDED!
+
+<div align="center"> <img src="image-20200615121528370.png" width="100%"/> </div><br

@@ -9,9 +9,9 @@
 * [2. 分布式架构](#2------)
 * [3. 什么是微服务](#3-------)
 * [4. 服务治理 Eureka](#4------eureka)
-  + [4.1 Quickstart](#41-quickstart)
-
-
+  + [4.1 Eureka Server 注册中心](#41-eureka-server-----)
+  + [4.2 Eureka Client 服务提供者](#42-eureka-client------)
+    - [4.2.1 Quickstart](#421-quickstart)
 
 
 
@@ -226,3 +226,142 @@ public class ProviderApplication {
 :heavy_check_mark: SUCCEEDED!
 
 <div align="center"> <img src="image-20200615174733668.png" width="100%"/> </div><br>
+
+#### 4.2.1 Quickstart
+
+现在模拟微服务的 `CRUD` 操作，使用 `RESTful` 风格接口
+
+**userMapper.java**
+
+```java
+public interface UserMapper {
+
+    // create
+    void saveOrUpdateUser(User user);
+
+    // read one
+    User findUserById(long id);
+
+    // read all
+    Collection<User> findAll();
+
+    // update
+    // delete
+    void deleteUserById(long id);
+}
+```
+
+**:warning:注意**
+
+静态代码块与构造代码块不同的是，它只执行一次，用于对整个类进行初始化，通常是对类变量进行初始化处理。
+
+一开始没有创建 `userMap`，启动时报错，无法注入 `userMapper`（可见基础的重要性！）
+
+**userMapperImpl.java**
+
+```java
+@Repository(value = "userMapper")
+public class UserMapperImpl implements UserMapper {
+
+    // data
+    private static Map<Long, User> userMap;
+
+    static {
+        userMap = new HashMap<>();
+        userMap.put(1L, new User(1L, "LBJ"));
+        userMap.put(2L, new User(2L, "Nike"));
+        userMap.put(3L, new User(3L, "Adidas"));
+    }
+
+    @Override
+    public void saveOrUpdateUser(User user) {
+        userMap.put(user.getId(), user);
+    }
+
+    @Override
+    public User findUserById(long id) {
+        return userMap.get(id);
+    }
+
+    @Override
+    public Collection<User> findAll() {
+        return userMap.values();
+    }
+
+    @Override
+    public void deleteUserById(long id) {
+        userMap.remove(id);
+    }
+}
+```
+
+**:warning:注意**
+
+`controller` 中接受的 `id` 为 `long` 类型，若写成 `int` 类型是获取不到参数的
+
+**userController.java**
+
+```java
+@RestController
+@RequestMapping("user")
+public class UserController {
+
+    private UserMapper userMapper;
+
+    @Autowired
+    public void setUserMapper(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
+    // save
+    @PostMapping("save")
+    public void saveUser(@RequestBody User user) {
+        userMapper.saveOrUpdateUser(user);
+    }
+
+    // read one
+    @GetMapping("findUserById/{id}")
+    public User findUserById(@PathVariable long id) {
+        User user = userMapper.findUserById(id);
+        return user;
+    }
+
+    // read all
+    @GetMapping("findAll")
+    public Collection<User> findAll() {
+        Collection<User> users = userMapper.findAll();
+        return users;
+    }
+
+    // update
+    @PutMapping("update")
+    public void updateUser(@RequestBody User user) {
+        userMapper.saveOrUpdateUser(user);
+    }
+
+    // delete
+    @DeleteMapping("deleteUserById/{id}")
+    public void deleteUserById(@PathVariable long id) {
+        userMapper.deleteUserById(id);
+    }
+
+}
+```
+
+**ProviderApplication.java**
+
+```java
+@SpringBootApplication
+public class ProviderApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(ProviderApplication.class, args);
+    }
+}
+
+```
+
+:hammer: BUILD
+
+:heavy_check_mark: SUCCEEDED!
+

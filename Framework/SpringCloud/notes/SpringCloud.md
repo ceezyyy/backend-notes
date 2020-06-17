@@ -12,12 +12,18 @@
   + [4.1 Eureka Server 注册中心](#41-eureka-server-----)
   + [4.2 Eureka Client 服务提供者](#42-eureka-client------)
     - [4.2.1 Quickstart](#421-quickstart)
+  + [4.3 Eureka Client 服务消费者](#43-eureka-client------)
+    - [4.3.1 Quickstart](#431-quickstart)
 * [5. Rest Template](#5-rest-template)
   + [5.1 什么是 Rest Template?](#51-----rest-template-)
   + [5.2 Quickstart](#52-quickstart)
 * [6. Ribbon 负载均衡](#6-ribbon-----)
   + [6.1 什么是 Ribbon?](#61-----ribbon-)
   + [6.2 Quickstart](#62-quickstart)
+
+
+
+
 
 
 
@@ -189,8 +195,6 @@ public class EurekaServerApplication {
 
 第一次的时候导入依赖没导入带 `starter` 的结果 `provider` 无法注册到 `server`（但又不报错）
 
-
-
 **application.yml**
 
 ```yaml
@@ -235,7 +239,7 @@ public class ProviderApplication {
 
 现在模拟微服务的 `CRUD` 操作，使用 `RESTful` 风格接口
 
-**user.java**
+**User.java**
 
 ```java
 @Data
@@ -249,7 +253,7 @@ public class User implements Serializable {
 
 
 
-**userMapper.java**
+**UserMapper.java**
 
 ```java
 public interface UserMapper {
@@ -275,7 +279,7 @@ public interface UserMapper {
 
 一开始没有创建 `userMap` 对象，启动时报错：无法注入 `userMapper`
 
-**userMapperImpl.java**
+**UserMapperImpl.java**
 
 ```java
 @Repository(value = "userMapper")
@@ -317,7 +321,7 @@ public class UserMapperImpl implements UserMapper {
 
 `controller` 中接受的 `id` 为 `long` 类型，若写成 `int` 类型是获取不到参数的
 
-**userController.java**
+**UserController.java**
 
 ```java
 @RestController
@@ -387,17 +391,39 @@ public class ProviderApplication {
 
 
 
+### 4.3 Eureka Client 服务消费者
+
+#### 4.3.1 Quickstart
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 5. Rest Template
 
 ### 5.1 什么是 Rest Template?
 
 `RestTemplate` 是 `Spring` 提供的基于 `rest` 的服务组件，底层是对 `http` 请求及响应进行了封装，提供了很多访问 `rest` 服务的方法，简化代码开发、
 
+**目的：**
+
+其他服务消费者通过 `Rest Template` 调用服务提供者提供的接口
+
 
 
 ### 5.2 Quickstart
 
+作为服务消费者（模拟，但不用注册到 `eureka server`），调用服务提供者的服务
 
+这里不需要依赖，已集成在 `springboot` 中
 
 
 

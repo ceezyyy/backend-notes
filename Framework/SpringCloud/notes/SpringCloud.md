@@ -12,6 +12,14 @@
   + [4.1 Eureka Server 注册中心](#41-eureka-server-----)
   + [4.2 Eureka Client 服务提供者](#42-eureka-client------)
     - [4.2.1 Quickstart](#421-quickstart)
+* [5. Rest Template](#5-rest-template)
+  + [5.1 什么是 Rest Template?](#51-----rest-template-)
+  + [5.2 Quickstart](#52-quickstart)
+* [6. Ribbon 负载均衡](#6-ribbon-----)
+  + [6.1 什么是 Ribbon?](#61-----ribbon-)
+  + [6.2 Quickstart](#62-quickstart)
+
+
 
 
 
@@ -175,15 +183,11 @@ public class EurekaServerApplication {
 </dependency>
 ```
 
-
-
 **:warning:注意**
 
 这里的依赖需要与 `server` 的依赖型号一样！
 
 第一次的时候导入依赖没导入带 `starter` 的结果 `provider` 无法注册到 `server`（但又不报错）
-
-
 
 
 
@@ -230,8 +234,6 @@ public class ProviderApplication {
 #### 4.2.1 Quickstart
 
 现在模拟微服务的 `CRUD` 操作，使用 `RESTful` 风格接口
-
-
 
 **user.java**
 
@@ -380,4 +382,54 @@ public class ProviderApplication {
 :hammer: BUILD
 
 :heavy_check_mark: SUCCEEDED!
+
+
+
+
+
+## 5. Rest Template
+
+### 5.1 什么是 Rest Template?
+
+`RestTemplate` 是 `Spring` 提供的基于 `rest` 的服务组件，底层是对 `http` 请求及响应进行了封装，提供了很多访问 `rest` 服务的方法，简化代码开发、
+
+
+
+### 5.2 Quickstart
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 6. Ribbon 负载均衡
+
+### 6.1 什么是 Ribbon?
+
+`Spring cloud ribbon` 是一个负载均衡解决方案，`Ribbon` 是 `netflix` 发布的负载均衡器，`Spring cloud ribbon` 是对其的二次封装
+
+**是一个用于对 http 请求控制的负载均衡客户端**
+
+需要在注册中心进行注册，根据负载均衡算法帮助服务消费者调用接口，需要结合 `eureka server` 结合使用
+
+
+
+### 6.2 Quickstart
+
+
+
+
+
+
+
+
+
+
 

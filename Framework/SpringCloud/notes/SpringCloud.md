@@ -421,12 +421,14 @@ public class ProviderApplication {
 
 ### 5.2 Quickstart
 
-作为服务消费者（模拟，但不用注册到 `eureka server`），调用服务提供者的服务
+作为服务消费者（模拟，但不用注册到 `eureka server`），调用服务提供者的服务（`Rest Template` 已是 `Spring` 组件，不需要添加额外依赖）
 
-这里不需要依赖，已集成在 `springboot` 中
+**准备环境：**
 
+- 注册中心
+- 服务提供者
 
-
+<div align="center"> <img src="image-20200618083139101.png" width="30%"/> </div><br>
 
 
 

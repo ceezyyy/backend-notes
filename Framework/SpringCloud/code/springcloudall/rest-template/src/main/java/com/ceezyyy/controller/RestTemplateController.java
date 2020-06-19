@@ -7,26 +7,25 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-
 @RestController
 @RequestMapping("rest")
 public class RestTemplateController {
 
     private RestTemplate restTemplate;
+    // the url of service provider
+    private String url = "http://localhost:8010";
 
     @Autowired
     public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    // create
-    @PostMapping("create")
-    public void createUser(@RequestBody User user) {
+    // read one
+    @GetMapping("findUserById/{id}")
+    public User findUserById(@PathVariable(value = "id") long id) {
+        User user = restTemplate.getForEntity(url + "/user/findUserById/{id}", User.class, id).getBody();
+        return user;
     }
-
     // read all
 
     // update

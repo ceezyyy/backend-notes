@@ -15,32 +15,23 @@
 ## :key: ​Computer Science
 
 - 计算机网络
+
 - 操作系统
+
 - 数据结构与算法
-  - [数组](https://github.com/ceezyyy/awesome-backend-developer/blob/master/CS/DataStructures/Array/notes/Array.md)
-  - 栈和队列
+
+  - 稀疏数组与队列
   - 链表
-  - 二分搜索树
-  - 集合和映射
-  - 优先队列和堆
-  - 线段树
-  - Tire
-  - 并查集
-  - AVL
-  - 红黑树
+  - 栈
+  - 递归
+  - 排序
   - 哈希表
+  - 树
+  - 图
+
 - 设计模式
-  - 让你的对象知悉现况：观察者模式
-  - 装饰对象：装饰者模式
-  - [烘烤 OO 的精华：工厂模式](https://github.com/ceezyyy/awesome-backend-developer/blob/master/CS/DesignPatterns/FactoryPattern/notes/FactoryPattern.md)
-  - 独一无二的对象：单件模式
-  - 封装调用：命令模式
-  - 随遇而安：适配器与外观模式
-  - 封装算法：模板方法模式
-  - 管理良好的集合：迭代器与组合模式
-  - 事务的状态：状态模式
-  - 控制对象访问：代理模式
-  - 模式中的模式：复合模式
+
+  
 
 ## :hammer:Tools
 

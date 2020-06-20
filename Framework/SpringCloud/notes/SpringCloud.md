@@ -688,6 +688,8 @@ And, a great thing about using Feign is that we don't have to write any code for
 </dependency>
 ```
 
+
+
 将 `feign` 注册到注册中心
 
 **application.yml**
@@ -706,26 +708,76 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
 ```
 
-`feign` 客户端，声明式，指定 `provider`
+**feign 客户端，声明式，指定 provider**
 
-就可以直接调用 `provider` 的 `restful` 接口
+提供一个客户端，`controller` 就可直接调用了，并实现负载均衡等功能
 
-**IFeignClient.java**
+**FeignClientProvider.java**
 
 ```java
-@FeignClient(name = "provider")
-@RequestMapping("feign")
-public interface IFeignClient {
+@FeignClient(value = "provider")
+public interface FeignClientProvider {
+
     // read all
-    @GetMapping("findAll")
+    @GetMapping("/user/findAll")
     Collection<User> findAll();
 
     // read one
-    @GetMapping("findUserById'{id}")
+    @GetMapping("/user/findUserById/{id}")
     User findUserById(@PathVariable long id);
 
+    // get server port
+    @GetMapping("/user/port")
+    String getServerPort()
+        ;
 }
 ```
+
+
+
+不要忘了编写 `controller`
+
+注入 `feign` 客户端后可（通过 `feign` 客户端）直接调用
+
+
+
+**FeignController.java**
+
+```java
+@RestController
+@RequestMapping("feign")
+public class FeignController {
+
+    private FeignClientProvider feignClientProvider;
+
+    @Autowired
+    public void setFeignClientProvider(FeignClientProvider feignClientProvider) {
+        this.feignClientProvider = feignClientProvider;
+    }
+
+    // read all
+    @GetMapping("findAll")
+    public Collection<User> findAll() {
+        return feignClientProvider.findAll();
+    }
+
+    // read one
+    @GetMapping("findUserById/{id}")
+    public User findUserById(@PathVariable long id) {
+        return feignClientProvider.findUserById(id);
+    }
+
+    // get server port
+    @GetMapping("port")
+    public String getServerPort() {
+        return feignClientProvider.getServerPort();
+    }
+}
+```
+
+
+
+
 
 启动类
 
@@ -752,20 +804,16 @@ public class FeignApplication {
 
 <div align="center"> <img src="image-20200620123434514.png" width="100%"/> </div><br>
 
+<div align="center"> <img src="image-20200620125835409.png" width="90%"/> </div><br>
+
+<div align="center"> <img src="image-20200620125903027.png" width="90%"/> </div><br>
 
 
 
+<div align="center"> <img src="image-20200620130104236.png" width="90%"/> </div><br>
 
 
-
-
-
-
-
-
-
-
-
+<div align="center"> <img src="image-20200620130127691.png" width="90%"/> </div><br>
 
 
 

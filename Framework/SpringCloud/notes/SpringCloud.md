@@ -1,4 +1,4 @@
-# Spring Cloud Quickstart
+# SpringCloud Quickstart
 
 <div align="center"> <img src="logo.png" width="60%"/> </div><br>
 

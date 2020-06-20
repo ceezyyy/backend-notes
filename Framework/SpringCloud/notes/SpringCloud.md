@@ -22,6 +22,12 @@
 * [7. Feign](#7-feign)
   + [7.1 什么是 Feign?](#71-----feign-)
   + [7.2 Quickstart](#72-quickstart)
+* [8. Hystrix](#8-hystrix)
+  + [8.1 什么是容错机制？](#81---------)
+  + [8.2 设计原则](#82-----)
+  + [8.3 Quickstart](#83-quickstart)
+
+
 
 
 
@@ -814,6 +820,53 @@ public class FeignApplication {
 
 
 <div align="center"> <img src="image-20200620130127691.png" width="90%"/> </div><br>
+
+
+
+
+
+## 8. Hystrix
+
+### 8.1 什么是容错机制？
+
+在不改变各个微服务调用关系的前提下，针对错误情况进行预先处理（需要注册到注册中心）
+
+**一般结合 feign 使用**
+
+### 8.2 设计原则
+
+- 服务隔离机制
+
+- 服务降级机制
+
+- 熔断机制
+
+- 实时监控与报警功能（需要配合 `actuator` 使用）
+
+- 实时配置修改功能
+
+  
+
+
+
+
+
+### 8.3 Quickstart
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -19,6 +19,11 @@
 * [6. Ribbon 负载均衡](#6-ribbon-----)
   + [6.1 什么是 Ribbon?](#61-----ribbon-)
   + [6.2 Quickstart](#62-quickstart)
+* [7. Feign](#7-feign)
+  + [7.1 什么是 Feign?](#71-----feign-)
+  + [7.2 Quickstart](#72-quickstart)
+
+
 
 
 
@@ -632,4 +637,136 @@ public class RibbonController {
 <div align="center"> <img src="image-20200620110913077.png" width="90%"/> </div><br>
 
 <div align="center"> <img src="image-20200620110926277.png" width="90%"/> </div><br>
+
+## 7. Feign
+
+### 7.1 什么是 Feign?
+
+[Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign) – a declarative REST client for Spring Boot apps.
+
+[Feign](https://www.baeldung.com/intro-to-feign) makes writing web service clients easier with pluggable annotation support, which includes Feign annotations and JAX-RS annotations.
+
+Also, [Spring Cloud](https://www.baeldung.com/spring-cloud-series) adds support for [Spring MVC annotations](https://www.baeldung.com/spring-mvc-annotations) and for using the same [*HttpMessageConverters*](https://www.baeldung.com/spring-httpmessageconverter-rest) as used in Spring Web.
+
+And, a great thing about using Feign is that we don't have to write any code for calling the service, other than an interface definition.
+
+**相比较于 ribbon + rest template 的开发，feign 更加简化**
+
+
+
+### 7.2 Quickstart
+
+**参考网址**
+
+[Introduction to Spring Cloud OpenFeign - baeldung](https://www.baeldung.com/spring-cloud-openfeign)
+
+**准备环境**
+
+<div align="center"> <img src="image-20200620123338269.png" width="50%"/> </div><br>
+
+<div align="center"> <img src="image-20200620123303709.png" width="100%"/> </div><br>
+
+
+
+
+引入依赖
+
+**pom.xml**
+
+```xml
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-openfeign</artifactId>
+    <version>2.0.2.RELEASE</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+    <version>2.0.2.RELEASE</version>
+</dependency>
+```
+
+将 `feign` 注册到注册中心
+
+**application.yml**
+
+```yaml
+spring:
+  application:
+    name: feign
+server:
+  port: 8050
+eureka:
+  client:
+    instance:
+      prefer-ip-address: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+```
+
+`feign` 客户端，声明式，指定 `provider`
+
+就可以直接调用 `provider` 的 `restful` 接口
+
+**IFeignClient.java**
+
+```java
+@FeignClient(name = "provider")
+@RequestMapping("feign")
+public interface IFeignClient {
+    // read all
+    @GetMapping("findAll")
+    Collection<User> findAll();
+
+    // read one
+    @GetMapping("findUserById'{id}")
+    User findUserById(@PathVariable long id);
+
+}
+```
+
+启动类
+
+开启 `feign clients` 扫描的注解
+
+**FeignApplication.java**
+
+```java
+@SpringBootApplication
+@EnableFeignClients
+public class FeignApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(FeignApplication.class, args);
+    }
+}
+```
+
+:hammer: Build
+
+:heavy_check_mark: Succeeded!
+
+<div align="center"> <img src="image-20200620123517227.png" width="50%"/> </div><br>
+
+<div align="center"> <img src="image-20200620123434514.png" width="100%"/> </div><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

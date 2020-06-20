@@ -12,9 +12,8 @@
         <module>eurekaserver</module>
         <module>eurekaclient</module>
         <module>ribbon</module>
-        <module>restTemplate</module>
         <module>rest-template</module>
-        <module>consumer</module>
+        <module>feign</module>
     </modules>
 
     <parent>

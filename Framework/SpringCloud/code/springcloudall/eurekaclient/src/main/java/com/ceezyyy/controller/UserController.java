@@ -4,6 +4,7 @@ package com.ceezyyy.controller;
 import com.ceezyyy.entity.User;
 import com.ceezyyy.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
@@ -14,9 +15,19 @@ public class UserController {
 
     private UserMapper userMapper;
 
+    // get local server port
+    @Value("${server.port}")
+    private String serverPort;
+
     @Autowired
     public void setUserMapper(UserMapper userMapper) {
         this.userMapper = userMapper;
+    }
+
+    // get server port
+    @GetMapping("port")
+    public String getServerPort() {
+        return serverPort;
     }
 
     // save

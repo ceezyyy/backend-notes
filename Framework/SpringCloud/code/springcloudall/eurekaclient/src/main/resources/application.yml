@@ -2,7 +2,7 @@ spring:
   application:
     name: provider
 server:
-  port: 8010
+  port: 8020
 eureka:
   client:
     instance:

@@ -2,13 +2,12 @@ package com.ceezyyy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-public class ProviderApplication {
+public class ProviderApplication1 {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProviderApplication.class, args);
+        SpringApplication.run(ProviderApplication1.class, args);
     }
 }

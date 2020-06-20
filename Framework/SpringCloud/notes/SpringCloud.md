@@ -10,10 +10,9 @@
 * [3. 什么是微服务](#3-------)
 * [4. 服务治理 Eureka](#4------eureka)
   + [4.1 Eureka Server 注册中心](#41-eureka-server-----)
-  + [4.2 Eureka Client 服务提供者](#42-eureka-client------)
+  + [4.2 Eureka Client: Provider](#42-eureka-client--provider)
     - [4.2.1 Quickstart](#421-quickstart)
-  + [4.3 Eureka Client 服务消费者](#43-eureka-client------)
-    - [4.3.1 Quickstart](#431-quickstart)
+  + [4.3 Eureka Client: Consumer](#43-eureka-client--consumer)
 * [5. Rest Template](#5-rest-template)
   + [5.1 什么是 Rest Template?](#51-----rest-template-)
   + [5.2 Quickstart](#52-quickstart)
@@ -171,7 +170,7 @@ public class EurekaServerApplication {
 
 <div align="center"> <img src="image-20200615121528370.png" width="100%"/> </div><br
 
-### 4.2 Eureka Client 服务提供者
+### 4.2 Eureka Client: Provider
 
 **pom.xml**
 
@@ -383,21 +382,9 @@ public class ProviderApplication {
 
 
 
+### 4.3 Eureka Client: Consumer 
 
-
-### 4.3 Eureka Client 服务消费者
-
-#### 4.3.1 Quickstart
-
-
-
-
-
-
-
-
-
-
+与 `provider` 类似，从业务角度划分
 
 
 
@@ -549,17 +536,100 @@ public class RestTemplateController {
 
 需要在注册中心进行注册，根据负载均衡算法帮助服务消费者调用接口，需要结合 `eureka server` 结合使用
 
+<div align="center"> <img src="image-20200620100101029.png" width="60%"/> </div><br>
 
 
 ### 6.2 Quickstart
 
+**ribbon 需要注册，不提供服务，只提供负载均衡**
+
+**准备环境**
+
+<div align="center"> <img src="image-20200620105447196.png" width="40%"/> </div><br>
+
+首先先启动注册中心，以及服务提供者（这里只有 2 个）
+
+进行配置 `ribbon`
+
+**pom.xml**
+
+```xml
+<dependencies>
+    <!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-netflix-eureka-client -->
+    <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        <version>2.0.2.RELEASE</version>
+    </dependency>
+</dependencies>
+```
+
+需要注册到注册中心
+
+**RibbonApplication.java**
+
+```java
+@SpringBootApplication
+public class RibbonApplication {
+    public static void main(String[] args) {
+        SpringApplication.run(RibbonApplication.class, args);
+    }
+
+    // provide rest-template
+    @Bean
+    @LoadBalanced
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+```
+
+调服务提供者接口时需要 `rest-template`
+
+`@LocalBalanced` 声明负载均衡
+
+<div align="center"> <img src="image-20200620105818869.png" width="90%"/> </div><br>
+
+注册中心已有 3 个实例
+
+**RibbonController.java**
+
+```java
+@RestController
+@RequestMapping("ribbon")
+public class RibbonController {
+
+    private RestTemplate restTemplate;
+    private String url = "http://provider/user";
+
+    @Autowired
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
+
+    @GetMapping("findAll")
+    public Collection<User> findAll() {
+        Collection collection = restTemplate.getForEntity(url + "/findAll", Collection.class).getBody();
+        return collection;
+    }
+
+    // get current server port
+    @GetMapping("port")
+    public String getServerPort() {
+        String port = restTemplate.getForEntity(url + "/port", String.class).getBody();
+        return port;
+    }
+}
+```
+
+:hammer: Build
+
+:heavy_check_mark: Succeeded!
+
+<div align="center"> <img src="image-20200620110748391.png" width="90%"/> </div><br>
 
 
+<div align="center"> <img src="image-20200620110913077.png" width="90%"/> </div><br>
 
-
-
-
-
-
-
+<div align="center"> <img src="image-20200620110926277.png" width="90%"/> </div><br>
 

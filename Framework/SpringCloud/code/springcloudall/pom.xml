@@ -14,6 +14,7 @@
         <module>ribbon</module>
         <module>restTemplate</module>
         <module>rest-template</module>
+        <module>consumer</module>
     </modules>
 
     <parent>

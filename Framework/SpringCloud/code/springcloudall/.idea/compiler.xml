@@ -10,15 +10,18 @@
         <module name="eurekaserver" />
         <module name="rest-template" />
         <module name="ribbon" />
+        <module name="consumer" />
         <module name="eurekaclient" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="consumer" target="1.8" />
       <module name="restTemplate" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="consumer" options="-parameters" />
       <module name="eurekaclient" options="-parameters" />
       <module name="eurekaserver" options="-parameters" />
       <module name="rest-template" options="-parameters" />

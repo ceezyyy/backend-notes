@@ -12,26 +12,14 @@
 
 
 
-## :key: ​Computer Science
+## :key: ​CS Basics
 
 - 计算机网络
-
 - 操作系统
-
 - 数据结构与算法
-
-  - 稀疏数组与队列
-  - 链表
-  - 栈
-  - 递归
-  - 排序
-  - 哈希表
-  - 树
-  - 图
-
 - 设计模式
 
-  
+
 
 ## :hammer:Tools
 
@@ -77,7 +65,7 @@
 - [Spring Boot](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringBoot/notes/SpringBoot.md)
 - [Spring Cloud](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringCloud/notes/SpringCloud.md)
 
-## :bullettrain_side: Big Data
+
 
 
 

@@ -4,17 +4,11 @@
 
 * [1. 什么是 elasticsearch?](#1-----elasticsearch-)
 * [2. 适用场景](#2-----)
-* [3. Elasticsearch 与 MySQL](#3-elasticsearch---mysql)
+* [3. Elasticsearch 与 MySQL 对比](#3-elasticsearch---mysql---)
 * [4. Quickstart](#4-quickstart)
   + [4.1 Installation](#41-installation)
   + [4.2  使用 postman 与 es 交互](#42-----postman---es---)
   + [4.3 使用 Kibana 与 es 交互](#43----kibana---es---)
-* [5.博客网站全文检索](#5--------)
-  + [5.1 数据](#51---)
-  + [5.2 基于 MySQL 实现](#52----mysql---)
-  + [5.3 基于 es 实现](#53----es---)
-* [6. MySQL 与 es 同步](#6-mysql---es---)
-* [7. Springboot 整合 es](#7-springboot----es)
 
 
 
@@ -33,7 +27,7 @@
 - 实时快速
 - RESTful API
 
-## 3. Elasticsearch 与 MySQL
+## 3. Elasticsearch 与 MySQL 对比
 
 <div align="center"> <img src="image-20200621082458043.png" width="70%"/> </div><br>
 
@@ -189,19 +183,6 @@ POST /user/_search
 }
 ```
 
-## 5.博客网站全文检索
-
-### 5.1 数据
-
-
-
-
-
-
-
-
-
-### 5.2 基于 MySQL 实现
 
 
 
@@ -212,38 +193,4 @@ POST /user/_search
 
 
 
-
-
-
-
-
-
-
-### 5.3 基于 es 实现
-
-
-
-
-
-
-
-
-
-
-
-## 6. MySQL 与 es 同步
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 7. Springboot 整合 es
 

@@ -3,18 +3,23 @@
 [![](https://img.shields.io/badge/Java-Notes-orange?style=flat-square)](https://github.com/ceezyyy/Java-study-notes)
 
 :rocket: Backend notes for humans
-<div align="center"> <img src="cover_front.png" width="80%"/> </div><br>
+<div align="center"> <img src="cover_front.png" width="90%"/> </div><br>
 
 
 ## Road map
 
-<div align="center"> <img src="BackendDeveloper.png" width="80%"/> </div><br>
+<div align="center"> <img src="BackendDeveloper.png" width="90%"/> </div><br>
 
 
 
-## :key: ​CS Basics
+## :key: ​CS Core
 
 - 计算机网络
+  - [应用层]()
+  - 传输层
+  - 网络层
+  - 数据链路层
+  - 物理层
 - 操作系统
 - 数据结构与算法
 - 设计模式
@@ -45,7 +50,9 @@
 
 ## :floppy_disk: Database
 
-- MySQL
+- [MySQL]()
+  - [Quickstart]()
+  - [Advance]()
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/Database/Redis/notes/Redis.md)
 
 

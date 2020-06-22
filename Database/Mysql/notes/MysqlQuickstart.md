@@ -1,12 +1,40 @@
-# MySQL 
+# MySQL Quickstart
 
-# Category
+## Category
+
+* [Create Database / Table](#create-database---table)
+  + [Create database](#create-database)
+  + [Create table](#create-table)
+* [Retrieve table](#retrieve-table)
+* [Update table](#update-table)
+  + [RENAME TO](#rename-to)
+  + [CHARACTER SET](#character-set)
+  + [CHANGE](#change)
+  + [ADD](#add)
+  + [DROP](#drop)
+* [Add data](#add-data)
+* [Delete data](#delete-data)
+* [Update data](#update-data)
+* [Query](#query)
+  + [DISTINCT](#distinct)
+  + [BETWEEN AND](#between-and)
+  + [ORDER BY](#order-by)
+  + [COUNT](#count)
+  + [GROUP BY](#group-by)
+  + [分页](#--)
+* [Constraint](#constraint)
+  + [Primary Key](#primary-key)
+  + [Not null](#not-null)
+  + [Unique](#unique)
+  + [Foreign Key](#foreign-key)
 
 
 
-# Create Database / Table
 
-## Create database
+
+## Create Database / Table
+
+### Create database
 
 ```sql
 CREATE DATABASE mydatabase;
@@ -16,7 +44,7 @@ USE mydatabase;
 
 
 
-## Create table
+### Create table
 
 ```sql
 CREATE TABLE mytable(
@@ -31,7 +59,7 @@ CREATE TABLE mytable(
 ```
 
 
-# Retrieve table
+## Retrieve table
 
 查看当前的表。
 
@@ -41,9 +69,9 @@ DESC mytable;
 
 
 
-# Update table
+## Update table
 
-## RENAME TO
+### RENAME TO
 
 ```sql
 ALTER TABLE mytable RENAME TO mytable1;
@@ -51,7 +79,7 @@ ALTER TABLE mytable RENAME TO mytable1;
 
 关键字：`RENAME TO`
 
-## CHARACTER SET
+### CHARACTER SET
 
 ```sql
 ALTER TABLE mytable CHARACTER SET utf8;
@@ -59,7 +87,7 @@ ALTER TABLE mytable CHARACTER SET utf8;
 
 关键字：`CHARACTER SET`
 
-## CHANGE
+### CHANGE
 
 ```sql
 ALTER TABLE mytable CHANGE old_col new_col attribute;
@@ -69,7 +97,7 @@ ALTER TABLE mytable CHANGE old_col new_col attribute;
 
 关键字：`CHANGE`
 
-## ADD
+### ADD
 
 ```sql
 ALTER TABLE mytable ADD new_col attribute;
@@ -77,7 +105,7 @@ ALTER TABLE mytable ADD new_col attribute;
 
 关键字：`ADD`
 
-## DROP 
+### DROP 
 
 ```sql
 ALTER TABLE mytable DROP col;
@@ -87,7 +115,7 @@ ALTER TABLE mytable DROP col;
 
 
 
-# Add data
+## Add data
 
 ```sql
 INSERT INTO mytable(col_1, col_2, col_n) VALUES (value_1, value_2, value_n);
@@ -98,7 +126,7 @@ INSERT INTO mytable VALUES (..,...,...,)  # 为所有列赋值
 
 
 
-# Delete data
+## Delete data
 
 ```sql
 DELETE FROM mytable WHERE ...
@@ -108,7 +136,7 @@ DELETE FROM mytable WHERE ...
 
 
 
-# Update data
+## Update data
 
 ```sql
 UPDATE mytable set col = value WHERE ...
@@ -118,9 +146,9 @@ UPDATE mytable set col = value WHERE ...
 
 
 
-# Query
+## Query
 
-## DISTINCT
+### DISTINCT
 
 ```sql
 SELECT DISTINCT col FROM mytable;
@@ -144,7 +172,7 @@ SELECT col1, col2, col1 + IFNULL(expr1, expr2) AS col_nickname FROM mytable;
 
 
 
-## BETWEEN AND
+### BETWEEN AND
 
 ```sql
 SELECT col FROM mytable WHERE col BETWEEN xx AND xx;
@@ -187,7 +215,7 @@ SELECT col FROM mytable WHERE col LIKE '%_';
 
 
 
-##  ORDER BY
+###  ORDER BY
 
 ```sql
 SELECT col1, col2, ... FROM mytable WHERE ... ORDER BY col ASC / DESC
@@ -201,7 +229,7 @@ SELECT col1, col2, ... FROM mytable WHERE ... ORDER BY col ASC / DESC
 
 
 
-## COUNT
+### COUNT
 
 聚合是以列为单位，对列进行统计，结果往往为一个数值。
 
@@ -225,7 +253,7 @@ SELECT COUNT(col) / AVG(col) / SUM(col) / MAX(col) / MIN(col) FROM mytable
 
 
 
-## GROUP BY
+### GROUP BY
 
 “物以聚类人以群分”
 
@@ -247,7 +275,7 @@ SELECT col, 聚合函数 AS .. FROM mytable WHERE ... GROUP BY col HAVING ...
 
 
 
-## 分页
+### 分页
 
 ```sql
 SELECT col FROM mytable LIMIT 开始的索引, 每页显示的条数;
@@ -257,9 +285,9 @@ SELECT col FROM mytable LIMIT 开始的索引, 每页显示的条数;
 
 
 
-# Constraint
+## Constraint
 
-## Primary Key
+### Primary Key
 
 ```sql
 PRIMARY KEY
@@ -271,7 +299,7 @@ PRIMARY KEY
 
 
 
-## Not null
+### Not null
 
 ```sql
 NOT NULL
@@ -281,7 +309,7 @@ NOT NULL
 
 
 
-## Unique
+### Unique
 
 ```sql
 UNIQUE	
@@ -291,7 +319,7 @@ UNIQUE
 
 
 
-## Foreign Key
+### Foreign Key
 
 ```sql
 CONSTRAINT 外键名称 FOREIGN KEY (列名) REFERNCE mytable(id)

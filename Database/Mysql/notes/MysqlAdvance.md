@@ -3,10 +3,18 @@
 ## 目录
 
 * [1. Mysql 架构介绍](#1-mysql-----)
+  + [1.1 SQL 执行顺序](#11-sql-----)
+    - [1.1.1 手写](#111---)
+    - [1.1.2 机读](#112---)
+  + [1.2 JOIN 连接](#12-join---)
 * [2. 索引优化分析](#2-------)
+  + [2.1 建立索引](#21-----)
+    - [2.1.1 为什么要建立索引](#211---------)
 * [3. 查询截取分析](#3-------)
 * [4. 锁机制](#4----)
 * [5. 主从复制](#5-----)
+
+
 
 ## 1. Mysql 架构介绍
 
@@ -19,16 +27,13 @@
 
 <div align="center"> <img src="structure.jfif" width="90%"/> </div><br>
 
-
-
 ```sql
 show engines;
 ```
 
-<div align="center"> <img src="image-20200622174451858.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200622174451858.png" width="90%"/> </div><br>
 
-
-<div align="center"> <img src="image-20200622174619206.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200622174619206.png" width="90%"/> </div><br>
 
 
 
@@ -36,7 +41,7 @@ show engines;
 
 #### 1.1.1 手写
 
-<div align="center"> <img src="image-20200622180926436.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200622180926436.png" width="40%"/> </div><br>
 
 
 
@@ -44,11 +49,11 @@ show engines;
 
 `mysql` 最关心的是表以及字段 
 
-<div align="center"> <img src="image-20200622181440991.png" width="100%"/> </div><br>
+<div align="center"> <img src="image-20200622181440991.png" width="90%"/> </div><br>
 
 ### 1.2 JOIN 连接
 
-放一张神图（强烈建议手抄一遍）
+放一张神图（强烈建议手写一遍）
 
 <div align="center"> <img src="sqljoins.webp" width="80%"/> </div><br>
 

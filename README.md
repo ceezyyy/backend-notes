@@ -51,8 +51,8 @@
 ## :floppy_disk: Database
 
 - [MySQL]()
-  - [Quickstart]()
-  - [Advance]()
+  - [Quickstart](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlQuickstart.md)
+  - [Advance](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlAdvance.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/Database/Redis/notes/Redis.md)
 
 

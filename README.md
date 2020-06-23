@@ -34,19 +34,10 @@
 
 ## :coffee: Java 
 
-- 语言基础
-  - [I / O 流](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Java/Advance/IO/IO.md)
-  - [反射](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Java/Advance/Reflection/Reflection.md)
-  
-- [多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/Advance/Multithreading/notes/Multithreading.md)
-
 - 集合
+  - [ArrayList](https://github.com/ceezyyy/backend-notes/blob/master/Java/Collection/notes/ArrayList/ArrayList.md)
 
-  - [ArrayList]()
 
-- JVM
-
-  
 
 ## :desktop_computer: Frontend
 - [JavaScript](https://github.com/ceezyyy/backend-notes/blob/master/Frontend/JavaScript/JavaScript.md#432-quickstart)

@@ -111,8 +111,36 @@ create table if not exists article
 
 <div align="center"> <img src="image-20200622222949871.png" width="100%"/> </div><br>
 
+**需求分析**
+
+查询 `category_id` 为 1 且 `comments` 大于 1 的情况下，`views` 最多的 `id`
+
+```sql
+select id, author_id
+from article
+where category_id = 1
+  and comments > 1
+order by views desc
+limit 1
+```
+
 通过 `explain` 分析，该语句执行了全表扫描
+
 <div align="center"> <img src="image-20200622234407072.png" width="100%"/> </div><br>
+
+**优化 SQL**
+
+索引两大特性：
+
+- 查找（`WHERE`）
+- 排序（`ORDER BY`）
+
+所以，我们需要建立对于 `category_id`，`comments`，`views` 的索引
+
+
+
+
+
 
 
 #### 2.4.2 两表

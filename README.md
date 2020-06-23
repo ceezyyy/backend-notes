@@ -37,7 +37,13 @@
 - 语言基础
   - [I / O 流](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Java/Advance/IO/IO.md)
   - [反射](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Java/Advance/Reflection/Reflection.md)
+  
 - [多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/Advance/Multithreading/notes/Multithreading.md)
+
+- 集合
+
+  - [ArrayList]()
+
 - JVM
 
   
@@ -51,7 +57,7 @@
 ## :floppy_disk: Database
 
 - [MySQL]()
-  - [Quickstart](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlQuickstart.md)
+  - [SQL](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlQuickstart.md)
   - [Advance](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlAdvance.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/Database/Redis/notes/Redis.md)
 

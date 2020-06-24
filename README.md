@@ -84,7 +84,7 @@
 ## 🎙️ Interview
 
 - 常见面试题荟萃
-  - [Java 基础]()
+  - [Java 基础](https://github.com/ceezyyy/backend-notes/blob/master/Interview/JavaCore/notes/JavaCore.md)
 
 
 

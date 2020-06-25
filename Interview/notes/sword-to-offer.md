@@ -9,6 +9,8 @@
 - Stack & Queue
 - Heap
 - HashTable
+- Hashset
+  - [03.数组中重复的数字]()
 - Graph
 
 

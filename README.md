@@ -8,7 +8,7 @@
 
 ## Road map
 
-<div align="center"> <img src="BackendDeveloper.png" width="90%"/> </div><br>
+<div align="center"> <img src="BackendDeveloper.png" width="85%"/> </div><br>
 
 
 
@@ -22,6 +22,7 @@
   - 物理层
 - 操作系统
 - 数据结构与算法
+  - [剑指 Offer]()
 - 设计模式
 
 
@@ -78,13 +79,6 @@
 - [ElasticSearch](https://github.com/ceezyyy/backend-notes/blob/master/ElasticSearch/Elasticsearch.md)
 
 
-
-
-
-## 🎙️ Interview
-
-- 常见面试题荟萃
-  - [Java 基础](https://github.com/ceezyyy/backend-notes/blob/master/Interview/JavaCore/notes/JavaCore.md)
 
 
 

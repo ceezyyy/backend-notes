@@ -4,8 +4,9 @@
 
 ## 数据结构
 
-- Array
+- Array & String
   - [04. 二维数组中的查找](https://github.com/ceezyyy/backend-notes/blob/master/Interview/code/sword-to-offer/array/src/findNumberIn2DArray/findNumberIn2DArray.md)
+  - [05. 替换空格]()
 - LinkedList
 - Tree
 - Stack & Queue

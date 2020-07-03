@@ -5,8 +5,7 @@
 ## 数据结构
 
 - Array
-  - [04. 二维数组中的查找]()
-
+  - [04. 二维数组中的查找](https://github.com/ceezyyy/backend-notes/blob/master/Interview/code/sword-to-offer/array/src/findNumberIn2DArray/findNumberIn2DArray.md)
 - LinkedList
 - Tree
 - Stack & Queue

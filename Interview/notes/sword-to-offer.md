@@ -6,7 +6,7 @@
 
 - Array & String
   - [04. 二维数组中的查找](https://github.com/ceezyyy/backend-notes/blob/master/Interview/code/sword-to-offer/array/src/findNumberIn2DArray/findNumberIn2DArray.md)
-  - [05. 替换空格]()
+  - [05. 替换空格](https://github.com/ceezyyy/backend-notes/blob/master/Interview/code/sword-to-offer/array/src/replaceSpace/replaceSpace.md)
 - LinkedList
 - Tree
 - Stack & Queue

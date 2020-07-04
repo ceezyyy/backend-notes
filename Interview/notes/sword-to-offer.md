@@ -24,7 +24,7 @@
 ## 算法
 
 - 斐波那契数列
-  - [10- I. 斐波那契数列]()
+  - [10- I. 斐波那契数列](https://github.com/ceezyyy/backend-notes/blob/master/Interview/code/sword-to-offer/dp/src/fib/Fib.md)
 - 搜索
 - 全排列
 - 动态规划

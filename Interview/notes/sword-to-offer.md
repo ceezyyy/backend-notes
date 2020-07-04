@@ -8,8 +8,10 @@
   - [04. 二维数组中的查找](https://github.com/ceezyyy/backend-notes/blob/master/Interview/code/sword-to-offer/array/src/findNumberIn2DArray/findNumberIn2DArray.md)
   - [05. 替换空格](https://github.com/ceezyyy/backend-notes/blob/master/Interview/code/sword-to-offer/array/src/replaceSpace/replaceSpace.md)
 - LinkedList
+  - [06.从尾到头打印链表]()
 - Tree
 - Stack & Queue
+  - [09.用两个栈实现队列]()
 - Heap
 - HashTable
 - Hashset

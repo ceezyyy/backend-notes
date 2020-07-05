@@ -34,4 +34,4 @@
   - [56 - II. 数组中数字出现的次数 II](https://github.com/ceezyyy/backend-notes/blob/master/Interview/code/sword-to-offer/bit/src/singleNumber/singleNumber.md)
 - 滑动窗口
 - 数学
-  - [17. 打印从1到最大的n位数]()
+  - [17. 打印从1到最大的n位数](https://github.com/ceezyyy/backend-notes/blob/master/Interview/code/sword-to-offer/math/src/printNumbers/printNumbers.md)

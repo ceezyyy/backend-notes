@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/bit/bit.iml" filepath="$PROJECT_DIR$/bit/bit.iml" />
       <module fileurl="file://$PROJECT_DIR$/dp/dp.iml" filepath="$PROJECT_DIR$/dp/dp.iml" />
       <module fileurl="file://$PROJECT_DIR$/hashset/hashset.iml" filepath="$PROJECT_DIR$/hashset/hashset.iml" />
+      <module fileurl="file://$PROJECT_DIR$/math/math.iml" filepath="$PROJECT_DIR$/math/math.iml" />
       <module fileurl="file://$PROJECT_DIR$/stack&amp;queue/stack&amp;queue.iml" filepath="$PROJECT_DIR$/stack&amp;queue/stack&amp;queue.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/sword-to-offer.iml" filepath="$PROJECT_DIR$/.idea/sword-to-offer.iml" />
     </modules>

@@ -31,5 +31,7 @@
 - 回溯
 - 排序
 - 位运算
-  - [56 - II. 数组中数字出现的次数 II]()
+  - [56 - II. 数组中数字出现的次数 II](https://github.com/ceezyyy/backend-notes/blob/master/Interview/code/sword-to-offer/bit/src/singleNumber/singleNumber.md)
 - 滑动窗口
+- 数学
+  - [17. 打印从1到最大的n位数]()

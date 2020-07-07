@@ -12,12 +12,6 @@
   + [1.5 Mapper](#15-mapper)
   + [1.6 Test](#16-test)
 
-
-
-
-
-
-
 ## 1. Quickstart
 
 ### 1.1 添加依赖
@@ -68,6 +62,8 @@
 
 ### 1.2 配置文件
 
+其中 `log-impl` 指的是控制台输出 `sql` 查询具体信息
+
 ```yml
 spring:
   datasource:
@@ -78,8 +74,6 @@ mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 ```
-
-
 
 ### 1.3 数据库
 
@@ -108,8 +102,6 @@ insert into user(id, username, age)
 values (null, "王五", 13);
 ```
 
-
-
 <div align="center"> <img src="image-20200706171731983.png" width="50%"/> </div><br>
 
 **填坑指南**
@@ -124,7 +116,7 @@ alter table user convert to character set utf8 ;
 
 **User.java**
 
-```
+```java
 @Data
 public class User {
     private Integer id;  // pk
@@ -174,3 +166,18 @@ class UserMapperTest {
 <div align="center"> <img src="image-20200706173432318.png" width="60%"/> </div><br>
 
 <div align="center"> <img src="image-20200706173439382.png" width="80%"/> </div><br>
+
+## 2. Mybatis plus 常用注解
+
+
+
+
+
+
+
+
+
+
+
+## 3. Mybatis plus CRUD 详解
+

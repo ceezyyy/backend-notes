@@ -1,6 +1,6 @@
 package com.ceezyyy.mybatisplusdemo.mapper;
 
-import com.ceezyyy.mybatisplusdemo.entity.User;
+import com.ceezyyy.mybatisplusdemo.entity.Account;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,7 +21,7 @@ class UserMapperTest {
     // find all
     @Test
     public void findAll() {
-        List<User> users = userMapper.selectList(null);
+        List<Account> users = userMapper.selectList(null);
         for (int i = 0; i < users.size(); i++) {
             System.out.println(users);
         }

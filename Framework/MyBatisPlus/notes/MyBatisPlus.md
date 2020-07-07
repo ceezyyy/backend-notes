@@ -169,6 +169,125 @@ class UserMapperTest {
 
 ## 2. Mybatis plus 常用注解
 
+### 2.1 @TableName
+
+数据库表名映射
+
+`Mybatis-plus` 是根据实体类名去数据库找对应的表，假若我们将实体类改为 `account`
+
+**Account.java**
+
+```java
+@Data
+public class Account {
+    private Integer id;  // pk
+    private String username;
+    private Integer age;
+}
+```
+
+
+
+**AccountMapper.java**
+
+```java
+@Mapper
+@Repository
+public interface UserMapper extends BaseMapper<Account> {
+}
+```
+
+毫无疑问会报错，看看报错信息
+
+<div align="center"> <img src="image-20200707095127310.png" width="30%"/> </div><br>
+
+找不到 `account` 表名，因为数据库根本没有 `account` 表
+
+<div align="center"> <img src="image-20200707095255661.png" width="90%"/> </div><br>
+
+当我们在实体类 `account` 加上 `@TableName` 注解时
+
+```java
+@Data
+@TableName("user")
+public class Account {
+    private Integer id;  // pk
+    private String username;
+    private Integer age;
+}
+```
+
+查询成功
+<div align="center"> <img src="image-20200707095449052.png" width="90%"/> </div><br>
+
+### 2.2 @TableField
+
+先看看 `user` 表字段
+
+<div align="center"> <img src="image-20200707100105877.png" width="50%"/> </div><br>
+
+`Mybatis-plus` 根据实体类的属性去表中所对应的字段
+
+```java
+@Data
+@TableName("user")
+public class Account {
+    private Integer id;  // pk
+    private String name;
+    private Integer age;
+}
+```
+
+当实体类的属性与表中字段（除 `pk` 外）不对应时，就需要加上 `@TableField` 注解
+
+<div align="center"> <img src="image-20200707102614797.png" width="80%"/> </div><br>
+
+找不到 `name` 字段
+
+
+<div align="center"> <img src="image-20200707102643183.png" width="90%"/> </div><br>
+
+
+
+加上 `@TableField` 注解
+
+```java
+@Data
+@TableName("user")
+public class Account {
+    private Integer id;  // pk
+    @TableField(value = "username")
+    private String name;
+    private Integer age;
+}
+```
+
+<div align="center"> <img src="image-20200707102943552.png" width="60%"/> </div><br>
+
+查询成功
+
+<div align="center"> <img src="image-20200707103026040.png" width="80%"/> </div><br>
+
+
+
+
+### 2.3 @TableId
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

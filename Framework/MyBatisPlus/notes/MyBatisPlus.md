@@ -28,6 +28,11 @@
     - [2.5.2 为什么要用 enum?](#252-------enum-)
   + [2.6 @TableLogic](#26--tablelogic)
 * [3. Mybatis plus CRUD](#3-mybatis-plus-crud)
+  + [3.1 Create](#31-create)
+  + [3.2 Read all](#32-read-all)
+  + [3.3 Read one](#33-read-one)
+  + [3.4 Update](#34-update)
+  + [3.5 Delete](#35-delete)
 
 
 
@@ -716,4 +721,56 @@ public void testDeleteUserById() {
 
 
 ## 3. Mybatis plus CRUD 
+
+### 3.1 Create
+
+
+
+
+
+
+
+
+
+### 3.2 Read all
+
+
+
+
+
+
+
+
+
+### 3.3 Read one
+
+
+
+
+
+
+
+
+
+### 3.4 Update
+
+
+
+
+
+
+
+
+
+### 3.5 Delete
+
+
+
+
+
+
+
+
+
+
 

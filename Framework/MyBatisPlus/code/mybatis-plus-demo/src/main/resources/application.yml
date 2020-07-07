@@ -6,3 +6,8 @@ spring:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  type-enums-package: com.ceezyyy.mybatisplusdemo.enums
+  global-config:
+    db-config:
+      logic-delete-value: 1  # 1 means logic deleted
+      logic-not-delete-value: 0  # 0 means not delete

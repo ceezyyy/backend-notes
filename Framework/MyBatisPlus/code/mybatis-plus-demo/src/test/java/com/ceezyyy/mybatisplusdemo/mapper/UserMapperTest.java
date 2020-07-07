@@ -4,6 +4,7 @@ import com.ceezyyy.mybatisplusdemo.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import java.util.List;
 
@@ -20,11 +21,11 @@ class UserMapperTest {
 
     // create
     @Test
-    public void saveUser() {
+    public void testSaveUser() {
         // user
         User user = new User();
-        user.setUsername("小明");
-        user.setAge(20);
+        user.setUsername("陆金所");
+        user.setAge(22);
         // insert
         userMapper.insert(user);
     }
@@ -32,11 +33,31 @@ class UserMapperTest {
 
     // find all
     @Test
-    public void findAll() {
+    public void testFindAll() {
         List<User> users = userMapper.selectList(null);
-        for (int i = 0; i < users.size(); i++) {
-            System.out.println(users);
+        for (User user : users) {
+            System.out.println(user);
+            System.out.println();
         }
+    }
+
+    // update
+    @Test
+    public void testUpdateUser() {
+        // modify
+        User user1 = userMapper.selectById(5);
+        user1.setUsername("测试乐观锁1");
+        User user2 = userMapper.selectById(5);
+        user2.setUsername("测试乐观锁2");
+        // update
+        userMapper.updateById(user1);
+        userMapper.updateById(user2);
+    }
+
+    // delete
+    @Test
+    public void testDeleteUserById() {
+        userMapper.deleteById(1280413088352428033L);
     }
 
 

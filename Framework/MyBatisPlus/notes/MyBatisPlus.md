@@ -2,6 +2,12 @@
 
 <div align="center"> <img src="logo.png" width="80%"/> </div><br>
 
+## 参考教程
+
+[【最新版】4小时学会MyBatis Plus通俗易懂，从入门到部署上线 - 楠哥教你学Java](https://www.bilibili.com/video/BV1yA411t782?p=1)
+
+
+
 ## 目录
 
 * [1. Quickstart](#1-quickstart)
@@ -11,6 +17,13 @@
   + [1.4 实体类](#14----)
   + [1.5 Mapper](#15-mapper)
   + [1.6 Test](#16-test)
+* [2. Mybatis plus 常用注解](#2-mybatis-plus-----)
+  + [2.1 @TableName](#21--tablename)
+  + [2.2 @TableField](#22--tablefield)
+  + [2.3 @TableId](#23--tableid)
+* [3. Mybatis plus CRUD 详解](#3-mybatis-plus-crud---)
+
+
 
 ## 1. Quickstart
 
@@ -171,7 +184,7 @@ class UserMapperTest {
 
 ### 2.1 @TableName
 
-数据库表名映射
+**数据库表名映射**
 
 `Mybatis-plus` 是根据实体类名去数据库找对应的表，假若我们将实体类改为 `account`
 
@@ -222,6 +235,8 @@ public class Account {
 
 ### 2.2 @TableField
 
+**非主键字段映射**
+
 先看看 `user` 表字段
 
 <div align="center"> <img src="image-20200707100105877.png" width="50%"/> </div><br>
@@ -268,20 +283,107 @@ public class Account {
 
 <div align="center"> <img src="image-20200707103026040.png" width="80%"/> </div><br>
 
+#### 2.2.1 自动填充
+
+参考连接：https://mp.baomidou.com/guide/auto-fill-metainfo.html
+
+新增数据库列
+
+ `created_time`：新增时间
+
+ `updated_time`：更新时间
+
+<div align="center"> <img src="image-20200707115849056.png" width="50%"/> </div><br>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 ### 2.3 @TableId
 
+**主键映射**
 
+```java
+@Data
+@TableName("user")
+public class Account {
+    @TableId(value = "id")
+    private Integer number;  // pk
+    @TableField(value = "username")
+    private String name;
+    private Integer age;
+}
+```
+查询成功
 
+`value` 指定的映射字段
 
+<div align="center"> <img src="image-20200707110335922.png" width="70%"/> </div><br>
 
+**Id 生成策略**
 
+<div align="center"> <img src="image-20200707112315608.png" width="30%"/> </div><br>
 
+| 值          | 描述                              |
+| ----------- | --------------------------------- |
+| AUTO        | 数据库自增                        |
+| NONE        | mp 设置主键（雪花算法）           |
+| INPUT       | 开发者手动赋值                    |
+| ASSIGN_ID   | mp 分配 ID，Long，Integer，String |
+| ASSIGN_UUID | mp 分配 UUID，String              |
 
+在现实生活中，`id` 一般为较大的值，所以实体类类型为 `Long`，数据库字段为 `bigint`
 
+<div align="center"> <img src="image-20200707111844402.png" width="40%"/> </div><br>
 
+**User.java**
+
+```java
+@Data
+@TableName("user")
+public class User {
+    @TableId(type = IdType.ASSIGN_ID)
+    // pk
+    private Long id;
+    private String username;
+    private Integer age;
+}
+```
+
+设置主键增长策略为 `ASSIGN_ID`
+
+<div align="center"> <img src="image-20200707112806715.png" width="50%"/> </div><br>
+
+添加数据
+
+**UserMapperTest.java**
+
+```java
+// create
+@Test
+public void saveUser() {
+    // user
+    User user = new User();
+    user.setUsername("小明");
+    user.setAge(20);
+    // insert
+    userMapper.insert(user);
+}
+```
+
+添加成功
+
+<div align="center"> <img src="image-20200707113025481.png" width="60%"/> </div><br>
 
 
 

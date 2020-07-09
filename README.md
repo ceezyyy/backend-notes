@@ -30,6 +30,7 @@
 ## :hammer:Tools
 
 - [Maven](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Maven/Maven.md)
+- [IDEA Debugger]()
 
 
 
@@ -76,7 +77,7 @@
 
 ## 📩 MQ
 
-- [rabbitMQ]()
+- [rabbitMQ](https://github.com/ceezyyy/backend-notes/blob/master/MQ/rabbitMQ/notes/rabbitMQ.md)
 
 
 

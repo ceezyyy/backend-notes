@@ -74,6 +74,14 @@
 
 
 
+## 📩 MQ
+
+- [rabbitMQ]()
+
+
+
+
+
 ## 🛡️ Security 
 
 - [Shiro]()

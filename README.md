@@ -30,7 +30,6 @@
 ## :hammer:Tools
 
 - [Maven](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Maven/Maven.md)
-- [IDEA Debugger]()
 
 
 
@@ -43,6 +42,9 @@
 
 ## :desktop_computer: Frontend
 - [JavaScript](https://github.com/ceezyyy/backend-notes/blob/master/Frontend/JavaScript/JavaScript.md#432-quickstart)
+
+- [Thymeleaf]()
+
 - [Vue](https://github.com/ceezyyy/backend-notes/blob/master/Frontend/Vue/notes/Vue.md)
 
   

@@ -351,7 +351,7 @@ public class DataSourceConfig {
 
 
 
-## 5. Properties With Spring Boot
+## 5. Autoconfiguration
 
 
 

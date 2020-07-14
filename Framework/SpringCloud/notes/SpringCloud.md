@@ -734,8 +734,7 @@ public interface FeignClientProvider {
 
     // get server port
     @GetMapping("/user/port")
-    String getServerPort()
-        ;
+    String getServerPort();
 }
 ```
 

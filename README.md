@@ -14,17 +14,10 @@
 
 ## :key: ​CS Core
 
-- 计算机网络
-
+- [计算机网络](https://github.com/ceezyyy/backend-notes/blob/master/Core/ComputerNetwork/notes/index/index.md)
 - 操作系统
-
 - 数据结构与算法
-
 - 设计模式
-
-  
-  
-  
 
 ## :hammer:Tools
 

@@ -6,6 +6,8 @@
 <div align="center"> <img src="cover_front.png" width="90%"/> </div><br>
 
 
+
+
 ## Road map
 
 <div align="center"> <img src="BackendDeveloper.png" width="85%"/> </div><br>
@@ -14,9 +16,9 @@
 
 ## :key: ​CS Core
 
+- 数据结构与算法
 - [计算机网络](https://github.com/ceezyyy/backend-notes/blob/master/Core/ComputerNetwork/notes/index/index.md)
 - 操作系统
-- 数据结构与算法
 - 设计模式
 
 ## :hammer:Tools

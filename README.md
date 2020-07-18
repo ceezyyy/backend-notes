@@ -15,17 +15,16 @@
 ## :key: ​CS Core
 
 - 计算机网络
-  - [应用层]()
-  - 传输层
-  - 网络层
-  - 数据链路层
-  - 物理层
+
 - 操作系统
+
 - 数据结构与算法
-  - [剑指 Offer](https://github.com/ceezyyy/backend-notes/blob/master/Interview/notes/sword-to-offer.md)
+
 - 设计模式
 
-
+  
+  
+  
 
 ## :hammer:Tools
 
@@ -35,7 +34,7 @@
 
 ## :coffee: Java 
 
-- 集合
+- 集合源码
   - [ArrayList](https://github.com/ceezyyy/backend-notes/blob/master/Java/Collection/notes/ArrayList/ArrayList.md)
 
 
@@ -76,7 +75,7 @@
 
 ## 📩 MQ
 
-- [rabbitMQ](https://github.com/ceezyyy/backend-notes/blob/master/MQ/rabbitMQ/notes/rabbitMQ.md)
+
 
 
 
@@ -84,21 +83,21 @@
 
 ## 🛡️ Security 
 
-- [Shiro]()
+- Shiro
 
 
 
 ## :mag: Search Engine
 
-- [ElasticSearch](https://github.com/ceezyyy/backend-notes/blob/master/ElasticSearch/Elasticsearch.md)
+- Elastic Search
 
 
 
-## 💼 Others
 
-- [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/Others/Swagger/notes/Swagger.md)
 
-  
+
+
+
 
 ## :book: Reading
 

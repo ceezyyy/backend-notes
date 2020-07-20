@@ -8,19 +8,23 @@
   + [1.3 什么是凭证？](#13-------)
   + [1.4 什么是 Cookie?](#14-----cookie-)
   + [1.5 什么是 Session?](#15-----session-)
-  + [1.6 Cookie 和 Session 的区别？](#16-cookie---session-----)
+  + [1.6 Session 认证流程](#16-session-----)
   + [1.7 什么是 Token?](#17-----token-)
   + [1.8 Token 和 Session 的区别](#18-token---session----)
   + [1.9 什么是 JWT?](#19-----jwt-)
   + [1.10 Token 和 JWT 的区别](#110-token---jwt----)
 * [2. Shiro Quickstart](#2-shiro-quickstart)
-* [参考文章](#----)
+  + [2.1 什么是 Shiro?](#21-----shiro-)
+  + [2.2 核心组件](#22-----)
+* [参考资料](#----)
 
 
 
 ## 1. 知识储备
 
 ### 1.1 什么是认证？
+
+<div align="center"> <img src="authentication.png" width="50%"/> </div><br>
 
 **认证 (Authentication) 就是验证当前用户的身份，证明"你是你自己"**
 
@@ -33,6 +37,8 @@
 
 
 ### 1.2 什么是授权？
+
+<div align="center"> <img src="authorization.png" width="50%"/> </div><br>
 
 **用户授权 (Authorization) 给第三方应用**
 
@@ -52,6 +58,8 @@
 
 ### 1.3 什么是凭证？
 
+<div align="center"> <img src="credentials.png" width="30%"/> </div><br>
+
 **凭证是一个令牌，用来标识访问者的身份**
 
 例如：你出国旅行或出差时，有护照，标明你是一个中国人
@@ -70,85 +78,40 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ### 1.4 什么是 Cookie?
 
+<div align="center"> <img src="cookie.jpg" width="50%"/> </div><br>
 
+**cookie 是一种记录服务器和客户端会话状态的机制**
 
+`HTTP` 是无状态的协议，即服务端不会保存任何会话信息
 
+这样会造成服务端无法确认当前访问者的信息，无法分辨上一次发送请求的当前用户是否为同一人 
 
+所以服务器与浏览器为了进行会话跟踪，就必须主动维护一个状态，通过 `cookie` 和 `session` 实现
 
+`cookie` 的特点：
 
-
-
-
-
-
-
-
+- 存储在客户端
+- 不可跨域
 
 
 
 ### 1.5 什么是 Session?
 
+**session 是一种记录服务器和客户端会话状态的机制**
+
+`session` 是基于 `cookie` 实现的，`session` 存储在服务器端，`sessionId` 会被存储到客户端的 `cookie` 中
+
+<div align="center"> <img src="image-20200720151630501.png" width="60%"/> </div><br>
 
 
 
 
 
+### 1.6 Session 认证流程
 
-
-
-
-
-
-
-
-
-
-
-
-
-### 1.6 Cookie 和 Session 的区别？
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+1. 
 
 
 
@@ -232,15 +195,32 @@
 
 ## 2. Shiro Quickstart
 
+### 2.1 什么是 Shiro?
+
+`Shiro` 是一款主流的 `Java` 安全框架，不依赖任何容器，可运行在 `Java SE` 和 `Java EE` 项目中
+
+主要功能：
+
+- 身份认证
+- 授权
+- 会话管理
+- 加密
+
+### 2.2 核心组件
 
 
 
 
 
 
-## 参考文章
+
+
+
+## 参考资料
 
 - [傻傻分不清之 Cookie、Session、Token、JWT](https://juejin.im/post/5e055d9ef265da33997a42cc)
 
+- [【硬核干货】2小时学会Spring Boot整合Shiro](https://www.bilibili.com/video/BV16C4y187S9?from=search&seid=10384979958239744928)
 
+  
 

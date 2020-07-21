@@ -1,3 +1,7 @@
+---
+typora-root-url: ./
+---
+
 # Shiro
 
 ## 目录
@@ -243,7 +247,7 @@
 
 ## 5. 工作流程
 
-<div align="center"> <img src="https://github.com/ceezyyy/backend-notes/raw/master/Security/Shiro/notes/image-20200721105040456.png" width="90%"/> </div><br>
+<div align="center"> <img src="./image-20200721105040456.png" width="90%"/> </div><br>
 
 - 用户进入系统先根据 `username` 和 `password` 获取 `token`
 - `Subject` 保存用户信息

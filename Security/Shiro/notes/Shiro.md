@@ -13,9 +13,11 @@
   + [1.8 Token 和 Session 的区别](#18-token---session----)
   + [1.9 什么是 JWT?](#19-----jwt-)
   + [1.10 Token 和 JWT 的区别](#110-token---jwt----)
-* [2. Shiro Quickstart](#2-shiro-quickstart)
-  + [2.1 什么是 Shiro?](#21-----shiro-)
-  + [2.2 核心组件](#22-----)
+* [2. 什么是 Shiro?](#2-----shiro-)
+* [3. 用户，角色，权限的关系](#3------------)
+* [4. 核心组件](#4-----)
+* [5. 工作流程](#5-----)
+* [6. Quickstart](#6-quickstart)
 * [参考资料](#----)
 
 
@@ -111,7 +113,7 @@
 
 ### 1.6 Session 认证流程
 
-1. 
+
 
 
 
@@ -177,25 +179,7 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 2. Shiro Quickstart
-
-### 2.1 什么是 Shiro?
+## 2. 什么是 Shiro?
 
 `Shiro` 是一款主流的 `Java` 安全框架，不依赖任何容器，可运行在 `Java SE` 和 `Java EE` 项目中
 
@@ -206,7 +190,70 @@
 - 会话管理
 - 加密
 
-### 2.2 核心组件
+
+
+## 3. 用户，角色，权限的关系
+
+**赋予角色权限**
+
+**赋予用户角色**
+
+
+
+<div align="center"> <img src="image-20200721110705139.png" width="50%"/> </div><br>
+
+
+
+
+## 4. 核心组件
+
+- UsernamePasswordToken
+
+  `Shiro` 用来封装用户登录信息，使用用户登录信息来创建 `token`
+
+- SecurityManager
+
+  `Shiro` 核心，负责安全认证和授权
+
+- Subject
+
+  包含用户信息
+
+- Realm
+
+  开发者自定义的模块，根据项目需求，验证和授权的逻辑全部写在 `Realm` 中
+
+- AuthenticationInfo
+
+  用户角色信息集合，认证时使用
+
+- AuthorizationInfo 
+
+  角色的权限信息集合，授权时使用
+
+- DefaultWebSecurityManager
+
+  安全管理器，自定义的 `Realm` 需注入到次才能生效
+
+- ShiroFilterFactoryBean
+
+  过滤器工厂。`Shiro` 的基本运行机制是开发者制定流程，底层由 `ShiroFilterFactoryBean` 创建的 `filters` 来完成各种功能
+
+
+
+## 5. 工作流程
+
+<div align="center"> <img src="image-20200721105040456.png" width="90%"/> </div><br>
+
+- 用户进入系统先根据 `username` 和 `password` 获取 `token`
+- `Subject` 保存用户信息
+- `SecurityManager` 根据 `AuthenticationInfo`（你是哪个角色）及 `AuthorizationInfo`（你有哪些权限）进行安全管理
+- 其中 `AuthenticationInfo` 以及 `AuthorizationInfo` 根据用户自定义 `Realm` 生成
+
+
+
+## 6. Quickstart
+
 
 
 

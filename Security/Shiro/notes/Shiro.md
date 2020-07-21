@@ -28,6 +28,8 @@
 
 
 
+<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/authentication.png" width="50%"/> </div><br>
+
 **认证 (Authentication) 就是验证当前用户的身份，证明"你是你自己"**
 
 例如：
@@ -41,6 +43,8 @@
 ### 1.2 什么是授权？
 
 
+
+<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/authorization.png" width="50%"/> </div><br>
 
 **用户授权 (Authorization) 给第三方应用**
 
@@ -60,7 +64,9 @@
 
 ### 1.3 什么是凭证？
 
-<img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/credentials.png" style="zoom:50%;" />
+
+
+
 
 **凭证是一个令牌，用来标识访问者的身份**
 
@@ -83,6 +89,8 @@
 ### 1.4 什么是 Cookie?
 
 
+
+<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/cookie.jpg" width="50%"/> </div><br>
 
 **cookie 是一种记录服务器和客户端会话状态的机制**
 
@@ -196,6 +204,8 @@
 
 
 
+<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/image-20200721110705139.png" width="50%"/> </div><br>
+
 
 
 
@@ -240,6 +250,8 @@
 ## 5. 工作流程
 
 
+
+<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/image-20200721105040456.png" width="90%"/> </div><br>
 
 - 用户进入系统先根据 `username` 和 `password` 获取 `token`
 - `Subject` 保存用户信息

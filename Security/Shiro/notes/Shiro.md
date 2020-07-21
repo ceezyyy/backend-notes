@@ -26,7 +26,7 @@
 
 ### 1.1 什么是认证？
 
-<div align="center"> <img src="https://github.com/ceezyyy/backend-notes/raw/master/Security/Shiro/notes/authentication.png" width="50%"/> </div><br>
+![Aaron Swartz](https://raw.githubusercontent.com/ceezyyy/backend-notes/master/Security/Shiro/notes/authentication.png)
 
 **认证 (Authentication) 就是验证当前用户的身份，证明"你是你自己"**
 

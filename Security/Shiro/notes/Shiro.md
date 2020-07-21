@@ -26,7 +26,7 @@
 
 ### 1.1 什么是认证？
 
-<div align="center"> <img src="authentication.png" width="50%"/> </div><br>
+<div align="center"> <img src="https://github.com/ceezyyy/backend-notes/raw/master/Security/Shiro/notes/authentication.png" width="50%"/> </div><br>
 
 **认证 (Authentication) 就是验证当前用户的身份，证明"你是你自己"**
 
@@ -34,13 +34,13 @@
 
 - 用户名密码登录
 - 邮箱发送验证信息
-- 手机号接受验证码
+- bb手机号接受验证码
 
 
 
 ### 1.2 什么是授权？
 
-<div align="center"> <img src="authorization.png" width="50%"/> </div><br>
+<div align="center"> <img src="https://github.com/ceezyyy/backend-notes/raw/master/Security/Shiro/notes/authorization.png" width="50%"/> </div><br>
 
 **用户授权 (Authorization) 给第三方应用**
 
@@ -60,7 +60,7 @@
 
 ### 1.3 什么是凭证？
 
-<div align="center"> <img src="credentials.png" width="30%"/> </div><br>
+<div align="center"> <img src="https://github.com/ceezyyy/backend-notes/raw/master/Security/Shiro/notes/credentials.png" width="30%"/> </div><br>
 
 **凭证是一个令牌，用来标识访问者的身份**
 
@@ -82,7 +82,7 @@
 
 ### 1.4 什么是 Cookie?
 
-<div align="center"> <img src="cookie.jpg" width="50%"/> </div><br>
+<div align="center"> <img src="https://github.com/ceezyyy/backend-notes/raw/master/Security/Shiro/notes/cookie.jpg" width="50%"/> </div><br>
 
 **cookie 是一种记录服务器和客户端会话状态的机制**
 
@@ -105,7 +105,7 @@
 
 `session` 是基于 `cookie` 实现的，`session` 存储在服务器端，`sessionId` 会被存储到客户端的 `cookie` 中
 
-<div align="center"> <img src="image-20200720151630501.png" width="60%"/> </div><br>
+<div align="center"> <img src="https://github.com/ceezyyy/backend-notes/raw/master/Security/Shiro/notes/image-20200720151630501.png" width="60%"/> </div><br>
 
 
 
@@ -200,7 +200,7 @@
 
 
 
-<div align="center"> <img src="image-20200721110705139.png" width="50%"/> </div><br>
+<div align="center"> <img src="https://github.com/ceezyyy/backend-notes/raw/master/Security/Shiro/notes/image-20200721110705139.png" width="50%"/> </div><br>
 
 
 
@@ -243,7 +243,7 @@
 
 ## 5. 工作流程
 
-<div align="center"> <img src="image-20200721105040456.png" width="90%"/> </div><br>
+<div align="center"> <img src="https://github.com/ceezyyy/backend-notes/raw/master/Security/Shiro/notes/image-20200721105040456.png" width="90%"/> </div><br>
 
 - 用户进入系统先根据 `username` 和 `password` 获取 `token`
 - `Subject` 保存用户信息

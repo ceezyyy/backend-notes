@@ -26,9 +26,7 @@
 
 ### 1.1 什么是认证？
 
-
-
-<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/authentication.png" width="50%"/> </div><br>
+<img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/authentication.png" style="zoom: 50%;" />
 
 **认证 (Authentication) 就是验证当前用户的身份，证明"你是你自己"**
 

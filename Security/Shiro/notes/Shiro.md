@@ -40,7 +40,7 @@
 
 ### 1.2 什么是授权？
 
-<div align="center"> <img src="https://github.com/ceezyyy/backend-notes/raw/master/Security/Shiro/notes/authorization.png" width="50%"/> </div><br>
+<div align="center"> <img src="https://raw.githubusercontent.com/ceezyyy/backend-notes/master/Security/Shiro/notes/authorization.png" width="50%"/> </div><br>
 
 **用户授权 (Authorization) 给第三方应用**
 

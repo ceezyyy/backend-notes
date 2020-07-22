@@ -24,6 +24,7 @@
 ## :hammer:Tools
 
 - [Maven](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Maven/Maven.md)
+- [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Swagger/notes/Swagger.md)
 
 
 
@@ -87,14 +88,6 @@
 - Elastic Search
 
 
-
-
-
-## :alien: Life 4 coding
-
-- [如何快速上手项目](https://github.com/ceezyyy/backend-notes/blob/master/Life4Coding/notes/life4coding0722.md)
-
-  
 
 
 

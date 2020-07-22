@@ -18,6 +18,8 @@
 * [4. 核心组件](#4-----)
 * [5. 工作流程](#5-----)
 * [6. Quickstart](#6-quickstart)
+  + [6.1 引入依赖](#61-----)
+  + [6.2 自定义过滤器](#62-------)
 * [参考资料](#----)
 
 
@@ -28,7 +30,7 @@
 
 
 
-<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/authentication.png" width="50%"/> </div><br>
+<div align="center"> <img src="authentication.png" width="50%"/> </div><br>
 
 **认证 (Authentication) 就是验证当前用户的身份，证明"你是你自己"**
 
@@ -44,7 +46,7 @@
 
 
 
-<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/authorization.png" width="50%"/> </div><br>
+<div align="center"> <img src="authorization.png" width="50%"/> </div><br>
 
 **用户授权 (Authorization) 给第三方应用**
 
@@ -66,7 +68,7 @@
 
 
 
-
+<div align="center"> <img src="credentials.png" width="30%"/> </div><br>
 
 **凭证是一个令牌，用来标识访问者的身份**
 
@@ -90,7 +92,7 @@
 
 
 
-<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/cookie.jpg" width="50%"/> </div><br>
+<div align="center"> <img src="cookie.jpg" width="50%"/> </div><br>
 
 **cookie 是一种记录服务器和客户端会话状态的机制**
 
@@ -204,7 +206,7 @@
 
 
 
-<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/image-20200721110705139.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200721110705139.png" width="50%"/> </div><br>
 
 
 
@@ -251,7 +253,7 @@
 
 
 
-<div align="center"> <img src="https://ceezyyy.oss-cn-beijing.aliyuncs.com/img/image-20200721105040456.png" width="90%"/> </div><br>
+<div align="center"> <img src="image-20200721105040456.png" width="90%"/> </div><br>
 
 - 用户进入系统先根据 `username` 和 `password` 获取 `token`
 - `Subject` 保存用户信息
@@ -261,6 +263,102 @@
 
 
 ## 6. Quickstart
+
+若使用
+
+<div align="center"> <img src="image-20200722113045168.png" width="40%"/> </div><br>
+
+创建 `springboot` 项目时失败，可以自定义 `Initializr service url` 成阿里云
+
+```u
+https://start.aliyun.com/
+```
+
+秒速
+
+### 6.1 引入依赖
+
+**pom.xml**
+
+```xml
+<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-spring -->
+<dependency>
+    <groupId>org.apache.shiro</groupId>
+    <artifactId>shiro-spring</artifactId>
+    <version>1.5.3</version>
+</dependency>
+```
+
+确保环境没问题
+
+<div align="center"> <img src="image-20200722113728259.png" width="70%"/> </div><br>
+
+<div align="center"> <img src="image-20200722113806100.png" width="70%"/> </div><br>
+
+### 6.2 自定义过滤器
+
+`account` 表
+
+**account.sql**
+
+```sql
+DROP TABLE IF EXISTS `account`;
+CREATE TABLE `account` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(20) DEFAULT NULL,
+  `password` varchar(20) DEFAULT NULL,
+  `perms` varchar(20) DEFAULT NULL,
+  `role` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+INSERT INTO `account` VALUES (1,'zs','123123','',''),(2,'ls','123123','manage','administrator'),(3,'ww','123123','','');
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

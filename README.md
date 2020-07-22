@@ -90,9 +90,9 @@
 
 
 
-## 🧠 Life 4 coding
+## :alien: Life 4 coding
 
-- [如何快速上手项目]()
+- [如何快速上手项目](https://github.com/ceezyyy/backend-notes/blob/master/Life4Coding/notes/life4coding0722.md)
 
   
 

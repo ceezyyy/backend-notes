@@ -20,6 +20,10 @@
 * [6. Quickstart](#6-quickstart)
   + [6.1 引入依赖](#61-----)
   + [6.2 自定义过滤器](#62-------)
+  + [6.3 配置类](#63----)
+  + [6.4 编写认证和授权规则](#64----------)
+    - [6.4.1 认证过滤器](#641------)
+    - [6.4.2 授权过滤器](#642------)
 * [参考资料](#----)
 
 
@@ -315,13 +319,172 @@ CREATE TABLE `account` (
 INSERT INTO `account` VALUES (1,'zs','123123','',''),(2,'ls','123123','manage','administrator'),(3,'ww','123123','','');
 ```
 
+<div align="center"> <img src="image-20200722142456851.png" width="100%"/> </div><br>
+
+自定义 `realm`，实现授权和验证的逻辑
+
+**AccountRealm.java**
+
+```java
+public class AccountRealm extends AuthorizingRealm {
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        return null;
+    }
+
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+        return null;
+    }
+}
+```
+
+
+
+重写验证的方法
+
+**AccountRealm.java**
+
+```java
+public class AccountRealm extends AuthorizingRealm {
+
+    @Autowired
+    private AccountService accountService;
+
+    /**
+     * 授权逻辑
+     *
+     * @param principalCollection
+     * @return
+     */
+    @Override
+    protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
+        return null;
+    }
+
+    /**
+     * 验证逻辑
+     *
+     * @param authenticationToken
+     * @return
+     * @throws AuthenticationException
+     */
+    @Override
+    protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
+
+        // get UsernamePasswordToken
+        UsernamePasswordToken token = (UsernamePasswordToken) authenticationToken;
+
+        // get account by username (from database)
+        Account account = accountService.findByUsername(token.getUsername());
+
+        if (account != null) {
+            return new SimpleAuthenticationInfo(account, account.getPassword(), getName());
+        }
+
+        // if account is null
+        return null;
+
+    }
+}
+```
+
+
+
+其中重写验证逻辑：
+
+- 获取 `token`
+- 根据 `token` 中的用户名从数据库中查询 `account` 
+- 若查询出 `account` 对象，通过 `Shiro` 中的 `SimpleAuthenticationInfo` 对象进行验证
+
+
+
+### 6.3 配置类
+
+**ShiroConfig.java**
+
+```java
+@Configuration
+public class ShiroConfig {
+
+    /**
+     * 注入自定义 accountRealm
+     *
+     * @return
+     */
+    @Bean
+    public AccountRealm accountRealm() {
+        return new AccountRealm();
+    }
+
+    /**
+     * 将自定义的 accountRealm 注入到 shiro 提供的安全管理器中
+     *
+     * @param accountRealm
+     * @return
+     */
+    @Bean
+    public DefaultWebSecurityManager defaultWebSecurityManager(@Qualifier("accountRealm") AccountRealm accountRealm) {
+        return new DefaultWebSecurityManager(accountRealm);
+    }
+
+    /**
+     * 由 shiro 提供的 ShiroFilterFactoryBean 帮开发者创建 filters
+     *
+     * @param defaultWebSecurityManager
+     * @return
+     */
+    @Bean
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(@Qualifier("defaultWebSecurityManager") DefaultWebSecurityManager defaultWebSecurityManager) {
+        ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+        shiroFilterFactoryBean.setSecurityManager(defaultWebSecurityManager);
+        return shiroFilterFactoryBean;
+    }
+    
+}
+```
+
+写配置类的思路：
+
+- 了解核心组件
+- 了解核心组件之间的关系
+- coding 的时候看源码的构造方法和 getter 和 setter 
 
 
 
 
 
+**Java Config 配置类有什么优势？为什么现在推崇？**
+
+[Spring4.x推荐使用java配置，为什么推荐这种配置方式？与xml配置和注解配置相比有什么优势？- 知乎](https://www.zhihu.com/question/278435266)
+
+<div align="center"> <img src="image-20200722151352203.png" width="90%"/> </div><br>
+
+**@Autowired 和 @Qualifier 有什么区别？**
+
+- @Autowired 按类型注入
+- @Qualifier 按名称注入 
+
+### 6.4 编写认证和授权规则
+
+#### 6.4.1 认证过滤器
+
+- anon：无需认证
+- authc：必须认证
+- authcBasic：需要通过 `HTTPBasic` 认证
+- user：不一定通过认证，只要曾经被 `Shiro` 记录即可
 
 
+
+
+
+#### 6.4.2 授权过滤器
+
+- perms：必须拥有某个权限才能访问
+- role：必须拥有某个角色才能访问
+- port：请求的端口必须是指定值
+- rest：请求必须基于 `RESTful`
+- ssl：必须是安全的 `URL` 请求
 
 
 

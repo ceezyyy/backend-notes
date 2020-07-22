@@ -90,11 +90,17 @@
 
 
 
+## 🧠 Life 4 coding
+
+- [如何快速上手项目]()
+
+  
 
 
 
 
-## :book: 开阔眼界
+
+## :city_sunrise: Horizon
 
 - [如何成为一位「不那么差」的程序员](https://crossoverjie.top/2018/08/12/personal/how-to-be-developer/)
 

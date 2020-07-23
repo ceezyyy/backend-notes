@@ -13,9 +13,10 @@
   + [3.3 配置 Swagger](#33----swagger)
     - [3.3.1 Docket](#331-docket)
     - [3.3.2 ApiInfo](#332-apiinfo)
+    - [3.3.3 扫描接口](#333-----)
+    - [3.3.4 配置分组](#334-----)
+    - [3.3.5 swagger 注释](#335-swagger---)
 * [参考链接](#----)
-
-
 
 
 
@@ -106,8 +107,6 @@ http://localhost:8888/swagger-ui.html
 
 
 ### 3.3 配置 Swagger
-
-
 
 #### 3.3.1 Docket
 
@@ -264,27 +263,186 @@ public class SpringFoxConfig {
 
 <div align="center"> <img src="image-20200723142355683.png" width="60%"/> </div><br>
 
+#### 3.3.3 扫描接口
+
+既然 `swagger` 是一个强大的 `api` 开发工具
+
+那么我们在 `controller` 层写的所有接口都要被扫描吗？
+
+这里引入了 **扫描接口** 的概念，`swagger` 提供了 `select()` 方法供我们选择需要扫描的接口
+
+<div align="center"> <img src="image-20200723145548168.png" width="80%"/> </div><br>
+
+需要一个 `ApiSelectorBuilder` 
+
+(熟悉的工厂模式)
+
+**SpringFoxConfig.java**
+
+```java
+@Bean
+public Docket docket(@Autowired ApiInfo apiInfo) {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .apiInfo(apiInfo)
+        .select()
+        .build();
+}
+```
+
+<div align="center"> <img src="image-20200723145813008.png" width="60%"/> </div><br>
+
+- apis
+- paths
+
+**SpringFoxConfig.java**
+
+```java
+@Bean
+public Docket docket(@Autowired ApiInfo apiInfo) {
+    return new Docket(DocumentationType.SWAGGER_2)
+        .apiInfo(apiInfo)
+        .select()    .apis(RequestHandlerSelectors.basePackage("com.ceezyyy.springbootswagger.controller"))
+        .build();
+}
+```
+
+
+
+<div align="center"> <img src="image-20200723150618244.png" width="100%"/> </div><br>
 
 
 
 
 
+#### 3.3.4 配置分组
+
+<div align="center"> <img src="image-20200723150954321.png" width="60%"/> </div><br>
+
+在 `Docket` 中有 `groupName` 属性
+
+**Docket.class**
+
+```java
+public Docket(DocumentationType documentationType) {
+    this.apiInfo = ApiInfo.DEFAULT;
+    this.groupName = "default";
+    this.enabled = true;
+    this.genericsNamingStrategy = new DefaultGenericTypeNamingStrategy();
+    this.applyDefaultResponseMessages = true;
+    this.host = "";
+    this.pathMapping = Optional.absent();
+    this.apiSelector = ApiSelector.DEFAULT;
+    this.enableUrlTemplating = false;
+    this.vendorExtensions = Lists.newArrayList();
+    this.documentationType = documentationType;
+}
+```
 
 
 
+多个分组是为了不同模块的区分
+
+**SpringFoxConfig.java**
+
+```java
+@Configuration
+@EnableSwagger2
+public class SpringFoxConfig {
+
+    @Bean
+    public Docket docket(@Autowired ApiInfo apiInfo) {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo)
+                .groupName("Group 1")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.ceezyyy.springbootswagger.controller"))
+                .build();
+    }
+
+    @Bean
+    public Docket docket1(@Autowired ApiInfo apiInfo) {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo)
+                .groupName("Group 2")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.ceezyyy.springbootswagger.controller"))
+                .build();
+    }
+
+    @Bean
+    public Docket docket2(@Autowired ApiInfo apiInfo) {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(apiInfo)
+                .groupName("Group 3")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.ceezyyy.springbootswagger.controller"))
+                .build();
+    }
+
+    @Bean
+    public ApiInfo apiInfo() {
+        Contact contact = new Contact("ceezyyy", "https://github.com/ceezyyy", "ceezyyy11@gmail.com");
+        return new ApiInfo("Ceezyyy Documentation", "My Documentation", "1.0", "urn:tos", contact, "Apache 2.0", "http://www.apache.org/licenses/LICENSE-2.0", new ArrayList());
+    }
+
+}
+```
+
+设置 3 个 `Docket`
+
+:heavy_check_mark: 配置分组成功
 
 
 
+<div align="center"> <img src="image-20200723151332159.png" width="60%"/> </div><br>
 
 
 
+#### 3.3.5 swagger 注释
+
+`entity`
+
+**User.java**
+
+```java
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ApiModel("User entity")
+public class User {
+
+    @ApiModelProperty("Username of user")
+    private String username;
+
+    @ApiModelProperty("Password of user")
+    private String password;
+
+}
+```
 
 
 
+**HelloController.java**
 
+```java
+@RestController
+public class HelloController {
 
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello";
+    }
 
+    @PostMapping("/user")
+    public User getUser() {
+        return new User("ceezyyy", "123456");
+    }
+}
+```
 
+若返回值包含 `model`，则会被 `swagger` 检测到
+
+<div align="center"> <img src="image-20200723152707876.png" width="100%"/> </div><br>
 
 
 

@@ -18,6 +18,7 @@
 
 - 数据结构与算法
 - [计算机网络](https://github.com/ceezyyy/backend-notes/blob/master/Core/ComputerNetwork/notes/index/index.md)
+  - HTTP
 - 操作系统
 - 设计模式
 
@@ -32,6 +33,7 @@
 
 - 集合源码
   - [ArrayList](https://github.com/ceezyyy/backend-notes/blob/master/Java/Collection/notes/ArrayList/ArrayList.md)
+- JVM
 
 
 

@@ -6,10 +6,16 @@
   + [1.1 并行与并发](#11------)
     - [1.1.1 什么是并发？](#111-------)
     - [1.1.2 什么是并行？](#112-------)
+  + [1.2 Process（进程） 与 Thread（线程）](#12-process-------thread----)
 * [2. 线程实现（重点）](#2---------)
+  + [2.1 继承 Thread 类](#21----thread--)
+  + [2.2 实现 Runnable 接口](#22----runnable---)
+  + [2.3 实现 Callable 接口](#23----callable---)
 * [3. 线程状态](#3-----)
 * [4. 线程同步（重点）](#4---------)
 * [5. 线程通信](#5-----)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
 
 
 
@@ -42,36 +48,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 2. 线程实现（重点）
 
 在 `Java` 中，有三种实现多线程的方式：
@@ -81,6 +57,110 @@
 - 实现 `Callable` 接口
 
 
+
+### 2.1 继承 Thread 类
+
+**MyThread.java**
+
+```java
+public class MyThread extends Thread {
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Mythread here!" + i);
+        }
+    }
+}
+```
+
+**Main.java**
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        // my thread
+        MyThread myThread = new MyThread();
+
+        // start mythread
+        myThread.start();
+
+        // Main thread
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Main thread here!" + i);
+        }
+
+    }
+}
+```
+
+可以看出 `myThread` 和 `Main` 线程轮流打印，交替进行
+
+<div align="center"> <img src="image-20200724135835145.png" width="40%"/> </div><br>
+
+### 2.2 实现 Runnable 接口
+
+在 `Thread` 类中，还支持像 `Thread` 类传入 `Runnable` 接口的方法
+
+**Thread.java**
+
+```java
+public Thread(Runnable target) {
+    init(null, target, "Thread-" + nextThreadNum(), 0);
+}
+```
+
+
+
+**MyThreadRunnable.java**
+
+```java
+public class MyThreadRunnable implements Runnable {
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            System.out.println("MyThread (implements runnable) here!" + i);
+        }
+    }
+}
+```
+
+**Main.java**
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        MyThreadRunnable myThreadRunnable = new MyThreadRunnable();
+
+        // start new thread
+        new Thread(myThreadRunnable).start();
+
+        for (int i = 0; i < 5; i++) {
+            System.out.println("Main thread here! " + i);
+        }
+
+    }
+}
+```
+
+
+<div align="center"> <img src="image-20200724141048658.png" width="50%"/> </div><br>
+
+**继承 Thread 和 实现 Runnable 接口有什么区别？**
+
+推荐使用实现 `Runnable` 接口的方式
+
+- 避免单继承的局限性
+- 同一个对象可以被多个线程使用
+
+
+
+
+### 2.3 实现 Callable 接口
 
 
 
@@ -193,16 +273,6 @@
 
 
 ## 5. 线程通信
-
-
-
-
-
-## 参考链接
-
-[Java8 中文版](https://www.matools.com/api/java8)
-
-[【狂神说Java】多线程详解](https://www.bilibili.com/video/BV1V4411p7EF)
 
 
 

@@ -30,6 +30,20 @@
 
 <div align="center"> <img src="cafe.jpg" width="70%"/> </div><br>
 
+### 1.2 Process（进程） 与 Thread（线程）
+
+先理清楚三个概念：
+
+- **程序:** 指令和数据的有序集合，是一个静态的概念
+- **进程:** 程序的一次执行过程，是一个动态的概念。是系统资源分配的单位
+- **线程:** 一个进程可以包括若干个线程。一个进程至少有一个线程。线程是 CPU 调度和执行的单位
+
+
+
+
+
+
+
 
 
 
@@ -60,7 +74,11 @@
 
 ## 2. 线程实现（重点）
 
+在 `Java` 中，有三种实现多线程的方式：
 
+- 继承 `Thread` 类
+- 实现 `Runnable` 接口
+- 实现 `Callable` 接口
 
 
 
@@ -180,5 +198,11 @@
 
 
 
- 
+## 参考链接
+
+[Java8 中文版](https://www.matools.com/api/java8)
+
+[【狂神说Java】多线程详解](https://www.bilibili.com/video/BV1V4411p7EF)
+
+
 

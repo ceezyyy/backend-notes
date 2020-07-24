@@ -21,11 +21,6 @@
 - 操作系统
 - 设计模式
 
-## :hammer:Tools
-
-- [Maven](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Maven/Maven.md)
-- [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Swagger/notes/Swagger.md)
-
 
 
 ## :coffee: Java 
@@ -79,7 +74,7 @@
 
 
 
-## 🛡️ Security 
+## :shield: Security 
 
 - [Shiro](https://github.com/ceezyyy/backend-notes/blob/master/Security/Shiro/notes/Shiro.md)
 
@@ -90,6 +85,11 @@
 - Elastic Search
 
 
+
+## :hammer: Tools
+
+- [Maven](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Maven/Maven.md)
+- [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Swagger/notes/Swagger.md)
 
 
 

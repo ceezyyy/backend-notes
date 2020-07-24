@@ -18,7 +18,6 @@
 
 - 数据结构与算法
 - [计算机网络](https://github.com/ceezyyy/backend-notes/blob/master/Core/ComputerNetwork/notes/index/index.md)
-  - HTTP
 - 操作系统
 - 设计模式
 
@@ -31,8 +30,9 @@
 
 ## :coffee: Java 
 
-- 集合源码
+- 集合
   - [ArrayList](https://github.com/ceezyyy/backend-notes/blob/master/Java/Collection/notes/ArrayList/ArrayList.md)
+- [多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/Multithreading/notes/Multithreading.md)
 - JVM
 
 
@@ -43,11 +43,11 @@
 
   
 
-## :floppy_disk: Database
+## 📦 DB
 
 - [MySQL]()
-  - [SQL](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlQuickstart.md)
-  - [Advance](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlAdvance.md)
+  - [SQL 语句](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlQuickstart.md)
+  - [进阶](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlAdvance.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/Database/Redis/notes/Redis.md)
 
 

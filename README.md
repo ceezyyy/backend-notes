@@ -18,7 +18,7 @@
 
 - 数据结构与算法
 - [计算机网络](https://github.com/ceezyyy/backend-notes/blob/master/Core/ComputerNetwork/notes/index/index.md)
-- [操作系统](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/OS.md)
+- [操作系统](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/OS_index.md)
 - 设计模式
 
 
@@ -85,6 +85,7 @@
 ## :shield: Security 
 
 - [Shiro](https://github.com/ceezyyy/backend-notes/blob/master/Security/Shiro/notes/Shiro.md)
+- [OAuth2](https://github.com/ceezyyy/backend-notes/blob/master/Security/Oauth2/notes/Oauth2.md)
 
 
 

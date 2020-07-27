@@ -544,6 +544,3 @@
 
 
 
-## 6. 参考教程
-
-- [2019 王道考研 操作系统 - bilibili](https://www.bilibili.com/video/BV1YE411D7nH)

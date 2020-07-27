@@ -85,7 +85,7 @@
 ## :shield: Security 
 
 - [Shiro](https://github.com/ceezyyy/backend-notes/blob/master/Security/Shiro/notes/Shiro.md)
-- [OAuth2](https://github.com/ceezyyy/backend-notes/blob/master/Security/Oauth2/notes/Oauth2.md)
+- [OAuth2](https://github.com/ceezyyy/backend-notes/blob/master/Security/OAuth2/notes/OAuth2.md)
 
 
 

@@ -2,17 +2,6 @@
 
 ## 目录
 
-* [1. 基础概念](#1-----)
-  + [1.1 什么是认证](#11------)
-  + [1.2 什么是会话](#12------)
-  + [1.3 什么是授权](#13------)
-* [2. OAuth2](#2-oauth2)
-  + [2.1 什么是 OAuth2](#21-----oauth2)
-  + [2.2 由来](#22---)
-  + [2.3 互联网场景](#23------)
-  + [2.4 四种方式](#24-----)
-  + [2.5 整合 Springboot](#25----springboot)
-* [参考资料](#----)
 
 
 
@@ -209,6 +198,211 @@ P.S：认证服务器和资源服务器可以在同一台服务器上
 
 ### 2.4 四种方式
 
+先看看有哪四种方式：
+
+- 授权码（authorization-code）
+- 隐藏式（implicit）
+- 密码式（password）
+- 客户端凭证（client credentials）
+
+
+
+注意：
+
+不管哪一种授权方式，第三方应用在申请令牌之前都会经过系统备案，说明自己的身份，防止令牌被滥用
+
+两个身份识别码：
+
+- 客户端 id
+- 客户端密钥
+
+
+
+这里介绍常用的 **授权式**，其他的用到了再去了解
+
+
+
+**授权式** 指的是第三方应用先申请一个授权码，然后再用该码获取令牌
+
+
+
+流程：
+
+1. A 网站提供一个链接，用户点击后跳转到 B 网站，授权用户数据给 A 网站使用
+
+   ```http
+   https://b.com/oauth/authorize?
+     response_type=code&
+     client_id=CLIENT_ID&
+     redirect_uri=CALLBACK_URL&
+     scope=read
+   ```
+
+   参数说明：
+
+   `response_type`：要求返回的授权码
+
+   `client_id`：让 B 知道是谁在请求
+
+   `redirect_uri`：B 网站接受或拒绝请求后跳转的网址
+
+   `scope`：授权范围（这里是只读）
+
+
+
+2. 在 B 网站要求用户登录，询问是否同意给予 A 网站授权，若同意则跳回 A 网站
+
+   ```http
+   https://a.com/callback?code=AUTHORIZATION_CODE
+   ```
+
+   参数说明：
+
+   `code`：授权码
+
+   
+
+3. A 网站拿到授权码之后，向 B 网站请求令牌
+
+   ```http
+   https://b.com/oauth/token?
+    client_id=CLIENT_ID&
+    client_secret=CLIENT_SECRET&
+    grant_type=authorization_code&
+    code=AUTHORIZATION_CODE&
+    redirect_uri=CALLBACK_URL
+   ```
+
+   参数说明：
+
+   `client_id`：客户端 id （用于验证客户端是否备案）
+
+   `client_secret`：客户端密钥（用于验证客户端是否备案）
+
+   `grant_type`：授权方式
+
+   `code`：授权码
+
+   `redirect_uri`：令牌颁发后的回调地址
+
+
+
+4. B 网站收到请求之后，就会颁发令牌
+
+   ```json
+   {    
+     "access_token":"ACCESS_TOKEN",
+     "token_type":"bearer",
+     "expires_in":2592000,
+     "refresh_token":"REFRESH_TOKEN",
+     "scope":"read",
+     "uid":100101,
+     "info":{...}
+   }
+   ```
+
+   
+
+## 3. Demo
+
+### 3.1 案例架构
+
+| 项目        | 端口 | 说明       |
+| ----------- | ---- | ---------- |
+| Auth-server | 8080 | 授权服务器 |
+| User-server | 8081 | 资源服务器 |
+| Client-app  | 8082 | 第三方应用 |
+
+
+
+先创建一个 `oauth-demo` 的空项目
+
+
+
+
+
+再次回顾一下这幅图：
+
+<div align="center"> <img src="image-20200728104042329.png" width="70%"/> </div><br>
+
+
+
+### 3.2 授权服务器
+
+需要配置：
+
+- 用户
+- token 的存储位置
+- 令牌端点的安全约束
+- 客户端详细信息
+- 令牌的访问端点和令牌服务
+
+
+
+**配置用户**
+
+**SecurityConfig.java**
+
+```java
+@Configuration
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    @Bean
+    PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("ceezyyy")
+                .password(new BCryptPasswordEncoder().encode("123"))
+                .roles("admin")
+                .and()
+                .withUser("javaboy")
+                .password(new BCryptPasswordEncoder().encode("123"))
+                .roles("user");
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.csrf().disable().formLogin();
+    }
+}
+```
+
+配置了两个用户：
+
+- ceezyyy
+- javaboy
+
+
+
+
+
+**配置 token**
+
+**AccessTokenConfig.java**
+
+```java
+@Configuration
+public class AccessTokenConfig {
+    @Bean
+    TokenStore tokenStore() {
+        // 配置 token 存储在内存中
+        return new InMemoryTokenStore();
+    }
+}
+```
+
+
+
+配置 `token` 存储在内存中
+
+（`token` 也可以存储在 `redis` / 结合 `jwt`）
+
+
+
+**配置 token 端点的安全约束**
 
 
 
@@ -219,7 +413,62 @@ P.S：认证服务器和资源服务器可以在同一台服务器上
 
 
 
-### 2.5 整合 Springboot
+
+
+
+
+
+
+
+### 3.3 资源服务器
+
+**什么是资源服务器？**
+
+资源服务器就是用来存储用户信息，例如微信的资源服务器就是用来存储微信上用户的信息
+
+
+
+
+
+
+
+
+
+
+
+### 3.4 第三方应用搭建
+
+
+
+
+
+
+
+
+
+
+
+### 3.5 测试
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -244,10 +493,9 @@ P.S：认证服务器和资源服务器可以在同一台服务器上
 
 - [[简易图解]『 OAuth2.0』 猴子都能懂的图解](https://learnku.com/articles/20031)
 - [OAuth 2.0 的一个简单解释](http://www.ruanyifeng.com/blog/2019/04/oauth_design.html)
+- [OAuth 2.0 的四种方式](http://www.ruanyifeng.com/blog/2019/04/oauth-grant-types.html)
 
-
-
-
+- [这个案例写出来，还怕跟面试官扯不明白 OAuth2 登录流程？](https://mp.weixin.qq.com/s/GXMQI59U6uzmS-C0WQ5iUw)
 
 
 

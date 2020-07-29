@@ -3,11 +3,16 @@
 ## 目录
 
 * [1. Quickstart](#1-quickstart)
+* [2. Basic Auth](#2-basic-auth)
+* [3. Users Roles and Authorities](#3-users-roles-and-authorities)
+* [4. Permission Based Authentication](#4-permission-based-authentication)
+* [5. Cross-site request forgery (CSRF)](#5-cross-site-request-forgery--csrf-)
+* [6. Form Based Authentication](#6-form-based-authentication)
+* [7. Database Authentication](#7-database-authentication)
+* [8. JWT](#8-jwt)
 * [参考资料](#----)
 
-
-
-
+ 
 
 ## 1. Quickstart
 
@@ -24,7 +29,7 @@
   <dependency>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
-  </dependency>
+</dependency>
 ```
 
 
@@ -82,13 +87,226 @@ server:
 
 
 
+## 2. Basic Auth
+
+配置 `security`
+
+**ApplicationSecurityConfig.java**
+
+```java
+public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
+    }
+}
+```
+
+继承了 `WebSecurityConfigurerAdapter`，我们重写了 `configure` 方法（参数为 `HttpSecurity`）
+
+解释一下编写思路（编写时会有代码提示）
+
+对发过来的 `http request`
+
+1. 授权请求
+2. 所有请求
+3. 都要验证
+4. 和
+5. 使用 `http basic` 验证方式
+
+
+<div align="center"> <img src="image-20200729103511124.png" width="60%"/> </div><br>
+
+改一下 `controller`
+
+**HelloController.java**
+
+```java
+@RestController
+public class HelloController {
+
+    @RequestMapping("/hello")
+    public String sayHello() {
+        return "Hello!";
+    }
+
+}
+```
+
+
+
+成功访问
+
+<div align="center"> <img src="image-20200729104839865.png" width="90%"/> </div><br>
+
+## 3. Users Roles and Authorities
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 4. Permission Based Authentication
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 5. Cross-site request forgery (CSRF)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 6. Form Based Authentication
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 7. Database Authentication
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 8. JWT
+
+
+
+
+
+
+
+
 
 
 
 
 ## 参考资料
 
-- [跟着松哥学 Spring Security（持续更新中](https://www.bilibili.com/video/BV1xA411h7o3?p=1)
 - [Spring Security | FULL COURSE](https://www.youtube.com/watch?v=her_7pa0vrg)
 
 　

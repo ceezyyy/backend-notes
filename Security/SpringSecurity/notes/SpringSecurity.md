@@ -97,6 +97,7 @@ server:
 
 ```java
 @Configuration
+@EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -152,6 +153,8 @@ public class HelloController {
 
 ## 3. Users Roles and Authorities
 
+### 3.1 User service
+
 在安全领域
 
 一个用户包括一般包括以下信息：
@@ -205,23 +208,119 @@ protected UserDetailsService userDetailsService() {
 
 
 
-**总的来说，用户信息配置类通过工厂模式创建了一个用户信息对象，并保存在内存中**
+总的来说，用户信息配置类通过工厂模式创建了一个用户信息对象，并保存在内存中
+
+
+
+### 3.2 Password
+
+作为一个企业级安全框架，是决不允许密码以明文形式存储
+
+`Spring security` 为我们提供了一个利器：`PasswordEncoder`
+
+**PasswordEncoder.class**
+
+```java
+public interface PasswordEncoder {
+    String encode(CharSequence var1);
+
+    boolean matches(CharSequence var1, String var2);
+
+    default boolean upgradeEncoding(String encodedPassword) {
+        return false;
+    }
+}
+```
+
+采用第三种加密方式：
+
+<div align="center"> <img src="image-20200729142305771.png" width="70%"/> </div><br>
+
+**PasswordConfig.java**
+
+```java
+@Configuration
+public class PasswordConfig {
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
+    }
+
+}
+```
+
+**ApplicationSecurityConfig.java**
+
+```java
+@Configuration
+@EnableWebSecurity
+public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    /**
+     * 配置用户信息
+     *
+     * @return
+     */
+    @Override
+    @Bean
+    protected UserDetailsService userDetailsService() {
+        UserDetails userDetails = User.builder()
+                .username("ceezyyy")
+                .password(passwordEncoder.encode("123"))
+                .roles("admin")
+                .build();
+
+        return new InMemoryUserDetailsManager(userDetails);
+
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/index")
+                .permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
+    }
+}
+```
+
+
+
+<div align="center"> <img src="image-20200729143042853.png" width="40%"/> </div><br>
+
+debug 一下，发现明文密码 “123” 已经加密
+
+
+成功访问
+
+<div align="center"> <img src="image-20200729142739165.png" width="50%"/> </div><br>
+
+
+
+### 3.3 Roles and Permissions
+
+模拟两个角色：
+
+- admin
+- visitor
+
+两个角色对应着不同的权限
 
 
 
 
 
+<div align="center"> <img src="roles.jpg" width="50%"/> </div><br>
 
-
-
-
-
-
-
-
-
-
-
+ 
 
 
 
@@ -344,6 +443,20 @@ protected UserDetailsService userDetailsService() {
 ## 8. JWT
 
 
+
+
+
+
+
+
+
+## 9. Conclusion
+
+1. `Springboot` 与其他框架整合时，配置类：
+   - 一定要加上 `@Configuration` 注解
+   - 加上 `@EnableXXX` 注解
+2. 多看源码
+3. 工厂模式很常用
 
 
 

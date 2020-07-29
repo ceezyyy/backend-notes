@@ -1,16 +1,25 @@
 package com.ceezyyy.securitydemo.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.AutoConfigureOrder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
+@EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     /**
      * 配置用户信息
      *
@@ -19,13 +28,23 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     @Bean
     protected UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.builder()
+
+        // user 1
+        UserDetails ceezyyy = User.builder()
                 .username("ceezyyy")
-                .password("123")
+                .password(passwordEncoder.encode("123"))
                 .roles("admin")
                 .build();
 
-        return new InMemoryUserDetailsManager(userDetails);
+        // user 2
+        UserDetails littleYellow = User.builder()
+                .username("littleYellow")
+                .password(passwordEncoder.encode("123"))
+                .roles("student")
+                .build();
+
+
+        return new InMemoryUserDetailsManager(ceezyyy, littleYellow);
 
     }
 

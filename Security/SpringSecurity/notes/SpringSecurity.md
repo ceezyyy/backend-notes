@@ -305,7 +305,7 @@ debug 一下，发现明文密码 “123” 已经加密
 
 
 
-### 3.3 Roles and Permissions
+## 4. Role Based Authentication
 
 模拟两个角色：
 
@@ -320,50 +320,116 @@ debug 一下，发现明文密码 “123” 已经加密
 
 <div align="center"> <img src="roles.jpg" width="50%"/> </div><br>
 
- 
+在用户信息中设置两个角色：
 
+- ceezyyy（admin）
+- littleYellow（visitor）
 
 
 
+```java
+@Override
+@Bean
+protected UserDetailsService userDetailsService() {
 
+  // user 1
+  UserDetails ceezyyy = User.builder()
+    .username("ceezyyy")
+    .password(passwordEncoder.encode("123"))
+    // name() 返回常量的名称
+    .roles(ADMIN.name())
+    .build();
 
+  // user 2
+  UserDetails littleYellow = User.builder()
+    .username("littleYellow")
+    .password(passwordEncoder.encode("123"))
+    .roles(VISITOR.name())
+    .build();
 
 
+  return new InMemoryUserDetailsManager(ceezyyy, littleYellow);
 
+}
+```
 
 
-## 4. Permission Based Authentication
 
+不同的 `request` 对应着不同的角色
 
 
 
+**ApplicationSecurityConfig.java**
 
+```java
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+  http
+    .authorizeRequests()
+    .antMatchers("/index").permitAll()
+    .antMatchers("/admin").hasRole(ADMIN.name())
+    .antMatchers("/visitor").hasRole(VISITOR.name())
+    .anyRequest()
+    .authenticated()
+    .and()
+    .httpBasic();
+}
+```
 
 
 
+**HelloController.java**
 
+```java
+@RestController
+public class HelloController {
 
+    @GetMapping("/admin")
+    public String sayAdmin() {
+        return "Admin here";
+    }
 
+    @GetMapping("/visitor")
+    public String sayVisitor() {
+        return "Visitor here";
+    }
 
+}
+```
 
 
 
 
 
+当我们用 `ceezyyy` 账户去访问 `/visitor` 接口时，被拒绝了
 
+<div align="center"> <img src="image-20200729173320401.png" width="80%"/> </div><br>
 
+```json
+{
+    "timestamp": "2020-07-29T09:29:29.881+00:00",
+    "status": 403,
+    "error": "Forbidden",
+    "message": "",
+    "path": "/visitor"
+}
+```
 
 
 
+当访问 `/admin` 接口时
 
+<div align="center"> <img src="image-20200729173440143.png" width="80%"/> </div><br>
 
+访问成功！
 
-## 5. Cross-site request forgery (CSRF)
+<div align="center"> <img src="image-20200729173528488.png" width="60%"/> </div><br>
 
 
 
 
 
+## 5. Permission Based Authentication
 
 
 
@@ -390,7 +456,6 @@ debug 一下，发现明文密码 “123” 已经加密
 
 
 
-## 6. Form Based Authentication
 
 
 
@@ -402,6 +467,7 @@ debug 一下，发现明文密码 “123” 已经加密
 
 
 
+## 6. Cross-site request forgery (CSRF)
 
 
 
@@ -412,7 +478,6 @@ debug 一下，发现明文密码 “123” 已经加密
 
 
 
-## 7. Database Authentication
 
 
 
@@ -434,13 +499,13 @@ debug 一下，发现明文密码 “123” 已经加密
 
 
 
+## 7. Form Based Authentication
 
 
 
 
 
 
-## 8. JWT
 
 
 
@@ -450,13 +515,59 @@ debug 一下，发现明文密码 “123” 已经加密
 
 
 
-## 9. Conclusion
+
+
+
+
+
+
+## 8. Database Authentication
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 9. JWT
+
+
+
+
+
+
+
+
+
+## 10. Conclusion
 
 1. `Springboot` 与其他框架整合时，配置类：
    - 一定要加上 `@Configuration` 注解
    - 加上 `@EnableXXX` 注解
 2. 多看源码
 3. 工厂模式很常用
+4. `guava` 工具类简化代码（可以研究一下）
+5. 
 
 
 

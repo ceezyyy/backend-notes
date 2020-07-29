@@ -13,6 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static com.ceezyyy.securitydemo.config.UserRole.*;
+
 @Configuration
 @EnableWebSecurity
 public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -33,14 +35,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails ceezyyy = User.builder()
                 .username("ceezyyy")
                 .password(passwordEncoder.encode("123"))
-                .roles("admin")
+                // name() 返回常量的名称
+                .roles(ADMIN.name())
                 .build();
 
         // user 2
         UserDetails littleYellow = User.builder()
                 .username("littleYellow")
                 .password(passwordEncoder.encode("123"))
-                .roles("student")
+                .roles(VISITOR.name())
                 .build();
 
 
@@ -52,8 +55,9 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/index")
-                .permitAll()
+                .antMatchers("/index").permitAll()
+                .antMatchers("/admin").hasRole(ADMIN.name())
+                .antMatchers("/visitor").hasRole(VISITOR.name())
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -2,17 +2,8 @@
 
 ## 目录
 
-* [1. Quickstart](#1-quickstart)
-* [2. Basic Auth](#2-basic-auth)
-* [3. Users Roles and Authorities](#3-users-roles-and-authorities)
-* [4. Permission Based Authentication](#4-permission-based-authentication)
-* [5. Cross-site request forgery (CSRF)](#5-cross-site-request-forgery--csrf-)
-* [6. Form Based Authentication](#6-form-based-authentication)
-* [7. Database Authentication](#7-database-authentication)
-* [8. JWT](#8-jwt)
-* [参考资料](#----)
 
- 
+
 
 ## 1. Quickstart
 
@@ -431,7 +422,9 @@ public class HelloController {
 
 ## 5. Permission Based Authentication
 
+**不同的用户有着不同的角色**
 
+**不同的角色有着不同的权限**
 
 
 

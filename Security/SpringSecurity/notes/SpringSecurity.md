@@ -1,6 +1,22 @@
 # Spring Security
 
-## 目录
+Table of Contents
+=================
+
+* [1. Quickstart](#1-quickstart)
+* [2. Basic Auth](#2-basic-auth)
+* [3. Users Roles and Authorities](#3-users-roles-and-authorities)
+   * [3.1 User service](#31-user-service)
+   * [3.2 Password](#32-password)
+* [4. Role Based Authentication](#4-role-based-authentication)
+* [5. Permission Based Authentication](#5-permission-based-authentication)
+* [6. Cross-site request forgery (CSRF)](#6-cross-site-request-forgery-csrf)
+* [7. Form Based Authentication](#7-form-based-authentication)
+* [8. Database Authentication](#8-database-authentication)
+* [9. JWT](#9-jwt)
+* [10. Conclusion](#10-conclusion)
+* [源码](#源码)
+* [参考资料](#参考资料)
 
 
 
@@ -25,7 +41,7 @@
 
 
 
-编写 `controller`
+`controller` 层
 
 **HelloController.java**
 
@@ -66,7 +82,7 @@ server:
 
 <div align="center"> <img src="image-20200729101512541.png" width="70%"/> </div><br>
 
-成功跳转
+成功跳转！
 
 <div align="center"> <img src="image-20200729101705261.png" width="60%"/> </div><br>
 
@@ -80,9 +96,7 @@ server:
 
 ## 2. Basic Auth
 
-配置 `security`
-
-⚠️注意：一定要加 `@Configuration` ！
+集成 `Spring Security`
 
 **ApplicationSecurityConfig.java**
 
@@ -94,8 +108,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/", "index")
-                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -119,7 +131,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 <div align="center"> <img src="image-20200729103511124.png" width="60%"/> </div><br>
 
-改一下 `controller`
+修改 `controller`
 
 **HelloController.java**
 
@@ -148,7 +160,7 @@ public class HelloController {
 
 在安全领域
 
-一个用户包括一般包括以下信息：
+用户包括一般包括以下信息：
 
 - username
 - password
@@ -285,12 +297,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-<div align="center"> <img src="image-20200729143042853.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20200729143042853.png" width="50%"/> </div><br>
 
 debug 一下，发现明文密码 “123” 已经加密
 
 
-成功访问
+成功访问！
 
 <div align="center"> <img src="image-20200729142739165.png" width="50%"/> </div><br>
 
@@ -300,21 +312,83 @@ debug 一下，发现明文密码 “123” 已经加密
 
 模拟两个角色：
 
-- admin
-- visitor
-
-两个角色对应着不同的权限
-
-
+- admin（拥有增删改查的权限）
+- visitor （只有查的权限）
 
 
 
 <div align="center"> <img src="roles.jpg" width="50%"/> </div><br>
 
+
+
+
+
+
 在用户信息中设置两个角色：
 
 - ceezyyy（admin）
 - littleYellow（visitor）
+
+
+
+权限枚举类：
+
+**UserPermission.java**
+
+```java
+public enum UserPermission {
+
+    CREATE("create"),
+    READ("read"),
+    UPDATE("update"),
+    DELETE("delete");
+
+    private final String permission;
+
+    UserPermission(String permission) {
+        this.permission = permission;
+    }
+
+    public String getPermission() {
+        return permission;
+    }
+
+}
+```
+
+角色枚举类：
+
+**UserRole.java**
+
+```java
+public enum UserRole {
+
+    // 使用 guava 工具类简化代码
+    ADMIN(Sets.newHashSet(UserPermission.READ)),
+    VISITOR(Sets.newHashSet(UserPermission.CREATE, UserPermission.READ, UserPermission.UPDATE, UserPermission.DELETE));
+
+    private final Set<UserPermission> permissionSet;
+
+    UserRole(Set<UserPermission> permissionSet) {
+        this.permissionSet = permissionSet;
+    }
+
+    public Set<UserPermission> getPermissionSet() {
+        return permissionSet;
+    }
+    
+}
+```
+
+
+
+如果你不熟悉枚举类，请看：
+
+- 
+
+
+
+
 
 
 
@@ -422,12 +496,9 @@ public class HelloController {
 
 ## 5. Permission Based Authentication
 
-**不同的用户有着不同的角色**
+<div align="center"> <img src="image-20200721110705139.png" width="50%"/> </div><br>
 
-**不同的角色有着不同的权限**
-
-
-
+不同的用户拥有不同的角色，不同的角色也拥有着不同的权限
 
 
 
@@ -560,13 +631,18 @@ public class HelloController {
 2. 多看源码
 3. 工厂模式很常用
 4. `guava` 工具类简化代码（可以研究一下）
-5. 
+
+   
 
 
 
 
 
 
+
+## 源码
+
+[security-demo](https://github.com/ceezyyy/backend-notes/tree/master/Security/SpringSecurity/code/security-demo)
 
 
 

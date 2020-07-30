@@ -1,4 +1,4 @@
-package com.ceezyyy.securitydemo.config;
+package com.ceezyyy.securitydemo.securityEnum;
 
 public enum UserPermission {
 
@@ -16,4 +16,5 @@ public enum UserPermission {
     public String getPermission() {
         return permission;
     }
+
 }

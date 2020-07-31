@@ -39,8 +39,6 @@ Table of Contents
 </dependency>
 ```
 
-
-
 `controller` 层
 
 **HelloController.java**
@@ -149,7 +147,7 @@ public class HelloController {
 
 
 
-成功访问
+成功访问！
 
 
 <div align="center"> <img src="image-20200729112220291.png" width="90%"/> </div><br>
@@ -166,30 +164,73 @@ public class HelloController {
 - password
 - role
 - authorities
+- and more
 
-- ...
+`username` 和 `password` 很好理解，我们无论登录哪个网站，都需要用户名和密码来校验我们的身份
+
+`role` 和 `authorities` 又如何理解呢？
+
+我们在生活中有许多身份，在学校我们既是学生，也是父母的孩子，说不定还是校篮球队队长
+
+权限一般与角色一起谈论。比如说你是学生，你可以享受教育优惠的权限，你可以享受在高中大学读书的权利...
+
+你是篮球队队长，你就有组织训练的权限，有管理队员的权限...
+
+<div align="center"> <img src="image-20200730173041674.png" width="50%"/> </div><br>
 
 
 
 `Spring security` 默认的用户是 `user`
 
 ```java
-/**
-  * 配置用户信息
-  * 
-  * @return 
-  */
-@Override
-@Bean
-protected UserDetailsService userDetailsService() {
-  UserDetails userDetails = User.builder()
-    .username("ceezyyy")
-    .password("123")
-    .roles("admin")
-    .build();
+@Configuration
+@EnableWebSecurity
+public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
-  return new InMemoryUserDetailsManager(userDetails);
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
+    /**
+     * 配置用户信息
+     *
+     * @return
+     */
+    @Override
+    @Bean
+    protected UserDetailsService userDetailsService() {
+
+        // user 1: admin
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("123"))
+                .roles(ADMIN.name())
+                .build();
+
+        // user 2: visitor
+        UserDetails visitor = User.builder()
+                .username("visitor")
+                .password(passwordEncoder.encode("123"))
+                .roles(VISITOR.name())
+                .build();
+
+
+        return new InMemoryUserDetailsManager(admin, visitor);
+
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/index").permitAll()
+                .antMatchers("/admin").hasRole(ADMIN.name())
+                .antMatchers("/visitor").hasRole(VISITOR.name())
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
+    }
 }
 ```
 
@@ -253,47 +294,7 @@ public class PasswordConfig {
 }
 ```
 
-**ApplicationSecurityConfig.java**
 
-```java
-@Configuration
-@EnableWebSecurity
-public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    /**
-     * 配置用户信息
-     *
-     * @return
-     */
-    @Override
-    @Bean
-    protected UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.builder()
-                .username("ceezyyy")
-                .password(passwordEncoder.encode("123"))
-                .roles("admin")
-                .build();
-
-        return new InMemoryUserDetailsManager(userDetails);
-
-    }
-
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/index")
-                .permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .httpBasic();
-    }
-}
-```
 
 
 
@@ -310,6 +311,10 @@ debug 一下，发现明文密码 “123” 已经加密
 
 ## 4. Role Based Authentication
 
+**一句话概括：你拥有什么身份，就访问特定身份的网址**
+
+
+
 模拟两个角色：
 
 - admin（拥有增删改查的权限）
@@ -323,11 +328,10 @@ debug 一下，发现明文密码 “123” 已经加密
 
 
 
+为了方便理解，在用户信息中设置两个角色：
 
-在用户信息中设置两个角色：
-
-- ceezyyy（admin）
-- littleYellow（visitor）
+- admin
+- visitor
 
 
 
@@ -380,49 +384,32 @@ public enum UserRole {
 }
 ```
 
+权限枚举类：
 
-
-如果你不熟悉枚举类，请看：
-
-- 
-
-
-
-
-
-
+**UserPermission.java**
 
 ```java
-@Override
-@Bean
-protected UserDetailsService userDetailsService() {
+public enum UserPermission {
 
-  // user 1
-  UserDetails ceezyyy = User.builder()
-    .username("ceezyyy")
-    .password(passwordEncoder.encode("123"))
-    // name() 返回常量的名称
-    .roles(ADMIN.name())
-    .build();
+    CREATE("create"),
+    READ("read"),
+    UPDATE("update"),
+    DELETE("delete");
 
-  // user 2
-  UserDetails littleYellow = User.builder()
-    .username("littleYellow")
-    .password(passwordEncoder.encode("123"))
-    .roles(VISITOR.name())
-    .build();
+    private final String permission;
 
+    UserPermission(String permission) {
+        this.permission = permission;
+    }
 
-  return new InMemoryUserDetailsManager(ceezyyy, littleYellow);
+    public String getPermission() {
+        return permission;
+    }
 
 }
 ```
 
-
-
 不同的 `request` 对应着不同的角色
-
-
 
 **ApplicationSecurityConfig.java**
 
@@ -466,7 +453,7 @@ public class HelloController {
 
 
 
-当我们用 `ceezyyy` 账户去访问 `/visitor` 接口时，被拒绝了
+当我们用 `admin` 账户去访问 `/visitor` 接口时，被拒绝了
 
 <div align="center"> <img src="image-20200729173320401.png" width="80%"/> </div><br>
 
@@ -498,18 +485,13 @@ public class HelloController {
 
 <div align="center"> <img src="image-20200721110705139.png" width="50%"/> </div><br>
 
-不同的用户拥有不同的角色，不同的角色也拥有着不同的权限
+**不同的用户拥有不同的角色，不同的角色也拥有着不同的权限**
 
 
 
+举个例子，看图理解
 
-
-
-
-
-
-
-
+<div align="center"> <img src="image-20200731100429520.png" width="60%"/> </div><br>
 
 
 

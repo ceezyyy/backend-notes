@@ -30,29 +30,29 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     protected UserDetailsService userDetailsService() {
 
-        // user 1
-        UserDetails ceezyyy = User.builder()
-                .username("ceezyyy")
+        // user 1: admin
+        UserDetails admin = User.builder()
+                .username("admin")
                 .password(passwordEncoder.encode("123"))
-                // name() 返回常量的名称
                 .roles(ADMIN.name())
                 .build();
 
-        // user 2
-        UserDetails littleYellow = User.builder()
-                .username("littleYellow")
+        // user 2: visitor
+        UserDetails visitor = User.builder()
+                .username("visitor")
                 .password(passwordEncoder.encode("123"))
                 .roles(VISITOR.name())
                 .build();
 
 
-        return new InMemoryUserDetailsManager(ceezyyy, littleYellow);
+        return new InMemoryUserDetailsManager(admin, visitor);
 
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/index").permitAll()
                 .antMatchers("/admin").hasRole(ADMIN.name())

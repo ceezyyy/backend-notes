@@ -8,7 +8,7 @@ public class Person implements Serializable {
     private Integer age;
     private String gender;
 
-    public Person(String name, Integer age, Gender gender) {
+    public Person(String name, Integer age, String gender) {
         this.name = name;
         this.age = age;
         this.gender = gender;
@@ -36,5 +36,14 @@ public class Person implements Serializable {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", gender='" + gender + '\'' +
+                '}';
     }
 }

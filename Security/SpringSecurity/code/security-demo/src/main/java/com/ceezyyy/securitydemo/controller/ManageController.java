@@ -14,15 +14,12 @@ public class ManageController {
 
     // read
     @GetMapping("/read")
-    public String read() {
-        return "Reading...";
+    public String read() { return "Reading...";
     }
 
     // update
     @PutMapping("/update")
-    public String update() {
-        return  "Updating...";
-
+    public String update() { return  "Updating...";
     }
 
     // delete

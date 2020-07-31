@@ -483,7 +483,7 @@ public class HelloController {
 
 ## 5. Permission Based Authentication
 
-<div align="center"> <img src="image-20200721110705139.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200721110705139.png" width="40%"/> </div><br>
 
 **不同的用户拥有不同的角色，不同的角色也拥有着不同的权限**
 
@@ -497,35 +497,84 @@ public class HelloController {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 6. Cross-site request forgery (CSRF)
 
+现在我们定一个 `manageController`，模拟 `CRUD` 操作：
+
+**manageController.java**
+
+```java
+@RestController
+@RequestMapping("/manage")
+public class ManageController {
+
+    // create
+    @PostMapping("/create")
+    public String create() {
+        return "Creating...";
+    }
+
+    // read
+    @GetMapping("/read")
+    public String read() { return "Reading...";
+    }
+
+    // update
+    @PutMapping("/update")
+    public String update() { return  "Updating...";
+    }
+
+    // delete
+    @DeleteMapping("/delete")
+    public String delete() {
+        return "Deleting...";
+    }
+
+}
+```
+
+先以 `admin` 账户访问 
 
 
 
 
 
+访问成功！
+
+![image-20200731103208806](image-20200731102724687.png)
+
+
+
+
+![image-20200731103208806](image-20200731103208806.png)
+
+
+访问失败
+
+![image-20200731103318934](image-20200731103318934.png)
 
 
 
 
 
+![image-20200731103231742](image-20200731103231742.png)
 
+
+
+访问失败
+
+![image-20200731103208806](image-20200731103339180.png)
+
+
+
+![image-20200731103208806](image-20200731103251350.png)
+
+
+
+
+访问失败
+
+![image-20200731103355760](image-20200731103355760.png)
 
 
 
@@ -624,7 +673,7 @@ public class HelloController {
 
 ## 源码
 
-[security-demo](https://github.com/ceezyyy/backend-notes/tree/master/Security/SpringSecurity/code/security-demo)
+- [security-demo](https://github.com/ceezyyy/backend-notes/tree/master/Security/SpringSecurity/code/security-demo)
 
 
 

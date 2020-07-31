@@ -535,46 +535,69 @@ public class ManageController {
 
 先以 `admin` 账户访问 
 
-
-
-
+<div align="center"> <img src="image-20200731104115496.png" width="40%"/> </div><br>
 
 访问成功！
 
-![image-20200731103208806](image-20200731102724687.png)
+
+<div align="center"> <img src="image-20200731102724687.png" width="40%"/> </div><br>
 
 
 
+发送 `POST` 请求
 
-![image-20200731103208806](image-20200731103208806.png)
-
-
-访问失败
-
-![image-20200731103318934](image-20200731103318934.png)
-
-
-
-
-
-![image-20200731103231742](image-20200731103231742.png)
-
+<div align="center"> <img src="image-20200731103208806.png" width="40%"/> </div><br>
 
 
 访问失败
 
-![image-20200731103208806](image-20200731103339180.png)
+
+<div align="center"> <img src="image-20200731103318934.png" width="40%"/> </div><br>
+
+发送 `PUT` 请求 
 
 
 
-![image-20200731103208806](image-20200731103251350.png)
 
+<div align="center"> <img src="image-20200731103231742.png" width="40%"/> </div><br>
 
 
 
 访问失败
 
-![image-20200731103355760](image-20200731103355760.png)
+
+<div align="center"> <img src="image-20200731103339180.png" width="40%"/> </div><br>
+
+发送 `DELETE` 请求
+
+
+<div align="center"> <img src="image-20200731103251350.png" width="40%"/> </div><br>
+
+
+
+
+访问失败
+
+<div align="center"> <img src="image-20200731103355760.png" width="40%"/> </div><br>
+
+那么如何解决这个问题？
+
+读一个数据一般来说是被允许的（当你通过验证的情况下），可要写一个数据，可没那么简单。
+
+当然，作为一个企业级安全框架，`Spring security` 也有这方面的保护机制
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

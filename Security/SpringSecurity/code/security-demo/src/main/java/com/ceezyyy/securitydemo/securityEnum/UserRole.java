@@ -2,6 +2,8 @@ package com.ceezyyy.securitydemo.securityEnum;
 
 import com.ceezyyy.securitydemo.securityEnum.UserPermission;
 import com.google.common.collect.Sets;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;
 
@@ -20,5 +22,10 @@ public enum UserRole {
     public Set<UserPermission> getPermissionSet() {
         return permissionSet;
     }
+
+    // authorities of role
+//    public Set<GrantedAuthority> getGrantedAuthorities() {
+//
+//    }
 
 }

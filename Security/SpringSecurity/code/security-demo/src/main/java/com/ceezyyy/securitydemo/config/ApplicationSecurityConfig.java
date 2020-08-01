@@ -34,7 +34,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("123"))
-                .roles(ADMIN.name())
+//                .roles(ADMIN.name())
+                .au
                 .build();
 
         // user 2: visitor
@@ -52,6 +53,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/index").permitAll()
                 .antMatchers("/admin").hasRole(ADMIN.name())

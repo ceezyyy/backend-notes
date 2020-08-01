@@ -311,9 +311,9 @@ debug 一下，发现明文密码 “123” 已经加密
 
 ## 4. Role Based Authentication
 
-**一句话概括：你拥有什么身份，就访问特定身份的网址**
+**特定的网址只能由特定的角色访问**
 
-
+**对象是角色**
 
 模拟两个角色：
 
@@ -483,6 +483,12 @@ public class HelloController {
 
 ## 5. Permission Based Authentication
 
+和 `Role Based Authentication` 不同的是
+
+**特定的网址只能由拥有特定权限的人访问**
+
+**对象是权限**
+
 <div align="center"> <img src="image-20200721110705139.png" width="40%"/> </div><br>
 
 **不同的用户拥有不同的角色，不同的角色也拥有着不同的权限**
@@ -496,8 +502,6 @@ public class HelloController {
 
 
 
-
-## 6. Cross-site request forgery (CSRF)
 
 现在我们定一个 `manageController`，模拟 `CRUD` 操作：
 
@@ -582,31 +586,123 @@ public class ManageController {
 
 那么如何解决这个问题？
 
-读一个数据一般来说是被允许的（当你通过验证的情况下），可要写一个数据，可没那么简单。
+只要加上一行代码即可
 
-当然，作为一个企业级安全框架，`Spring security` 也有这方面的保护机制
+**ApplicationSecurityConfig.java**
 
+```java
+@Override
+protected void configure(HttpSecurity http) throws Exception {
+    http
+            .csrf().disable()  // talk about it later
+            .authorizeRequests()
+            .antMatchers("/index").permitAll()
+            .antMatchers("/admin").hasRole(ADMIN.name())
+            .antMatchers("/visitor").hasRole(VISITOR.name())
+            .anyRequest()
+            .authenticated()
+            .and()
+            .httpBasic();
+}
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+这个稍后会详细解释
 
 
+
+处理了这个问题之后，让我们专注于这章的重点：`Permission Based Authentication`
+
+
+
+进入 `UserDetails` 接口的源码，发现有一个称作 `getAuthorities` 的集合类
+
+```java
+public interface UserDetails extends Serializable {
+    Collection<? extends GrantedAuthority> getAuthorities();
+
+    String getPassword();
+
+    String getUsername();
+
+    boolean isAccountNonExpired();
+
+    boolean isAccountNonLocked();
+
+    boolean isCredentialsNonExpired();
+
+    boolean isEnabled();
+}
+```
+
+一个用户有着不同的权限，这个就是用来存储用户权限的
+
+
+
+那么这个方法的值从哪里获得呢？
+
+
+
+那就得进入 `UserBuilder` 里面瞧瞧了
+
+
+
+**UserBuilder.class**
+
+```java
+public static class UserBuilder {
+    private String username;
+    private String password;
+    private List<GrantedAuthority> authorities;
+    private boolean accountExpired;
+    private boolean accountLocked;
+    private boolean credentialsExpired;
+    private boolean disabled;
+    private Function<String, String> passwordEncoder;
+```
+
+在 `UserBuilder` 中，有一个名为 `authorities` 的属性
+
+
+
+是一个集合列表，存放着类型为 `GrantedAuthority` 的元素
+
+
+
+在 `UserBuilder` 中有一个 `authorities` 方法
+
+```java
+public User.UserBuilder authorities(GrantedAuthority... authorities) {
+    return this.authorities((Collection)Arrays.asList(authorities));
+}
+```
+
+
+
+传入的是各种权限
+
+
+
+秉承着封装的思想，我们需要定义一个方法，获取每个用户的权限集合，这样在调用方法的时候就可以直接传入
+
+
+
+简单明了，可读性好
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 6. Cross-site request forgery (CSRF)
 
 
 

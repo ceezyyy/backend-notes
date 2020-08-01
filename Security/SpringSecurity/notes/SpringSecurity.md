@@ -821,6 +821,8 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .antMatchers("/admin").hasRole(ADMIN.name())
 //                .antMatchers("/visitor").hasRole(VISITOR.name())
 //                .antMatchers(HttpMethod.GET, "/manage/create").hasAnyRole(ADMIN.name(), VISITOR.name())
+          			
+          			// order does matter
                 .antMatchers(HttpMethod.POST, "/manage/create").hasAuthority(CREATE.getPermission())
                 .antMatchers(HttpMethod.PUT, "/manage/update").hasAuthority(UPDATE.getPermission())
                 .antMatchers(HttpMethod.DELETE, "/manage/delete").hasAuthority(DELETE.getPermission())
@@ -902,9 +904,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-
-
-
+除了这种方式，还有在 `controller` 增加 `annotation` 的方法，在此先不演示
 
 
 
@@ -912,6 +912,32 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 ## 6. Cross-site request forgery (CSRF)
+
+什么是 `forgery`?
+
+
+<div align="center"> <img src="image-20200801213128078.png" width="60%"/> </div><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

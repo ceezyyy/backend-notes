@@ -1,8 +1,10 @@
 package com.ceezyyy.securitydemo.config;
 
+import com.ceezyyy.securitydemo.securityEnum.UserPermission;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import static com.ceezyyy.securitydemo.securityEnum.UserPermission.*;
 import static com.ceezyyy.securitydemo.securityEnum.UserRole.*;
 
 @Configuration
@@ -34,15 +37,16 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails admin = User.builder()
                 .username("admin")
                 .password(passwordEncoder.encode("123"))
-//                .roles(ADMIN.name())
-                .au
+//                .roles(ADMIN.name())  // ROLE_ADMIN
+                .authorities(ADMIN.getGrantedAuthorities())
                 .build();
 
         // user 2: visitor
         UserDetails visitor = User.builder()
                 .username("visitor")
                 .password(passwordEncoder.encode("123"))
-                .roles(VISITOR.name())
+//                .roles(VISITOR.name())  // ROLE_VISITOR
+                .authorities(VISITOR.getGrantedAuthorities())
                 .build();
 
 
@@ -53,11 +57,16 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                // TODO: talk more in depth later
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/index").permitAll()
-                .antMatchers("/admin").hasRole(ADMIN.name())
-                .antMatchers("/visitor").hasRole(VISITOR.name())
+//                .antMatchers("/admin").hasRole(ADMIN.name())
+//                .antMatchers("/visitor").hasRole(VISITOR.name())
+//                .antMatchers(HttpMethod.GET, "/manage/create").hasAnyRole(ADMIN.name(), VISITOR.name())
+                .antMatchers(HttpMethod.POST, "/manage/create").hasAuthority(CREATE.getPermission())
+                .antMatchers(HttpMethod.PUT, "/manage/update").hasAuthority(UPDATE.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/manage/delete").hasAuthority(DELETE.getPermission())
                 .anyRequest()
                 .authenticated()
                 .and()

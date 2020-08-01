@@ -1,4 +1,4 @@
-# Spring Security
+Spring Security
 
 Table of Contents
 =================
@@ -368,8 +368,8 @@ public enum UserPermission {
 public enum UserRole {
 
     // 使用 guava 工具类简化代码
-    ADMIN(Sets.newHashSet(UserPermission.READ)),
-    VISITOR(Sets.newHashSet(UserPermission.CREATE, UserPermission.READ, UserPermission.UPDATE, UserPermission.DELETE));
+    VISITOR(Sets.newHashSet(UserPermission.READ)),
+    ADMIN(Sets.newHashSet(UserPermission.CREATE, UserPermission.READ, UserPermission.UPDATE, UserPermission.DELETE));
 
     private final Set<UserPermission> permissionSet;
 
@@ -591,7 +591,7 @@ public class ManageController {
 **ApplicationSecurityConfig.java**
 
 ```java
-@Override
+ @Override
 protected void configure(HttpSecurity http) throws Exception {
     http
             .csrf().disable()  // talk about it later
@@ -671,25 +671,234 @@ public static class UserBuilder {
 在 `UserBuilder` 中有一个 `authorities` 方法
 
 ```java
-public User.UserBuilder authorities(GrantedAuthority... authorities) {
-    return this.authorities((Collection)Arrays.asList(authorities));
+public User.UserBuilder authorities(Collection<? extends GrantedAuthority> authorities) {
+  this.authorities = new ArrayList(authorities);
+  return this;
 }
 ```
 
 
 
-传入的是各种权限
+传入的是权限的集合
 
 
 
-秉承着封装的思想，我们需要定义一个方法，获取每个用户的权限集合，这样在调用方法的时候就可以直接传入
+秉承着封装的思想，我们需要在 `role` 中定义一个方法，获取每个用户的权限集合
 
 
 
-简单明了，可读性好
+`GrantedAuthority` 有着 3 个实现类
 
 
 
+<div align="center"> <img src="image-20200801174813670.png" width="60%"/> </div><br>
+
+进入到 `SimpleGrantedAuthority` 中，发现其对应着一个属性：
+
+```java
+public final class SimpleGrantedAuthority implements GrantedAuthority {
+    private static final long serialVersionUID = 530L;
+    private final String role;
+```
+
+
+
+再对着 `UserBuilder` 的源码一起看
+
+
+
+**原来权限类中也有记录用户的信息**
+
+并且以 `ROLE_` 开头
+
+
+
+```java
+public User.UserBuilder roles(String... roles) {
+    List<GrantedAuthority> authorities = new ArrayList(roles.length);
+    String[] var3 = roles;
+    int var4 = roles.length;
+for(int var5 = 0; var5 < var4; ++var5) {
+    String role = var3[var5];
+    Assert.isTrue(!role.startsWith("ROLE_"), () -> {
+        return role + " cannot start with ROLE_ (it is automatically added)";
+    });
+    authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+}
+```
+
+
+我们的 `role` 枚举类，增加了一个方法，获得所在角色的所有权限
+
+**UserRole.java**
+
+```java
+public enum UserRole {
+
+    // 使用 guava 工具类简化代码
+    VISITOR(Sets.newHashSet(UserPermission.READ)),
+    ADMIN(Sets.newHashSet(UserPermission.CREATE, UserPermission.READ, UserPermission.UPDATE, UserPermission.DELETE));
+
+    private final Set<UserPermission> permissionSet;
+
+    UserRole(Set<UserPermission> permissionSet) {
+        this.permissionSet = permissionSet;
+    }
+
+    public Set<UserPermission> getPermissionSet() {
+        return permissionSet;
+    }
+
+    // get authorities from specific role
+    public Set<SimpleGrantedAuthority> getGrantedAuthorities() {
+
+        // convert permission to SimpleGrantedAuthority
+        Set<SimpleGrantedAuthority> authorities = getPermissionSet().stream()
+                .map(userPermission -> new SimpleGrantedAuthority(userPermission.getPermission()))
+                .collect(Collectors.toSet());
+
+        // add role to authorities
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.name()));
+
+        return authorities;
+
+    }
+
+}
+```
+
+
+
+最终，我们的 `ApplicationSecurityConfig` 类变成：
+
+**ApplicationSecurityConfig.java**
+
+```java
+@Configuration
+@EnableWebSecurity
+public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    /**
+     * 配置用户信息
+     *
+     * @return
+     */
+    @Override
+    @Bean
+    protected UserDetailsService userDetailsService() {
+
+        // user 1: admin
+        UserDetails admin = User.builder()
+                .username("admin")
+                .password(passwordEncoder.encode("123"))
+//                .roles(ADMIN.name())  // ROLE_ADMIN
+                .authorities(ADMIN.getGrantedAuthorities())
+                .build();
+
+        // user 2: visitor
+        UserDetails visitor = User.builder()
+                .username("visitor")
+                .password(passwordEncoder.encode("123"))
+//                .roles(VISITOR.name())  // ROLE_VISITOR
+                .authorities(VISITOR.getGrantedAuthorities())
+                .build();
+
+
+        return new InMemoryUserDetailsManager(admin, visitor);
+
+    }
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+                // TODO: talk more in depth later
+                .csrf().disable()
+                .authorizeRequests()
+                .antMatchers("/index").permitAll()
+//                .antMatchers("/admin").hasRole(ADMIN.name())
+//                .antMatchers("/visitor").hasRole(VISITOR.name())
+//                .antMatchers(HttpMethod.GET, "/manage/create").hasAnyRole(ADMIN.name(), VISITOR.name())
+                .antMatchers(HttpMethod.POST, "/manage/create").hasAuthority(CREATE.getPermission())
+                .antMatchers(HttpMethod.PUT, "/manage/update").hasAuthority(UPDATE.getPermission())
+                .antMatchers(HttpMethod.DELETE, "/manage/delete").hasAuthority(DELETE.getPermission())
+                .anyRequest()
+                .authenticated()
+                .and()
+                .httpBasic();
+    }
+}
+```
+
+
+
+用 `admin` 账户登录
+
+<div align="center"> <img src="image-20200801210333994.png" width="30%"/> </div><br>
+
+
+
+
+访问 `/read` 成功
+
+
+<div align="center"> <img src="image-20200801210351877.png" width="40%"/> </div><br>
+
+
+
+
+<div align="center"> <img src="image-20200801210645427.png" width="10%"/> </div><br>
+
+
+
+
+
+
+访问 `/create` 成功
+
+
+<div align="center"> <img src="image-20200801210417097.png" width="40%"/> </div><br>
+
+
+<div align="center"> <img src="image-20200801210702471.png" width="10%"/> </div><br>
+
+
+
+
+
+
+
+
+
+
+
+
+访问 `/update` 成功
+
+
+<div align="center"> <img src="image-20200801210437835.png" width="40%"/> </div><br>
+
+
+
+<div align="center"> <img src="image-20200801210721826.png" width="10%"/> </div><br>
+
+
+访问 `/delete` 成功
+
+
+<div align="center"> <img src="image-20200801210454003.png" width="40%"/> </div><br>
+
+
+
+<div align="center"> <img src="image-20200801210731596.png" width="10%"/> </div><br>
+
+
+
+
+
+而使用 `visitor` 身份访问时，只能访问 `/read` 接口
 
 
 
@@ -778,9 +987,14 @@ public User.UserBuilder authorities(GrantedAuthority... authorities) {
 1. `Springboot` 与其他框架整合时，配置类：
    - 一定要加上 `@Configuration` 注解
    - 加上 `@EnableXXX` 注解
+   
 2. 多看源码
-3. 工厂模式很常用
+
+3. 多了解设计模式，起码要看得懂别人用的设计模式
+
 4. `guava` 工具类简化代码（可以研究一下）
+
+5. `stream` 流式编程（`JDK 8` 新特性）
 
    
 

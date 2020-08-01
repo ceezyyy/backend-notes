@@ -71,7 +71,7 @@ public static void main(String[] args) {
 
 <div align="center"> <img src="image-20200731171035464.png" width="50%"/> </div><br>
 
-- 需求1：筛选出所有女生
+- 筛选出所有女生
 
   ```java
   List<Person> females = personList.stream()
@@ -94,7 +94,7 @@ public static void main(String[] args) {
 
   <div align="center"> <img src="image-20200731174346360.png" width="40%"/> </div><br>
 
-- 需求2：按照年龄从小到大排序
+- 按照年龄从小到大排序
 
   ```java
   List<Person> sorted = personList.stream()
@@ -107,7 +107,7 @@ public static void main(String[] args) {
 
 <div align="center"> <img src="image-20200731174303914.png" width="40%"/> </div><br>
 
-- 需求3：按照年龄从大到小排序
+- 按照年龄从大到小排序
 
   ```java
   List<Person> sorted = personList.stream()
@@ -120,7 +120,7 @@ public static void main(String[] args) {
 
   <div align="center"> <img src="image-20200731175058078.png" width="40%"/> </div><br>
 
-- 需求4：是否所有元素都是男生
+- 是否所有元素都是男生
 
   ```java
   boolean allMatch = personList.stream()
@@ -131,7 +131,7 @@ public static void main(String[] args) {
 
   <div align="center"> <img src="image-20200731175403322.png" width="20%"/> </div><br>
 
-- 需求5：是否所有元素年龄都大于 10
+- 是否所有元素年龄都大于 10
 
   ```java
   boolean noneMatch = personList.stream()
@@ -143,7 +143,7 @@ public static void main(String[] args) {
 
   <div align="center"> <img src="image-20200731180314038.png" width="20%"/> </div><br>
 
-- 需求6：获取最值
+- 获取最值
 
   ```java
   personList.stream()
@@ -153,7 +153,7 @@ public static void main(String[] args) {
 
 
 
-- 需求6：按性别排列
+- 按性别排列
 
 
 

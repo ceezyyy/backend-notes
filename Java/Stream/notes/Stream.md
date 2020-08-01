@@ -155,9 +155,17 @@ public static void main(String[] args) {
 
 - 按性别排列
 
-
-
-
+  ```java
+  Map<String, List<Person>> genderGroup = personList.stream()
+          .collect(Collectors.groupingBy(Person::getGender));
+  
+  genderGroup.forEach((s, people) -> {
+      System.out.println(s);
+      people.forEach(person -> {
+          System.out.println(person);
+      });
+  });
+  ```
 
 
 

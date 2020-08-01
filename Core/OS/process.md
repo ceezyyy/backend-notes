@@ -30,7 +30,7 @@ Table of Contents
 
 <div align="center"> <img src="image-20200801152834350.png" width="40%"/> </div><br>
 
-在引入多道程序之后，在内存中各个程序的数据段编程了这个样子：
+在引入多道程序之后，在内存中各个程序的数据段变成了这个样子：
 
 
 <div align="center"> <img src="image-20200801153228882.png" width="40%"/> </div><br>
@@ -94,6 +94,38 @@ Table of Contents
 
 
 ## 6. 进程有哪些状态?
+
+- 运行态
+- 就绪态
+- 阻塞态
+
+
+
+
+
+## 7. 什么是进程控制?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

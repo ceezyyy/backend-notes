@@ -1,7 +1,7 @@
-Spring Security
+# Spring Security
 
 Table of Contents
-=================
+-----------------
 
 * [1. Quickstart](#1-quickstart)
 * [2. Basic Auth](#2-basic-auth)

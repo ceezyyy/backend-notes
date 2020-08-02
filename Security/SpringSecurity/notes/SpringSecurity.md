@@ -3,6 +3,7 @@
 Table of Contents
 -----------------
 
+* [Table of Contents](#table-of-contents)
 * [1. Quickstart](#1-quickstart)
 * [2. Basic Auth](#2-basic-auth)
 * [3. Users Roles and Authorities](#3-users-roles-and-authorities)
@@ -11,12 +12,11 @@ Table of Contents
 * [4. Role Based Authentication](#4-role-based-authentication)
 * [5. Permission Based Authentication](#5-permission-based-authentication)
 * [6. Cross-site request forgery (CSRF)](#6-cross-site-request-forgery-csrf)
-* [7. Form Based Authentication](#7-form-based-authentication)
-* [8. Database Authentication](#8-database-authentication)
-* [9. JWT](#9-jwt)
-* [10. Conclusion](#10-conclusion)
-* [源码](#源码)
-* [参考资料](#参考资料)
+* [7. Database Authentication](#7-database-authentication)
+* [8. JWT](#8-jwt)
+* [9. Conclusion](#9-conclusion)
+* [Source Code](#source-code)
+* [References](#references)
 
 
 
@@ -910,49 +910,73 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-
 ## 6. Cross-site request forgery (CSRF)
+
+该段落参考 [跨站请求伪造 - wiki]([https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0](https://zh.wikipedia.org/wiki/跨站请求伪造))
+
+
 
 什么是 `forgery`?
 
+<div align="center"> <img src="image-20200801213128078.png" width="40%"/> </div><br>
 
-<div align="center"> <img src="image-20200801213128078.png" width="60%"/> </div><br>
+什么是 `CSRF`?
 
+> 跨站请求攻击，简单地说，是攻击者通过一些技术手段欺骗用户的浏览器去访问一个自己曾经认证过的网站并运行一些操作（如发邮件，发消息，甚至财产操作如转账和购买商品）。由于浏览器曾经认证过，所以被访问的网站会认为是真正的用户操作而去运行。这利用了web中用户身份验证的一个漏洞：**简单的身份验证只能保证请求发自某个用户的浏览器，却不能保证请求本身是用户自愿发出的**。
 
+注意，`CSRF` 有时也称作 `XSRF` 
 
 
 
+举个例子
 
 
 
+假如一家银行用以运行的转账操作的 `URL` 地址如下：
 
+```html
+https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
+```
 
 
 
+那么，一个恶意攻击者可以在另外一个网站放置如下代码：
 
+```html
+<img src="https://bank.example.com/withdraw?account=Alice&amount=1000&for=Badman" />
+```
 
 
 
+如果有账户名为Alice的用户访问了恶意站点，而她之前刚访问过银行不久，登录信息尚未过期，那么她就会损失1000资金。
 
 
 
+细思极恐（所以不要访问一些不知名有风险的网站）
 
+ 
 
+这种恶意的网址可以有很多种形式，藏身于网页中的许多地方。此外，攻击者也不需要控制放置恶意网址的网站。例如他可以将这种地址藏在论坛，博客等任何用户生成内容的网站中。这意味着如果服务端没有合适的防御措施的话，用户即使访问熟悉的可信网站也有受攻击的危险。
 
+透过例子能够看出，攻击者并不能通过CSRF攻击来直接获取用户的账户控制权，也不能直接窃取用户的任何信息。他们能做到的，是欺骗用户的浏览器，让其以用户的名义运行操作。
 
 
 
+流程
 
+<div align="center"> <img src="image-20200802122058737.png" width="80%"/> </div><br>
 
+其中 `submit` 主要针对的是 `POST`，`DELETE`，  `PUT` 请求
 
 
 
+所以在我们之前的时候，只能通过 `GET` 请求访问，加上 `csrf.disable()` 才能让 `Spring security` 放行
 
-## 7. Form Based Authentication
 
 
 
 
+## 7. Database Authentication
 
 
 
@@ -970,7 +994,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-## 8. Database Authentication
 
 
 
@@ -981,6 +1004,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
+## 8. JWT
 
 
 
@@ -998,7 +1022,6 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-## 9. JWT
 
 
 
@@ -1008,7 +1031,20 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-## 10. Conclusion
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 9. Conclusion
 
 1. `Springboot` 与其他框架整合时，配置类：
    - 一定要加上 `@Configuration` 注解
@@ -1030,15 +1066,15 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
 
-## 源码
+## Source Code
 
 - [security-demo](https://github.com/ceezyyy/backend-notes/tree/master/Security/SpringSecurity/code/security-demo)
 
 
 
 
-## 参考资料
+## References
 
 - [Spring Security | FULL COURSE](https://www.youtube.com/watch?v=her_7pa0vrg)
+- [跨站请求伪造 - wiki]([https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0](https://zh.wikipedia.org/wiki/跨站请求伪造))
 
-　

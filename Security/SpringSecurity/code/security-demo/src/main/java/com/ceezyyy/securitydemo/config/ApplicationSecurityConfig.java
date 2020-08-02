@@ -57,16 +57,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                // TODO: talk more in depth later
-                .csrf().disable()
+//                .csrf().disable()
+
                 .authorizeRequests()
                 .antMatchers("/index").permitAll()
-//                .antMatchers("/admin").hasRole(ADMIN.name())
-//                .antMatchers("/visitor").hasRole(VISITOR.name())
-//                .antMatchers(HttpMethod.GET, "/manage/create").hasAnyRole(ADMIN.name(), VISITOR.name())
-                .antMatchers(HttpMethod.POST, "/manage/create").hasAuthority(CREATE.getPermission())
-                .antMatchers(HttpMethod.PUT, "/manage/update").hasAuthority(UPDATE.getPermission())
-                .antMatchers(HttpMethod.DELETE, "/manage/delete").hasAuthority(DELETE.getPermission())
                 .anyRequest()
                 .authenticated()
                 .and()

@@ -3,7 +3,6 @@
 Table of Contents
 -----------------
 
-* [Table of Contents](#table-of-contents)
 * [1. 什么是 Optional?](#1-什么是-optional)
 * [2. 为什么要使用 Optional?](#2-为什么要使用-optional)
 * [3. Quickstart](#3-quickstart)
@@ -11,8 +10,6 @@ Table of Contents
    * [3.2 Checking Value Presence: isPresent() and isEmpty()](#32-checking-value-presence-ispresent-and-isempty)
    * [3.3 Conditional Action With ifPresent()](#33-conditional-action-with-ifpresent)
    * [3.4 Default Value With orElse()](#34-default-value-with-orelse)
-   * [3.5 Default Value With orElseGet()](#35-default-value-with-orelseget)
-   * [3.6 Difference Between orElse and orElseGet()](#36-difference-between-orelse-and-orelseget)
 * [4. Conclusion](#4-conclusion)
 * [5. References](#5-references)
 
@@ -24,16 +21,10 @@ Table of Contents
 
 
 
-
-
-
-
 ## 2. 为什么要使用 Optional?
 
 - 不用显式地进行空值检测
 - 很好地解决空指针异常
-
-
 
 
 
@@ -80,8 +71,29 @@ System.out.println(opt.isPresent());  // true
  * Optional makes us deal with nullable values explicitly as a way of enforcing good programming practices
  *
  * */
-Optional<String> world = Optional.of("world");
-world.ifPresent(name -> System.out.println(name));
+Optional<String> cool = Optional.ofNullable("cool");
+cool.ifPresent(name -> System.out.println(name));  // cool
+
+cool = Optional.ofNullable(null);
+cool.ifPresent(name -> System.out.println(name));  // print nothing
+```
+
+
+
+
+
+### 3.3 Conditional Action With ifPresent()
+
+```java
+/*
+ * Optional makes us deal with nullable values explicitly as a way of enforcing good programming practices
+ *
+ * */
+Optional<String> cool = Optional.ofNullable("cool");
+cool.ifPresent(name -> System.out.println(name));  // cool
+
+cool = Optional.ofNullable(null);
+cool.ifPresent(name -> System.out.println(name));  // print nothing
 ```
 
 
@@ -90,101 +102,19 @@ world.ifPresent(name -> System.out.println(name));
 
 
 
-
-
-
-
-
-
-### 3.3 Conditional Action With ifPresent()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 3.4 Default Value With orElse()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 3.5 Default Value With orElseGet()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 3.6 Difference Between orElse and orElseGet()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### ∑3.4 Default Value With orElse()
+
+```java
+/*
+ * The orElse() method is used to retrieve the value wrapped inside an Optional instance
+ *
+ * */
+Optional<Object> optional = Optional.ofNullable(null);
+System.out.println(optional.orElse("hello"));  // hello
+
+optional = Optional.ofNullable("world");
+System.out.println(optional.orElse("hello"));  // world
+```
 
 
 

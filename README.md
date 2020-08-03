@@ -29,8 +29,8 @@
   - [ArrayList](https://github.com/ceezyyy/backend-notes/blob/master/Java/Collection/notes/ArrayList/ArrayList.md)
 - [多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/Multithreading/notes/Multithreading.md)
 - JDK 8 新特性
-  - [Optional]()
   - [Stream](https://github.com/ceezyyy/backend-notes/blob/master/Java/Stream/notes/Stream.md)
+  - [Optional](https://github.com/ceezyyy/backend-notes/blob/master/Java/Optional/notes/Optional.md)
 - JVM
 
 

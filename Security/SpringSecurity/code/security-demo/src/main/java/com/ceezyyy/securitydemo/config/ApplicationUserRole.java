@@ -6,19 +6,19 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public enum UserRole {
+public enum ApplicationUserRole {
 
     // 使用 guava 工具类简化代码
-    VISITOR(Sets.newHashSet(UserPermission.READ)),
-    ADMIN(Sets.newHashSet(UserPermission.CREATE, UserPermission.READ, UserPermission.UPDATE, UserPermission.DELETE));
+    VISITOR(Sets.newHashSet(ApplicationUserPermission.READ)),
+    ADMIN(Sets.newHashSet(ApplicationUserPermission.CREATE, ApplicationUserPermission.READ, ApplicationUserPermission.UPDATE, ApplicationUserPermission.DELETE));
 
-    private final Set<UserPermission> permissionSet;
+    private final Set<ApplicationUserPermission> permissionSet;
 
-    UserRole(Set<UserPermission> permissionSet) {
+    ApplicationUserRole(Set<ApplicationUserPermission> permissionSet) {
         this.permissionSet = permissionSet;
     }
 
-    public Set<UserPermission> getPermissionSet() {
+    public Set<ApplicationUserPermission> getPermissionSet() {
         return permissionSet;
     }
 
@@ -27,7 +27,7 @@ public enum UserRole {
 
         // convert permission to SimpleGrantedAuthority
         Set<SimpleGrantedAuthority> authorities = getPermissionSet().stream()
-                .map(userPermission -> new SimpleGrantedAuthority(userPermission.getPermission()))
+                .map(applicationUserPermission -> new SimpleGrantedAuthority(applicationUserPermission.getPermission()))
                 .collect(Collectors.toSet());
 
         // add role to authorities

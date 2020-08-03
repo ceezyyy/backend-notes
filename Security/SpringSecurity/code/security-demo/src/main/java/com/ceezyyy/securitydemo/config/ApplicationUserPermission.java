@@ -1,6 +1,6 @@
 package com.ceezyyy.securitydemo.config;
 
-public enum UserPermission {
+public enum ApplicationUserPermission {
 
     CREATE("create"),
     READ("read"),
@@ -9,7 +9,7 @@ public enum UserPermission {
 
     private final String permission;
 
-    UserPermission(String permission) {
+    ApplicationUserPermission(String permission) {
         this.permission = permission;
     }
 

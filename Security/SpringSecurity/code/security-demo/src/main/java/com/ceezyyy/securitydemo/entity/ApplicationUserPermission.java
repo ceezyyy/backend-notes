@@ -1,4 +1,4 @@
-package com.ceezyyy.securitydemo.config;
+package com.ceezyyy.securitydemo.entity;
 
 public enum ApplicationUserPermission {
 

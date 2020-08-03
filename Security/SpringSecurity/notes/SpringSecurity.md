@@ -976,7 +976,7 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 
 
-## 7. Database Authentication
+## 7. Form Based Authentication
 
 
 
@@ -992,7 +992,9 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 
 
+## 8. Database Authentication
 
+话不多说，直接上代码
 
 
 
@@ -1034,7 +1036,6 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 
 
-## 8. JWT
 
 
 
@@ -1051,6 +1052,7 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 
 
+## 9. JWT
 
 
 
@@ -1074,7 +1076,23 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 
 
-## 9. Conclusion
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 10. Conclusion
 
 1. `Springboot` 与其他框架整合时，配置类：
    - 一定要加上 `@Configuration` 注解

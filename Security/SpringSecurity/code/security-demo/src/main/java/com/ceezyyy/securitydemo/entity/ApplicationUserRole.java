@@ -1,4 +1,4 @@
-package com.ceezyyy.securitydemo.config;
+package com.ceezyyy.securitydemo.entity;
 
 import com.google.common.collect.Sets;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1004,6 +1004,36 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 8. JWT
 
 
@@ -1058,6 +1088,8 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 5. `stream` 流式编程（`JDK 8` 新特性）
 
+6. `Optional` 类（`JDK 8` 新特性）
+
    
 
 
@@ -1076,5 +1108,5 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 ## References
 
 - [Spring Security | FULL COURSE](https://www.youtube.com/watch?v=her_7pa0vrg)
-- [跨站请求伪造 - wiki]([https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0](https://zh.wikipedia.org/wiki/跨站请求伪造))
-
+- [Java Optionals | Crash Course](https://www.youtube.com/watch?v=1xCxoOuDZuU)
+- [Java Streams Tutorial | 2020](https://www.youtube.com/watch?v=Q93JsQ8vcwY)

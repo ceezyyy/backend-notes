@@ -1,8 +1,6 @@
-package com.ceezyyy.securitydemo.securityEnum;
+package com.ceezyyy.securitydemo.config;
 
-import com.ceezyyy.securitydemo.securityEnum.UserPermission;
 import com.google.common.collect.Sets;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Set;

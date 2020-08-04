@@ -66,6 +66,10 @@
 
 
 
+## :shield: Security 
+
+- [Spring Security](https://github.com/ceezyyy/backend-notes/blob/master/Security/SpringSecurity/notes/SpringSecurity.md)
+
 
 
 ## :milky_way: Microservice 
@@ -84,17 +88,6 @@
 
 
 
-
-## :shield: Security 
-
-- [Spring Security](https://github.com/ceezyyy/backend-notes/blob/master/Security/SpringSecurity/notes/SpringSecurity.md)
-- [OAuth2](https://github.com/ceezyyy/backend-notes/blob/master/Security/OAuth2/notes/OAuth2.md)
-
-
-
-## :mag: Search Engine
-
-- Elastic Search
 
 
 

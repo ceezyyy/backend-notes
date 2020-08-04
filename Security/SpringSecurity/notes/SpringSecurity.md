@@ -3,7 +3,6 @@
 Table of Contents
 -----------------
 
-* [Table of Contents](#table-of-contents)
 * [1. Quickstart](#1-quickstart)
 * [2. Basic Auth](#2-basic-auth)
 * [3. Users Roles and Authorities](#3-users-roles-and-authorities)
@@ -14,6 +13,8 @@ Table of Contents
 * [6. Cross-site request forgery (CSRF)](#6-cross-site-request-forgery-csrf)
 * [7. Database Authentication](#7-database-authentication)
 * [8. JWT](#8-jwt)
+   * [8.1 What is JWT?](#81-what-is-jwt)
+   * [8.2 Why we use JWT?](#82-why-we-use-jwt)
 * [9. Conclusion](#9-conclusion)
 * [Source Code](#source-code)
 * [References](#references)
@@ -974,25 +975,7 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 
 
-
-
-## 7. Form Based Authentication
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 8. Database Authentication
+## 7. Database Authentication
 
 话不多说，直接上代码
 
@@ -1052,7 +1035,74 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 
 
-## 9. JWT
+## 8. JWT
+
+### 8.1 What is JWT?
+
+为了更好地了解 `JWT`，让我们从一个简单的例子说起
+
+
+<div align="center"> <img src="image-20200804085046402.png" width="60%"/> </div><br>
+
+`HTTP` 是无状态的协议，对于 `URL` 请求，做出相应的 `response`
+
+在“远古时期”，当发出的 `URL` 是请求静态页面，服务器不需要知道谁访问了我
+
+但随着科技的发展，以前的需求无法满足了，浏览器需要跟踪用户状态（知道谁在访问我），这时 `session token` 诞生了
+
+
+
+常见的策略有两种：
+
+- Session token（Session ID + Cookies）
+- Json web token (JWT)
+
+
+
+先介绍 `session token`
+
+
+
+**token 是什么？**
+
+举个例子，当你去维修手机时，维修师傅告诉你 3 天之后过来领取你的手机，且给了你一张纸条，上面写着维修单号
+
+3 天之后，你拿着这张带有你维修单号的纸条去维修店，
+
+
+<div align="center"> <img src="image-20200804085949399.png" width="60%"/> </div><br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div align="center"> <img src="jwt.png" width="40%"/> </div><br>
+
+
+
+
+
+
+
+
+
+### 8.2 Why we use JWT?
 
 
 
@@ -1092,7 +1142,9 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 
 
-## 10. Conclusion
+
+
+## 9. Conclusion
 
 1. `Springboot` 与其他框架整合时，配置类：
    - 一定要加上 `@Configuration` 注解

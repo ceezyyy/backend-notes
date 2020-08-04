@@ -1,7 +1,6 @@
 # Spring Security
 
-Table of Contents
------------------
+## Table of Contents
 
 * [1. Quickstart](#1-quickstart)
 * [2. Basic Auth](#2-basic-auth)
@@ -14,12 +13,12 @@ Table of Contents
 * [7. Database Authentication](#7-database-authentication)
 * [8. JWT](#8-jwt)
    * [8.1 What is JWT?](#81-what-is-jwt)
-   * [8.2 Why we use JWT?](#82-why-we-use-jwt)
+   * [8.2 The structure of JWT](#82-the-structure-of-jwt)
+   * [8.3 Workflow](#83-workflow)
+   * [8.4 Pros and Cons](#84-pros-and-cons)
 * [9. Conclusion](#9-conclusion)
 * [Source Code](#source-code)
 * [References](#references)
-
-
 
 
 ## 1. Quickstart
@@ -1067,60 +1066,65 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 
 举个例子，当你去维修手机时，维修师傅告诉你 3 天之后过来领取你的手机，且给了你一张纸条，上面写着维修单号
 
-3 天之后，你拿着这张带有你维修单号的纸条去维修店，
+3 天之后，你拿着带有维修单号的纸条去维修店，师傅根据你的维修单号在后台查询个人信息和维修信息，从而帮你维修
 
 
 <div align="center"> <img src="image-20200804085949399.png" width="60%"/> </div><br>
 
+再来看看 `jwt`
+
+技术的发展日新月异，单体应用很快进化到了微服务 / 分布式
+
+
+<div align="center"> <img src="image-20200804102413424.png" width="60%"/> </div><br>
+
+传统的 `session token` 的方式有缺陷，因为 `session ID` 被存储到了不同的服务器上，解决这个的方法有两个：
+
+- 缓存数据库 `redis`
+- 索引
 
 
 
+为了适应这种微服务场景， `jwt` 出场了
+
+
+<div align="center"> <img src="image-20200804102858199.png" width="60%"/> </div><br>
+
+举个例子，
+
+像你进入了维修店，这次维修师傅给你的纸条不再是只有一串维修订单号码，而是记录了你的详细信息（姓名，日期，维修订单号，维修产品...），而维修店后台没有存储任何信息。每次过来维修只需要带这张纸条，有需求会在上面更新
 
 
 
+那如何保证安全问题呢？万一被人篡改了怎么办？
+
+这时 `jwt` 需要有签名，用于验证用户身份（下一节更深入研究）
 
 
 
+### 8.2 The structure of JWT
 
 
 
+<div align="center"> <img src="image-20200804113242723.png" width="40%"/> </div><br>
 
 
 
+<div align="center"> <img src="image-20200804112944898.png" width="80%"/> </div><br>
 
 
 
-
-
-<div align="center"> <img src="jwt.png" width="40%"/> </div><br>
-
-
-
+- header
+- playload
+- signature
 
 
 
+### 8.3 Workflow
 
+<div align="center"> <img src="image-20200804115216222.png" width="60%"/> </div><br>
 
-
-### 8.2 Why we use JWT?
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 8.4 Pros and Cons
 
 
 
@@ -1178,5 +1182,7 @@ https://bank.example.com/withdraw?account=AccoutName&amount=1000&for=PayeeName
 ## References
 
 - [Spring Security | FULL COURSE](https://www.youtube.com/watch?v=her_7pa0vrg)
-- [Java Optionals | Crash Course](https://www.youtube.com/watch?v=1xCxoOuDZuU)
+- [What is JWT authorization really about - Java Brains](https://www.youtube.com/watch?v=soGRyl9ztjI&t=244s)
+- [What is the structure of a JWT - Java Brains](https://www.youtube.com/watch?v=_XbXkVdoG_0)
 - [Java Streams Tutorial | 2020](https://www.youtube.com/watch?v=Q93JsQ8vcwY)
+

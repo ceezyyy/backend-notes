@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="4d690422-79f7-4412-9a23-0e97996d827e" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="ProjectId" id="1feupaG15WaSxx3kuLnBurBFjS7" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunManager" selected="Spring Boot.SpringSecurityAuthServerApplication">
+    <configuration name="SpringSecurityAuthServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="spring-security-auth-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ceezyyy.springsecurityauthserver.SpringSecurityAuthServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpringSecurityClientApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="spring-security-client" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ceezyyy.springsecurityclient.SpringSecurityClientApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4d690422-79f7-4412-9a23-0e97996d827e" name="Default Changelist" comment="" />
+      <created>1596591062126</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596591062126</updated>
+      <workItem from="1596591063320" duration="2070000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1760" y="-161" key="#Project_Structure" timestamp="1596591258104">
+      <screen x="1440" y="-180" width="1920" height="1080" />
+    </state>
+    <state x="1760" y="-161" key="#Project_Structure/0.0.1440.900/1440.-180.1920.1080@1440.-180.1920.1080" timestamp="1596591258104" />
+    <state x="2166" y="9" key="#com.intellij.ide.util.MemberChooser" timestamp="1596593205667">
+      <screen x="1440" y="-180" width="1920" height="1080" />
+    </state>
+    <state x="2166" y="9" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900/1440.-180.1920.1080@1440.-180.1920.1080" timestamp="1596593205667" />
+    <state x="1972" y="-41" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog" timestamp="1596591569333">
+      <screen x="1440" y="-180" width="1920" height="1080" />
+    </state>
+    <state x="1972" y="-41" key="#com.intellij.openapi.keymap.impl.ui.EditKeymapsDialog/0.0.1440.900/1440.-180.1920.1080@1440.-180.1920.1080" timestamp="1596591569333" />
+    <state x="1644" y="8" key="new project wizard" timestamp="1596591560750">
+      <screen x="1440" y="-180" width="1920" height="1080" />
+    </state>
+    <state x="1644" y="8" key="new project wizard/0.0.1440.900/1440.-180.1920.1080@1440.-180.1920.1080" timestamp="1596591560750" />
+  </component>
+</project>

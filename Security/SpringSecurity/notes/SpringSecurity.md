@@ -1441,7 +1441,7 @@ P.S：认证服务器和资源服务器可以在同一台服务器上
 
 
 
-## 11. Spring Security using OAuth2 in Spring Boot
+
 
 
 
@@ -1521,7 +1521,6 @@ P.S：认证服务器和资源服务器可以在同一台服务器上
 - [What is the structure of a JWT - Java Brains](https://www.youtube.com/watch?v=_XbXkVdoG_0)
 - [JSON Web Token 入门教程](http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
 - [Java Streams Tutorial | 2020](https://www.youtube.com/watch?v=Q93JsQ8vcwY)
-- [Spring Security using OAuth2 in Spring Boot | Tech Primers](https://www.youtube.com/watch?v=Dbxzw0cpxBU&t=3248s)
 - [[简易图解]『 OAuth2.0』 猴子都能懂的图解](https://learnku.com/articles/20031)
 - [OAuth 2.0 的一个简单解释](http://www.ruanyifeng.com/blog/2019/04/oauth_design.html)
 - [OAuth 2.0 的四种方式](http://www.ruanyifeng.com/blog/2019/04/oauth-grant-types.html)

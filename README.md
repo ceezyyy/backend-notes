@@ -74,7 +74,7 @@
 
 ## :milky_way: Microservice 
 
-- [SpringCloud](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringCloud/notes/SpringCloud.md)
+- [SpringCloud](https://github.com/ceezyyy/backend-notes/blob/master/Microservice/SpringCloud/notes/SpringCloud.md)
 - [Nacos]()
 
 
@@ -83,11 +83,7 @@
 
 ## 📩 MQ
 
-
-
-
-
-
+- [RabbitMQ](https://github.com/ceezyyy/backend-notes/blob/master/MQ/rabbitMQ/notes/rabbitMQ.md)
 
 
 

@@ -74,7 +74,7 @@
 
 ## :milky_way: Microservice 
 
-- [SpringCloud](https://github.com/ceezyyy/backend-notes/blob/master/Microservice/SpringCloud/notes/SpringCloud.md)
+- [Spring Cloud](https://github.com/ceezyyy/backend-notes/blob/master/Microservice/SpringCloud/notes/SpringCloud.md)
 - [Nacos]()
 
 

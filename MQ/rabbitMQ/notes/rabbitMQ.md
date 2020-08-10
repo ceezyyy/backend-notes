@@ -17,20 +17,17 @@ Table of Contents
    * [3.2 数据一致性](#32-数据一致性)
    * [3.3 可用性](#33-可用性)
 * [4. 同类产品比较](#4-同类产品比较)
-* [5. Quickstart](#5-quickstart)
+* [5. Preparation](#5-preparation)
    * [5.1 安装 rabbitmq](#51-安装-rabbitmq)
    * [5.2 添加新用户](#52-添加新用户)
    * [5.3 创建 virtual host](#53-创建-virtual-host)
-   * [5.4 Producer](#54-producer)
-   * [5.5 Consumer](#55-consumer)
-* [6. Work queues](#6-work-queues)
-* [7. Publish / Subscribe](#7-publish--subscribe)
-* [8. Routing](#8-routing)
-* [9. Topics](#9-topics)
+* [6. "Hello World"](#6-hello-world)
+* [7. Work queues](#7-work-queues)
+* [8. Publish / Subscribe](#8-publish--subscribe)
+* [9. Routing](#9-routing)
+* [10. Topics](#10-topics)
 * [Conclusion](#conclusion)
 * [参考资料](#参考资料)
-
-
 
 
 
@@ -215,7 +212,7 @@ Table of Contents
 
 
 
-## 5. Quickstart
+## 5. Preparation
 
 ### 5.1 安装 rabbitmq
 
@@ -288,303 +285,48 @@ http://localhost:15672/
 
 
 
-接下来做一个简单的 `hello world` 案例
-<div align="center"> <img src="image-20200810115143848.png" width="60%"/> </div><br>
 
+## 6. "Hello World"
 
 
-### 5.4 Producer
 
-**目的**
 
-`producer` 发送消息到 `rabbitmq` 队列，`consumer` 可以从队列获取消息，使用 `rabbitmq` 简单模式（simple）
 
-**步骤**
 
-1. 创建连接工厂（设置 `rabbitmq` 连接参数）
-2. 创建连接
-3. 创建频道
-4. 声明队列
-5. 发送消息
-6. 关闭资源
 
- 
 
-**目录结构**
 
-<div align="center"> <img src="image-20200810140349437.png" width="40%"/> </div><br>
 
 
+## 7. Work queues
 
 
 
 
 
-**maven 依赖**
 
-```xml
-<!-- https://mvnrepository.com/artifact/com.rabbitmq/amqp-client -->
-<dependency>
-    <groupId>com.rabbitmq</groupId>
-    <artifactId>amqp-client</artifactId>
-    <version>5.9.0</version>
-</dependency>
-```
 
+## 8. Publish / Subscribe
 
 
-引入依赖后记得点击这个
 
-<div align="center"> <img src="image-20200810103241081.png" width="40%"/> </div><br>
 
-可以下载源码以及文档注释
 
 
 
-定义 `ConnectionUtil` 工具类
+## 9. Routing
 
-**ConnectionUtil.java**
 
-```java
-/**
- * Connection Util
- */
-public class ConnectionUtil {
 
-    public Connection createConnection() throws IOException, TimeoutException {
 
-        // create connection factory
-        ConnectionFactory connectionFactory = new ConnectionFactory();
 
-        // set connection
-        connectionFactory.setVirtualHost("/myVH");
-        connectionFactory.setUsername("ceezyyy");
-        connectionFactory.setPassword("123456");
 
-        // create connection
-        return connectionFactory.newConnection();
 
-    }
 
-}
-```
 
 
 
-
-
-**Producer.java**
-
-```java
-/**
- * Producer of rabbitmq
- */
-public class Producer {
-
-    static final String QUEUE_NAME = "simple_queue";
-
-    public static void main(String[] args) throws IOException, TimeoutException {
-
-        // get connection from ConnectionUtil
-        Connection connection = new ConnectionUtil().createConnection();
-
-        // create channel
-        Channel channel = connection.createChannel();
-
-        /*
-         * declare queue
-         *
-         * @param queue the name of the queue
-         * @param durable true if we are declaring a durable queue (the queue will survive a server restart)
-         * @param exclusive true if we are declaring an exclusive queue (restricted to this connection)
-         * @param autoDelete true if we are declaring an autodelete queue (server will delete it when no longer in use)
-         * @param arguments other properties (construction arguments) for the queue
-         * */
-        channel.queueDeclare(QUEUE_NAME, true, false, false, null);
-
-        /*
-         * publish message
-         *
-         * @param exchange the exchange to publish the message to
-         * @param routingKey the routing key
-         * @param props other properties for the message - routing headers etc
-         * @param body the message body
-         * */
-        String message = "Hello World!";
-        channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
-        System.out.println("Sending message " + message);
-
-        // close resource
-        channel.close();
-        connection.close();
-
-    }
-
-}
-```
-
-
-
-注意：
-
-- 不同的业务可以设置不同的 `virtual host`
-
-
-
-启动 `producer`
-
-
-<div align="center"> <img src="image-20200810135246354.png" width="80%"/> </div><br>
-
-<div align="center"> <img src="image-20200810135155868.png" width="40%"/> </div><br>
-
-
-
-
-
-### 5.5 Consumer
-
-**步骤**
-
-1. 创建连接工厂
-2. 创建连接
-3. 创建频道
-4. 声明队列
-5. 创建消费者
-6. 监听队列
-
-
-
-**Consumer.java**
-
-```java
-public class Consumer {
-
-    public static void main(String[] args) throws IOException, TimeoutException {
-
-        // get connection from ConnectionUtil
-        Connection connection = new ConnectionUtil().createConnection();
-
-        // create channel
-        Channel channel = connection.createChannel();
-
-        /*
-         * declare queue
-         *
-         * @param queue the name of the queue
-         * @param durable true if we are declaring a durable queue (the queue will survive a server restart)
-         * @param exclusive true if we are declaring an exclusive queue (restricted to this connection)
-         * @param autoDelete true if we are declaring an autodelete queue (server will delete it when no longer in use)
-         * @param arguments other properties (construction arguments) for the queue
-         * */
-        channel.queueDeclare(Producer.QUEUE_NAME, true, false, false, null);
-
-        // create consumer
-        DefaultConsumer defaultConsumer = new DefaultConsumer(channel) {
-            @Override
-            public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body) throws IOException {
-                System.out.println("DeliveryTag: " + envelope.getDeliveryTag());
-                System.out.println("Exchange: " + envelope.getExchange());
-                System.out.println("RoutingKey: " + envelope.getRoutingKey());
-                System.out.println(new String(body));
-            }
-        };
-
-        /*
-         * basic consumer
-         *
-         * Start a non-nolocal, non-exclusive consumer, with
-         * a server-generated consumerTag.
-         * @param queue the name of the queue
-         * @param autoAck true if the server should consider messages
-         * acknowledged once delivered; false if the server should expect
-         * explicit acknowledgements
-         * @param callback an interface to the consumer object
-         * @return the consumerTag generated by the server
-         * */
-        channel.basicConsume(Producer.QUEUE_NAME, true, defaultConsumer);
-        System.out.println("Waiting for message");
-
-    }
-}
-```
-
-
-
-启动 `consumer`
-
-成功消费！
-
-<div align="center"> <img src="image-20200810140840236.png" width="30%"/> </div><br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 6. Work queues
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 7. Publish / Subscribe
-
-
-
-
-
-
-
-
-
-
-
-## 8. Routing
-
-
-
-
-
-
-
-
-
-
-
-## 9. Topics
+## 10. Topics
 
 
 
@@ -615,13 +357,12 @@ public class Consumer {
 
 ## 参考资料
 
-- [rabbitmq](https://www.rabbitmq.com/)
 - [RabbitMQ Tutorials](https://www.rabbitmq.com/getstarted.html)
-- [RocketMQ系统精讲，经受历年双十一狂欢节考验的分布式消息中间件](https://www.bilibili.com/video/BV1L4411y7mn?p=1)
 - [什么是消息队列？](https://juejin.im/post/6844903817348136968)
 - [消息队列的使用场景是怎样的？](https://www.zhihu.com/question/34243607)
 - [消息队列设计精要](https://tech.meituan.com/2016/07/01/mq-design.html)
-- [mac 安装 RabbitMQ](https://blog.csdn.net/u010046908/article/details/54773323)
+
+  
 
 
 

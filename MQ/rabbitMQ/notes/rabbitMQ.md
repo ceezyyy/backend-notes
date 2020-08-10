@@ -60,6 +60,10 @@ Table of Contents
 
 ### 2.1 解耦
 
+一个系统的耦合度越高，容错性就越低（牵一发而动全身）
+
+
+
 解耦是消息队列所要解决最本质的问题。
 
 解耦，一个事务，只关心核心的流程，而需要依赖其他系统但不那么重要的事情，有通知即可，无需等待结构。
@@ -78,25 +82,23 @@ Table of Contents
 
 
 
-在没有加入消息队列时：
+若物流系统发生故障
 
 
 
-当用户成功支付订单后，
+加入消息队列前：
 
-库存或物流模块功能出故障了，则整个订单系统需要长时间等待，此时用户的体验感极差
-
-
+则订单系统需要等待，终端系统等待时间过长会造成用户体验感极差
 
 
 
-当加入了消息队列后：
+加入了消息队列后：
+
+用户支付操作正常完成，将数据放到消息队列中，并及时返回“支付成功“的讯号
+
+而当物流系统恢复后，补充处理消息队列中的订单消息即可（异步），用户几乎感受不到
 
 
-
-当用户成功支付订单后（完成核心流程），程序立马返回“支付成功”
-
-活动进入 `mq`，剩下的库存模块和物流模块已经不是系统的核心流程（订单是否支付成功才是）
 
 <div align="center"> <img src="image-20200809151754415.png" width="45%"/> </div><br>
 
@@ -106,7 +108,7 @@ Table of Contents
 
 ### 2.2 削峰
 
-<div align="center"> <img src="image-20200809170311265.png" width="35%"/> </div><br>
+<div align="center"> <img src="image-20200809170311265.png" width="40%"/> </div><br>
 
 在没有引入消息队列前：
 
@@ -116,7 +118,7 @@ Table of Contents
 
 这时需引入消息队列：
 
-<div align="center"> <img src="image-20200809170207889.png" width="30%"/> </div><br>
+<div align="center"> <img src="image-20200809170207889.png" width="40%"/> </div><br>
 
 起到削峰的作用
 
@@ -152,7 +154,35 @@ Table of Contents
 
 ## 3. 消息队列存在的问题
 
+任何事物都有两面性，在系统引入消息队列也有其缺点：
 
+- 系统复杂性
+- 数据一致性
+- 可用性
+
+
+
+### 3.1 系统复杂性
+
+在系统中引入 `mq` 主要会造成以下问题：
+
+- 重复消费
+- 消息丢失
+- 消息顺序消费
+
+
+
+### 3.2 数据一致性
+
+数据的一致性涉及到分布式事务的知识，广泛存在于分布式系统中
+
+引入消息队列会将这个问题的缺点放大
+
+
+
+### 3.3 可用性
+
+如何保证 `mq` 的高可用性？
 
 
 
@@ -161,6 +191,8 @@ Table of Contents
 
 
 ## 4. 同类产品比较
+
+（实习的时候，公司用的是 `kafka`）
 
 <div align="center"> <img src="111.jpg" width="60%"/> </div><br>
 
@@ -205,6 +237,8 @@ http://localhost:15672/
 
 
 
+### 5.2 添加新用户
+
 设置新账号
 
 
@@ -213,6 +247,28 @@ http://localhost:15672/
 添加成功！
 
 <div align="center"> <img src="image-20200808205922733.png" width="50%"/> </div><br>
+
+
+
+
+
+
+
+
+
+###  5.3 创建 virtual host
+
+<div align="center"> <img src="image-20200810095221458.png" width="90%"/> </div><br>
+
+创建新的 `virtual host`：`myVH`
+
+
+<div align="center"> <img src="image-20200810095500313.png" width="90%"/> </div><br>
+
+
+添加 `permission`
+
+<div align="center"> <img src="image-20200810095625133.png" width="90%"/> </div><br>
 
 
 
@@ -244,5 +300,6 @@ http://localhost:15672/
 - [RocketMQ系统精讲，经受历年双十一狂欢节考验的分布式消息中间件](https://www.bilibili.com/video/BV1L4411y7mn?p=1)
 - [什么是消息队列？](https://juejin.im/post/6844903817348136968)
 - [消息队列的使用场景是怎样的？](https://www.zhihu.com/question/34243607)
-- [mac 安装 RabbitMQ](https://blog.csdn.net/u010046908/article/details/54773323)
 - [消息队列设计精要](https://tech.meituan.com/2016/07/01/mq-design.html)
+- [mac 安装 RabbitMQ](https://blog.csdn.net/u010046908/article/details/54773323)
+

@@ -28,10 +28,7 @@ Table of Contents
 * [8. Publish / Subscribe](#8-publish--subscribe)
 * [9. Routing](#9-routing)
 * [10. Topics](#10-topics)
-* [Conclusion](#conclusion)
 * [参考资料](#参考资料)
-
-
 
 
 
@@ -438,18 +435,210 @@ public class Consumer {
 ## 7. Work queues
 
 
+<div align="center"> <img src="image-20200811104438473.png" width="40%"/> </div><br>
+
+
+
+> In the [first tutorial](https://www.rabbitmq.com/tutorials/tutorial-one-java.html) we wrote programs to send and receive messages from a named queue. In this one we'll create a *Work Queue* that will be used to distribute time-consuming tasks among multiple workers.
+>
+> The main idea behind Work Queues (aka: *Task Queues*) is to avoid doing a resource-intensive task immediately and having to wait for it to complete. Instead we schedule the task to be done later. We encapsulate a *task* as a message and send it to a queue. A worker process running in the background will pop the tasks and eventually execute the job. When you run many workers the tasks will be shared between them.
+>
+> This concept is especially useful in web applications where it's impossible to handle a complex task during a short HTTP request window.
+
+**Publisher.java**
+
+```java
+/**
+ * Publisher of work queues
+ */
+public class Publisher {
+
+    static final String WORK_QUEUE_NAME = "work_queue";
+
+    public static void main(String[] args) throws Exception {
+        ConnectionFactory factory = ConnectionFactoryUtil.getConnectionFactory();
+
+        try (Connection connection = factory.newConnection();
+             Channel channel = connection.createChannel()
+        ) {
+            channel.queueDeclare(WORK_QUEUE_NAME, true, false, false, null);
+
+            StringBuilder s = new StringBuilder("Work queue here!");
+
+            // simulate
+            for (int i = 0; i < 10; i++) {
+                s.append(i);
+                channel.basicPublish("", WORK_QUEUE_NAME, null, s.toString().getBytes());
+            }
+
+            System.out.println("Message sent!");
+        }
+
+    }
+
+}
+```
+
+
+
+创建 2 个消费者
+
+**Consumer1.java**
+
+```java
+/**
+ * Consumer1 of work queues
+ */
+public class Consumer1 {
+
+    public static void main(String[] args) throws Exception {
+        ConnectionFactory factory = ConnectionFactoryUtil.getConnectionFactory();
+        Connection connection = factory.newConnection();
+        final Channel channel = connection.createChannel();
+
+        channel.queueDeclare(Publisher.WORK_QUEUE_NAME, true, false, false, null);
+        System.out.println("Receiving message");
+
+        // request a specific prefetchCount "quality of service" settings for this channel.
+        channel.basicQos(1);
+
+        DeliverCallback deliverCallback = new DeliverCallback() {
+            @Override
+            public void handle(String consumerTag, Delivery message) throws IOException {
+                System.out.println("Consumer1 here!");
+
+                try {
+                    String receivedMessage = new String(message.getBody());
+                    System.out.println(receivedMessage);
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+
+                    System.out.println("Done");
+
+                    /*
+                     * In order to make sure a message is never lost, RabbitMQ supports message acknowledgments.
+                     * An acknowledgement is sent back by the consumer to tell RabbitMQ that a particular message has been received,
+                     * processed and that RabbitMQ is free to delete it.
+                     * */
+                    channel.basicAck(message.getEnvelope().getDeliveryTag(), false);
+
+                }
+            }
+        };
+
+        CancelCallback cancelCallback = new CancelCallback() {
+            @Override
+            public void handle(String consumerTag) throws IOException {
+                System.out.println("Receive failed!");
+            }
+        };
+
+        channel.basicConsume(Publisher.WORK_QUEUE_NAME, deliverCallback, cancelCallback);
+
+    }
+}
+```
+
+
+
+**Consumer2.java**
+
+```java
+/**
+ * Consumer2 of work queues
+ */
+public class Consumer2 {
+    public static void main(String[] args) throws Exception {
+        ConnectionFactory factory = ConnectionFactoryUtil.getConnectionFactory();
+        Connection connection = factory.newConnection();
+        final Channel channel = connection.createChannel();
+
+        channel.queueDeclare(Publisher.WORK_QUEUE_NAME, true, false, false, null);
+        System.out.println("Receiving message");
+
+        // request a specific prefetchCount "quality of service" settings for this channel.
+        channel.basicQos(1);
+
+        DeliverCallback deliverCallback = new DeliverCallback() {
+            @Override
+            public void handle(String consumerTag, Delivery message) throws IOException {
+                System.out.println("Consumer2 here!");
+
+                try {
+                    String receivedMessage = new String(message.getBody());
+                    System.out.println(receivedMessage);
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+
+                    System.out.println("Done");
+
+                    /*
+                     * In order to make sure a message is never lost, RabbitMQ supports message acknowledgments.
+                     * An acknowledgement is sent back by the consumer to tell RabbitMQ that a particular message has been received,
+                     * processed and that RabbitMQ is free to delete it.
+                     * */
+                    channel.basicAck(message.getEnvelope().getDeliveryTag(), false);
+
+                }
+            }
+        };
+
+        CancelCallback cancelCallback = new CancelCallback() {
+            @Override
+            public void handle(String consumerTag) throws IOException {
+                System.out.println("Receive failed!");
+            }
+        };
+
+        channel.basicConsume(Publisher.WORK_QUEUE_NAME, deliverCallback, cancelCallback);
+
+    }
+}
+```
+
+
+
+启动生产者
+
+<div align="center"> <img src="image-20200811150435767.png" width="40%"/> </div><br>
 
 
 
 
 
+启动消费者 1
 
+<div align="center"> <img src="image-20200811192352827.png" width="30%"/> </div><br> 
+
+
+
+
+
+启动消费者 2
+
+<div align="center"> <img src="image-20200811192409318.png" width="30%"/> </div><br>
 
 
 
 
 
 ## 8. Publish / Subscribe
+
+<div align="center"> <img src="image-20200811192620816.png" width="50%"/> </div><br>
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -501,18 +690,9 @@ public class Consumer {
 
 
 
-
-
 ## Conclusion
 
-- 学到了 `Try-with-resources`
-- 官网 + 视频 + 博客一起看
-
-
-
-
-
-
+- 视频结合官网一起看
 
 
 

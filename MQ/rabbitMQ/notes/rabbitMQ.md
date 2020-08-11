@@ -2,6 +2,8 @@
 
 <div align="center"> <img src="rabbitMQ.png" width="50%"/> </div><br>
 
+
+
 Table of Contents
 -----------------
 
@@ -28,6 +30,8 @@ Table of Contents
 * [10. Topics](#10-topics)
 * [Conclusion](#conclusion)
 * [参考资料](#参考资料)
+
+
 
 
 
@@ -288,17 +292,156 @@ http://localhost:15672/
 
 ## 6. "Hello World"
 
+<div align="center"> <img src="image-20200810172918581.png" width="50%"/> </div><br>
+
+引入 `maven`
+
+```xml
+<dependencies>
+
+  <!-- https://mvnrepository.com/artifact/com.rabbitmq/amqp-client -->
+  <dependency>
+    <groupId>com.rabbitmq</groupId>
+    <artifactId>amqp-client</artifactId>
+    <version>5.9.0</version>
+  </dependency>
+
+  <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+  <dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-api</artifactId>
+    <version>1.7.30</version>
+  </dependency>
+
+  <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+  <dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>1.7.30</version>
+    <scope>test</scope>
+  </dependency>
+
+</dependencies>
+```
 
 
 
+自定义 `ConnectionFactoryUtil` 工具类
+
+**ConnectionFactoryUtil.java**
+
+```java
+/**
+ * Connection factory util
+ */
+public class ConnectionFactoryUtil {
+    public static ConnectionFactory getConnectionFactory() {
+        ConnectionFactory connectionFactory = new ConnectionFactory();
+        connectionFactory.setVirtualHost("/myVH");
+        connectionFactory.setUsername("ceezyyy");
+        connectionFactory.setPassword("123456");
+        return connectionFactory;
+    }
+}
+```
 
 
 
+**Publisher.java**
 
+```java
+/**
+ * Publisher of "hello world"
+ */
+public class Publisher {
+    private static final String QUEUE_NAME = "hello";
+
+    public static void main(String[] args) throws IOException, TimeoutException {
+
+        // get factory
+        ConnectionFactory factory = ConnectionFactoryUtil.getConnectionFactory();
+
+        try (Connection connection = factory.newConnection();
+             Channel channel = connection.createChannel()) {
+            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+            String message = "Hello World";
+            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            System.out.println("Message sent!");
+        }
+
+    }
+
+}
+```
+
+消息发送成功！
+
+<div align="center"> <img src="image-20200811100048282.png" width="80%"/> </div><br>
+
+<div align="center"> <img src="image-20200811100134454.png" width="50%"/> </div><br>
+
+发送完消息，需要定义 `consumer` 接受消息
+
+> That's it for our publisher. Our consumer listens for messages from RabbitMQ, so unlike the publisher which publishes a single message, we'll keep the consumer running to listen for messages and print them out.
+
+
+
+**Consumer.java**
+
+```java
+/**
+ * Consumer of "hello world"
+ * <p>
+ * we want the process to stay alive while the consumer is listening asynchronously for messages to arrive
+ */
+public class Consumer {
+
+    public static void main(String[] args) throws Exception {
+
+        ConnectionFactory factory = ConnectionFactoryUtil.getConnectionFactory();
+
+        Connection connection = factory.newConnection();
+
+        Channel channel = connection.createChannel();
+
+        channel.queueDeclare(Publisher.QUEUE_NAME, false, false, false, null);
+        System.out.println("Waiting for message");
+
+        DeliverCallback deliverCallback = new DeliverCallback() {
+            @Override
+            public void handle(String consumerTag, Delivery message) throws IOException {
+                String receivedMessage = new String(message.getBody());
+                System.out.println("Received message: " + receivedMessage);
+            }
+        };
+
+        CancelCallback cancelCallback = new CancelCallback() {
+            @Override
+            public void handle(String consumerTag) throws IOException {
+                System.out.println("Receive failed!");
+            }
+        };
+
+        channel.basicConsume(Publisher.QUEUE_NAME, deliverCallback, cancelCallback);
+
+    }
+
+}
+```
+
+消费成功！
+
+<div align="center"> <img src="image-20200811103051494.png" width="40%"/> </div><br>
 
 
 
 ## 7. Work queues
+
+
+
+
+
+
 
 
 
@@ -314,7 +457,21 @@ http://localhost:15672/
 
 
 
+
+
+
+
+
+
+
+
 ## 9. Routing
+
+
+
+
+
+
 
 
 
@@ -342,10 +499,16 @@ http://localhost:15672/
 
 
 
+
+
+
+
 ## Conclusion
 
-- 工厂模式的设计思想经常接触 需要学习
-- 官方文档太重要
+- 学到了 `Try-with-resources`
+- 官网 + 视频 + 博客一起看
+
+
 
 
 
@@ -361,8 +524,7 @@ http://localhost:15672/
 - [什么是消息队列？](https://juejin.im/post/6844903817348136968)
 - [消息队列的使用场景是怎样的？](https://www.zhihu.com/question/34243607)
 - [消息队列设计精要](https://tech.meituan.com/2016/07/01/mq-design.html)
-
-  
+- [Java – Try with Resources](https://www.baeldung.com/java-try-with-resources)
 
 
 

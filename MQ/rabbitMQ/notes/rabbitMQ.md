@@ -23,11 +23,13 @@ Table of Contents
    * [5.1 安装 rabbitmq](#51-安装-rabbitmq)
    * [5.2 添加新用户](#52-添加新用户)
    * [5.3 创建 virtual host](#53-创建-virtual-host)
-* [6. "Hello World"](#6-hello-world)
-* [7. Work queues](#7-work-queues)
-* [8. Publish / Subscribe](#8-publish--subscribe)
-* [9. Routing](#9-routing)
-* [10. Topics](#10-topics)
+* [6. Queues in rabbitmq](#6-queues-in-rabbitmq)
+* [7. "Hello World"](#7-hello-world)
+* [8. Work queues](#8-work-queues)
+* [9. Publish / Subscribe](#9-publish--subscribe)
+* [10. Routing](#10-routing)
+* [11. Topics](#11-topics)
+* [Conclusion](#conclusion)
 * [参考资料](#参考资料)
 
 
@@ -284,10 +286,33 @@ http://localhost:15672/
 
 <div align="center"> <img src="image-20200810095625133.png" width="90%"/> </div><br>
 
+## 6. Queues in rabbitmq
 
 
 
-## 6. "Hello World"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 7. "Hello World"
 
 <div align="center"> <img src="image-20200810172918581.png" width="50%"/> </div><br>
 
@@ -432,7 +457,7 @@ public class Consumer {
 
 
 
-## 7. Work queues
+## 8. Work queues
 
 
 <div align="center"> <img src="image-20200811104438473.png" width="40%"/> </div><br>
@@ -628,7 +653,7 @@ public class Consumer2 {
 
 
 
-## 8. Publish / Subscribe
+## 9. Publish / Subscribe
 
 <div align="center"> <img src="image-20200811192620816.png" width="50%"/> </div><br>
 
@@ -659,6 +684,89 @@ public class Consumer2 {
 
 **exchange 如何将消息分发到不同的队列？**
 
+- direct
+- topic
+- headers
+- fanout
+
+
+
+**BuiltinExchangeType.java**
+
+```java
+package com.rabbitmq.client;
+
+/**
+ * Enum for built-in exchange types.
+ */
+public enum BuiltinExchangeType {
+
+    DIRECT("direct"), FANOUT("fanout"), TOPIC("topic"), HEADERS("headers");
+
+    private final String type;
+
+    BuiltinExchangeType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
+}
+```
+
+
+
+首先，我们先讨论 `fanout`
+
+
+<div align="center"> <img src="image-20200812104252944.png" width="50%"/> </div><br>
+
+`fanout` 作为 `exchange` 的一种模式，核心就是广播
+
+对于其接收到的消息，都将转发到所有"认识"的队列
+
+
+
+<div align="center"> <img src="image-20200812105831210.png" width="60%"/> </div><br>
+
+定义消费者，消费者只负责生产消息
+
+**Publisher.java**
+
+```java
+/**
+ * Publisher of public & subscribe
+ */
+public class Publisher {
+
+    static final String EXCHANGE_NAME = "exchange_fanout";
+
+    public static void main(String[] args) throws Exception {
+        ConnectionFactory factory = ConnectionFactoryUtil.getConnectionFactory();
+
+        try (
+                Connection connection = factory.newConnection();
+                Channel channel = connection.createChannel();
+        ) {
+            channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
+            String message = "Fanout here!";
+            channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
+        } finally {
+            System.out.println("Message sent!");
+        }
+
+    }
+
+}
+```
+
+对于生产者而言，只需关系生产消息以及定义 `exchange` （谁来接收我的消息）
+
+<div align="center"> <img src="image-20200812113823723.png" width="50%"/> </div><br>
+
+
+<div align="center"> <img src="image-20200812113917691.png" width="50%"/> </div><br>
 
 
 
@@ -675,7 +783,20 @@ public class Consumer2 {
 
 
 
-## 9. Routing
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 10. Routing
 
 
 
@@ -693,7 +814,7 @@ public class Consumer2 {
 
 
 
-## 10. Topics
+## 11. Topics
 
 
 
@@ -714,7 +835,7 @@ public class Consumer2 {
 ## Conclusion
 
 - Try-with-resources
-- 视频入门 + 官网教程
+- 视频入门 + 官网教程结合食用
 
 
 

@@ -1,3 +1,9 @@
+
+
+
+
+
+
 # RabbitMQ
 
 <div align="center"> <img src="rabbitMQ.png" width="50%"/> </div><br>
@@ -20,10 +26,13 @@ Table of Contents
    * [3.3 可用性](#33-可用性)
 * [4. 同类产品比较](#4-同类产品比较)
 * [5. Preparation](#5-preparation)
-   * [5.1 安装 rabbitmq](#51-安装-rabbitmq)
+   * [5.1 安装 RabbitMQ](#51-安装-rabbitmq)
    * [5.2 添加新用户](#52-添加新用户)
    * [5.3 创建 virtual host](#53-创建-virtual-host)
-* [6. Queues in rabbitmq](#6-queues-in-rabbitmq)
+* [6. Queues in RabbitMQ](#6-queues-in-rabbitmq)
+   * [6.1 Names](#61-names)
+   * [6.2 Server-named Queues](#62-server-named-queues)
+   * [6.3 Properties](#63-properties)
 * [7. "Hello World"](#7-hello-world)
 * [8. Work queues](#8-work-queues)
 * [9. Publish / Subscribe](#9-publish--subscribe)
@@ -217,7 +226,7 @@ Table of Contents
 
 ## 5. Preparation
 
-### 5.1 安装 rabbitmq
+### 5.1 安装 RabbitMQ
 
 采用 `homebrew` 安装 `rabbitmq`
 
@@ -286,25 +295,48 @@ http://localhost:15672/
 
 <div align="center"> <img src="image-20200810095625133.png" width="90%"/> </div><br>
 
-## 6. Queues in rabbitmq
+## 6. Queues in RabbitMQ
+
+在 `rabbitmq` 中，有专门的 `Queue` 类
+
+<div align="center"> <img src="image-20200812120045981.png" width="40%"/> </div><br>
+
+### 6.1 Names
+
+> Queues have names so that applications can reference them.
+
+每个队列都有自己的名字
+
+### 6.2 Server-named Queues
+
+> In AMQP 0-9-1, the broker can generate a unique queue name on behalf of an app. To use this feature, pass an empty string as the queue name argument: The same generated name may be obtained by subsequent methods in the same channel by using the empty string where a queue name is expected. This works because the channel remembers the last server-generated queue name.
+
+队列可以由生产者随机命名
 
 
 
+### 6.3 Properties
+
+> Queues have properties that define how they behave. There is a set of mandatory properties and a map of optional ones:
+>
+> - Name
+> - Durable (the queue will survive a broker restart)
+> - Exclusive (used by only one connection and the queue will be deleted when that connection closes)
+> - Auto-delete (queue that has had at least one consumer is deleted when last consumer unsubscribes)
+> - Arguments (optional; used by plugins and broker-specific features such as message TTL, queue length limit, etc)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+```java
+private int ticket = 0;
+private String queue = "";
+private boolean passive = false;
+private boolean durable = false;
+private boolean exclusive = false;
+private boolean autoDelete = false;
+private boolean nowait = false;
+private Map<String,Object> arguments = null;
+```
 
 
 
@@ -663,11 +695,11 @@ public class Consumer2 {
 >
 > In our logging system every running copy of the receiver program will get the messages. That way we'll be able to run one receiver and direct the logs to disk; and at the same time we'll be able to run another receiver and see the logs on the screen.
 >
-> Essentially, published log messages are going to be broadcast to all the receivers.
+> **Essentially, published log messages are going to be broadcast to all the receivers.**
 
 
 
-`publish / subscribe` 的思想很简单：生产者发送消息，不同的（多个）消费者接受消息
+`publish / subscribe` 的思想很简单：**生产者发送消息，多个消费者都能收到消息**
 
 
 
@@ -730,7 +762,83 @@ public enum BuiltinExchangeType {
 
 <div align="center"> <img src="image-20200812105831210.png" width="60%"/> </div><br>
 
-定义消费者，消费者只负责生产消息
+
+
+先定义两个消费者，测试 `fanout` 广播功能
+
+**Consumer1.java**
+
+```java
+/**
+ * Consumer1 of publish & subscribe
+ */
+public class Consumer1 {
+
+    public static void main(String[] args) throws Exception {
+
+        ConnectionFactory factory = ConnectionFactoryUtil.getConnectionFactory();
+
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
+
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
+
+        channel.queueDeclare(QUEUE_NAME1, true, false, true, null);
+
+        channel.queueBind(QUEUE_NAME1, EXCHANGE_NAME, "");
+
+        DeliverCallback deliverCallback = new DeliverCallback() {
+            @Override
+            public void handle(String consumerTag, Delivery message) throws IOException {
+                System.out.println("Consumer1 have received message: " + new String(message.getBody()));
+            }
+        };
+
+        channel.basicConsume(QUEUE_NAME1, deliverCallback, (CancelCallback) null);
+
+    }
+
+}
+```
+
+
+
+**Consumer2.java**
+
+```java
+/**
+ * Consumer2 of publish and subscribe
+ */
+public class Consumer2 {
+
+    public static void main(String[] args) throws Exception {
+
+        ConnectionFactory factory = ConnectionFactoryUtil.getConnectionFactory();
+
+        Connection connection = factory.newConnection();
+        Channel channel = connection.createChannel();
+
+        channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
+
+        channel.queueDeclare(QUEUE_NAME2, true, false, true, null);
+
+        channel.queueBind(QUEUE_NAME2, EXCHANGE_NAME, "");
+
+        DeliverCallback deliverCallback = new DeliverCallback() {
+            @Override
+            public void handle(String consumerTag, Delivery message) throws IOException {
+                System.out.println("Consumer2 have received message: " + new String(message.getBody()));
+            }
+        };
+
+        channel.basicConsume(QUEUE_NAME2, deliverCallback, (CancelCallback) null);
+        
+    }
+
+}
+```
+
+
 
 **Publisher.java**
 
@@ -741,6 +849,8 @@ public enum BuiltinExchangeType {
 public class Publisher {
 
     static final String EXCHANGE_NAME = "exchange_fanout";
+    static final String QUEUE_NAME1 = "exchange_fanout_queue1";
+    static final String QUEUE_NAME2 = "exchange_fanout_queue2";
 
     public static void main(String[] args) throws Exception {
         ConnectionFactory factory = ConnectionFactoryUtil.getConnectionFactory();
@@ -750,10 +860,16 @@ public class Publisher {
                 Channel channel = connection.createChannel();
         ) {
             channel.exchangeDeclare(EXCHANGE_NAME, BuiltinExchangeType.FANOUT);
-            String message = "Fanout here!";
+
+            channel.queueDeclare(QUEUE_NAME1, true, false, true, null);
+            channel.queueDeclare(QUEUE_NAME2, true, false, true, null);
+
+            channel.queueBind(QUEUE_NAME1, EXCHANGE_NAME, "");
+            channel.queueBind(QUEUE_NAME2, EXCHANGE_NAME, "");
+
+            String message = "EXCHANGE FANOUT here!";
             channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
-        } finally {
-            System.out.println("Message sent!");
+
         }
 
     }
@@ -761,21 +877,19 @@ public class Publisher {
 }
 ```
 
-对于生产者而言，只需关系生产消息以及定义 `exchange` （谁来接收我的消息）
-
-<div align="center"> <img src="image-20200812113823723.png" width="50%"/> </div><br>
 
 
-<div align="center"> <img src="image-20200812113917691.png" width="50%"/> </div><br>
+先启动 `consumer` 开始监听，再启动 `publisher` 生产消息
 
+<div align="center"> <img src="image-20200812160546278.png" width="50%"/> </div><br>
 
-
+<div align="center"> <img src="image-20200812160559050.png" width="80%"/> </div><br>
 
 
 
+测试发布消息
 
-
-
+<div align="center"> <img src="image-20200812160749392.png" width="80%"/> </div><br>
 
 
 
@@ -783,10 +897,17 @@ public class Publisher {
 
 
 
+消费成功！
+
+<div align="center"> <img src="image-20200812160823265.png" width="50%"/> </div><br>
 
 
 
 
+
+
+
+<div align="center"> <img src="image-20200812160833504.png" width="50%"/> </div><br>
 
 
 
@@ -834,8 +955,9 @@ public class Publisher {
 
 ## Conclusion
 
-- Try-with-resources
-- 视频入门 + 官网教程结合食用
+- 看官网教程可以学习到最新的技术 / 知识，例如这次的 `Try-with-resources`
+- 理解后消化，以简洁的语言写出来，而不是照搬教程
+- 好的代码就相当于注释
 
 
 

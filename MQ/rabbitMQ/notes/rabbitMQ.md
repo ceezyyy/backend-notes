@@ -4,6 +4,16 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
 # RabbitMQ
 
 <div align="center"> <img src="rabbitMQ.png" width="50%"/> </div><br>
@@ -686,6 +696,40 @@ public class Consumer2 {
 
 
 ## 9. Publish / Subscribe
+
+**什么是 publish / subscribe ?**
+
+
+
+
+
+<div align="center"> <img src="wx.jpg" width="40%"/> </div><br>
+
+
+
+举个微信公众号的例子：
+
+
+
+作者相当于生产者，产出文章
+
+微信公众号平台相当于交换机（稍后会介绍）
+
+用户相当于消费者，消费文章
+
+
+
+作者通过微信公众号生产文章，而所有订阅的用户都可以收到推送的文章，都可以消费
+
+
+
+`RabbitMQ` 中的 `publish / subscribe` 也是这个原理
+
+
+
+
+
+
 
 <div align="center"> <img src="image-20200811192620816.png" width="50%"/> </div><br>
 

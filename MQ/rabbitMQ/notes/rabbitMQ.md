@@ -445,6 +445,8 @@ public class Consumer {
 >
 > This concept is especially useful in web applications where it's impossible to handle a complex task during a short HTTP request window.
 
+
+
 **Publisher.java**
 
 ```java
@@ -630,13 +632,32 @@ public class Consumer2 {
 
 <div align="center"> <img src="image-20200811192620816.png" width="50%"/> </div><br>
 
+> In the [previous tutorial](https://www.rabbitmq.com/tutorials/tutorial-two-java.html) we created a work queue. The assumption behind a work queue is that each task is delivered to exactly one worker. In this part we'll do something completely different -- we'll deliver a message to multiple consumers. This pattern is known as "publish/subscribe".
+>
+> To illustrate the pattern, we're going to build a simple logging system. It will consist of two programs -- the first will emit log messages and the second will receive and print them.
+>
+> In our logging system every running copy of the receiver program will get the messages. That way we'll be able to run one receiver and direct the logs to disk; and at the same time we'll be able to run another receiver and see the logs on the screen.
+>
+> Essentially, published log messages are going to be broadcast to all the receivers.
 
 
 
+`publish / subscribe` 的思想很简单：生产者发送消息，不同的（多个）消费者接受消息
 
 
 
+这里引入一个新的概念：`exchange`
 
+
+
+`exchange` 的功能：
+
+- 接受来自 `publisher` 的消息
+- 将消息分发到不同的队列中
+
+
+
+**exchange 如何将消息分发到不同的队列？**
 
 
 
@@ -692,7 +713,8 @@ public class Consumer2 {
 
 ## Conclusion
 
-- 视频结合官网一起看
+- Try-with-resources
+- 视频入门 + 官网教程
 
 
 

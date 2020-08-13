@@ -265,15 +265,7 @@ public class Peach implements Fruit {
 
 
 
-
-
-
-
-
-
-
-
-
+子类可以扩展父类的功能，但不能改变父类原有的功能
 
 
 
@@ -287,13 +279,51 @@ public class Peach implements Fruit {
 
 
 
+**Transport.java**
+
+```java
+public interface Transport {
+    void transport();
+}
+```
+
+**Bus.java**
+
+```java
+public class Bus implements Transport {
+    @Override
+    public void transport() {
+        System.out.println("Bus here!");
+        System.out.println("Running on the road");
+    }
+}
+```
 
 
 
+此时，如果 `Bus` 有一个新功能：在天上飞（在实际开发过程中谁也无法保证没有新需求）
+
+如果直接在 `Bus` 增加 `fly()` 方法，就违反了开闭原则，程序变得难以维护
 
 
 
+需要新增一个类（对扩展开放）
 
+**UniverseBus.java**
+
+```java
+public class UniverseBus extends Bus implements Transport {
+    @Override
+    public void transport() {
+        System.out.println("Universe bus here!");
+        System.out.println("Running on the road");
+    }
+
+    public void fly() {
+        System.out.println("I can fly");
+    }
+}
+```
 
 
 

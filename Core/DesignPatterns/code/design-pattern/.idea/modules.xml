@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/interface-segregation-principle/interface-segregation-principle.iml" filepath="$PROJECT_DIR$/interface-segregation-principle/interface-segregation-principle.iml" />
       <module fileurl="file://$PROJECT_DIR$/singleton-pattern/interface-segregation-principles.iml" filepath="$PROJECT_DIR$/singleton-pattern/interface-segregation-principles.iml" />
       <module fileurl="file://$PROJECT_DIR$/observer-pattern/observer-pattern.iml" filepath="$PROJECT_DIR$/observer-pattern/observer-pattern.iml" />
+      <module fileurl="file://$PROJECT_DIR$/open-closed-principle/open-closed-principle.iml" filepath="$PROJECT_DIR$/open-closed-principle/open-closed-principle.iml" />
       <module fileurl="file://$PROJECT_DIR$/proxy-pattern/proxy-pattern.iml" filepath="$PROJECT_DIR$/proxy-pattern/proxy-pattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/singleton-pattern/singleton-pattern.iml" filepath="$PROJECT_DIR$/singleton-pattern/singleton-pattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/strategy-pattern/strategy-pattern.iml" filepath="$PROJECT_DIR$/strategy-pattern/strategy-pattern.iml" />

@@ -1,7 +1,7 @@
 # 设计模式
 
 - [概述](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/notes/intro/intro.md)
-- 单例
+- [单例]()
 - 工厂
 - 代理
 - 策略

@@ -46,8 +46,6 @@ Table of Contents
 
 
 
-
-
 ## 2. 接口隔离
 
 
@@ -59,6 +57,8 @@ Table of Contents
 
 
 ## 4. 依赖倒转
+
+> 依赖倒置原则基于这样一个事实：相对于细节的多变性，抽象的东西要稳定的多。以抽象为基础搭建起来的架构比以细节为基础搭建起来的架构要稳定的多。在java中，抽象指的是接口或者抽象类，细节就是具体的实现类，使用接口或者抽象类的目的是制定好规范和契约，而不去涉及任何具体的操作，把展现细节的任务交给他们的实现类去完成。
 
 
 
@@ -146,4 +146,8 @@ B 继承 A
 ## 参考资料
 
 - [万字总结之设计模式七大原则](https://juejin.im/post/6844904065806106632)
+- [设计模式六大原则（1）：单一职责原则](https://blog.csdn.net/zhengzhb/article/details/7278174)
+- [设计模式六大原则（2）：里氏替换原则](https://blog.csdn.net/zhengzhb/article/details/7281833)
+- [设计模式六大原则（3）：依赖倒置原则](https://blog.csdn.net/zhengzhb/article/details/7289269)
 - [设计模式六大原则（5）：迪米特法则](https://blog.csdn.net/zhengzhb/article/details/7296930)
+

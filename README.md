@@ -10,14 +10,14 @@
 
 ## Road map
 
-<div align="center"> <img src="BackendDeveloper.png" width="85%"/> </div><br>
+<div align="center"> <img src="BackendDeveloper.png" width="80%"/> </div><br>
 
 
 
 ## :key: ​CS Core
 
 - 数据结构与算法
-- [计算机网络](https://github.com/ceezyyy/backend-notes/blob/master/Core/ComputerNetwork/notes/index/index.md)
+- [计算机网络](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/index.md)
 - [操作系统](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/index.md)
 - [设计模式](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/index.md)
 
@@ -26,15 +26,14 @@
 ## :coffee: Java 
 
 - 集合
-  - [ArrayList](https://github.com/ceezyyy/backend-notes/blob/master/Java/Collection/notes/ArrayList/ArrayList.md)
-- 并发 / 多线程
-- JVM
+- [并发 / 多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/index.md)
+- [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/index.md)
 
 
 
 ## 📦 DB
 
-- [MySQL]()
+- [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/index.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/Database/Redis/notes/Redis.md)
 - MyBatis
 - MyBatis Plus

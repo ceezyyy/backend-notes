@@ -27,25 +27,14 @@
 
 - 集合
   - [ArrayList](https://github.com/ceezyyy/backend-notes/blob/master/Java/Collection/notes/ArrayList/ArrayList.md)
-- [多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/Multithreading/notes/Multithreading.md)
-- JDK 8 新特性
-  - [Stream](https://github.com/ceezyyy/backend-notes/blob/master/Java/Stream/notes/Stream.md)
-  - [Optional](https://github.com/ceezyyy/backend-notes/blob/master/Java/Optional/notes/Optional.md)
+- 并发 / 多线程
 - JVM
 
 
 
-## :desktop_computer: Frontend
-- [JavaScript](https://github.com/ceezyyy/backend-notes/blob/master/Frontend/JavaScript/JavaScript.md#432-quickstart)
-- [Vue](https://github.com/ceezyyy/backend-notes/blob/master/Frontend/Vue/notes/Vue.md)
-
-  
-
 ## 📦 DB
 
 - [MySQL]()
-  - [SQL 语句](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlQuickstart.md)
-  - [进阶](https://github.com/ceezyyy/backend-notes/blob/master/Database/Mysql/notes/MysqlAdvance.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/Database/Redis/notes/Redis.md)
 - MyBatis
 - MyBatis Plus
@@ -56,10 +45,6 @@
 ## :leaves: Spring Family
 
 - Java Web
-  - [Tomcat](https://github.com/ceezyyy/Awesome-backend-developer/blob/master/Web/Core/Tomcat/Tomcat.md)
-  - [HTTP Protocol](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Web/Core/Servlet/HTTP.md)
-  - Servlet
-  - Filter & Listener
 - [Spring](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Framework/Spring/notes/Spring.md)
 - [SpringMVC](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringMVC/notes/Springmvc.md)
 - [SpringBoot](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringBoot/notes/SpringBoot.md)
@@ -72,10 +57,11 @@
 
 
 
-## :milky_way: Microservice 
+
+
+## :cityscape: Microservice 
 
 - [Spring Cloud](https://github.com/ceezyyy/backend-notes/blob/master/Microservice/SpringCloud/notes/SpringCloud.md)
-- [Nacos]()
 
 
 

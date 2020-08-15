@@ -1,24 +1,5 @@
 # 单例模式（创建型）
 
-Table of Contents
------------------
-
-* [1. 什么是单例？](#1-什么是单例)
-* [2. 为什么使用单例？](#2-为什么使用单例)
-* [3. 如何使用单例？](#3-如何使用单例)
-* [4. 优缺点](#4-优缺点)
-* [5. 使用场景](#5-使用场景)
-* [6. 构建方式](#6-构建方式)
-* [7. Demo](#7-demo)
-* [8. 实现方式](#8-实现方式)
-   * [8.1 懒汉式 线程不安全](#81-懒汉式-线程不安全)
-   * [8.2 懒汉式 线程安全](#82-懒汉式-线程安全)
-   * [8.3 饿汉式](#83-饿汉式)
-   * [8.4 double-checked locking](#84-double-checked-locking)
-   * [8.5 静态内部类](#85-静态内部类)
-* [总结](#总结)
-* [参考资料](#参考资料)
-
 
 
 ## 1. 什么是单例？
@@ -69,190 +50,33 @@ Table of Contents
 
 
 
-## 6. 构建方式
-
-- 懒汉方式：指全局的单例实例在第一次被使用时构建。
-- 饿汉方式：指全局的单例实例在类装载时构建。
 
 
-
-## 7. Demo
-
-**SingleObject.java**
+## 6. Demo
 
 ```java
-public class SingletonObject {
-
-    private static SingletonObject instance = new SingletonObject();
-
-    private SingletonObject() {
-    }
-
-    public static SingletonObject getInstance() {
-        return instance;
-    }
-
-    public void sayHello() {
-        System.out.println("Hello World!");
-    }
-
-}
-```
-
-**SingletonPatternDemo.java**
-
-```java
-public class SingletonPatternDemo {
-    
-    public static void main(String[] args) {
-
-        // SingletonObject singletonObject = new SingletonObject(); is illegal
-        SingletonObject instance = SingletonObject.getInstance();
-        instance.sayHello();
-
-    }
-
-}
-```
-
-
-
-<div align="center"> <img src="image-20200814150422537.png" width="30%"/> </div><br>
-
-
-
-
-
-## 8. 实现方式
-
-### 8.1 懒汉式 线程不安全
-
-**Singleton.java**
-
-```java
-/**
- * 懒汉式 线程不安全
- */
 public class Singleton {
 
-    private static Singleton instance;
+    private static Singleton uniqueInstance;
 
     private Singleton() {
     }
 
     public static Singleton getInstance() {
-        if (instance == null) {
-            instance = new Singleton();
+        if (uniqueInstance == null) {
+            uniqueInstance = new Singleton();
         }
-        return instance;
+        return uniqueInstance;
     }
 
 }
 ```
 
-**缺点：**
-
-不支持多线程
 
 
+"单例模式"：外人要取得我的实例，必须“请求”得到一个实例，而不是自行示例化得到一个实例
 
-### 8.2 懒汉式 线程安全
-
-```java
-/**
- * 懒汉式 线程安全
- */
-public class Singleton {
-
-    private static Singleton instance;
-
-    private Singleton() {
-    }
-
-    public static synchronized Singleton getInstance() {
-        if (instance == null) {
-            instance = new Singleton();
-        }
-        return instance;
-    }
-
-}
-```
-
-**优点：**
-
-第一次调用才初始化，避免内存浪费。
-
-**缺点：**
-
-必须加锁 synchronized 才能保证单例，但加锁会影响效率。
-
-
-
-### 8.3 饿汉式
-
-```java
-/**
- * 饿汉式 线程安全
- */
-public class Singleton {
-
-    private static Singleton instance = new Singleton();
-
-    private Singleton() {
-    }
-
-    public static Singleton getInstance() {
-        return instance;
-    }
-}
-```
-
-**优点：**
-
-没有加锁，执行效率会提高。
-
-**缺点：**
-
-类加载时就初始化，浪费内存。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 8.4 double-checked locking
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 8.5 静态内部类
+值得注意的是，我可能是在这次调用被创建出来，也可能是早就被创建出来了
 
 
 
@@ -276,7 +100,7 @@ public class Singleton {
 
 ## 总结
 
-一般情况下，不建议使用第 1 种和第 2 种懒汉方式，建议使用第 3 种饿汉方式。只有在要明确实现 lazy loading 效果时，才会使用第 5 种登记方式。如果涉及到反序列化创建对象时，可以尝试使用第 6 种枚举方式。如果有其他特殊的需求，可以考虑使用第 4 种双检锁方式。
+
 
 
 

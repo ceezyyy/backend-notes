@@ -6,6 +6,8 @@ public class Singleton {
     }
 
     public static Singleton getInstance() {
+
+        // lazy loading
         if (uniqueInstance == null) {
             uniqueInstance = new Singleton();
         }

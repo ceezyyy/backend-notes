@@ -2,7 +2,7 @@
 
 - [概述](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/notes/intro/intro.md)
 - [单例](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/notes/singleton-pattern/singleton-pattern.md)
-- 工厂
+- [工厂](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/notes/factory-pattern/factory-pattern.md)
 - 代理
 - 策略
 - 模版方法

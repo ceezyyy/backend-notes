@@ -8,11 +8,6 @@
 
 
 
-## Road map
-
-<div align="center"> <img src="BackendDeveloper.png" width="80%"/> </div><br>
-
-
 
 ## :key: ​CS Core
 
@@ -91,12 +86,11 @@
 
 
 
+<div align="center"> <img src="cover.png" width="90%"/> </div><br>
 
 
 
 
-
-![](cover.png)
 
 
 

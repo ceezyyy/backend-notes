@@ -8,5 +8,5 @@
 
 ## 参考资料
 
-[计算机网络](https://www.bilibili.com/video/BV1Hx411D7rn?from=search&seid=13942252497953152552)
-
+- [计算机网络](https://www.bilibili.com/video/BV1Hx411D7rn?from=search&seid=13942252497953152552)
+- 计算机网络：自顶向下方法

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/abstract-factory-pattern/abstract-factory-pattern.iml" filepath="$PROJECT_DIR$/abstract-factory-pattern/abstract-factory-pattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/adapter-pattern/adapter-pattern.iml" filepath="$PROJECT_DIR$/adapter-pattern/adapter-pattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/builder-pattern/builder-pattern.iml" filepath="$PROJECT_DIR$/builder-pattern/builder-pattern.iml" />
       <module fileurl="file://$PROJECT_DIR$/chain-of-responsibility-pattern/chain-of-responsibility-pattern.iml" filepath="$PROJECT_DIR$/chain-of-responsibility-pattern/chain-of-responsibility-pattern.iml" />

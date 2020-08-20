@@ -63,11 +63,18 @@ Table of Contents
 
 
 
+ `HTTP` 由两个程序实现：
 
+- 客户端程序
+- 服务器程序
 
+客户端程序和服务器程序运行在不同的端系统中，通过交换 `HTTP` 报文进行会话。`HTTP` 定义了这些报文的结构以及客户和服务器进行报文交换的格式
 
+<div align="center"> <img src="http.png" width="50%"/> </div><br>
 
+`HTTP` 使用 `TCP` 作为它的支撑运输协议（下一层是为上一层服务的）。`HTTP` 客户首先发起一个与服务器的 `TCP` 连接。一旦连接建立，该浏览器和服务器进程就可以通过套接字访问 `TCP`
 
+一旦客户向它的套接字接口发送了一个请求报文，该报文就脱离了客户端并进入 `TCP` 的控制， `HTTP` 协议不必担心数据丢失
 
 
 
@@ -91,17 +98,10 @@ Table of Contents
 
 
 
-
-
-
-
-
-
 ## 参考链接
 
 - [How a DNS Server (Domain Name System) works](https://www.youtube.com/watch?v=mpQZVYPuDGU)
 - [FTP (File Transfer Protocol), SFTP, TFTP Explained](https://www.youtube.com/watch?v=tOj8MSEIbfA&t=1s)
-- [HTTP Crash Course & Exploration](https://www.youtube.com/watch?v=iYM2zFP3Zn0&t=1326s)
 - [SSL, TLS, HTTP, HTTPS Explained](https://www.youtube.com/watch?v=hExRDVZHhig)
 - [HTTP 协议入门](http://www.ruanyifeng.com/blog/2016/08/http.html)
 - [HTTPS 升级指南](http://www.ruanyifeng.com/blog/2016/08/migrate-from-http-to-https.html)

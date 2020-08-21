@@ -6,7 +6,7 @@
 - 代理
 - 策略
 - 模版方法
-- 观察者
+- [观察者](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/notes/observer-pattern/observer-pattern.md)
 - 适配器
 - 责任链
 - 建造者

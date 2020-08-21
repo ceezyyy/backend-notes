@@ -10,6 +10,7 @@ public class App {
      * @param args
      */
     public static void main(String[] args) {
+
         Weather weather = new Weather();
         weather.registerObserver(new Hobbits());
         weather.registerObserver(new Orcs());

@@ -13,7 +13,7 @@ public class Weather implements Subject {
     private List<WeatherObserver> observers;
 
     public Weather() {
-        currentWeatherType = WeatherType.SUNNY;
+        currentWeatherType = WeatherType.RAINY;
         observers = new ArrayList<>();
     }
 
@@ -39,7 +39,9 @@ public class Weather implements Subject {
     }
 
     public void timePass() {
+
         WeatherType[] weatherTypes = WeatherType.values();
+
         // simulate weather changes
         currentWeatherType = weatherTypes[(currentWeatherType.ordinal() + 1) % weatherTypes.length];
 

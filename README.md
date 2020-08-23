@@ -20,7 +20,7 @@
 
 ## :coffee: Java 
 
-- 集合
+- [集合](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
 - [并发 / 多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/index.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/index.md)
 

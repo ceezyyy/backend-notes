@@ -130,17 +130,150 @@ public class App {
 
 **创建 Thread 类和实现 Runnable 接口有何区别？**
 
-实现 `Runnable` 接口本质上还是重写了 `Thread` 类的 `run()` 方法，但将线程和任务分离，降低耦合性
+- 底层实现原理一样
+- 推荐使用实现 `runnable` 接口的方式（降低耦合度）
 
+深入源码可发现，调用 `Thread` 类的构造方法传入 `runnable` 接口时
 
+```java
+public Thread(Runnable target, String name) {
+    init(null, target, name, 0);
+}
+```
+
+实际上是调用 `init()` 方法
+
+```java
+private void init(ThreadGroup g, Runnable target, String name,
+                  long stackSize, AccessControlContext acc,
+                  boolean inheritThreadLocals) {
+}
+```
+
+底层实现也是重写 `run()` 方法
+
+```java
+@Override
+public void run() {
+    if (target != null) {
+        target.run();
+    }
+}
+```
 
 
 
 **方法3: FutureTask 配合 Thread**
 
+`FutureTask` 先了解
+
+```java
+public class FutureTask<V> implements RunnableFuture<V>
+```
+
+<div align="center"> <img src="image-20200823184444417.png" width="30%"/> </div><br>
 
 
 
+
+
+`FutureTask` 构造方法传入 `Callable` 接口作为参数
+
+```java
+public FutureTask(Callable<V> callable) {
+    if (callable == null)
+        throw new NullPointerException();
+    this.callable = callable;
+    this.state = NEW;       // ensure visibility of callable
+}
+```
+
+
+
+那什么是 `Callable` 呢？原来 `Callable` 和 `Runnable` 是一对好兄弟
+
+```java
+package java.util.concurrent;
+
+/**
+ * A task that returns a result and may throw an exception.
+ * Implementors define a single method with no arguments called
+ * {@code call}.
+ *
+ * <p>The {@code Callable} interface is similar to {@link
+ * java.lang.Runnable}, in that both are designed for classes whose
+ * instances are potentially executed by another thread.  A
+ * {@code Runnable}, however, does not return a result and cannot
+ * throw a checked exception.
+ *
+ * <p>The {@link Executors} class contains utility methods to
+ * convert from other common forms to {@code Callable} classes.
+ *
+ * @see Executor
+ * @since 1.5
+ * @author Doug Lea
+ * @param <V> the result type of method {@code call}
+ */
+@FunctionalInterface
+public interface Callable<V> {
+    /**
+     * Computes a result, or throws an exception if unable to do so.
+     *
+     * @return computed result
+     * @throws Exception if unable to compute a result
+     */
+    V call() throws Exception;
+}
+```
+
+
+
+`Callable` 接口可以返回值以及抛出异常，而 `Runnable` 接口不行
+
+至于返回值的作用，稍后再继续深入
+
+
+
+```java
+@Slf4j
+public class App {
+
+    public static void main(String[] args) {
+
+        FutureTask<Integer> futureTask = new FutureTask<>(new Callable<Integer>() {
+            @Override
+            public Integer call() throws Exception {
+                log.info("t1 here!");
+                Thread.sleep(2000);
+                return 100;
+            }
+        });
+
+        new Thread(futureTask, "t1").start();
+        log.info("main here!");
+
+        try {
+            log.info(String.valueOf(futureTask.get()));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+```
+
+
+
+
+<div align="center"> <img src="image-20200823190926148.png" width="30%"/> </div><br>
+
+
+
+
+
+### 2.2 线程运行原理
 
 
 

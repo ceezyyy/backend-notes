@@ -1,7 +1,7 @@
 # JVM
 
 
-- 概述
+- [概述](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/notes/intro.md)
 - 类加载机制
 - 字节码执行机制
 - JVM 内存模型

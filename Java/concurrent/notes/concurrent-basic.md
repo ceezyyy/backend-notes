@@ -34,6 +34,9 @@ Table of Contents
 
 <div align="center"> <img src="process.png" width="30%"/> </div><br>
 
+进程和线程在我们生活中无处不在
+
+<div align="center"> <img src="image-20200823191846339.png" width="70%"/> </div><br>
 
 
 ## 2. Java 多线程
@@ -274,6 +277,7 @@ public class App {
 
 
 ### 2.2 线程运行原理
+
 
 
 

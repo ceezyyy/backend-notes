@@ -272,11 +272,37 @@ public class App {
 
 <div align="center"> <img src="image-20200823190926148.png" width="30%"/> </div><br>
 
-
+值得注意的是，` log.info(String.valueOf(futureTask.get()));` 这一句是 `main` 线程执行的，因调用了 `futureTask.get()`，即处于阻塞状，态等待 `t1` 线程执行完毕后再执行
 
 
 
 ### 2.2 线程运行原理
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

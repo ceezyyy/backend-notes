@@ -5,7 +5,9 @@ Table of Contents
 
 * [1. 什么是 JVM ?](#1-什么是-jvm-)
 * [2. 为什么要学 JVM ?](#2-为什么要学-jvm-)
+* [3. JVM 体系结构](#3-jvm-体系结构)
 * [参考链接](#参考链接)
+
 
 
 ## 1. 什么是 JVM ?
@@ -18,7 +20,9 @@ Table of Contents
 
 
 
-
+- `JVM` 是一台执行字节码（不一定是 `Java`）的虚拟计算机，它拥有独立的运行机制
+- `JVM` 平台的各种语言可以共享 `JVM` 带来的跨平台性，优秀的垃圾回收器以及可靠的即使编译器
+- 所有 `Java` 程序都运行在 `Java` 虚拟机内部，所以说 `JVM` 是 `Java` 技术的核心
 
 
 
@@ -39,7 +43,18 @@ Table of Contents
 
 <div align="center"> <img src="image-20200823214440376.png" width="60%"/> </div><br>
 
+## 3. JVM 体系结构
+
+<div align="center"> <img src="jvm.png" width="90%"/> </div><br>
+
+
+
+
+
+
+
+
+
 ## 参考链接
 
-- [TIOBE](https://www.tiobe.com/tiobe-index/)
-- [Java](https://zh.wikipedia.org/wiki/Java)
+- [Java Stack and Heap - Java Memory Management](https://www.youtube.com/watch?v=450maTzSIvA)

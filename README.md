@@ -22,7 +22,7 @@
 
 - [集合](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
 - IO / NIO
-- [Java 8 新特性]()
+- [Java 8 新特性](https://github.com/ceezyyy/backend-notes/blob/master/Java/Java8/index.md)
 - [并发 / 多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/index.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/index.md)
 

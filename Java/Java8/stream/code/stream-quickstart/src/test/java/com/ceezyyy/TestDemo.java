@@ -14,16 +14,18 @@ import java.util.stream.Stream;
 @Slf4j
 public class TestDemo {
 
+    private List<String> list = new ArrayList<>();
+
     @Before
     public void init() {
-        List<String> list = new ArrayList<>();
         list.add("LBJ");
         list.add("AD");
     }
 
+
     @Test
     public void testFilter() {
-
+        list.stream().filter(s -> s.startsWith("L")).filter(s -> s.length() >=3).forEach(System.out::println);
     }
 
 

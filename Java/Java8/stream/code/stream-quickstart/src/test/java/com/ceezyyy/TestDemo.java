@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
@@ -52,10 +53,16 @@ public class TestDemo {
 
     @Test
     public void testMap() {
-
+        list.stream().map(String::toLowerCase).forEach(System.out::println);  // lbj ad
+        list.stream().map(s -> "LA: " + s).forEach(System.out::println);  // LA: LBJ LA: AD
     }
 
-
+    @Test
+    public void testMapToInt() {
+        List<String> list = Arrays.asList("1", "2", "3");
+        list.stream().mapToInt(Integer::parseInt).forEach(System.out::println);  // 1 2 3
+        list.stream().mapToInt(value -> Integer.parseInt(value)).forEach(System.out::println);  // 1 2 3
+    }
 
 
 }

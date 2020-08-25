@@ -12,8 +12,8 @@ Table of Contents
    * [4.3 concat](#43-concat)
    * [4.4 sorted](#44-sorted)
    * [4.5 map](#45-map)
-   * [4.6 forEach](#46-foreach)
-   * [4.7 collect](#47-collect)
+   * [4.6 collectors](#46-collectors)
+* [总结](#总结)
 * [参考链接](#参考链接)
 
 
@@ -394,7 +394,7 @@ public interface Comparator<T> {
 
 值得注意的是，`equals` 也是抽象方法，但是是属于 `Object` 类的，实际上 `compare()` 才是 `Comparator` 有且仅有的那个抽象方法
 
-<div align="center"> <img src="image-20200825095854676.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20200825095854676.png" width="50%"/> </div><br>
 
 接口中有许多方法（现阶段先学会熟练调用 `api`，底层实现原理暂不研究）
 
@@ -410,13 +410,128 @@ public void testReverseSorted() {
 
 ### 4.5 map
 
-### 4.6 forEach
+相当于 `map reduce` 中的 `map`
 
-### 4.7 collect
+**Stream.java**
+
+```java
+<R> Stream<R> map(Function<? super T, ? extends R> mapper);
+```
+
+传入的参数为 `Function`
+
+**Function.java**
+
+```java 
+/**
+ * Represents a function that accepts one argument and produces a result.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #apply(Object)}.
+ *
+ * @param <T> the type of the input to the function
+ * @param <R> the type of the result of the function
+ *
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface Function<T, R> {
+
+    /**
+     * Applies this function to the given argument.
+     *
+     * @param t the function argument
+     * @return the function result
+     */
+    R apply(T t);
+```
+
+`apply` 为 `Function` 接口有且仅有的抽象方法
+
+（要想掌握 `stream`，必须对 `lambda expression` 以及 `functional interface` 熟悉）
+
+先上 `demo`
+
+```java
+@Test
+public void testMap() {
+    list.stream().map(String::toLowerCase).forEach(System.out::println);  // lbj ad
+    list.stream().map(s -> "LA: " + s).forEach(System.out::println);  // LA: LBJ LA: AD
+}
+```
+
+再看一个 `map` 的兄弟方法：`mapToInt()`
+
+```java
+@Test
+public void testMapToInt() {
+    List<String> list = Arrays.asList("1", "2", "3");
+    list.stream().mapToInt(Integer::parseInt).forEach(System.out::println);  // 1 2 3
+    list.stream().mapToInt(value -> Integer.parseInt(value)).forEach(System.out::println);  // 1 2 3
+}
+```
+
+
+
+### 4.6 collectors
+
+相当于 `map reduce` 中的 `reduce`
+
+```java
+/**
+ * Implementations of {@link Collector} that implement various useful reduction
+ * operations, such as accumulating elements into collections, summarizing
+ * elements according to various criteria, etc.
+ *
+ * <p>The following are examples of using the predefined collectors to perform
+ * common mutable reduction tasks:
+ *
+ * <pre>{@code
+ *     // Accumulate names into a List
+ *     List<String> list = people.stream().map(Person::getName).collect(Collectors.toList());
+ *
+ *     // Accumulate names into a TreeSet
+ *     Set<String> set = people.stream().map(Person::getName).collect(Collectors.toCollection(TreeSet::new));
+ *
+ *     // Convert elements to strings and concatenate them, separated by commas
+ *     String joined = things.stream()
+ *                           .map(Object::toString)
+ *                           .collect(Collectors.joining(", "));
+ *
+ *     // Compute sum of salaries of employee
+ *     int total = employees.stream()
+ *                          .collect(Collectors.summingInt(Employee::getSalary)));
+ *
+ *     // Group employees by department
+ *     Map<Department, List<Employee>> byDept
+ *         = employees.stream()
+ *                    .collect(Collectors.groupingBy(Employee::getDepartment));
+ *
+ *     // Compute sum of salaries by department
+ *     Map<Department, Integer> totalByDept
+ *         = employees.stream()
+ *                    .collect(Collectors.groupingBy(Employee::getDepartment,
+ *                                                   Collectors.summingInt(Employee::getSalary)));
+ *
+ *     // Partition students into passing and failing
+ *     Map<Boolean, List<Student>> passingFailing =
+ *         students.stream()
+ *                 .collect(Collectors.partitioningBy(s -> s.getGrade() >= PASS_THRESHOLD));
+ *
+ * }</pre>
+ *
+ * @since 1.8
+ */
+public final class Collectors {}
+```
 
 
 
 
+
+## 总结
+
+- 学习编写  `stream` 代码的不二法则：源码 + Google 看 `demo`
 
 
 
@@ -424,3 +539,4 @@ public void testReverseSorted() {
 
 - [Java 8 Stream](https://www.runoob.com/java/java8-streams.html)
 - [Java Streams Tutorial | 2020](https://www.youtube.com/watch?v=Q93JsQ8vcwY)
+- [Learn MapReduce with Playing Cards](https://www.youtube.com/watch?v=bcjSe0xCHbE)

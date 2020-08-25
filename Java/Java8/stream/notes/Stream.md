@@ -3,6 +3,18 @@
 Table of Contents
 -----------------
 
+* [1. 什么是 Stream](#1-什么是-stream)
+* [2. 为什么要使用 Stream](#2-为什么要使用-stream)
+* [3. 如何实现 Stream](#3-如何实现-stream)
+* [4. Demo](#4-demo)
+   * [4.1 filter](#41-filter)
+   * [4.2 limit](#42-limit)
+   * [4.3 concat](#43-concat)
+   * [4.4 sorted](#44-sorted)
+   * [4.5 map](#45-map)
+   * [4.6 forEach](#46-foreach)
+   * [4.7 collect](#47-collect)
+* [参考链接](#参考链接)
 
 
 
@@ -231,13 +243,9 @@ public class TestDemo {
 
 <div align="center"> <img src="image-20200824175017745.png" width="40%"/> </div><br>
 
-<div align="center"> <img src="image-20200824175858123.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20200824175858123.png" width="50%"/> </div><br>
 
-第一个框是输入的参数，第二个框是判断的条件
-
-
-
-
+第一个框是流中的每个元素，第二个框是筛选的条件（符合的留下，不符合的走）
 
 ### 4.2 limit
 
@@ -333,6 +341,81 @@ public void testSorted() {
  */
 Stream<T> sorted(Comparator<? super T> comparator);
 ```
+
+进入 `Comparator` 的源码看一下
+
+**Comparator.java**
+
+```java
+@FunctionalInterface
+public interface Comparator<T> {
+    /**
+     * Compares its two arguments for order.  Returns a negative integer,
+     * zero, or a positive integer as the first argument is less than, equal
+     * to, or greater than the second.<p>
+     *
+     * In the foregoing description, the notation
+     * <tt>sgn(</tt><i>expression</i><tt>)</tt> designates the mathematical
+     * <i>signum</i> function, which is defined to return one of <tt>-1</tt>,
+     * <tt>0</tt>, or <tt>1</tt> according to whether the value of
+     * <i>expression</i> is negative, zero or positive.<p>
+     *
+     * The implementor must ensure that <tt>sgn(compare(x, y)) ==
+     * -sgn(compare(y, x))</tt> for all <tt>x</tt> and <tt>y</tt>.  (This
+     * implies that <tt>compare(x, y)</tt> must throw an exception if and only
+     * if <tt>compare(y, x)</tt> throws an exception.)<p>
+     *
+     * The implementor must also ensure that the relation is transitive:
+     * <tt>((compare(x, y)&gt;0) &amp;&amp; (compare(y, z)&gt;0))</tt> implies
+     * <tt>compare(x, z)&gt;0</tt>.<p>
+     *
+     * Finally, the implementor must ensure that <tt>compare(x, y)==0</tt>
+     * implies that <tt>sgn(compare(x, z))==sgn(compare(y, z))</tt> for all
+     * <tt>z</tt>.<p>
+     *
+     * It is generally the case, but <i>not</i> strictly required that
+     * <tt>(compare(x, y)==0) == (x.equals(y))</tt>.  Generally speaking,
+     * any comparator that violates this condition should clearly indicate
+     * this fact.  The recommended language is "Note: this comparator
+     * imposes orderings that are inconsistent with equals."
+     *
+     * @param o1 the first object to be compared.
+     * @param o2 the second object to be compared.
+     * @return a negative integer, zero, or a positive integer as the
+     *         first argument is less than, equal to, or greater than the
+     *         second.
+     * @throws NullPointerException if an argument is null and this
+     *         comparator does not permit null arguments
+     * @throws ClassCastException if the arguments' types prevent them from
+     *         being compared by this comparator.
+     */
+    int compare(T o1, T o2);
+```
+
+值得注意的是，`equals` 也是抽象方法，但是是属于 `Object` 类的，实际上 `compare()` 才是 `Comparator` 有且仅有的那个抽象方法
+
+<div align="center"> <img src="image-20200825095854676.png" width="40%"/> </div><br>
+
+接口中有许多方法（现阶段先学会熟练调用 `api`，底层实现原理暂不研究）
+
+**TestDemo.java**
+
+```java
+@Test
+public void testReverseSorted() {
+    list.stream().sorted(Comparator.comparingInt(String::length)).forEach(System.out::println);  // AD LBJ
+    list.stream().sorted(Comparator.comparingInt(String::length).reversed()).forEach(System.out::println);  // LBJ AD
+}
+```
+
+### 4.5 map
+
+### 4.6 forEach
+
+### 4.7 collect
+
+
+
 
 
 

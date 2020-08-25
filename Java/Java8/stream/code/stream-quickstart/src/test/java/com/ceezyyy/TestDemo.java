@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -45,7 +46,16 @@ public class TestDemo {
 
     @Test
     public void testReverseSorted() {
-        list.stream().sorted((s1, s2) ->
+        list.stream().sorted(Comparator.comparingInt(String::length)).forEach(System.out::println);  // AD LBJ
+        list.stream().sorted(Comparator.comparingInt(String::length).reversed()).forEach(System.out::println);  // LBJ AD
+    }
 
+    @Test
+    public void testMap() {
 
     }
+
+
+
+
+}

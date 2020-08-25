@@ -1,4 +1,4 @@
-# 集合
+# 集合源码
 
 - [Overview](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/overview.md)
 - [ArrayList](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/arraylist.md)

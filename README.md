@@ -21,7 +21,7 @@
 ## :coffee: Java 
 
 - [JDK 源码](https://github.com/ceezyyy/backend-notes/blob/master/Java/source-code/notes/index.md)
-- [集合](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
+- [集合源码](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
 - IO / NIO
 - [Java 8 新特性](https://github.com/ceezyyy/backend-notes/blob/master/Java/Java8/index.md)
 - [并发 / 多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/index.md)
@@ -35,7 +35,7 @@
 - [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/index.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/Database/Redis/notes/Redis.md)
 - MyBatis
-- MyBatis Plus
+- [MyBatis Plus]()
 
 
 

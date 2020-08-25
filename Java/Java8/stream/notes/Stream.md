@@ -17,13 +17,16 @@ Java 8 API 添加了一个新的抽象称为流 Stream，可以让你以一种�
 
 这种风格将要处理的元素集合看作一种流， 流在管道中传输， 并且可以在管道的节点上进行处理， 比如筛选， 排序，聚合等。
 
-
+```java
+public interface Stream<T> extends BaseStream<T, Stream<T>> {}
+```
 
 
 ## 2. 为什么要使用 Stream
 
 方便开发，主要用于集合类（与 `lambda expression` 连用）
 
+<div align="center"> <img src="image-20200824174217055.png" width="40%"/> </div><br>
 
 
 ## 3. 如何实现 Stream
@@ -73,18 +76,263 @@ Java 8 API 添加了一个新的抽象称为流 Stream，可以让你以一种�
 
 ### 4.1 filter
 
+首先看 `filter` 方法，从字面意思看是过滤的意思，需要传入 `Predicate` 参数
+
+**Stream.java**
+
+```java
+/**
+ * Returns a stream consisting of the elements of this stream that match
+ * the given predicate.
+ *
+ * <p>This is an <a href="package-summary.html#StreamOps">intermediate
+ * operation</a>.
+ *
+ * @param predicate a <a href="package-summary.html#NonInterference">non-interfering</a>,
+ *                  <a href="package-summary.html#Statelessness">stateless</a>
+ *                  predicate to apply to each element to determine if it
+ *                  should be included
+ * @return the new stream
+ */
+Stream<T> filter(Predicate<? super T> predicate);
+```
+
+`predicate` 是谓语的意思
+
+> the part of a sentence or clause containing a verb and stating something about the subject (e.g., *went home* in *John went home*)
+
+在 `predicate` 接口中，发现了 `@FunctionalInterface` 注解，看来和 `lambda expression` 扯上关系了
+
+接口中 **有且仅有** 一个抽象方法：`test()`
+
+作用是判断传入的参数 `t` 是否与谓词匹配
+
+**Predicate.java**
+
+```java
+/**
+ * Represents a predicate (boolean-valued function) of one argument.
+ *
+ * <p>This is a <a href="package-summary.html">functional interface</a>
+ * whose functional method is {@link #test(Object)}.
+ *
+ * @param <T> the type of the input to the predicate
+ *
+ * @since 1.8
+ */
+@FunctionalInterface
+public interface Predicate<T> {
+
+    /**
+     * Evaluates this predicate on the given argument.
+     *
+     * @param t the input argument
+     * @return {@code true} if the input argument matches the predicate,
+     * otherwise {@code false}
+     */
+    boolean test(T t);
+
+    /**
+     * Returns a composed predicate that represents a short-circuiting logical
+     * AND of this predicate and another.  When evaluating the composed
+     * predicate, if this predicate is {@code false}, then the {@code other}
+     * predicate is not evaluated.
+     *
+     * <p>Any exceptions thrown during evaluation of either predicate are relayed
+     * to the caller; if evaluation of this predicate throws an exception, the
+     * {@code other} predicate will not be evaluated.
+     *
+     * @param other a predicate that will be logically-ANDed with this
+     *              predicate
+     * @return a composed predicate that represents the short-circuiting logical
+     * AND of this predicate and the {@code other} predicate
+     * @throws NullPointerException if other is null
+     */
+    default Predicate<T> and(Predicate<? super T> other) {
+        Objects.requireNonNull(other);
+        return (t) -> test(t) && other.test(t);
+    }
+
+    /**
+     * Returns a predicate that represents the logical negation of this
+     * predicate.
+     *
+     * @return a predicate that represents the logical negation of this
+     * predicate
+     */
+    default Predicate<T> negate() {
+        return (t) -> !test(t);
+    }
+
+    /**
+     * Returns a composed predicate that represents a short-circuiting logical
+     * OR of this predicate and another.  When evaluating the composed
+     * predicate, if this predicate is {@code true}, then the {@code other}
+     * predicate is not evaluated.
+     *
+     * <p>Any exceptions thrown during evaluation of either predicate are relayed
+     * to the caller; if evaluation of this predicate throws an exception, the
+     * {@code other} predicate will not be evaluated.
+     *
+     * @param other a predicate that will be logically-ORed with this
+     *              predicate
+     * @return a composed predicate that represents the short-circuiting logical
+     * OR of this predicate and the {@code other} predicate
+     * @throws NullPointerException if other is null
+     */
+    default Predicate<T> or(Predicate<? super T> other) {
+        Objects.requireNonNull(other);
+        return (t) -> test(t) || other.test(t);
+    }
+
+    /**
+     * Returns a predicate that tests if two arguments are equal according
+     * to {@link Objects#equals(Object, Object)}.
+     *
+     * @param <T> the type of arguments to the predicate
+     * @param targetRef the object reference with which to compare for equality,
+     *               which may be {@code null}
+     * @return a predicate that tests if two arguments are equal according
+     * to {@link Objects#equals(Object, Object)}
+     */
+    static <T> Predicate<T> isEqual(Object targetRef) {
+        return (null == targetRef)
+                ? Objects::isNull
+                : object -> targetRef.equals(object);
+    }
+}
+```
+
+先上一个 `demo`
+
+**TestDemo.java**
+
+```java
+/**
+ * Demo for stream
+ */
+public class TestDemo {
+
+    private List<String> list = new ArrayList<>();
+
+    @Before
+    public void init() {
+        list.add("LBJ");
+        list.add("AD");
+    }
+
+    @Test
+    public void testFilter() {
+        list.stream().filter(s -> s.startsWith("L")).filter(s -> s.length() >= 3).forEach(System.out::println);  // LBJ
+    }
+
+}
+```
+
+<div align="center"> <img src="image-20200824175017745.png" width="40%"/> </div><br>
+
+<div align="center"> <img src="image-20200824175858123.png" width="40%"/> </div><br>
+
+第一个框是输入的参数，第二个框是判断的条件
 
 
 
 
 
+### 4.2 limit
+
+**Stream.java**
+
+```java
+/**
+ * Returns a stream consisting of the elements of this stream, truncated
+ * to be no longer than {@code maxSize} in length.
+ *
+ * <p>This is a <a href="package-summary.html#StreamOps">short-circuiting
+ * stateful intermediate operation</a>.
+ *
+ * @apiNote
+ * While {@code limit()} is generally a cheap operation on sequential
+ * stream pipelines, it can be quite expensive on ordered parallel pipelines,
+ * especially for large values of {@code maxSize}, since {@code limit(n)}
+ * is constrained to return not just any <em>n</em> elements, but the
+ * <em>first n</em> elements in the encounter order.  Using an unordered
+ * stream source (such as {@link #generate(Supplier)}) or removing the
+ * ordering constraint with {@link #unordered()} may result in significant
+ * speedups of {@code limit()} in parallel pipelines, if the semantics of
+ * your situation permit.  If consistency with encounter order is required,
+ * and you are experiencing poor performance or memory utilization with
+ * {@code limit()} in parallel pipelines, switching to sequential execution
+ * with {@link #sequential()} may improve performance.
+ *
+ * @param maxSize the number of elements the stream should be limited to
+ * @return the new stream
+ * @throws IllegalArgumentException if {@code maxSize} is negative
+ */
+Stream<T> limit(long maxSize);
+```
+
+**TestDemo.java**
+
+```java
+@Test
+public void testLimit() {
+    list.stream().limit(2).forEach(System.out::println);  // LBJ AD
+}
+```
 
 
 
+### 4.3 concat
+
+<div align="center"> <img src="image-20200824180649964.png" width="40%"/> </div><br>
+
+**TestDemo.java**
+
+```java
+@Test
+public void testConcat() {
+    Stream<String> limit = list.stream().limit(1);
+    Stream<String> skip = list.stream().skip(1);
+    Stream.concat(limit, skip).forEach(System.out::println);  // LBJ AD
+}
+```
 
 
 
+### 4.4 sorted
 
+**TestDemo.java**
+
+```java
+@Test
+public void testSorted() {
+    list.stream().sorted().forEach(System.out::println);  // AD LBJ
+}
+```
+
+除了默认排序外，还有一个传入 `Comparator` 参数的方法
+
+**Stream.java**
+
+```java
+/**
+ * Returns a stream consisting of the elements of this stream, sorted
+ * according to the provided {@code Comparator}.
+ *
+ * <p>For ordered streams, the sort is stable.  For unordered streams, no
+ * stability guarantees are made.
+ *
+ * <p>This is a <a href="package-summary.html#StreamOps">stateful
+ * intermediate operation</a>.
+ *
+ * @param comparator a <a href="package-summary.html#NonInterference">non-interfering</a>,
+ *                   <a href="package-summary.html#Statelessness">stateless</a>
+ *                   {@code Comparator} to be used to compare stream elements
+ * @return the new stream
+ */
+Stream<T> sorted(Comparator<? super T> comparator);
+```
 
 
 

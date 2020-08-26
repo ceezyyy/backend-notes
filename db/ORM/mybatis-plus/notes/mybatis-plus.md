@@ -67,13 +67,31 @@ VALUES (1087982257332887553, '大boss', 40, 'boss@baomidou.com', NULL
 
 引入依赖：
 
+**pom.xml**
+
 ```xml
 <dependencies>
   <dependency>
     <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter</artifactId>
+    <artifactId>spring-boot-starter-web</artifactId>
   </dependency>
-
+  <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-boot-starter -->
+  <dependency>
+    <groupId>com.baomidou</groupId>
+    <artifactId>mybatis-plus-boot-starter</artifactId>
+    <version>3.2.0</version>
+  </dependency>
+  <dependency>
+    <groupId>com.baomidou</groupId>
+    <artifactId>mybatis-plus-generator</artifactId>
+    <version>3.2.0</version>
+  </dependency>
+  <!-- 模板引擎 -->
+  <dependency>
+    <groupId>org.apache.velocity</groupId>
+    <artifactId>velocity-engine-core</artifactId>
+    <version>2.0</version>
+  </dependency>
   <dependency>
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
@@ -95,17 +113,12 @@ VALUES (1087982257332887553, '大boss', 40, 'boss@baomidou.com', NULL
       </exclusion>
     </exclusions>
   </dependency>
-  <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus -->
-  <dependency>
-    <groupId>com.baomidou</groupId>
-    <artifactId>mybatis-plus</artifactId>
-    <version>3.3.2</version>
-  </dependency>
-
 </dependencies>
 ```
 
-数据源配置：
+配置文件：
+
+**application.yml**
 
 ```yaml
 #用来控制使用哪个配置文件deve/prod 开发环境/生产环境
@@ -126,108 +139,148 @@ logging:
 
 `mp` 代码生成器：
 
-（参考链接：https://github.com/baomidou/mybatis-plus-samples/blob/master/mybatis-plus-sample-generator/src/main/java/com/baomidou/mybatisplus/samples/generator/MysqlGenerator.java）
+（改成适配自己项目，需配合官方文档及源码！耐心！）
 
 **CodeGenerator.java**
 
 ```java
-/**
- * <p>
- * mysql 代码生成器演示例子
- * </p>
- *
- * @author jobob
- * @since 2018-09-12
- */
+package com.ceezyyy.demo.util;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
+import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+// 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
 public class CodeGenerator {
 
-    /**
+  /**
      * <p>
      * 读取控制台内容
      * </p>
      */
-    public static String scanner(String tip) {
-        Scanner scanner = new Scanner(System.in);
-        StringBuilder help = new StringBuilder();
-        help.append("请输入" + tip + "：");
-        System.out.println(help.toString());
-        if (scanner.hasNext()) {
-            String ipt = scanner.next();
-            if (StringUtils.isNotEmpty(ipt)) {
-                return ipt;
-            }
-        }
-        throw new MybatisPlusException("请输入正确的" + tip + "！");
+  public static String scanner(String tip) {
+    Scanner scanner = new Scanner(System.in);
+    StringBuilder help = new StringBuilder();
+    help.append("请输入" + tip + "：");
+    System.out.println(help.toString());
+    if (scanner.hasNext()) {
+      String ipt = scanner.next();
+      if (StringUtils.isNotEmpty(ipt)) {
+        return ipt;
+      }
     }
+    throw new MybatisPlusException("请输入正确的" + tip + "！");
+  }
 
-    /**
-     * RUN THIS
-     */
-    public static void main(String[] args) {
+  public static void main(String[] args) {
+    // 代码生成器
+    AutoGenerator mpg = new AutoGenerator();
 
+    // 全局配置
+    GlobalConfig gc = new GlobalConfig();
+    String projectPath = System.getProperty("user.dir");
+    gc.setOutputDir(projectPath + "/src/main/java");
+    gc.setAuthor("ceezyyy");
+    gc.setOpen(false);
+    // gc.setSwagger2(true); 实体属性 Swagger2 注解
+    gc.setIdType(IdType.UUID);
+    mpg.setGlobalConfig(gc);
 
-        // 代码生成器
-        AutoGenerator mpg = new AutoGenerator();
+    // 数据源配置
+    DataSourceConfig dsc = new DataSourceConfig();
+    dsc.setUrl("jdbc:mysql://localhost:3306/mp?useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true&autoReconnect=true&characterEncoding=utf-8");
+    // dsc.setSchemaName("public");
+    dsc.setDriverName("com.mysql.cj.jdbc.Driver");
+    dsc.setUsername("root");
+    dsc.setPassword("727800Cy$");
+    mpg.setDataSource(dsc);
 
-        // 全局配置
-        GlobalConfig gc = new GlobalConfig();
-        String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + "/src/main/java");
-        gc.setAuthor("ceezyyy");
-        gc.setOpen(false);
-        mpg.setGlobalConfig(gc);
+    // 包配置
+    PackageConfig pc = new PackageConfig();
+    pc.setModuleName(scanner("模块名"));
+    pc.setParent("com.ceezyyy");
+    mpg.setPackageInfo(pc);
 
-        // 数据源配置
-        DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/mp?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8");
-        // dsc.setSchemaName("public");
-        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
-        dsc.setUsername("root");
-        dsc.setPassword("727800Cy$");
-        mpg.setDataSource(dsc);
+    // 自定义配置
+    InjectionConfig cfg = new InjectionConfig() {
+      @Override
+      public void initMap() {
+        // to do nothing
+      }
+    };
 
-        // 包配置
-        PackageConfig pc = new PackageConfig();
-        pc.setModuleName(scanner("模块名"));
-        pc.setParent("com.ceezyyy");
-        mpg.setPackageInfo(pc);
+    // 如果模板引擎是 velocity
+    String templatePath = "/templates/mapper.xml.vm";
 
-        // 自定义配置
-        InjectionConfig cfg = new InjectionConfig() {
+    // 自定义输出配置
+    List<FileOutConfig> focList = new ArrayList<>();
+    // 自定义配置会被优先输出
+    focList.add(new FileOutConfig(templatePath) {
+      @Override
+      public String outputFile(TableInfo tableInfo) {
+        // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+        return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+          + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+      }
+    });
+    /*
+        cfg.setFileCreate(new IFileCreate() {
             @Override
-            public void initMap() {
-                // to do nothing
-            }
-        };
-        List<FileOutConfig> focList = new ArrayList<>();
-        focList.add(new FileOutConfig("/templates/mapper.xml.ftl") {
-            @Override
-            public String outputFile(TableInfo tableInfo) {
-                // 自定义输入文件名称
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+            public boolean isCreate(ConfigBuilder configBuilder, FileType fileType, String filePath) {
+                // 判断自定义文件夹是否需要创建
+                checkDir("调用默认方法创建的目录，自定义目录用");
+                if (fileType == FileType.MAPPER) {
+                    // 已经生成 mapper 文件判断存在，不想重新生成返回 false
+                    return !new File(filePath).exists();
+                }
+                // 允许生成模板文件
+                return true;
             }
         });
-        cfg.setFileOutConfigList(focList);
-        mpg.setCfg(cfg);
-        mpg.setTemplate(new TemplateConfig().setXml(null));
+        */
+    cfg.setFileOutConfigList(focList);
+    mpg.setCfg(cfg);
 
-        // 策略配置
-        StrategyConfig strategy = new StrategyConfig();
-        strategy.setNaming(NamingStrategy.underline_to_camel);
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setSuperEntityClass("com.ceezyyy.mpdemo.common.BaseEntity");
-        strategy.setEntityLombokModel(true);
-        strategy.setSuperControllerClass("com.ceezyyy.mpdemo.common.BaseController");
-        strategy.setInclude(scanner("表名"));
-        strategy.setSuperEntityColumns("id");
-        strategy.setControllerMappingHyphenStyle(true);
-        strategy.setTablePrefix(pc.getModuleName() + "_");
-        mpg.setStrategy(strategy);
-        // 选择 freemarker 引擎需要指定如下加，注意 pom 依赖必须有！
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-        mpg.execute();
-    }
+    // 配置模板
+    TemplateConfig templateConfig = new TemplateConfig();
+
+    // 配置自定义输出模板
+    //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
+    // templateConfig.setEntity("templates/entity2.java");
+    // templateConfig.setService();
+    // templateConfig.setController();
+
+    templateConfig.setXml(null);
+    mpg.setTemplate(templateConfig);
+
+    // 策略配置
+    StrategyConfig strategy = new StrategyConfig();
+    strategy.setNaming(NamingStrategy.underline_to_camel);
+    strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+    //        strategy.setSuperEntityClass("你自己的父类实体,没有就不用设置!");
+    strategy.setEntityLombokModel(true);
+    strategy.setRestControllerStyle(true);
+    // 公共父类
+    //        strategy.setSuperControllerClass("你自己的父类控制器,没有就不用设置!");
+    // 写于父类中的公共字段
+    //        strategy.setSuperEntityColumns("id");
+    strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
+    strategy.setControllerMappingHyphenStyle(true);
+    strategy.setTablePrefix(pc.getModuleName() + "_");
+    mpg.setStrategy(strategy);
+    //        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+    mpg.execute();
+  }
 
 }
 ```
@@ -236,9 +289,40 @@ public class CodeGenerator {
 
 ## 1. 查询方法
 
+**BaseMapper.java**
+
+```java
+public interface BaseMapper<T> extends Mapper<T> {
+
+    T selectById(Serializable id);
+
+    List<T> selectBatchIds(@Param("coll") Collection<? extends Serializable> idList);
+
+    List<T> selectByMap(@Param("cm") Map<String, Object> columnMap);
+
+    T selectOne(@Param("ew") Wrapper<T> queryWrapper);
+
+    Integer selectCount(@Param("ew") Wrapper<T> queryWrapper);
+
+    List<T> selectList(@Param("ew") Wrapper<T> queryWrapper);
+
+    List<Map<String, Object>> selectMaps(@Param("ew") Wrapper<T> queryWrapper);
+
+    List<Object> selectObjs(@Param("ew") Wrapper<T> queryWrapper);
+
+    IPage<T> selectPage(IPage<T> page, @Param("ew") Wrapper<T> queryWrapper);
+
+    IPage<Map<String, Object>> selectMapsPage(IPage<T> page, @Param("ew") Wrapper<T> queryWrapper);
+}
+```
+
+
+
 
 
 ## 2. 自定义 sql 
+
+
 
 ## 3. 分页
 
@@ -264,13 +348,13 @@ public class CodeGenerator {
 
 
 
+## 总结
 
+- 实践出真知
+- 官网提供的例子 / 工具类要懂得如何改成适合自己项目
 
 ## 参考链接
 
 - [MyBatis-Plus](https://baomidou.com/)
-- [【最新版】4小时学会MyBatis Plus通俗易懂，从入门到部署上线 - 楠哥教你学Java](https://www.bilibili.com/video/BV1yA411t782?p=1)
 - [MyBatis-Plus入门](https://www.imooc.com/learn/1130)
 - [MyBatis-Plus进阶](https://www.imooc.com/learn/1171)
-- [国内钟情于Mybatis，而国外却喜欢Hibernate/JPA，为啥](https://itworld520.com/2020/01/12/%E5%9B%BD%E5%86%85%E9%92%9F%E6%83%85%E4%BA%8Emybatis%EF%BC%8C%E8%80%8C%E5%9B%BD%E5%A4%96%E5%8D%B4%E5%96%9C%E6%AC%A2hibernate-jpa%EF%BC%8C%E4%B8%BA%E5%95%A5%EF%BC%9F/)
-- [Mac下Mysql服务启动/停止/重启](https://juejin.im/post/6844903956305412104)

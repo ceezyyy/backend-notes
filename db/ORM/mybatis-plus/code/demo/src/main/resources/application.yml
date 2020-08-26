@@ -9,6 +9,10 @@ spring:
 #日志配置:trace,最低级别日志输出
 logging:
   level:
-    #    root: info
     root: warn
     com.lf.mp.dao: trace
+
+#mybatis-plus配置控制台打印完整带参数SQL语句
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

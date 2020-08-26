@@ -132,9 +132,13 @@ spring:
 #日志配置:trace,最低级别日志输出
 logging:
   level:
-    #    root: info
     root: warn
     com.lf.mp.dao: trace
+
+#mybatis-plus配置控制台打印完整带参数SQL语句
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 ```
 
 `mp` 代码生成器：
@@ -316,6 +320,34 @@ public interface BaseMapper<T> extends Mapper<T> {
 }
 ```
 
+**selectById()**
+
+```java
+@Test
+public void testSelectById() {
+    User user = userMapper.selectById(1087982257332887553L);
+    System.out.println(user);
+}
+```
+
+**selectBatchIds()**
+
+```java
+@Test
+public void testSelectBatchIds() {
+    List<Long> idList = Arrays.asList(1088248166370832385L, 1094592041087729666L, 1094590409767661570L);
+    userMapper.selectBatchIds(idList).forEach(System.out::println);
+}
+```
+
+
+
+
+
+
+
+
+
 
 
 
@@ -352,6 +384,7 @@ public interface BaseMapper<T> extends Mapper<T> {
 
 - 实践出真知
 - 官网提供的例子 / 工具类要懂得如何改成适合自己项目
+- `Long` 类型加 `L` 而不是 `l` （便于区分）
 
 ## 参考链接
 

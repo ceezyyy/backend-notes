@@ -320,7 +320,7 @@ public interface BaseMapper<T> extends Mapper<T> {
 }
 ```
 
-**selectById()**
+**selectById**
 
 ```java
 @Test
@@ -330,7 +330,7 @@ public void testSelectById() {
 }
 ```
 
-**selectBatchIds()**
+**selectBatchIds**
 
 ```java
 @Test
@@ -339,6 +339,73 @@ public void testSelectBatchIds() {
     userMapper.selectBatchIds(idList).forEach(System.out::println);
 }
 ```
+
+
+
+**selectByMap**
+
+```java
+@Test
+public void testSelectByMap() {
+    Map<String, Object> map = new HashMap<>();
+    map.put("age", 32);
+    userMapper.selectByMap(map).forEach(System.out::println);
+}
+```
+
+⚠️注意：传入参数 `map` 中的 `key` 需与数据库中的列名一致
+
+```sql
+==>  Preparing: SELECT id,create_time,name,manager_id,email,age FROM user WHERE age = ? 
+==> Parameters: 32(Integer)
+<==    Columns: id, create_time, name, manager_id, email, age
+<==        Row: 1094590409767661570, 2019-01-14 09:15:15, 张雨琪, 1088248166370832385, zjq@baomidou.com, 32
+<==        Row: 1094592041087729666, 2019-01-14 09:48:16, 刘红雨, 1088248166370832385, lhm@baomidou.com, 32
+<==      Total: 2
+```
+
+
+
+条件构造器
+
+**AbstractWrapper**
+
+```java
+public abstract class AbstractWrapper<T, R, Children extends AbstractWrapper<T, R, Children>> extends Wrapper<T> implements Compare<Children, R>, Nested<Children, Children>, Join<Children>, Func<Children, R> {
+}
+```
+
+
+
+学术有专攻，查询部分有 `QueryWrapper`
+
+**QueryWrapper**
+
+```java
+public class QueryWrapper<T> extends AbstractWrapper<T, String, QueryWrapper<T>> implements Query<QueryWrapper<T>, T, String> {
+```
+
+**selectByList**
+
+```java
+@Test
+public void testSelectByWrapper() {
+    QueryWrapper<User> queryWrapper = Wrappers.query();
+    queryWrapper.like("name", "%雨%").lt("age", 35);
+    userMapper.selectList(queryWrapper).forEach(System.out::println);
+}
+```
+
+```sql
+==>  Preparing: SELECT id,create_time,name,manager_id,email,age FROM user WHERE (name LIKE ? AND age < ?) 
+==> Parameters: %%雨%%(String), 35(Integer)
+<==    Columns: id, create_time, name, manager_id, email, age
+<==        Row: 1094590409767661570, 2019-01-14 09:15:15, 张雨琪, 1088248166370832385, zjq@baomidou.com, 32
+<==        Row: 1094592041087729666, 2019-01-14 09:48:16, 刘红雨, 1088248166370832385, lhm@baomidou.com, 32
+<==      Total: 2
+```
+
+⚠️注意：传入参数的 `key` 需与数据库中的列名一致
 
 
 

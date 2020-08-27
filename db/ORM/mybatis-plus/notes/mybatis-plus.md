@@ -618,16 +618,9 @@ public void testSelectByWrapper() {
 <==      Total: 2
 ```
 
-返回结果：
-
-```json
-User(id=1094590409767661570, name=张雨琪, age=null, email=null, managerId=null, createTime=null)
-User(id=1094592041087729666, name=刘红雨, age=null, email=null, managerId=null, createTime=null)
-```
 
 
-
-这样显示的不优雅，可以使用 `selectByMaps` 方法，过滤掉列名为 `null`
+使用 `selectByMaps` 方法，过滤掉列名为 `null`
 
 ```java
 @Test
@@ -650,12 +643,7 @@ public void testSelectMaps() {
 <==      Total: 2
 ```
 
-查询结果：
 
-```json
-{name=张雨琪, id=1094590409767661570}
-{name=刘红雨, id=1094592041087729666}
-```
 
 
 
@@ -689,7 +677,26 @@ public void testSelectByWrapper() {
 
 ## 3. 分页
 
+**MybatisPlusConfig.java**
 
+```java
+@Configuration
+@MapperScan("com.baomidou.cloud.service.*.mapper*")
+public class MybatisPlusConfig {
+
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        PaginationInterceptor paginationInterceptor = new PaginationInterceptor();
+        // 设置请求的页面大于最大页后操作， true调回到首页，false 继续请求  默认false
+        // paginationInterceptor.setOverflow(false);
+        // 设置最大单页限制数量，默认 500 条，-1 不受限制
+        // paginationInterceptor.setLimit(500);
+        // 开启 count 的 join 优化,只针对部分 left join
+        paginationInterceptor.setCountSqlParser(new JsqlParserCountOptimize(true));
+        return paginationInterceptor;
+    }
+}
+```
 
 
 

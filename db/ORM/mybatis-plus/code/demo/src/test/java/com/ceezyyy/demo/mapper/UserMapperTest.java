@@ -47,7 +47,9 @@ public class UserMapperTest {
     @Test
     public void testSelectByWrapper() {
         QueryWrapper<User> queryWrapper = Wrappers.query();
-        queryWrapper.like("name", "%雨%").lt("age", 35);
+        queryWrapper
+                
+
         userMapper.selectList(queryWrapper).forEach(System.out::println);
     }
 

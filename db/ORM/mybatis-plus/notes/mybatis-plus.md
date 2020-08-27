@@ -330,6 +330,8 @@ public void testSelectById() {
 }
 ```
 
+
+
 **selectBatchIds**
 
 ```java
@@ -375,7 +377,42 @@ public abstract class AbstractWrapper<T, R, Children extends AbstractWrapper<T, 
 }
 ```
 
+**说明:**
 
+- 以下出现的第一个入参`boolean condition`表示该条件**是否**加入最后生成的sql中
+- 以下代码块内的多个方法均为从上往下补全个别`boolean`类型的入参,默认为`true`
+- 以下出现的泛型`Param`均为`Wrapper`的子类实例(均具有`AbstractWrapper`的所有方法)
+- 以下方法在入参中出现的`R`为泛型,在普通wrapper中是`String`,在LambdaWrapper中是**函数**(例:`Entity::getId`,`Entity`为实体类,`getId`为字段`id`的**getMethod**)
+- 以下方法入参中的`R column`均表示数据库字段,当`R`具体类型为`String`时则为数据库字段名(**字段名是数据库关键字的自己用转义符包裹!**)!而不是实体类数据字段名!!!,另当`R`具体类型为`SFunction`时项目runtime不支持eclipse自家的编译器!!!
+- 以下举例均为使用普通wrapper,入参为`Map`和`List`的均以`json`形式表现!
+- 使用中如果入参的`Map`或者`List`为**空**,则不会加入最后生成的sql中!!!
+- 有任何疑问就点开源码看,看不懂**函数**的[点击我学习新知识](https://www.jianshu.com/p/613a6118e2e0)
+
+**SqlKeyword.java**
+
+```java
+public enum SqlKeyword implements ISqlSegment {
+    AND("AND"),
+    OR("OR"),
+    IN("IN"),
+    NOT("NOT"),
+    LIKE("LIKE"),
+    EQ("="),
+    NE("<>"),
+    GT(">"),
+    GE(">="),
+    LT("<"),
+    LE("<="),
+    IS_NULL("IS NULL"),
+    IS_NOT_NULL("IS NOT NULL"),
+    GROUP_BY("GROUP BY"),
+    HAVING("HAVING"),
+    ORDER_BY("ORDER BY"),
+    EXISTS("EXISTS"),
+    BETWEEN("BETWEEN"),
+    ASC("ASC"),
+    DESC("DESC");
+```
 
 学术有专攻，查询部分有 `QueryWrapper`
 
@@ -383,22 +420,26 @@ public abstract class AbstractWrapper<T, R, Children extends AbstractWrapper<T, 
 
 ```java
 public class QueryWrapper<T> extends AbstractWrapper<T, String, QueryWrapper<T>> implements Query<QueryWrapper<T>, T, String> {
+}
 ```
 
-**selectByList**
+
+
+
+**查询需求：**名字中包含雨年并且龄大于等于20且小于等于40并且email不为空
 
 ```java
 @Test
 public void testSelectByWrapper() {
-    QueryWrapper<User> queryWrapper = Wrappers.query();
-    queryWrapper.like("name", "%雨%").lt("age", 35);
-    userMapper.selectList(queryWrapper).forEach(System.out::println);
+  QueryWrapper<User> queryWrapper = Wrappers.query();
+  queryWrapper.like("name", "%雨%").between("age", 20, 40).isNotNull("email");
+  userMapper.selectList(queryWrapper).forEach(System.out::println);
 }
 ```
 
 ```sql
-==>  Preparing: SELECT id,create_time,name,manager_id,email,age FROM user WHERE (name LIKE ? AND age < ?) 
-==> Parameters: %%雨%%(String), 35(Integer)
+==>  Preparing: SELECT id,create_time,name,manager_id,email,age FROM user WHERE (name LIKE ? AND age BETWEEN ? AND ? AND email IS NOT NULL) 
+==> Parameters: %%雨%%(String), 20(Integer), 40(Integer)
 <==    Columns: id, create_time, name, manager_id, email, age
 <==        Row: 1094590409767661570, 2019-01-14 09:15:15, 张雨琪, 1088248166370832385, zjq@baomidou.com, 32
 <==        Row: 1094592041087729666, 2019-01-14 09:48:16, 刘红雨, 1088248166370832385, lhm@baomidou.com, 32
@@ -406,6 +447,185 @@ public void testSelectByWrapper() {
 ```
 
 ⚠️注意：传入参数的 `key` 需与数据库中的列名一致
+
+
+
+**查询需求：**名字为王姓或者年龄大于等于25，按照年龄降序排列，年龄相同按照id升序排列
+
+```java
+@Test
+public void testSelectByWrapper() {
+  QueryWrapper<User> queryWrapper = Wrappers.query();
+  queryWrapper
+    .likeRight("name", "王")
+    .or()
+    .ge("age", 25)
+    .orderByDesc("age")
+    .orderByAsc("id");
+  userMapper.selectList(queryWrapper).forEach(System.out::println);
+}
+```
+
+```sql
+==>  Preparing: SELECT id,create_time,name,manager_id,email,age FROM user WHERE (name LIKE ? OR age >= ?) ORDER BY age DESC , id ASC 
+==> Parameters: 王%(String), 25(Integer)
+<==    Columns: id, create_time, name, manager_id, email, age
+<==        Row: 1087982257332887553, 2019-01-11 14:20:20, 大boss, null, boss@baomidou.com, 40
+<==        Row: 1094590409767661570, 2019-01-14 09:15:15, 张雨琪, 1088248166370832385, zjq@baomidou.com, 32
+<==        Row: 1094592041087729666, 2019-01-14 09:48:16, 刘红雨, 1088248166370832385, lhm@baomidou.com, 32
+<==        Row: 1088250446457389058, 2019-02-14 08:31:16, 李艺伟, 1088248166370832385, lyw@baomidou.com, 28
+<==        Row: 1088248166370832385, 2019-02-05 11:12:22, 王天风, 1087982257332887553, wtf@baomidou.com, 25
+<==      Total: 5
+```
+
+
+
+**查询需求：**创建日期为2019年2月14日并且直属上级为名字为王姓
+
+
+
+
+
+
+
+
+
+**查询需求：**名字为王姓并且（年龄小于40或邮箱不为空）
+
+```java
+@Test
+public void testSelectByWrapper() {
+    QueryWrapper<User> queryWrapper = Wrappers.query();
+    queryWrapper
+            .likeRight("name", "王")
+            .and(i -> i.le("age", 40).or().isNotNull("email"));
+    userMapper.selectList(queryWrapper).forEach(System.out::println);
+}
+```
+
+```sql
+==>  Preparing: SELECT id,create_time,name,manager_id,email,age FROM user WHERE (name LIKE ? AND ( (age <= ? OR email IS NOT NULL) )) 
+==> Parameters: 王%(String), 40(Integer)
+<==    Columns: id, create_time, name, manager_id, email, age
+<==        Row: 1088248166370832385, 2019-02-05 11:12:22, 王天风, 1087982257332887553, wtf@baomidou.com, 25
+<==      Total: 1
+```
+
+
+
+
+
+**查询需求：**名字为王姓或者（年龄小于40并且年龄大于20并且邮箱不为空）
+
+```java
+@Test
+public void testSelectByWrapper() {
+    QueryWrapper<User> queryWrapper = Wrappers.query();
+    queryWrapper
+            .likeRight("name", "王")
+            .or(i -> i.lt("age", 40).gt("age", 20).isNotNull("email"));
+    userMapper.selectList(queryWrapper).forEach(System.out::println);
+}
+```
+
+```java
+==>  Preparing: SELECT id,create_time,name,manager_id,email,age FROM user WHERE (name LIKE ? OR ( (age < ? AND age > ? AND email IS NOT NULL) )) 
+==> Parameters: 王%(String), 40(Integer), 20(Integer)
+<==    Columns: id, create_time, name, manager_id, email, age
+<==        Row: 1088248166370832385, 2019-02-05 11:12:22, 王天风, 1087982257332887553, wtf@baomidou.com, 25
+<==        Row: 1088250446457389058, 2019-02-14 08:31:16, 李艺伟, 1088248166370832385, lyw@baomidou.com, 28
+<==        Row: 1094590409767661570, 2019-01-14 09:15:15, 张雨琪, 1088248166370832385, zjq@baomidou.com, 32
+<==        Row: 1094592041087729666, 2019-01-14 09:48:16, 刘红雨, 1088248166370832385, lhm@baomidou.com, 32
+<==      Total: 4
+```
+
+
+
+
+
+**查询需求：**（年龄小于40或邮箱不为空）并且名字为王姓
+
+```java
+@Test
+public void testSelectByWrapper() {
+    QueryWrapper<User> queryWrapper = Wrappers.query();
+    queryWrapper
+            .likeRight("name", "王")
+            .and(i -> i.lt("age", 40).or().isNotNull("email"));
+    userMapper.selectList(queryWrapper).forEach(System.out::println);
+}
+```
+
+```sql
+==>  Preparing: SELECT id,create_time,name,manager_id,email,age FROM user WHERE (name LIKE ? AND ( (age < ? OR email IS NOT NULL) )) 
+==> Parameters: 王%(String), 40(Integer)
+<==    Columns: id, create_time, name, manager_id, email, age
+<==        Row: 1088248166370832385, 2019-02-05 11:12:22, 王天风, 1087982257332887553, wtf@baomidou.com, 25
+<==      Total: 1
+```
+
+
+
+
+
+
+
+
+
+**查询需求：**年龄为30、31、34、35
+
+```java
+@Test
+public void testSelectByWrapper() {
+    QueryWrapper<User> queryWrapper = Wrappers.query();
+    queryWrapper.in("age", 30, 31, 32, 34, 35);
+    userMapper.selectList(queryWrapper).forEach(System.out::println);
+}
+```
+
+```sql
+==>  Preparing: SELECT id,create_time,name,manager_id,email,age FROM user WHERE (age IN (?,?,?,?,?)) 
+==> Parameters: 30(Integer), 31(Integer), 32(Integer), 34(Integer), 35(Integer)
+<==    Columns: id, create_time, name, manager_id, email, age
+<==        Row: 1094590409767661570, 2019-01-14 09:15:15, 张雨琪, 1088248166370832385, zjq@baomidou.com, 32
+<==        Row: 1094592041087729666, 2019-01-14 09:48:16, 刘红雨, 1088248166370832385, lhm@baomidou.com, 32
+<==      Total: 2
+```
+
+
+
+
+
+
+
+
+
+**查询需求：**查询名字中包含 “雨” 且年龄小于 40（只列出 `id` 和 `name`）
+
+```java
+@Test
+public void testSelectByWrapper() {
+    QueryWrapper<User> queryWrapper = Wrappers.query();
+    queryWrapper
+            .like("name", "雨")
+            .lt("age", 40)
+            .select("id", "name");
+    userMapper.selectList(queryWrapper).forEach(System.out::println);
+}
+```
+
+```sql
+==>  Preparing: SELECT id,name FROM user WHERE (name LIKE ? AND age < ?) 
+==> Parameters: %雨%(String), 40(Integer)
+<==    Columns: id, name
+<==        Row: 1094590409767661570, 张雨琪
+<==        Row: 1094592041087729666, 刘红雨
+<==      Total: 2
+```
+
+
+
+**查询需求：**按照直属上级分组，查询每组的平均年龄、最大年龄、最小年龄。并且只取年龄总和小于500的组
 
 
 
@@ -452,9 +672,11 @@ public void testSelectByWrapper() {
 - 实践出真知
 - 官网提供的例子 / 工具类要懂得如何改成适合自己项目
 - `Long` 类型加 `L` 而不是 `l` （便于区分）
+- `MySQL` 中 `between` 是闭区间（包括边界值）
 
 ## 参考链接
 
 - [MyBatis-Plus](https://baomidou.com/)
 - [MyBatis-Plus入门](https://www.imooc.com/learn/1130)
 - [MyBatis-Plus进阶](https://www.imooc.com/learn/1171)
+- [Consumer Interface in Java 8](https://www.youtube.com/watch?v=5uJ8jSf-c9g&t=14s)

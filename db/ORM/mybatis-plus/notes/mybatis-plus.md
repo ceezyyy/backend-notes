@@ -425,8 +425,7 @@ public class QueryWrapper<T> extends AbstractWrapper<T, String, QueryWrapper<T>>
 
 
 
-
-**查询需求：**名字中包含雨年并且龄大于等于20且小于等于40并且email不为空
+**查询需求：** 名字中包含雨年并且龄大于等于20且小于等于40并且email不为空
 
 ```java
 @Test
@@ -450,7 +449,7 @@ public void testSelectByWrapper() {
 
 
 
-**查询需求：**名字为王姓或者年龄大于等于25，按照年龄降序排列，年龄相同按照id升序排列
+**查询需求：** 名字为王姓或者年龄大于等于25，按照年龄降序排列，年龄相同按照id升序排列
 
 ```java
 @Test
@@ -480,7 +479,7 @@ public void testSelectByWrapper() {
 
 
 
-**查询需求：**创建日期为2019年2月14日并且直属上级为名字为王姓
+**查询需求：** 创建日期为2019年2月14日并且直属上级为名字为王姓
 
 
 
@@ -490,7 +489,7 @@ public void testSelectByWrapper() {
 
 
 
-**查询需求：**名字为王姓并且（年龄小于40或邮箱不为空）
+**查询需求：** 名字为王姓并且（年龄小于40或邮箱不为空）
 
 ```java
 @Test
@@ -515,7 +514,7 @@ public void testSelectByWrapper() {
 
 
 
-**查询需求：**名字为王姓或者（年龄小于40并且年龄大于20并且邮箱不为空）
+**查询需求：** 名字为王姓或者（年龄小于40并且年龄大于20并且邮箱不为空）
 
 ```java
 @Test
@@ -568,11 +567,7 @@ public void testSelectByWrapper() {
 
 
 
-
-
-
-
-**查询需求：**年龄为30、31、34、35
+**查询需求：** 年龄为30、31、34、35
 
 ```java
 @Test
@@ -600,7 +595,7 @@ public void testSelectByWrapper() {
 
 
 
-**查询需求：**查询名字中包含 “雨” 且年龄小于 40（只列出 `id` 和 `name`）
+**查询需求：** 查询名字中包含 “雨” 且年龄小于 40（只列出 `id` 和 `name`）
 
 ```java
 @Test
@@ -623,27 +618,90 @@ public void testSelectByWrapper() {
 <==      Total: 2
 ```
 
+返回结果：
 
-
-**查询需求：**按照直属上级分组，查询每组的平均年龄、最大年龄、最小年龄。并且只取年龄总和小于500的组
-
-
-
-
-
-
+```json
+User(id=1094590409767661570, name=张雨琪, age=null, email=null, managerId=null, createTime=null)
+User(id=1094592041087729666, name=刘红雨, age=null, email=null, managerId=null, createTime=null)
+```
 
 
 
+这样显示的不优雅，可以使用 `selectByMaps` 方法，过滤掉列名为 `null`
+
+```java
+@Test
+public void testSelectMaps() {
+    QueryWrapper<User> queryWrapper = Wrappers.query();
+    queryWrapper
+            .like("name", "雨")
+            .lt("age", 40)
+            .select("id", "name");
+    userMapper.selectMaps(queryWrapper).forEach(System.out::println);
+}
+```
+
+```sql
+==>  Preparing: SELECT id,name FROM user WHERE (name LIKE ? AND age < ?) 
+==> Parameters: %雨%(String), 40(Integer)
+<==    Columns: id, name
+<==        Row: 1094590409767661570, 张雨琪
+<==        Row: 1094592041087729666, 刘红雨
+<==      Total: 2
+```
+
+查询结果：
+
+```json
+{name=张雨琪, id=1094590409767661570}
+{name=刘红雨, id=1094592041087729666}
+```
 
 
 
+**查询需求：** 按照直属上级分组，查询每组的平均年龄、最大年龄、最小年龄。并且只取年龄总和小于500的组
+
+```java
+@Test
+public void testSelectByWrapper() {
+    QueryWrapper<User> queryWrapper = Wrappers.query();
+    queryWrapper
+            .select("avg(age) as avg_age", "max(age) as max_avg", "min(age) as min_avg")
+            .groupBy("manager_id")
+            .having("sum(age) < {0}", 500);
+    userMapper.selectList(queryWrapper);
+}
+```
+
+ ```sql
+==>  Preparing: SELECT avg(age) as avg_age,max(age) as max_avg,min(age) as min_avg FROM user GROUP BY manager_id HAVING sum(age) < ? 
+==> Parameters: 500(Integer)
+<==    Columns: avg_age, max_avg, min_avg
+<==        Row: 40.0000, 40, 40
+<==        Row: 25.0000, 25, 25
+<==        Row: 30.6667, 32, 28
+<==      Total: 3
+ ```
 
 ## 2. 自定义 sql 
 
-
+暂略
 
 ## 3. 分页
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 4. 更新 & 删除
 

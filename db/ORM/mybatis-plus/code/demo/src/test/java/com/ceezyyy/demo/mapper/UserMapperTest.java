@@ -1,5 +1,6 @@
 package com.ceezyyy.demo.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.ceezyyy.demo.entity.User;
@@ -44,13 +45,21 @@ public class UserMapperTest {
         userMapper.selectByMap(map).forEach(System.out::println);
     }
 
+
+    @Test
+    public void testSelectMaps() {
+        QueryWrapper<User> queryWrapper = Wrappers.query();
+        userMapper.selectMaps(queryWrapper).forEach(System.out::println);
+    }
+
     @Test
     public void testSelectByWrapper() {
         QueryWrapper<User> queryWrapper = Wrappers.query();
         queryWrapper
-                
-
-        userMapper.selectList(queryWrapper).forEach(System.out::println);
+                .select("avg(age) as avg_age", "max(age) as max_avg", "min(age) as min_avg")
+                .groupBy("manager_id")
+                .having("sum(age) < {0}", 500);
+        userMapper.selectList(queryWrapper);
     }
 
 

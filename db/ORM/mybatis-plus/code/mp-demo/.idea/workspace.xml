@@ -4,54 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3b8da2af-415b-4352-92d1-a49b1c16d7e6" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../demo/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/.mvn/wrapper/MavenWrapperDownloader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/.mvn/wrapper/maven-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/.mvn/wrapper/maven-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/mvnw" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/mvnw.cmd" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/src/main/java/com/ceezyyy/demo/DemoApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../demo/src/test/java/com/ceezyyy/demo/DemoApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/mpdemo/CodeGenerator.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/mpdemo/MpDemoApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/mpdemo/common/BaseController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/mpdemo/common/BaseEntity.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/mpdemo/controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/mpdemo/entity/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/mpdemo/mapper/UserMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/mpdemo/service/IUserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/mpdemo/service/impl/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/mpdemo/UserMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/com/ceezyyy/mpdemo/MpDemoApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/src/main/java/com/ceezyyy/mybatisplusdemo/MybatisPlusDemoApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/src/main/java/com/ceezyyy/mybatisplusdemo/config/MyMetaObjectHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/src/main/java/com/ceezyyy/mybatisplusdemo/config/OptimisticLocker.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/src/main/java/com/ceezyyy/mybatisplusdemo/entity/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/src/main/java/com/ceezyyy/mybatisplusdemo/enums/StatusEnum.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/src/main/java/com/ceezyyy/mybatisplusdemo/mapper/UserMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/src/test/java/com/ceezyyy/mybatisplusdemo/MybatisPlusDemoApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../mybatis-plus-demo/src/test/java/com/ceezyyy/mybatisplusdemo/mapper/UserMapperTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../notes/mybatis-plus.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../notes/mybatis-plus.md" afterDir="false" />
-    </list>
+    <list default="true" id="3b8da2af-415b-4352-92d1-a49b1c16d7e6" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -121,19 +74,6 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -208,12 +148,12 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.MysqlGenerator" />
       <item itemvalue="JUnit.TestMapper.testInsert" />
       <item itemvalue="JUnit.TestMapper" />
-      <item itemvalue="Spring Boot.MpDemoApplication" />
       <item itemvalue="JUnit.UserMapperTest.testSelectAll" />
       <item itemvalue="JUnit.UserMapperTest" />
-      <item itemvalue="Application.MysqlGenerator" />
+      <item itemvalue="Spring Boot.MpDemoApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -239,6 +179,7 @@
       <workItem from="1598425804667" duration="1872000" />
       <workItem from="1598427822814" duration="835000" />
       <workItem from="1598428700913" duration="1400000" />
+      <workItem from="1598574938700" duration="85000" />
     </task>
     <servers />
   </component>

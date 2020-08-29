@@ -86,3 +86,9 @@
 - [谈谈技术学习的一些方法论](https://www.frankfeekr.cn/2019/05/09/%E8%B0%88%E8%B0%88%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E8%AE%BA/)
 - [工程师如何在工作中提升自己?](https://mp.weixin.qq.com/s/DwDzOcQZIK9vd6FQTyuIWQ)
 - [阿里巴巴Java开发手册](https://github.com/alibaba/p3c)
+
+
+
+## :thought_balloon: Thoughts
+
+- [internship]()

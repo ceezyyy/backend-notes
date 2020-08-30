@@ -8,8 +8,7 @@ Table of Contents
 * [1. 什么是 git?](#1-什么是-git)
 * [2. Git &amp; svn](#2-git--svn)
 * [3. Git workflow](#3-git-workflow)
-* [4. Git 常用命令](#4-git-常用命令)
-
+* [4. Git branch](#4-git-branch)
 
 
 
@@ -35,9 +34,18 @@ Table of Contents
 
 ## 3. Git workflow
 
+<div align="center"> <img src="workflow.png" width="60%"/> </div><br>
+
+- remote：远程仓库
+- repository：本地仓库 / 版本库
+- index：暂存区
+- workspace：工作区（本地）
 
 
 
+## 4. Git branch
 
-## 4. Git 常用命令
+<div align="center"> <img src="branch.png" width="50%"/> </div><br>
+
+
 

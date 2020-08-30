@@ -37,7 +37,7 @@ public class ArrayList<E> extends AbstractList<E>
 
 ### 2.1 Serializable
 
-**实现该接口作用：**使得对象可以序列化
+**实现该接口作用：** 使得对象可以序列化
 
 ```java
 public interface Serializable {
@@ -53,7 +53,7 @@ public interface Serializable {
 
 ### 2.2 Cloneable
 
-**实现该接口作用：**使得对象可以序列化根据已有的数据，创造一份新的拷贝
+**实现该接口作用：** 使得对象可以序列化根据已有的数据，创造一份新的拷贝
 
 ```java
 /**
@@ -99,7 +99,7 @@ public interface Cloneable {
 
 ### 2.3 RandomAccess
 
-**实现该接口作用**：支持高效随机访问（通过索引获取元素的值）
+**实现该接口作用：** 支持高效随机访问（通过索引获取元素的值）
 
 ```java
 /**

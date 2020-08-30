@@ -75,7 +75,7 @@
 
 - [Maven](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Maven/Maven.md)
 - [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Swagger/notes/Swagger.md)
-- Git
+- [Git](https://github.com/ceezyyy/backend-notes/blob/master/tools/git/notes/git.md)
 
 
 
@@ -91,4 +91,5 @@
 
 ## :thought_balloon: Thoughts
 
-- [internship]()
+- [Internship](https://github.com/ceezyyy/backend-notes/blob/master/thoughts/internship.md)
+

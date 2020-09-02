@@ -193,6 +193,7 @@ public boolean add(E e) {
   return true;
 }
 
+
 // 确保内部容量是否足够
 private void ensureCapacityInternal(int minCapacity) {
 
@@ -205,6 +206,8 @@ private void ensureCapacityInternal(int minCapacity) {
   ensureExplicitCapacity(minCapacity);
 }
 
+
+// 判断是否需要扩容
 private void ensureExplicitCapacity(int minCapacity) {
   modCount++;
 
@@ -213,6 +216,7 @@ private void ensureExplicitCapacity(int minCapacity) {
   if (minCapacity - elementData.length > 0)
     grow(minCapacity);
 }
+
 
 // 扩容方法
 private void grow(int minCapacity) {

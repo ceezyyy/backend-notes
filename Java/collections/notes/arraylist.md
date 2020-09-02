@@ -11,7 +11,6 @@ Table of Contents
 * [get()](#get)
 * [add()](#add)
 * [remove()](#remove)
-* [参考链接](#参考链接)
 
 
 ## Overview
@@ -102,10 +101,12 @@ public ArrayList(int initialCapacity) {
   }
 }
 
+
 // Constructs an empty list with an initial capacity of ten
 public ArrayList() {
   this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
 }
+
 
 // Constructs a list containing the elements of the specified collection
 public ArrayList(Collection<? extends E> c) {
@@ -136,11 +137,13 @@ public E set(int index, E element) {
   return oldValue;
 }
 
+
 // Check if the given index is in range
 private void rangeCheck(int index) {
   if (index >= size)
     throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
 }
+
 
 // Get element by specific index
 E elementData(int index) {
@@ -162,11 +165,13 @@ public E get(int index) {
   return elementData(index);
 }
 
+
 // Check if the given index is in range
 private void rangeCheck(int index) {
   if (index >= size)
     throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
 }
+
 
 // Get element by specific index
 E elementData(int index) {
@@ -297,6 +302,7 @@ private void rangeCheck(int index) {
 当入参为 `Object o` 时：
 
 ```java
+//  Removes the first occurrence of the specified element from this list, if it is present.  If the list does not contain the element, it is unchanged
 public boolean remove(Object o) {
   if (o == null) {
     for (int index = 0; index < size; index++)
@@ -328,6 +334,3 @@ private void fastRemove(int index) {
 
 
 
-## 参考链接
-
-- [Java Collections Framework Internals - ArrayList](https://github.com/CarpenterLee/JCFInternals/blob/master/markdown/2-ArrayList.md)

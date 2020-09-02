@@ -3,6 +3,15 @@
 Table of Contents
 -----------------
 
+* [1. 特点](#1-特点)
+* [2. 全览](#2-全览)
+* [3. 源码分析](#3-源码分析)
+   * [3.1 properties](#31-properties)
+   * [3.2 Constructor](#32-constructor)
+   * [3.3 add](#33-add)
+* [4. Interview Qs](#4-interview-qs)
+* [5. 自定义 ArrayList](#5-自定义-arraylist)
+* [参考链接](#参考链接)
 
 
 
@@ -157,6 +166,8 @@ public class App {
 
 进入到 `add()` 方法
 
+首先确保内部容量是否足够（入参为 `size + 1` 作判断，看看是否能再加一个元素进来）：
+
 **Arraylist.java**
 
 ```java
@@ -167,10 +178,12 @@ public boolean add(E e) {
 }
 ```
 
-首先确保内部容量是否足够（用 `size + 1` 作判断，看看是否能再加一个元素进来）：
+`ensureCapacityInternal` 包含两个作用：
 
-- 若是调用空参构造方法：`minCapacity` 取入参容量和默认容量 10 中的最大值
-- 调用 `ensureExplicitCapacity` 方法，明确实际容量大小
+1. 判断是否为空参构造，若是，则默认容量为 10
+2. 进入 `ensureExplicitCapacity(int minCapacity)` 方法，判断是否需要扩容
+
+**ArrayList.java**
 
 ```java
 private void ensureCapacityInternal(int minCapacity) {
@@ -182,11 +195,12 @@ private void ensureCapacityInternal(int minCapacity) {
 }
 ```
 
-明确实际容量的大小，判断是否需要扩容
 
 其中 `modCount` 是 `ArrayList` 的父类 `AbstractList` 的成员变量，记录 `ArrayList` 扩容的次数（至于有什么用暂且不研究）
 
-`elementData.length` 是返回 `ArrayList` 当前实际的大小，若 `minCapacity` 大于当前大小，则调用 `grow` 方法进行扩容
+若最小的容量 > `elementData` 的长度即：当前存放元素的地方太小了，已经容纳不下其他需要放置的元素了（连最小的需求也无法满足）
+
+扩容！安排！
 
 **ArrayList.java**
 
@@ -202,7 +216,7 @@ private void ensureExplicitCapacity(int minCapacity) {
 
 扩容方法，新的容量是原来的 1.5 倍
 
-若新的容量扩容后仍然比 `minCapacity` 小，则直接将 `minCapacity` 赋予给新的容量
+若新的容量扩容后仍然比 `minCapacity` 小（这种情况下 `oldCapacity` 应该为 0），则直接将 `minCapacity` 赋予给新的容量
 
 最后调用 `Arrays.copyOf` 方法复制一份数组
 
@@ -283,6 +297,8 @@ public class App {
 }
 ```
 
+进入到另外一个 `add()` 方法中
+
 **ArrayList.java**
 
 ```java
@@ -306,6 +322,8 @@ public void add(int index, E element) {
 }
 ```
 
+首先判断需要插入的 `index` 是否合法：
+
 **ArrayList.java**
 
 ```java
@@ -317,6 +335,49 @@ private void rangeCheckForAdd(int index) {
         throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
 }
 ```
+
+接下来调用 `ensureCapacityInternal` 方法，确保容量足够
+
+```java
+private void ensureCapacityInternal(int minCapacity) {
+    if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+        minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
+    }
+
+    ensureExplicitCapacity(minCapacity);
+}
+```
+
+容量足够的话，调用 `arraycopy()` 方法
+
+其实就相当于整体后移了一个位置，空出 `index` 位置用来插入我们需要存放的元素
+
+其中参数的含义是：
+
+- src：源数组
+- srcPos：源数组的起始位置
+- dest：（需要拷贝到的）目标数组
+- destPos：目标数组开始拷贝的位置
+- length：需要拷贝数组的长度
+
+```java
+public static native void arraycopy(Object src,  int  srcPos,
+                                    Object dest, int destPos,
+                                    int length);
+```
+
+
+
+在 `index` 位置插入元素，元素 + 1
+
+```java
+elementData[index] = element;
+size++;
+```
+
+
+
+执行完毕！
 
 
 

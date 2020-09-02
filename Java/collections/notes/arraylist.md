@@ -1,17 +1,22 @@
+
+
 # ArrayList 
 
 Table of Contents
 -----------------
 
+* [Overview](#overview)
+* [Constructor](#constructor)
+* [set()](#set)
+* [get()](#get)
+* [add()](#add)
+* [remove()](#remove)
+* [参考链接](#参考链接)
 
 
 
 
-
-
-
-
-## 1. 全览
+## Overview
 
 <div align="center"> <img src="ArrayList_base.png" width="70%"/> </div><br>
 
@@ -78,65 +83,53 @@ transient Object[] elementData; // non-private to simplify nested class access
 private int size;
 ```
 
-## 2. Constructor
+## Constructor
 
-**默认空参**
+`ArrayList` 包含 3 个构造方法：
 
-```java
-public ArrayList() {
-    this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
-}
-```
-
-**有参构造 1**
+- ArrayList()
+- ArrayList(int initialCapacity)
+- ArrayList(Collection<? extends E> c)
 
 ```java
 // Constructs an empty list with the specified initial capacity
 public ArrayList(int initialCapacity) {
-    if (initialCapacity > 0) {
-        this.elementData = new Object[initialCapacity];
-    } else if (initialCapacity == 0) {
-        this.elementData = EMPTY_ELEMENTDATA;
-    } else {
-        throw new IllegalArgumentException("Illegal Capacity: "+
-                                           initialCapacity);
-    }
+  if (initialCapacity > 0) {
+    this.elementData = new Object[initialCapacity];
+  } else if (initialCapacity == 0) {
+    this.elementData = EMPTY_ELEMENTDATA;
+  } else {
+    throw new IllegalArgumentException("Illegal Capacity: "+
+                                       initialCapacity);
+  }
 }
-```
 
-传入 `initialCapacity` 参数：
+// Constructs an empty list with an initial capacity of ten
+public ArrayList() {
+  this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
+}
 
-- 若参数 > 0：创建容量为 `initialCapacity` 的列表（根据入参）
-- 若参数为 0：创建 `EMPTY_ELEMENTDATA` 空列表
-- 若参数 < 0：抛异常 
-
-
-
-**有参构造 2**
-
-```java
 // Constructs a list containing the elements of the specified collection
 public ArrayList(Collection<? extends E> c) {
-    elementData = c.toArray();
-    if ((size = elementData.length) != 0) {
-        // c.toArray might (incorrectly) not return Object[] (see 6260652)
-        if (elementData.getClass() != Object[].class)
-            elementData = Arrays.copyOf(elementData, size, Object[].class);
-    } else {
-        // replace with empty array.
-        this.elementData = EMPTY_ELEMENTDATA;
-    }
+  elementData = c.toArray();
+  if ((size = elementData.length) != 0) {
+    // c.toArray might (incorrectly) not return Object[] (see 6260652)
+    if (elementData.getClass() != Object[].class)
+      elementData = Arrays.copyOf(elementData, size, Object[].class);
+  } else {
+    // replace with empty array.
+    this.elementData = EMPTY_ELEMENTDATA;
+  }
 }
 ```
 
 
-
-## 3. set()
+## set()
 
 `set()` 方法逻辑比较简单，先检查 `index` 是否合法，若合法只需要在 `index` 位置替换掉原先的元素即可 
 
 ```java
-// Setter
+// Replaces the element at the specified position in this list with the specified element
 public E set(int index, E element) {
   rangeCheck(index);
 
@@ -159,7 +152,7 @@ E elementData(int index) {
 
 
 
-## 4. get()
+## get()
 
 `get()` 方法和 `set()` 逻辑相似
 
@@ -180,6 +173,107 @@ private void rangeCheck(int index) {
 // Get element by specific index
 E elementData(int index) {
   return (E) elementData[index];
+}
+```
+
+
+
+## add()
+
+`add()` 方法首先确保内部空间是否足够
+
+- 足够：直接赋值
+- 不够：扩容
+
+```java
+// Appends the specified element to the end of this list
+public boolean add(E e) {
+  ensureCapacityInternal(size + 1);  // Increments modCount!!
+  elementData[size++] = e;
+  return true;
+}
+
+// 确保内部容量是否足够
+private void ensureCapacityInternal(int minCapacity) {
+
+  // 当空参构造方法第一次调用 add() 时，默认容量为 10
+  if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+    minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);
+  }
+
+  // 判断是否需要扩容
+  ensureExplicitCapacity(minCapacity);
+}
+
+private void ensureExplicitCapacity(int minCapacity) {
+  modCount++;
+
+  // 若容量不足，调用 grow() 进行扩容
+  // overflow-conscious code
+  if (minCapacity - elementData.length > 0)
+    grow(minCapacity);
+}
+
+// 扩容方法
+private void grow(int minCapacity) {
+  // overflow-conscious code
+  int oldCapacity = elementData.length;
+  
+  // 扩容 1.5 倍（新容量为旧容量的 1.5 倍）
+  int newCapacity = oldCapacity + (oldCapacity >> 1);
+  
+  // 若新容量仍不够，直接扩容到所需的最小容量
+  if (newCapacity - minCapacity < 0)
+    newCapacity = minCapacity;
+  if (newCapacity - MAX_ARRAY_SIZE > 0)
+    newCapacity = hugeCapacity(minCapacity);
+  // minCapacity is usually close to size, so this is a win:
+  elementData = Arrays.copyOf(elementData, newCapacity);
+}
+```
+<div align="center"> <img src="ArrayList_grow.png" width="70%"/> </div><br>
+
+
+
+
+
+<div align="center"> <img src="ArrayList_add.png" width="70%"/> </div><br>
+
+## remove()
+
+```java
+// Removes the element at the specified position in this list
+public E remove(int index) {
+  rangeCheck(index);
+
+  modCount++;
+  E oldValue = elementData(index);
+
+  int numMoved = size - index - 1;
+  if (numMoved > 0)
+    System.arraycopy(elementData, index+1, elementData, index,
+                     numMoved);
+  elementData[--size] = null; // clear to let GC do its work
+
+  return oldValue;
+}
+
+// Removes the first occurrence of the specified element from this list, if it is present.  If the list does not contain the element, it is unchanged
+public boolean remove(Object o) {
+  if (o == null) {
+    for (int index = 0; index < size; index++)
+      if (elementData[index] == null) {
+        fastRemove(index);
+        return true;
+      }
+  } else {
+    for (int index = 0; index < size; index++)
+      if (o.equals(elementData[index])) {
+        fastRemove(index);
+        return true;
+      }
+  }
+  return false;
 }
 ```
 

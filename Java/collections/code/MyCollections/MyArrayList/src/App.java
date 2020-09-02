@@ -4,7 +4,9 @@ public class App {
     public static void main(String[] args) {
 
         ArrayList<Integer> arrayList = new ArrayList<>();
-        arrayList.add(0, 88);
+        for (int i = 0; i < 11; i++) {
+            arrayList.add(i);
+        }
 
     }
 }

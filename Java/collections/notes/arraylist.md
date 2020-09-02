@@ -302,7 +302,8 @@ private void rangeCheck(int index) {
 当入参为 `Object o` 时：
 
 ```java
-//  Removes the first occurrence of the specified element from this list, if it is present.  If the list does not contain the element, it is unchanged
+// Removes the first occurrence of the specified element from this list, if it is present.  
+// If the list does not contain the element, it is unchanged
 public boolean remove(Object o) {
   if (o == null) {
     for (int index = 0; index < size; index++)

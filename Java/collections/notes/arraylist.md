@@ -14,8 +14,6 @@ Table of Contents
 * [参考链接](#参考链接)
 
 
-
-
 ## Overview
 
 <div align="center"> <img src="ArrayList_base.png" width="70%"/> </div><br>
@@ -222,10 +220,10 @@ private void ensureExplicitCapacity(int minCapacity) {
 private void grow(int minCapacity) {
   // overflow-conscious code
   int oldCapacity = elementData.length;
-  
+
   // 扩容 1.5 倍（新容量为旧容量的 1.5 倍）
   int newCapacity = oldCapacity + (oldCapacity >> 1);
-  
+
   // 若新容量仍不够，直接扩容到所需的最小容量
   if (newCapacity - minCapacity < 0)
     newCapacity = minCapacity;
@@ -237,7 +235,27 @@ private void grow(int minCapacity) {
 ```
 <div align="center"> <img src="ArrayList_grow.png" width="70%"/> </div><br>
 
+在指定位置插入新增元素
 
+```java
+// Inserts the specified element at the specified position in this list
+public void add(int index, E element) {
+  rangeCheckForAdd(index);
+
+  ensureCapacityInternal(size + 1);  // Increments modCount!!
+  System.arraycopy(elementData, index, elementData, index + 1,
+                   size - index);
+  elementData[index] = element;
+  size++;
+}
+
+
+// 查看 index 是否合法
+private void rangeCheckForAdd(int index) {
+  if (index > size || index < 0)
+    throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+}
+```
 
 
 
@@ -251,18 +269,34 @@ public E remove(int index) {
   rangeCheck(index);
 
   modCount++;
+
+  // 获得原来的值
   E oldValue = elementData(index);
 
+  // 需要移动元素的个数
+  // size - 1 为最后一个元素的索引，index 为当前要删除元素的索引
   int numMoved = size - index - 1;
+
+  // index 之后的元素整体前移一个单元
   if (numMoved > 0)
     System.arraycopy(elementData, index+1, elementData, index,
                      numMoved);
-  elementData[--size] = null; // clear to let GC do its work
+  elementData[--size] = null; // clear to let GC do its work（涉及到 GC 垃圾回收机制，暂且不讨论）
 
   return oldValue;
 }
 
-// Removes the first occurrence of the specified element from this list, if it is present.  If the list does not contain the element, it is unchanged
+
+// Checks if the given index is in range
+private void rangeCheck(int index) {
+  if (index >= size)
+    throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
+}
+```
+
+当入参为 `Object o` 时：
+
+```java
 public boolean remove(Object o) {
   if (o == null) {
     for (int index = 0; index < size; index++)
@@ -278,6 +312,17 @@ public boolean remove(Object o) {
       }
   }
   return false;
+}
+
+
+// Private remove method that skips bounds checking and does not return the value removed
+private void fastRemove(int index) {
+  modCount++;
+  int numMoved = size - index - 1;
+  if (numMoved > 0)
+    System.arraycopy(elementData, index+1, elementData, index,
+                     numMoved);
+  elementData[--size] = null; // clear to let GC do its work
 }
 ```
 

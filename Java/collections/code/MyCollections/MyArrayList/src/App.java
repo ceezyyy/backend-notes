@@ -8,5 +8,7 @@ public class App {
             arrayList.add(i);
         }
 
+        arrayList.remove(Integer.valueOf(2));
+
     }
 }

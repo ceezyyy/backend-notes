@@ -21,7 +21,7 @@
 
 ## 2. 原理
 
-<div align="center"> <img src="image-20200902181253766.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200902181253766.png" width="70%"/> </div><br>
 
 
 

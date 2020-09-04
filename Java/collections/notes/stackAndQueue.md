@@ -23,6 +23,139 @@ Deque<Integer> stack = new ArrayDeque<Integer>();
 
 ## Overview
 
+```java
+public class ArrayDeque<E> extends AbstractCollection<E>
+                           implements Deque<E>, Cloneable, Serializable
+{
+```
+
+
+
+<div align="center"> <img src="image-20200904151827074.png" width="70%"/> </div><br>
+
+要想透彻了解 `ArrayDeque`，首先需要了解 `Deque`：双端队列
+
+<div align="center"> <img src="deque.png" width="70%"/> </div><br>
+
+
+
+```java
+// Deque is short for "double ended queue"
+// which supports element insertion and removal at both ends
+public interface Deque<E> extends Queue<E> {
+
+  
+  // Inserts the specified element at the front of this deque
+  // Otherwise, throw an IllegalStateException
+  void addFirst(E e);
+
+  
+  // Inserts the specified element at the end of this deque
+  // Otherwise, throw an IllegalStateException
+  void addLast(E e);
+  
+  
+  // Inserts the specified element at the front of this deque 
+  // unless it would violate capacity restrictions
+  // 推荐使用
+  boolean offerFirst(E e);
+
+
+  // Inserts the specified element at the end of this deque 
+  // unless it would violate capacity restrictions
+  // 推荐使用
+  boolean offerLast(E e);
+
+  // Retrieves and removes the first element of this deque
+  // it throws an exception if this deque is empty
+  E removeFirst();
+
+
+  // Retrieves and removes the last element of this deque
+  // it throws an exception if this deque is empty
+  E removeLast();
+
+
+  // Retrieves and removes the first element of this deque
+  // returns {@code null} if this deque is empty
+  E pollFirst();
+
+
+  // Retrieves and removes the last element of this deque
+  // returns {@code null} if this deque is empty
+  E pollLast();
+
+
+  // Retrieves, but does not remove, the first element of this deque
+  // it throws an exception if this deque is empty
+  E getFirst();
+
+
+  // Retrieves, but does not remove, the last element of this deque
+  // it throws an exception if this deque is empty
+  E getLast();
+
+
+  // Retrieves, but does not remove, the first element of this deque
+  // or returns {@code null} if this deque is empty
+  E peekFirst();
+
+  // Retrieves, but does not remove, the last element of this deque
+  // or returns {@code null} if this deque is empty
+  E peekLast();
+
+
+  boolean removeFirstOccurrence(Object o);
+
+  boolean removeLastOccurrence(Object o);
+
+  boolean add(E e);
+
+
+  boolean offer(E e);
+
+
+  E remove();
+
+
+  E poll();
+
+
+  E element();
+
+
+  E peek();
+
+
+
+  void push(E e);
+
+
+
+  E pop();
+
+
+
+  boolean remove(Object o);
+
+  boolean contains(Object o);
+
+
+  public int size();
+
+
+  Iterator<E> iterator();
+
+
+  Iterator<E> descendingIterator();
+
+}
+```
+
+
+
+
+
 
 
 

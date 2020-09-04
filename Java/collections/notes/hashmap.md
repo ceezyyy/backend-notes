@@ -3,53 +3,15 @@
 Table of Contents
 -----------------
 
-* [1. Preparation](#1-preparation)
-   * [1.1 什么是 hash?](#11-什么是-hash)
-   * [1.2 Hash 的特点](#12-hash-的特点)
-   * [1.3 什么是 HashTable?](#13-什么是-hashtable)
-* [2. 源码](#2-源码)
+* [1. 什么是 HashTable?](#1-什么是-hashtable)
+* [2. 手撕源码](#2-手撕源码)
+   * [2.1 成员变量](#21-成员变量)
+   * [2.2 构造方法](#22-构造方法)
 * [参考链接](#参考链接)
 
 
 
-
-## 1. Preparation
-
-### 1.1 什么是 hash?
-
-维基百科
-
-> 散列表（Hash table，也叫哈希表），是根据键（Key）而直接访问在内存储存位置的数据结构。也就是说，它通过计算一个关于键值的函数，将所需查询的数据映射到表中一个位置来访问记录，这加快了查找速度。这个映射函数称做散列函数，存放记录的数组称做散列表。
-
-百度百科
-
-> Hash算法可以将一个数据转换为一个标志，这个标志和源数据的每一个字节都有十分紧密的关系。Hash算法还具有一个特点，就是很难找到逆向规律。
->
-> Hash算法是一个广义的算法，也可以认为是一种思想，使用Hash算法可以提高存储空间的利用率，可以提高数据的查询效率，也可以做[数字签名](https://baike.baidu.com/item/数字签名/212550)来保障数据传递的安全性。所以Hash算法被广泛地应用在互联网应用中。
->
-> Hash算法也被称为散列算法，Hash算法虽然被称为算法，但实际上它更像是一种思想。Hash算法没有一个固定的公式，只要符合散列思想的算法都可以被称为是Hash算法。 
-
-
-
-`Hash` 的原理就是把任意长度的输入，通过 `Hash` 算法变成固定长度的输出，这个映射的规则就是对应的 `Hash` 算法。而原始数据映射后的二进制串就是哈希值。
-
-```shell
-echo md5("这是一个测试文案");
-// 输出结果：2124968af757ed51e71e6abeac04f98d
-```
-
-
-
-### 1.2 Hash 的特点
-
-- 从 `hash` 值不可以反向推导出原始数据
-- 输入数据的微小变化会得到完全不同的 `hash` 值，相同的数据会得到相同的值
-- `hash` 算法执行效率高，长文本也能快速计算出 `hash` 值
-- `hash` 算法的冲突概率要小
-
-
-
-### 1.3 什么是 HashTable?
+## 1. 什么是 HashTable?
 
 维基百科
 
@@ -103,20 +65,78 @@ echo md5("这是一个测试文案");
 
 
 
+## 2. 手撕源码
 
-## 2. 源码
+在 `JDK 1.8` 之前，`HashMap` 采用 数组 + 链表组成
+
+在 `JDK 1.8` 之后，`HashMap` 采用 数组 + 链表 + 红黑树组成
+
+本文采用 `JDK1.8` 版本
 
 <div align="center"> <img src="image-20200902181253766.png" width="60%"/> </div><br>
 
 
 
+### 2.1 成员变量
+
+ **HashMap.java**
+
+```java
+public class HashMap<K,V> extends AbstractMap<K,V>
+    implements Map<K,V>, Cloneable, Serializable {
+
+    private static final long serialVersionUID = 362498820763181265L;
+
+    /**
+     * The default initial capacity - MUST be a power of two.
+     */
+    static final int DEFAULT_INITIAL_CAPACITY = 1 << 4; // aka 16
+
+    /**
+     * The maximum capacity, used if a higher value is implicitly specified
+     * by either of the constructors with arguments.
+     * MUST be a power of two <= 1<<30.
+     */
+    static final int MAXIMUM_CAPACITY = 1 << 30;
+
+    /**
+     * The load factor used when none specified in constructor.
+     */
+    static final float DEFAULT_LOAD_FACTOR = 0.75f;
+
+    /**
+     * The bin count threshold for using a tree rather than list for a
+     * bin.  Bins are converted to trees when adding an element to a
+     * bin with at least this many nodes. The value must be greater
+     * than 2 and should be at least 8 to mesh with assumptions in
+     * tree removal about conversion back to plain bins upon
+     * shrinkage.
+     */
+    static final int TREEIFY_THRESHOLD = 8;
+
+    /**
+     * The bin count threshold for untreeifying a (split) bin during a
+     * resize operation. Should be less than TREEIFY_THRESHOLD, and at
+     * most 6 to mesh with shrinkage detection under removal.
+     */
+    static final int UNTREEIFY_THRESHOLD = 6;
+
+    /**
+     * The smallest table capacity for which bins may be treeified.
+     * (Otherwise the table is resized if too many nodes in a bin.)
+     * Should be at least 4 * TREEIFY_THRESHOLD to avoid conflicts
+     * between resizing and treeification thresholds.
+     */
+    static final int MIN_TREEIFY_CAPACITY = 64;
+```
+
+<div align="center"> <img src="HashMap_base.png" width="80%"/> </div><br>
 
 
 
 
 
-
-
+### 2.2 构造方法
 
 
 

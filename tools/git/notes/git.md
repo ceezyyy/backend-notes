@@ -6,9 +6,10 @@ Table of Contents
 -----------------
 
 * [1. 什么是 git?](#1-什么是-git)
-* [2. Git &amp; svn](#2-git--svn)
-* [3. Git workflow](#3-git-workflow)
-* [4. Git branch](#4-git-branch)
+* [2. Git workflow](#2-git-workflow)
+* [3. Git branch](#3-git-branch)
+* [参考链接](#参考链接)
+
 
 
 
@@ -20,19 +21,7 @@ Table of Contents
 
 
 
-## 2. Git & svn
-
-`svn` 的缺点：
-
-- 容错性差（服务器单点故障）
-
-<div align="center"> <img src="git-svn.jpg" width="60%"/> </div><br>
-
- `git` 优于 `svn` 的点：
-
-- 分布式（分为目的仓库和远程仓库）
-
-## 3. Git workflow
+## 2. Git workflow
 
 <div align="center"> <img src="workflow.png" width="60%"/> </div><br>
 
@@ -43,9 +32,12 @@ Table of Contents
 
 
 
-## 4. Git branch
+## 3. Git branch
 
 <div align="center"> <img src="branch.png" width="50%"/> </div><br>
 
 
 
+## 参考链接
+
+- [Git教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/896043488029600)

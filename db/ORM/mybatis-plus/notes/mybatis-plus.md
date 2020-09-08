@@ -724,9 +724,29 @@ IPage<Map<String, Object>> selectMapsPage(IPage<T> page, @Param(Constants.WRAPPE
 
 可以看到两个方法传入的参数和返回值都为 `IPage<T>`
 
+`IPage` 为 `mp` 为我们封装好的分页对象接口
 
+**IPage.java**
 
+```java
+/**
+ * 分页 Page 对象接口
+ */
+public interface IPage<T> extends Serializable {
+}
+```
 
+其只有唯一的实现类：`Page`
+
+**Page.java**
+
+```java
+/**
+ * 简单分页模型
+ */
+public class Page<T> implements IPage<T> {
+}
+```
 
 
 

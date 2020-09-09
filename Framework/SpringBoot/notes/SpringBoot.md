@@ -267,11 +267,11 @@ public class UserController {
 **pom.xml**
 
 ```xml
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.1.10</version>
-        </dependency>
+<dependency>
+  <groupId>com.alibaba</groupId>
+  <artifactId>druid-spring-boot-starter</artifactId>
+  <version>1.1.10</version>
+</dependency>
 ```
 
 
@@ -797,7 +797,4 @@ public interface UserMapper {
 
 - [Springboot 2.0.6 Reference Guide](https://docs.spring.io/spring-boot/docs/2.0.6.RELEASE/reference/html/)
 - [Learn Spring Boot](https://www.baeldung.com/spring-boot)
-
-
-
-
+- [SpringBoot_权威教程_spring boot_springboot核心篇+springboot整合篇-_雷丰阳_尚硅谷](https://www.bilibili.com/video/BV1Et411Y7tQ)

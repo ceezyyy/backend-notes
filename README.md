@@ -86,9 +86,3 @@
 - [工程师如何在工作中提升自己?](https://mp.weixin.qq.com/s/DwDzOcQZIK9vd6FQTyuIWQ)
 - [阿里巴巴Java开发手册](https://github.com/alibaba/p3c)
 
-
-
-## :thought_balloon: Thoughts
-
-- [Internship](https://github.com/ceezyyy/backend-notes/blob/master/thoughts/internship.md)
-

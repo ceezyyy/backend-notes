@@ -62,5 +62,16 @@ public class UserMapperTest {
         userMapper.selectList(queryWrapper);
     }
 
+    @Test
+    public void testSelectObjs() {
+        QueryWrapper<User> queryWrapper = Wrappers.query();
+        queryWrapper
+                .select("name")
+                .eq("age", 32)
+                .orderByAsc("id");
+        userMapper.selectOne(queryWrapper);
+
+    }
+
 
 }

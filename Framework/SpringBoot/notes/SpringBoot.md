@@ -4,38 +4,30 @@
 
 <div align="center"> <img src="logo.jpg" width="80%"/> </div><br>
 
-## 目录
+Table of Contents
+-----------------
 
-* [0. Reference Guide](#0-reference-guide)
-* [1. 了解 Springboot](#1----springboot)
-  + [1.1 What is springboot](#11-what-is-springboot)
-  + [1.2 Why we use springboot](#12-why-we-use-springboot)
+* [1. 了解 Springboot](#1-了解-springboot)
+   * [1.1 What is springboot](#11-what-is-springboot)
+   * [1.2 Why we use springboot](#12-why-we-use-springboot)
 * [2. Springboot Quickstart](#2-springboot-quickstart)
 * [3. Springboot Quickstart Pro](#3-springboot-quickstart-pro)
 * [4. JavaConfig](#4-javaconfig)
-  + [4.1 Annotation in Spring](#41-annotation-in-spring)
-  + [4.2 DataSourceConfig](#42-datasourceconfig)
-* [5. Properties With Spring Boot](#5-properties-with-spring-boot)
+   * [4.1 Annotation in Spring](#41-annotation-in-spring)
+   * [4.2 DataSourceConfig](#42-datasourceconfig)
+* [5. Autoconfiguration](#5-autoconfiguration)
 * [6. Springboot Demo](#6-springboot-demo)
-  + [6.1 Springmvc](#61-springmvc)
-    - [6.1.1 Server port](#611-server-port)
-    - [6.1.2 Static resources](#612-static-resources)
-    - [6.1.3 Interceptor](#613-interceptor)
-  + [6.2 Datasource](#62-datasource)
-  + [6.3 Mybatis](#63-mybatis)
-    - [6.3.1 Reference](#631-reference)
-  + [6.4 Transaction Manager](#64-transaction-manager)
-  + [6.5 填坑指南](#65-----)
+   * [6.1 Springmvc](#61-springmvc)
+      * [6.1.1 Server port](#611-server-port)
+      * [6.1.2 Static resources](#612-static-resources)
+      * [6.1.3 Interceptor](#613-interceptor)
+   * [6.2 Datasource](#62-datasource)
+   * [6.3 Mybatis](#63-mybatis)
+      * [6.3.1 Reference](#631-reference)
+   * [6.4 Transaction Manager](#64-transaction-manager)
+   * [6.5 填坑指南](#65-填坑指南)
+* [参考链接](#参考链接)
 
-
-
-
-
-## 0. Reference Guide
-
-[Springboot 2.0.6 Reference Guide](https://docs.spring.io/spring-boot/docs/2.0.6.RELEASE/reference/html/)
-
-[Learn Spring Boot](https://www.baeldung.com/spring-boot)
 
 
 
@@ -801,7 +793,10 @@ public interface UserMapper {
 
 
 
+## 参考链接
 
+- [Springboot 2.0.6 Reference Guide](https://docs.spring.io/spring-boot/docs/2.0.6.RELEASE/reference/html/)
+- [Learn Spring Boot](https://www.baeldung.com/spring-boot)
 
 
 

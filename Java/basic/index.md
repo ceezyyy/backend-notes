@@ -1,11 +1,8 @@
 # Java 基础
 
 
-- [对象的概念](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/oop.md)
-- 万物皆对象
-- 运算符
-- 控制流
-- 初始化和清理
+- [万物皆对象](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/oop.md)
+- [初始化和清理](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/constructor.md)
 - 封装
 - 复用
 - 多态

@@ -1,5 +1,7 @@
 # Java 基础
 
+
+- [对象的概念](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/oop.md)
 - 万物皆对象
 - 运算符
 - 控制流
@@ -8,8 +10,6 @@
 - 复用
 - 多态
 - 接口
-- 内部类
-- 集合
 - 内部类
 - 集合
 - 异常

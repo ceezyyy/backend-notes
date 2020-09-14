@@ -20,6 +20,7 @@
 
 ## :coffee: Java 
 
+- [基础](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/index.md)
 
 - [集合源码](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
 - IO / NIO
@@ -76,14 +77,4 @@
 - [Maven](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Maven/Maven.md)
 - [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Swagger/notes/Swagger.md)
 - [Git](https://github.com/ceezyyy/backend-notes/blob/master/tools/git/notes/git.md)
-
-
-
-## :city_sunrise: Horizon
-
-- [如何成为一位「不那么差」的程序员](https://crossoverjie.top/2018/08/12/personal/how-to-be-developer/)
-- [技术人员的发展之路 - CoolShell](https://coolshell.cn/articles/17583.html)
-- [谈谈技术学习的一些方法论](https://www.frankfeekr.cn/2019/05/09/%E8%B0%88%E8%B0%88%E6%8A%80%E6%9C%AF%E5%AD%A6%E4%B9%A0%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E8%AE%BA/)
-- [工程师如何在工作中提升自己?](https://mp.weixin.qq.com/s/DwDzOcQZIK9vd6FQTyuIWQ)
-- [阿里巴巴Java开发手册](https://github.com/alibaba/p3c)
 

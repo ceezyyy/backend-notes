@@ -3,8 +3,7 @@
 
 - [万物皆对象](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/oop.md)
 - [初始化和清理](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/constructor.md)
-- 封装
-- 复用
+- [复用](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/reuse.md)
 - 多态
 - 接口
 - 内部类

@@ -61,6 +61,10 @@ public class Person {
 
 
 
+**基本数据类型的零值**
+
+<div align="center"> <img src="basic.png" width="80%"/> </div><br>
+
 ### Resolve
 
 暂不详述
@@ -73,7 +77,11 @@ public class Person {
 
 ## Initialization
 
-初始化阶段
+初始化其实就是一个赋值的操作，它会执行一个类构造器的 `<clinit>()` 方法
+
+由编译器自动收集类中所有变量的赋值动作
+
+
 
 
 

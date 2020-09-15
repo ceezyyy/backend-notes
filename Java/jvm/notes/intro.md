@@ -11,8 +11,7 @@ Table of Contents
    * [Heap](#heap)
    * [VM Stack](#vm-stack)
    * [程序计数器](#程序计数器)
-* [参考链接](#参考链接)
-
+* [4. Java 文件执行流程](#4-java-文件执行流程)
 
 
 ## 1. 什么是 JVM ?
@@ -55,7 +54,7 @@ Table of Contents
 
 `ClassLoader` 就好比一个搬运工，将所有的 `.class` 文件搬运到 `JVM` 中
 
-<div align="center"> <img src="image-20200915095933016.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20200915095933016.png" width="60%"/> </div><br>
 
 
 
@@ -65,7 +64,7 @@ Table of Contents
 
 `ClassLoader` 将 `.class` 文件搬过来后先丢到这一块上
 
-线程共享区域
+线程共享
 
 
 
@@ -75,7 +74,7 @@ Table of Contents
 
 主要放了一些存储的数据，比如对象实例，数组...
 
-线程共享区域
+线程共享
 
 
 
@@ -103,9 +102,36 @@ Table of Contents
 
 
 
+## 4. Java 文件执行流程
+
+```java
+public class Person {
+    private String name;
+
+    public Person(String name) {
+        this.name = name;
+    }
+
+    public void sayHi() {
+        System.out.println("My name is " + name);
+    }
+}
 
 
+public class App {
+    public static void main(String[] args) {
+        Person person = new Person("ceezyyy");
+        person.sayHi();
+    }
+}
+```
 
-## 参考链接
+执行 `main` 方法流程如下：
 
-- [大白话带你认识JVM](https://juejin.im/post/6844904048013869064)
+1. 编译好的 `App.java` 得到 `App.class`，执行 `App.class`，系统会启动一个 `JVM` 进程，在 `classpath` 中找到 `App.class` 通过 `ClassLoader` 将 `App` 的类信息加载到 `Method Area` 中，这个过程称为类的加载
+2. `JVM` 找到 `App` 的主程序入口，执行 `main` 方法
+3. `main` 方法第一条语句为 `Person person = new Person("ceezyyy");`，即让 `JVM` 创建一个 `Person` 对象，但这时 `Method Area` 是没有 `Person` 类的信息的，所以 `JVM` 马上加载 `Person` 类，相关信息放到 `Method Area` 中
+4. 加载完后，`JVM` 在堆中为 `Person` 实例分配内存，并调用构造方法初始化，这个 `Person` 实例持有指向 `Method Area` 中 `Person` 类的类型信息的引用
+5. 执行 `person.sayHi();` 语句时，`JVM` 根据 `person` 的引用找到 `person` 对象，然后根据 `person` 对象持有的引用定位到 `Method Area` 中 `student` 类的类型信息的方法表，获得 `sayHi()` 的字节码地址
+6. 执行 `sayHi()` 方法
+

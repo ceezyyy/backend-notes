@@ -6,6 +6,12 @@ Table of Contents
 * [1. 什么是 JVM ?](#1-什么是-jvm-)
 * [2. 为什么要学 JVM ?](#2-为什么要学-jvm-)
 * [3. JVM 体系结构](#3-jvm-体系结构)
+   * [ClassLoader](#classloader)
+   * [Method Area](#method-area)
+   * [Heap](#heap)
+   * [VM Stack](#vm-stack)
+   * [程序计数器](#程序计数器)
+* [参考链接](#参考链接)
 
 
 
@@ -35,14 +41,63 @@ Table of Contents
 
 ## 3. JVM 体系结构
 
+先从全览看一下 `JVM` 的体系结构
+
 <div align="center"> <img src="jvm.png" width="90%"/> </div><br>
 
-## 4. Java 代码执行流程
+我们使用 `IDEA` 编写的是 `.java` 文件，本质上是一个文本（包含着英文符号以及缩进）
+
+`JVM` 并不认识，故 `.java` 需要进行编译，转换为二进制的 `.class` 文件
+
+
+
+### ClassLoader
+
+`ClassLoader` 就好比一个搬运工，将所有的 `.class` 文件搬运到 `JVM` 中
+
+<div align="center"> <img src="image-20200915095933016.png" width="50%"/> </div><br>
+
+
+
+### Method Area
+
+用于存放类似于元数据信息方面的数据，比如类信息，常量，静态变量，编译后的代码等...
+
+`ClassLoader` 将 `.class` 文件搬过来后先丢到这一块上
+
+线程共享区域
 
 
 
 
 
+### Heap
+
+主要放了一些存储的数据，比如对象实例，数组...
+
+线程共享区域
+
+
+
+
+
+
+
+### VM Stack
+
+代码的运行空间，每个方法都会放到栈里面执行
+
+线程独享
+
+
+
+
+
+### 程序计数器
+
+主要就是完成一个加载工作，类似于一个指针一样的，指向下一行我们需要执行的代码
+
+线程独享
 
 
 

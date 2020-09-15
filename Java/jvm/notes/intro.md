@@ -6,7 +6,6 @@ Table of Contents
 * [1. 什么是 JVM ?](#1-什么是-jvm-)
 * [2. 为什么要学 JVM ?](#2-为什么要学-jvm-)
 * [3. JVM 体系结构](#3-jvm-体系结构)
-* [参考链接](#参考链接)
 
 
 
@@ -20,18 +19,11 @@ Table of Contents
 
 
 
-- `JVM` 是一台执行字节码（不一定是 `Java`）的虚拟计算机，它拥有独立的运行机制
-- `JVM` 平台的各种语言可以共享 `JVM` 带来的跨平台性，优秀的垃圾回收器以及可靠的即使编译器
-- 所有 `Java` 程序都运行在 `Java` 虚拟机内部，所以说 `JVM` 是 `Java` 技术的核心
+`JVM` 类似于一台小电脑运行在 `macOS` / `Linux` / `Win` 操作系统，直接与操作系统进行交互，而不与硬件打交道
 
 
 
-
-
-**Write once, run anyway**
-
-
-<div align="center"> <img src="image-20200823215548543.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200915091446733.png" width="15%"/> </div><br>
 
 ## 2. 为什么要学 JVM ?
 
@@ -39,13 +31,17 @@ Table of Contents
 - 中高级程序员必备技能（项目管理 / 调优）
 - 极客精神（垃圾回收 / JIT / 底层）
 
-<div align="center"> <img src="image-20200823213352956.png" width="60%"/> </div><br>
 
-<div align="center"> <img src="image-20200823214440376.png" width="60%"/> </div><br>
 
 ## 3. JVM 体系结构
 
 <div align="center"> <img src="jvm.png" width="90%"/> </div><br>
+
+## 4. Java 代码执行流程
+
+
+
+
 
 
 
@@ -57,4 +53,4 @@ Table of Contents
 
 ## 参考链接
 
-- [Java Stack and Heap - Java Memory Management](https://www.youtube.com/watch?v=450maTzSIvA)
+- [大白话带你认识JVM](https://juejin.im/post/6844904048013869064)

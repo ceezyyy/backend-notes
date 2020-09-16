@@ -1,4 +1,5 @@
-# 进程 / 线程
+# 进程 / 多线程
+
 
 Table of Contents
 -----------------
@@ -9,9 +10,26 @@ Table of Contents
    * [1.3 线程的提出](#13-线程的提出)
 * [2. 上下文切换](#2-上下文切换)
 * [3. Java 多线程入门类和接口](#3-java-多线程入门类和接口)
+   * [3.1 Thread 类](#31-thread-类)
+   * [3.2 Runnable 接口](#32-runnable-接口)
+   * [3.3 Thread 与 Runnable 接口比较](#33-thread-与-runnable-接口比较)
+   * [3.4 Thread 构造方法](#34-thread-构造方法)
+   * [3.5 Thread 常用方法](#35-thread-常用方法)
+   * [3.6 Callable](#36-callable)
+   * [3.7 Future](#37-future)
+   * [3.8 FutureTask](#38-futuretask)
+   * [3.9 FutureTask 的几个状态](#39-futuretask-的几个状态)
 * [4. 线程组和线程优先级](#4-线程组和线程优先级)
-* [5. Java 线程的状态 &amp; 主要转化方法](#5-java-线程的状态--主要转化方法)
-* [6. Java 线程间的通信](#6-java-线程间的通信)
+   * [4.1 ThreadGroup](#41-threadgroup)
+   * [4.2 线程优先级](#42-线程优先级)
+   * [4.3 ThreadGroup 常用方法](#43-threadgroup-常用方法)
+   * [4.4 ThreadGroup 数据结构](#44-threadgroup-数据结构)
+* [5. 线程的状态 &amp; 主要转化方法](#5-线程的状态--主要转化方法)
+   * [5.1 操作系统中的线程状态转换](#51-操作系统中的线程状态转换)
+   * [5.2 Java 线程的 6 个状态](#52-java-线程的-6-个状态)
+   * [5.3 线程状态的转换](#53-线程状态的转换)
+   
+   
 
 
 ## 1. 进程产生的背景
@@ -100,13 +118,7 @@ Table of Contents
 
 ## 3. Java 多线程入门类和接口
 
-
-
-
-
-
-
-**方法1: 使用 Thread 类**
+### 3.1 Thread 类
 
 创建一个 `t1` 线程
 
@@ -139,9 +151,18 @@ public class App {
 
 <div align="center"> <img src="image-20200822181542006.png" width="30%"/> </div><br>
 
+⚠️注意：
+
+调用 `start()` 后，该线程才算启动！
+
+> 在程序中调用了 start() 方法后，虚拟机会先为我们创建一个线程，然后等到这个线程第一次得到时间片时再调用 run() 方法
+>
+>
+> 注意不可多次调用 start() 方法
 
 
-**方法2: 实现 Runnable 接口（推荐）**
+
+### 3.2 Runnable 接口
 
 ```java
 @Slf4j
@@ -194,7 +215,7 @@ public class App {
 }
 ```
 
-**创建 Thread 类和实现 Runnable 接口有何区别？**
+### 3.3 Thread 与 Runnable 接口比较
 
 - 底层实现原理一样
 - 推荐使用实现 `runnable` 接口的方式（降低耦合度）
@@ -221,133 +242,89 @@ public void run() {
 }
 ```
 
+### 3.4 Thread 构造方法
 
-
-
-
-
-
-
-
-**方法3: FutureTask 配合 Thread**
-
-`FutureTask` 先了解
+**Thread.java**
 
 ```java
-public class FutureTask<V> implements RunnableFuture<V>
-```
-
-<div align="center"> <img src="image-20200823184444417.png" width="30%"/> </div><br>
-
-
-
-
-
-`FutureTask` 构造方法传入 `Callable` 接口作为参数
-
-```java
-public FutureTask(Callable<V> callable) {
-    if (callable == null)
-        throw new NullPointerException();
-    this.callable = callable;
-    this.state = NEW;       // ensure visibility of callable
+public Thread(Runnable target) {
+  init(null, target, "Thread-" + nextThreadNum(), 0);
 }
-```
 
 
-
-那什么是 `Callable` 呢？原来 `Callable` 和 `Runnable` 是一对好兄弟
-
-```java
-package java.util.concurrent;
-
-/**
- * A task that returns a result and may throw an exception.
- * Implementors define a single method with no arguments called
- * {@code call}.
- *
- * <p>The {@code Callable} interface is similar to {@link
- * java.lang.Runnable}, in that both are designed for classes whose
- * instances are potentially executed by another thread.  A
- * {@code Runnable}, however, does not return a result and cannot
- * throw a checked exception.
- *
- * <p>The {@link Executors} class contains utility methods to
- * convert from other common forms to {@code Callable} classes.
- *
- * @see Executor
- * @since 1.5
- * @author Doug Lea
- * @param <V> the result type of method {@code call}
- */
-@FunctionalInterface
-public interface Callable<V> {
-    /**
-     * Computes a result, or throws an exception if unable to do so.
-     *
-     * @return computed result
-     * @throws Exception if unable to compute a result
-     */
-    V call() throws Exception;
-}
-```
-
-
-
-`Callable` 接口可以返回值以及抛出异常，而 `Runnable` 接口不行
-
-至于返回值的作用，稍后再继续深入
-
-
-
-```java
-@Slf4j
-public class App {
-
-    public static void main(String[] args) {
-
-        FutureTask<Integer> futureTask = new FutureTask<>(new Callable<Integer>() {
-            @Override
-            public Integer call() throws Exception {
-                log.info("t1 here!");
-                Thread.sleep(2000);
-                return 100;
-            }
-        });
-
-        new Thread(futureTask, "t1").start();
-        log.info("main here!");
-
-        try {
-            log.info(String.valueOf(futureTask.get()));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-    }
-}
+// Initializes a Thread
+private void init(ThreadGroup g, Runnable target, String name,
+                  long stackSize, AccessControlContext acc,
+                  boolean inheritThreadLocals) {
 ```
 
 
 
 
-<div align="center"> <img src="image-20200823190926148.png" width="30%"/> </div><br>
 
-值得注意的是，`log.info(String.valueOf(futureTask.get()));` 这一句是 `main` 线程执行的，因调用了 `futureTask.get()`，即处于阻塞状，态等待 `t1` 线程执行完毕后再执行
+
+
+
+
+### 3.5 Thread 常用方法
+
+
+
+
+
+
+
+
+
+### 3.6 Callable
+
+
+
+
+
+
+
+
+
+### 3.7 Future
+
+
+
+
+
+
+
+### 3.8 FutureTask
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 3.9 FutureTask 的几个状态
+
+
+
+
 
 ## 4. 线程组和线程优先级
 
+### 4.1 ThreadGroup
 
 
-## 5. Java 线程的状态 & 主要转化方法
 
-## 6. Java 线程间的通信
 
 
 
 
+### 4.2 线程优先级
 
 
 
@@ -357,6 +334,7 @@ public class App {
 
 
 
+### 4.3 ThreadGroup 常用方法
 
 
 
@@ -366,9 +344,13 @@ public class App {
 
 
 
+### 4.4 ThreadGroup 数据结构
 
+### 
 
+## 5. 线程的状态 & 主要转化方法
 
+### 5.1 操作系统中的线程状态转换
 
 
 
@@ -380,6 +362,7 @@ public class App {
 
 
 
+### 5.2 Java 线程的 6 个状态
 
 
 
@@ -389,41 +372,6 @@ public class App {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### 5.3 线程状态的转换
 
 

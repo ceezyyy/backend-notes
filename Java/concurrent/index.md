@@ -1,5 +1,6 @@
 # 并发 / 多线程
-- [并发编程基础](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/notes/concurrent-basic.md)
+
+- [进程 / 多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/notes/basic.md)
 - 线程池
 - 锁
 - 并发容器

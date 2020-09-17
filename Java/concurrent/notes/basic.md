@@ -22,12 +22,12 @@ Table of Contents
 * [5. 操作系统中的线程状态转换](#5-操作系统中的线程状态转换)
 * [6. Java 线程的 6 个状态](#6-java-线程的-6-个状态)
    * [6.1 NEW](#61-new)
-   * [6.2 BLOCKED](#62-blocked)
-   * [6.3 WAITING](#63-waiting)
-   * [6.4 TIMED_WAITING](#64-timed_waiting)
-   * [6.5 TERMINATED](#65-terminated)
+   * [6.2 RUNNABLE](#62-runnable)
+   * [6.3 BLOCKED](#63-blocked)
+   * [6.4 WAITING](#64-waiting)
+   * [6.5 TIMED_WAITING](#65-timed_waiting)
+   * [6.6 TERMINATED](#66-terminated)
 * [7. 线程状态的转换](#7-线程状态的转换)
-
 
 
 
@@ -624,23 +624,152 @@ public enum State {
 
 ### 6.1 NEW
 
+```java
+/**
+ * Thread state for a thread which has not yet started.
+ */
+NEW,
+```
+
+```java
+@Slf4j
+public class App {
+
+    public static void main(String[] args) {
+
+        Thread t1 = new Thread(() -> {
+        });
+
+        log.info(t1.getState().toString());
+    }
+}
+```
+
+<div align="center"> <img src="image-20200917204845927.png" width="30%"/> </div><br>
 
 
-### 6.2 BLOCKED
+
+### 6.2 RUNNABLE
+
+```java
+/**
+ * Thread state for a runnable thread.  A thread in the runnable
+ * state is executing in the Java virtual machine but it may
+ * be waiting for other resources from the operating system
+ * such as processor.
+ */
+RUNNABLE,
+```
+
+`Java` 线程中的 `RUNNABLE` 实际上是操作系统中 `ready` 和 `running` 状态的合集
 
 
 
-### 6.3 WAITING
+### 6.3 BLOCKED
+
+```java
+/**
+ * Thread state for a thread blocked waiting for a monitor lock.
+ * A thread in the blocked state is waiting for a monitor lock
+ * to enter a synchronized block/method or
+ * reenter a synchronized block/method after calling
+ * {@link Object#wait() Object.wait}.
+ */
+BLOCKED,
+```
 
 
 
-### 6.4 TIMED_WAITING
 
 
 
-### 6.5 TERMINATED
 
 
+
+
+
+
+
+### 6.4 WAITING
+
+```java
+/**
+ * Thread state for a waiting thread.
+ * A thread is in the waiting state due to calling one of the
+ * following methods:
+ * <ul>
+ *   <li>{@link Object#wait() Object.wait} with no timeout</li>
+ *   <li>{@link #join() Thread.join} with no timeout</li>
+ *   <li>{@link LockSupport#park() LockSupport.park}</li>
+ * </ul>
+ *
+ * <p>A thread in the waiting state is waiting for another thread to
+ * perform a particular action.
+ *
+ * For example, a thread that has called <tt>Object.wait()</tt>
+ * on an object is waiting for another thread to call
+ * <tt>Object.notify()</tt> or <tt>Object.notifyAll()</tt> on
+ * that object. A thread that has called <tt>Thread.join()</tt>
+ * is waiting for a specified thread to terminate.
+ */
+WAITING,
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 6.5 TIMED_WAITING
+
+```java
+/**
+ * Thread state for a waiting thread with a specified waiting time.
+ * A thread is in the timed waiting state due to calling one of
+ * the following methods with a specified positive waiting time:
+ * <ul>
+ *   <li>{@link #sleep Thread.sleep}</li>
+ *   <li>{@link Object#wait(long) Object.wait} with timeout</li>
+ *   <li>{@link #join(long) Thread.join} with timeout</li>
+ *   <li>{@link LockSupport#parkNanos LockSupport.parkNanos}</li>
+ *   <li>{@link LockSupport#parkUntil LockSupport.parkUntil}</li>
+ * </ul>
+ */
+TIMED_WAITING,
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 6.6 TERMINATED
+
+```java
+/**
+ * Thread state for a terminated thread.
+ * The thread has completed execution.
+ */
+TERMINATED;
+```
 
 
 

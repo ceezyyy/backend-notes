@@ -247,40 +247,268 @@ public void run() {
 **Thread.java**
 
 ```java
+// Thread 类源码
+
+
+// 构造函数
 public Thread(Runnable target) {
   init(null, target, "Thread-" + nextThreadNum(), 0);
 }
 
 
-// Initializes a Thread
+// init 方法
+// g: 线程组
+// target: 指定要执行的任务
+// name: 线程的名字 默认为 Thread-线程编号
+// stackSize: 暂不讨论
+// inheritThreadLocals: 暂不在本节讨论
 private void init(ThreadGroup g, Runnable target, String name,
                   long stackSize, AccessControlContext acc,
                   boolean inheritThreadLocals) {
+
+
+  this.inheritedAccessControlContext =
+    acc != null ? acc : AccessController.getContext();
+
+
+}
+
+ThreadLocal.ThreadLocalMap threadLocals = null;
+
+
+ThreadLocal.ThreadLocalMap inheritableThreadLocals = null;
+
+```
+
+实际情况下，我们大多是直接调用下面两个构造方法：
+
+```java
+public Thread(Runnable target) {
+  init(null, target, "Thread-" + nextThreadNum(), 0);
+}
+
+
+public Thread(Runnable target, String name) {
+  init(null, target, name, 0);
+}
+```
+
+
+
+### 3.5 Thread 常用方法
+
+**currentThread()**
+
+```java
+// Returns a reference to the currently executing thread object
+public static native Thread currentThread();
+```
+
+
+
+**start()**
+
+```java
+/**
+ * Causes this thread to begin execution; the Java Virtual Machine
+ * calls the <code>run</code> method of this thread.
+ * <p>
+ * The result is that two threads are running concurrently: the
+ * current thread (which returns from the call to the
+ * <code>start</code> method) and the other thread (which executes its
+ * <code>run</code> method).
+ * <p>
+ * It is never legal to start a thread more than once.
+ * In particular, a thread may not be restarted once it has completed
+ * execution.
+ *
+ * @exception  IllegalThreadStateException  if the thread was already
+ *               started.
+ * @see        #run()
+ * @see        #stop()
+ */
+public synchronized void start() {
+    /**
+     * This method is not invoked for the main method thread or "system"
+     * group threads created/set up by the VM. Any new functionality added
+     * to this method in the future may have to also be added to the VM.
+     *
+     * A zero status value corresponds to state "NEW".
+     */
+    if (threadStatus != 0)
+        throw new IllegalThreadStateException();
+
+    /* Notify the group that this thread is about to be started
+     * so that it can be added to the group's list of threads
+     * and the group's unstarted count can be decremented. */
+    group.add(this);
+
+    boolean started = false;
+    try {
+        start0();
+        started = true;
+    } finally {
+        try {
+            if (!started) {
+                group.threadStartFailed(this);
+            }
+        } catch (Throwable ignore) {
+            /* do nothing. If start0 threw a Throwable then
+              it will be passed up the call stack */
+        }
+    }
+}
+
+private native void start0();
+```
+
+
+
+**yield()**
+
+```java
+/**
+ * A hint to the scheduler that the current thread is willing to yield
+ * its current use of a processor. The scheduler is free to ignore this
+ * hint.
+ *
+ * <p> Yield is a heuristic attempt to improve relative progression
+ * between threads that would otherwise over-utilise a CPU. Its use
+ * should be combined with detailed profiling and benchmarking to
+ * ensure that it actually has the desired effect.
+ *
+ * <p> It is rarely appropriate to use this method. It may be useful
+ * for debugging or testing purposes, where it may help to reproduce
+ * bugs due to race conditions. It may also be useful when designing
+ * concurrency control constructs such as the ones in the
+ * {@link java.util.concurrent.locks} package.
+ */
+public static native void yield();
+```
+
+
+
+**sleep()**
+
+```java
+/**
+ * Causes the currently executing thread to sleep (temporarily cease
+ * execution) for the specified number of milliseconds, subject to
+ * the precision and accuracy of system timers and schedulers. The thread
+ * does not lose ownership of any monitors.
+ *
+ * @param  millis
+ *         the length of time to sleep in milliseconds
+ *
+ * @throws  IllegalArgumentException
+ *          if the value of {@code millis} is negative
+ *
+ * @throws  InterruptedException
+ *          if any thread has interrupted the current thread. The
+ *          <i>interrupted status</i> of the current thread is
+ *          cleared when this exception is thrown.
+ */
+public static native void sleep(long millis) throws InterruptedException;
 ```
 
 
 
 
 
+**join()**
+
+```java
+/**
+ * Waits for this thread to die.
+ *
+ * <p> An invocation of this method behaves in exactly the same
+ * way as the invocation
+ *
+ * <blockquote>
+ * {@linkplain #join(long) join}{@code (0)}
+ * </blockquote>
+ *
+ * @throws  InterruptedException
+ *          if any thread has interrupted the current thread. The
+ *          <i>interrupted status</i> of the current thread is
+ *          cleared when this exception is thrown.
+ */
+public final void join() throws InterruptedException {
+  join(0);
+}
 
 
+/**
+     * Waits at most {@code millis} milliseconds for this thread to
+     * die. A timeout of {@code 0} means to wait forever.
+     *
+     * <p> This implementation uses a loop of {@code this.wait} calls
+     * conditioned on {@code this.isAlive}. As a thread terminates the
+     * {@code this.notifyAll} method is invoked. It is recommended that
+     * applications not use {@code wait}, {@code notify}, or
+     * {@code notifyAll} on {@code Thread} instances.
+     *
+     * @param  millis
+     *         the time to wait in milliseconds
+     *
+     * @throws  IllegalArgumentException
+     *          if the value of {@code millis} is negative
+     *
+     * @throws  InterruptedException
+     *          if any thread has interrupted the current thread. The
+     *          <i>interrupted status</i> of the current thread is
+     *          cleared when this exception is thrown.
+     */
+public final synchronized void join(long millis)
+  throws InterruptedException {
+  long base = System.currentTimeMillis();
+  long now = 0;
 
+  if (millis < 0) {
+    throw new IllegalArgumentException("timeout value is negative");
+  }
 
-### 3.5 Thread 常用方法
-
-
-
-
-
-
-
-
+  if (millis == 0) {
+    while (isAlive()) {
+      wait(0);
+    }
+  } else {
+    while (isAlive()) {
+      long delay = millis - now;
+      if (delay <= 0) {
+        break;
+      }
+      wait(delay);
+      now = System.currentTimeMillis() - base;
+    }
+  }
+}
+```
 
 ### 3.6 Callable
 
+通常来说，使用 `Runnable` 和 `Thread` 来创建一个新的线程有一个弊端：`run` 方法没有返回值
+
+有时候我们希望开启一个线程去执行一个任务，并且这个任务执行完成后有一个返回值
 
 
 
+`JDK` 提供了 `Callable` 和 `Future` 接口为我们解决这个问题，所谓的“异步”模型
+
+**Callable.java**
+
+```java
+@FunctionalInterface
+public interface Callable<V> {
+    /**
+     * Computes a result, or throws an exception if unable to do so.
+     *
+     * @return computed result
+     * @throws Exception if unable to compute a result
+     */
+    V call() throws Exception;
+}
+```
 
 
 
@@ -318,11 +546,17 @@ private void init(ThreadGroup g, Runnable target, String name,
 
 ### 4.1 ThreadGroup
 
+每个 `Thread` 必然存在于一个 `ThreadGroup` 中
+
+执行 `main()` 方法线程的名字是 `main`，如果在 `new Thread()` 时没有显示指定，那么磨人将父线程（当前执行 `new Thread()` 的线程）线程组设置为自己的线程组
 
 
 
 
 
+
+
+ 
 
 ### 4.2 线程优先级
 

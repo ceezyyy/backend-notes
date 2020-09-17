@@ -585,7 +585,7 @@ public class App {
 
 
 
-<div align="center"> <img src="os.png" width="70%"/> </div><br>
+<div align="center"> <img src="os.png" width="80%"/> </div><br>
 
 - ready 状态：线程正在等待使用 `CPU`，经调度程序调用之后进入 `running`
 - running 状态：线程正在使用 `CPU`
@@ -611,9 +611,9 @@ public enum State {
   // 阻塞状态，正在等待锁的释放进入同步区
   BLOCKED,
 
-	// 等待状态，需要被唤醒才能进入 Runnable
+  // 等待状态，需要被唤醒才能进入 Runnable
   WAITING,
-	
+
   // 超时等待状态
   TIMED_WAITING,
 

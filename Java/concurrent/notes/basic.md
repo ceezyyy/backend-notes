@@ -1,6 +1,5 @@
 # 进程 / 多线程
 
-
 Table of Contents
 -----------------
 
@@ -19,17 +18,17 @@ Table of Contents
    * [3.7 Future](#37-future)
    * [3.8 FutureTask](#38-futuretask)
    * [3.9 FutureTask 的几个状态](#39-futuretask-的几个状态)
-* [4. 线程组和线程优先级](#4-线程组和线程优先级)
-   * [4.1 ThreadGroup](#41-threadgroup)
-   * [4.2 线程优先级](#42-线程优先级)
-   * [4.3 ThreadGroup 常用方法](#43-threadgroup-常用方法)
-   * [4.4 ThreadGroup 数据结构](#44-threadgroup-数据结构)
-* [5. 线程的状态 &amp; 主要转化方法](#5-线程的状态--主要转化方法)
-   * [5.1 操作系统中的线程状态转换](#51-操作系统中的线程状态转换)
-   * [5.2 Java 线程的 6 个状态](#52-java-线程的-6-个状态)
-   * [5.3 线程状态的转换](#53-线程状态的转换)
-   
-   
+* [4. ThreadGroup](#4-threadgroup)
+* [5. 操作系统中的线程状态转换](#5-操作系统中的线程状态转换)
+* [6. Java 线程的 6 个状态](#6-java-线程的-6-个状态)
+   * [6.1 NEW](#61-new)
+   * [6.2 BLOCKED](#62-blocked)
+   * [6.3 WAITING](#63-waiting)
+   * [6.4 TIMED_WAITING](#64-timed_waiting)
+   * [6.5 TERMINATED](#65-terminated)
+* [7. 线程状态的转换](#7-线程状态的转换)
+
+
 
 
 ## 1. 进程产生的背景
@@ -539,23 +538,39 @@ public interface Callable<V> {
 
 
 
-## 4. 线程组和线程优先级
-
-### 4.1 ThreadGroup
+## 4. ThreadGroup
 
 每个 `Thread` 必然存在于一个 `ThreadGroup` 中
 
-执行 `main()` 方法线程的名字是 `main`，如果在 `new Thread()` 时没有显示指定，那么默认将父线程（当前执行 `new Thread()` 的线程）线程组设置为自己的线程组
+如果在 `new Thread()` 时没有显示指定，那么默认将父线程（当前执行 `new Thread()` 的线程）线程组设置为自己的线程组
 
 
 
+**App.java**
 
+```java
+@Slf4j
+public class App {
 
+    public static void main(String[] args) {
 
+        // Create a new thread
+        Thread t1 = new Thread(() -> {
+            log.info("The name of current threadGroup: {}", Thread.currentThread().getThreadGroup().getName());
+            log.info("The name of current thread: {}", Thread.currentThread().getName());
+        });
 
+        // Start the thread
+        t1.start();
 
+        log.info("The name of main threadGroup: {}", Thread.currentThread().getName());
+        log.info("The name of main thread: {}", Thread.currentThread().getName());
 
+    }
+}
+```
 
+<div align="center"> <img src="image-20200917195713908.png" width="70%"/> </div><br>
 
 
 
@@ -563,43 +578,69 @@ public interface Callable<V> {
 
  
 
-### 4.2 线程优先级
 
 
 
+## 5. 操作系统中的线程状态转换
 
 
 
+<div align="center"> <img src="os.png" width="70%"/> </div><br>
 
+- ready 状态：线程正在等待使用 `CPU`，经调度程序调用之后进入 `running`
+- running 状态：线程正在使用 `CPU`
+- waiting 状态：线程经过等待事件的调用 / 正在等待其他资源（I / O）
 
 
 
 
 
+## 6. Java 线程的 6 个状态
 
+**Thread.java**
 
+```java
+public enum State {
 
+  // 线程仍未被执行 
+  NEW,
 
+  // 当前线程正在运行中，被 JVM 执行，也有可能等待 CPU 分配资源
+  RUNNABLE,
 
-### 4.3 ThreadGroup 常用方法
+  // 阻塞状态，正在等待锁的释放进入同步区
+  BLOCKED,
 
+	// 等待状态，需要被唤醒才能进入 Runnable
+  WAITING,
+	
+  // 超时等待状态
+  TIMED_WAITING,
 
+  // 终止状态
+  TERMINATED;
+}
+```
 
+### 6.1 NEW
 
 
 
+### 6.2 BLOCKED
 
 
 
+### 6.3 WAITING
 
 
 
+### 6.4 TIMED_WAITING
 
 
 
+### 6.5 TERMINATED
 
 
-### 4.4 ThreadGroup 数据结构
 
 
 
@@ -615,30 +656,10 @@ public interface Callable<V> {
 
 
 
-## 5. 线程的状态 & 主要转化方法
 
-### 5.1 操作系统中的线程状态转换
 
 
 
-
-
-
-
-
-
-
-
-### 5.2 Java 线程的 6 个状态
-
-
-
-
-
-
-
-
-
-### 5.3 线程状态的转换
+## 7. 线程状态的转换
 
 

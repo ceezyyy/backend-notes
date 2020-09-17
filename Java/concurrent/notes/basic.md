@@ -247,9 +247,6 @@ public void run() {
 **Thread.java**
 
 ```java
-// Thread 类源码
-
-
 // 构造函数
 public Thread(Runnable target) {
   init(null, target, "Thread-" + nextThreadNum(), 0);
@@ -548,7 +545,15 @@ public interface Callable<V> {
 
 每个 `Thread` 必然存在于一个 `ThreadGroup` 中
 
-执行 `main()` 方法线程的名字是 `main`，如果在 `new Thread()` 时没有显示指定，那么磨人将父线程（当前执行 `new Thread()` 的线程）线程组设置为自己的线程组
+执行 `main()` 方法线程的名字是 `main`，如果在 `new Thread()` 时没有显示指定，那么默认将父线程（当前执行 `new Thread()` 的线程）线程组设置为自己的线程组
+
+
+
+
+
+
+
+
 
 
 
@@ -568,7 +573,23 @@ public interface Callable<V> {
 
 
 
+
+
+
+
+
+
+
+
 ### 4.3 ThreadGroup 常用方法
+
+
+
+
+
+
+
+
 
 
 
@@ -580,7 +601,19 @@ public interface Callable<V> {
 
 ### 4.4 ThreadGroup 数据结构
 
-### 
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 5. 线程的状态 & 主要转化方法
 

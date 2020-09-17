@@ -33,7 +33,7 @@
 ## 📦 DB
 
 - [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/index.md)
-- [Redis](https://github.com/ceezyyy/backend-notes/blob/master/Database/Redis/notes/Redis.md)
+- [Redis](https://github.com/ceezyyy/backend-notes/blob/master/db/redis/notes/Redis.md)
 - MyBatis
 - [MyBatis Plus](https://github.com/ceezyyy/backend-notes/blob/master/db/ORM/mybatis-plus/notes/mybatis-plus.md)
 

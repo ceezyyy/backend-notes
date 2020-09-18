@@ -11,8 +11,15 @@ public class App {
         public void run() {
             synchronized (lock) {
                 for (int i = 0; i < 5; i++) {
-                    log.info("Thread A " + i);
+                    try {
+                        log.info("Thread A " + i);
+                        lock.notify();
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+                lock.notify();
             }
         }
     }
@@ -23,8 +30,15 @@ public class App {
         public void run() {
             synchronized (lock) {
                 for (int i = 0; i < 5; i++) {
-                    log.info("Thread B " + i);
+                    try {
+                        log.info("Thread B " + i);
+                        lock.notify();
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
+                lock.notify();
             }
         }
     }

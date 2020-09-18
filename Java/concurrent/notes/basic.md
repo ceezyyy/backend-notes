@@ -1,4 +1,4 @@
-# 进程 / 多线程
+# 多线程基础
 
 Table of Contents
 -----------------
@@ -30,7 +30,7 @@ Table of Contents
 * [7. 通信](#7-通信)
    * [7.1 锁与同步](#71-锁与同步)
    * [7.2 等待 / 通知](#72-等待--通知)
-   * [7.3 信号量](#73-信号量)
+
 
 
 ## 1. 进程产生的背景
@@ -869,7 +869,9 @@ public class App {
 
 此时，线程 B 获得了 `lock` 锁并开始执行，它可以在某一时刻使用 `lock.notify()` / `lock.notifyAll()` 通知线程 A，让其继续执行
 
-需要注意的是，此时线程 B 并没有释放锁，除非线程 B 使用 `lock.wait()` 释放或线程 B 执行完成自动释放锁jj
+需要注意的是，此时线程 B 并没有释放锁，除非线程 B 使用 `lock.wait()` 释放或线程 B 执行完成自动释放锁
+
+
 
 **wait()**
 
@@ -924,19 +926,133 @@ public final native void wait(long timeout) throws InterruptedException;
 
 
 
+**notify()**
+
+```java
+/**
+ * Wakes up a single thread that is waiting on this object's
+ * monitor. If any threads are waiting on this object, one of them
+ * is chosen to be awakened. The choice is arbitrary and occurs at
+ * the discretion of the implementation. A thread waits on an object's
+ * monitor by calling one of the {@code wait} methods.
+ * <p>
+ * The awakened thread will not be able to proceed until the current
+ * thread relinquishes the lock on this object. The awakened thread will
+ * compete in the usual manner with any other threads that might be
+ * actively competing to synchronize on this object; for example, the
+ * awakened thread enjoys no reliable privilege or disadvantage in being
+ * the next thread to lock this object.
+ * <p>
+ * This method should only be called by a thread that is the owner
+ * of this object's monitor. A thread becomes the owner of the
+ * object's monitor in one of three ways:
+ * <ul>
+ * <li>By executing a synchronized instance method of that object.
+ * <li>By executing the body of a {@code synchronized} statement
+ *     that synchronizes on the object.
+ * <li>For objects of type {@code Class,} by executing a
+ *     synchronized static method of that class.
+ * </ul>
+ * <p>
+ * Only one thread at a time can own an object's monitor.
+ *
+ * @throws  IllegalMonitorStateException  if the current thread is not
+ *               the owner of this object's monitor.
+ * @see        java.lang.Object#notifyAll()
+ * @see        java.lang.Object#wait()
+ */
+public final native void notify();
+```
 
 
 
+**notifyAll()**
 
-### 7.3 信号量
+```java
+/**
+ * Wakes up all threads that are waiting on this object's monitor. A
+ * thread waits on an object's monitor by calling one of the
+ * {@code wait} methods.
+ * <p>
+ * The awakened threads will not be able to proceed until the current
+ * thread relinquishes the lock on this object. The awakened threads
+ * will compete in the usual manner with any other threads that might
+ * be actively competing to synchronize on this object; for example,
+ * the awakened threads enjoy no reliable privilege or disadvantage in
+ * being the next thread to lock this object.
+ * <p>
+ * This method should only be called by a thread that is the owner
+ * of this object's monitor. See the {@code notify} method for a
+ * description of the ways in which a thread can become the owner of
+ * a monitor.
+ *
+ * @throws  IllegalMonitorStateException  if the current thread is not
+ *               the owner of this object's monitor.
+ * @see        java.lang.Object#notify()
+ * @see        java.lang.Object#wait()
+ */
+public final native void notifyAll();
+```
 
 
 
+给一个 demo 感受一下
+
+**App.java**
+
+```java
+@Slf4j
+public class App {
+
+    private static Object lock = new Object();
+
+    static class ThreadA implements Runnable {
+
+        @Override
+        public void run() {
+            synchronized (lock) {
+                for (int i = 0; i < 5; i++) {
+                    try {
+                        log.info("Thread A " + i);
+                        lock.notify();
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                lock.notify();
+            }
+        }
+    }
+
+    static class ThreadB implements Runnable {
+
+        @Override
+        public void run() {
+            synchronized (lock) {
+                for (int i = 0; i < 5; i++) {
+                    try {
+                        log.info("Thread B " + i);
+                        lock.notify();
+                        lock.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                lock.notify();
+            }
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        new Thread(new ThreadB()).start();
+        Thread.sleep(10);
+        new Thread(new ThreadA()).start();
+
+    }
+}
+```
 
 
-
-
-
-
-
+<div align="center"> <img src="image-20200918150058776.png" width="40%"/> </div><br>
 

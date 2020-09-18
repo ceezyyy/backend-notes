@@ -1,6 +1,7 @@
 # 并发 / 多线程
 
-- [进程 / 多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/notes/basic.md)
+- [基础](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/notes/basic.md)
+- [原理](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/notes/principle.md)
 - 线程池
 - 锁
 - 并发容器

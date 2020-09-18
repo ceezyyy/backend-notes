@@ -1,17 +1,13 @@
 # 多线程原理
 
-Table of Contents
------------------
 
 * [1. JMM](#1-jmm)
 * [2. 内存可见性](#2-内存可见性)
-* [3. 重排序](#3-重排序)
-* [4. 顺序一致性](#4-顺序一致性)
-* [5. happens-before](#5-happens-before)
-* [6. volatile](#6-volatile)
-* [7. synchronized 与 锁](#7-synchronized-与-锁)
-* [8. CAS 与原子操作](#8-cas-与原子操作)
-* [9. AQS](#9-aqs)
+* [3. volatile](#3-volatile)
+* [4. synchronized 与锁](#4-synchronized-与锁)
+* [5. CAS 与原子操作](#5-cas-与原子操作)
+* [6. AQS](#6-aqs)
+
 
 
 ## 1. JMM
@@ -46,7 +42,25 @@ Java 中采用的是共享内存并发模型
 
 
 
-## 3. 重排序
+
+
+## 3. volatile
+
+
+
+
+
+## 4. synchronized 与锁
+
+
+
+
+
+
+
+
+
+## 5. CAS 与原子操作
 
 
 
@@ -58,53 +72,7 @@ Java 中采用的是共享内存并发模型
 
 
 
-## 4. 顺序一致性
-
-
-
-
-
-
-
-## 5. happens-before
-
-
-
-
-
-
-
-
-
-## 6. volatile
-
-
-
-
-
-## 7. synchronized 与 锁
-
-
-
-
-
-
-
-
-
-## 8. CAS 与原子操作
-
-
-
-
-
-
-
-
-
-
-
-## 9. AQS
+## 6. AQS
 
 
 

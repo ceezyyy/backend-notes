@@ -3,11 +3,36 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class App {
 
-    public static void main(String[] args) {
+    private static Object lock = new Object();
 
-        Thread t1 = new Thread(() -> {
-        });
+    static class ThreadA implements Runnable {
 
-        log.info(t1.getState().toString());
+        @Override
+        public void run() {
+            synchronized (lock) {
+                for (int i = 0; i < 5; i++) {
+                    log.info("Thread A " + i);
+                }
+            }
+        }
+    }
+
+    static class ThreadB implements Runnable {
+
+        @Override
+        public void run() {
+            synchronized (lock) {
+                for (int i = 0; i < 5; i++) {
+                    log.info("Thread B " + i);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        new Thread(new ThreadB()).start();
+        Thread.sleep(10);
+        new Thread(new ThreadA()).start();
+
     }
 }

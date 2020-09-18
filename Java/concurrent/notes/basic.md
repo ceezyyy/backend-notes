@@ -31,8 +31,6 @@ Table of Contents
    * [7.1 锁与同步](#71-锁与同步)
    * [7.2 等待 / 通知](#72-等待--通知)
    * [7.3 信号量](#73-信号量)
-   * [7.4 管道](#74-管道)
-
 
 
 ## 1. 进程产生的背景
@@ -763,13 +761,166 @@ TERMINATED;
 
 **App.java**
 
+```java
+@Slf4j
+public class App {
+
+    static class ThreadA implements Runnable {
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 5; i++) {
+                log.info("Thread A " + i);
+            }
+        }
+    }
+
+    static class ThreadB implements Runnable {
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 5; i++) {
+                log.info("Thread B " + i);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new Thread(new ThreadA()).start();
+        new Thread(new ThreadB()).start();
+
+    }
+}
+```
+
+
+
+<div align="center"> <img src="image-20200918111702372.png" width="40%"/> </div><br>
+
+线程之间执行的顺序是无法控制的
+
+若想让线程 B 先执行，然后再到线程 A，那么如何实现？
+
+答案是加锁
+
+**App.java**
+
+```java
+@Slf4j
+public class App {
+
+    private static Object lock = new Object();
+
+    static class ThreadA implements Runnable {
+
+        @Override
+        public void run() {
+            synchronized (lock) {
+                for (int i = 0; i < 5; i++) {
+                    log.info("Thread A " + i);
+                }
+            }
+        }
+    }
+
+    static class ThreadB implements Runnable {
+
+        @Override
+        public void run() {
+            synchronized (lock) {
+                for (int i = 0; i < 5; i++) {
+                    log.info("Thread B " + i);
+                }
+            }
+        }
+    }
+
+    public static void main(String[] args) throws InterruptedException {
+        new Thread(new ThreadB()).start();
+        Thread.sleep(10);
+        new Thread(new ThreadA()).start();
+
+    }
+}
+```
 
 
 
 
-
+<div align="center"> <img src="image-20200918140247141.png" width="40%"/> </div><br>
 
 ### 7.2 等待 / 通知
+
+等待 / 通知机制是与加锁不同的机制
+
+基于 “锁” 的方式，线程需要不断地尝试获得锁，如果失败了，再继续尝试。这可能会耗费服务器资源
+
+等待 / 通知机制需要涉及以下 3 个 `Object` 类方法：
+
+- wait()
+- notify()
+- notifyAll()
+
+
+
+先来看看 `wait()` 方法
+
+假如线程 A 获得了锁，它可以使用 `lock.wait()` 使自己处于等待状态，与此同时释放锁
+
+此时，线程 B 获得了 `lock` 锁并开始执行，它可以在某一时刻使用 `lock.notify()` / `lock.notifyAll()` 通知线程 A，让其继续执行
+
+需要注意的是，此时线程 B 并没有释放锁，除非线程 B 使用 `lock.wait()` 释放或线程 B 执行完成自动释放锁jj
+
+**wait()**
+
+```java
+/**
+ * Causes the current thread to wait until another thread invokes the
+ * {@link java.lang.Object#notify()} method or the
+ * {@link java.lang.Object#notifyAll()} method for this object.
+ * In other words, this method behaves exactly as if it simply
+ * performs the call {@code wait(0)}.
+ * <p>
+ * The current thread must own this object's monitor. The thread
+ * releases ownership of this monitor and waits until another thread
+ * notifies threads waiting on this object's monitor to wake up
+ * either through a call to the {@code notify} method or the
+ * {@code notifyAll} method. The thread then waits until it can
+ * re-obtain ownership of the monitor and resumes execution.
+ * <p>
+ * As in the one argument version, interrupts and spurious wakeups are
+ * possible, and this method should always be used in a loop:
+ * <pre>
+ *     synchronized (obj) {
+ *         while (&lt;condition does not hold&gt;)
+ *             obj.wait();
+ *         ... // Perform action appropriate to condition
+ *     }
+ * </pre>
+ * This method should only be called by a thread that is the owner
+ * of this object's monitor. See the {@code notify} method for a
+ * description of the ways in which a thread can become the owner of
+ * a monitor.
+ *
+ * @throws  IllegalMonitorStateException  if the current thread is not
+ *               the owner of the object's monitor.
+ * @throws  InterruptedException if any thread interrupted the
+ *             current thread before or while the current thread
+ *             was waiting for a notification.  The <i>interrupted
+ *             status</i> of the current thread is cleared when
+ *             this exception is thrown.
+ * @see        java.lang.Object#notify()
+ * @see        java.lang.Object#notifyAll()
+ */
+public final void wait() throws InterruptedException {
+  wait(0);
+}
+
+
+public final native void wait(long timeout) throws InterruptedException;
+```
+
+
 
 
 
@@ -786,10 +937,6 @@ TERMINATED;
 
 
 
-
-
-
-### 7.4 管道
 
 
 

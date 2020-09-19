@@ -95,24 +95,6 @@ Table of Contents
 
 
 
-`Redis` 是基于 `KV` 存储的
-
-先来接触一个最基础的命令：存入 `key-value`
-
-```bash
-set key value
-```
-
-根据 `key` 获取 `value`
-
-```bash
-get key 
-```
-
-若获取不到则返回 `nil`
-
-<div align="center"> <img src="image-20200919195907503.png" width="80%"/> </div><br>
-
 清屏：
 
 ```bash
@@ -124,10 +106,6 @@ clear
 ```bash
 help
 ```
-
-<div align="center"> <img src="image-20200919200339540.png" width="80%"/> </div><br>
-
-
 
 退出：
 
@@ -155,6 +133,14 @@ exit
  
 
 ### 5.2 string
+
+- 存 / 批量存 / 追加存
+
+- 取 / 批量取 / 取长度
+
+
+
+`m` 代表 `multiply`
 
 ```bash
 127.0.0.1:6379> set 23 KingJames

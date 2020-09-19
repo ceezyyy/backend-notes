@@ -111,7 +111,7 @@ get key
 
 若获取不到则返回 `nil`
 
-<div align="center"> <img src="image-20200919195907503.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200919195907503.png" width="80%"/> </div><br>
 
 清屏：
 
@@ -125,8 +125,7 @@ clear
 help
 ```
 
-
-<div align="center"> <img src="image-20200919200339540.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200919200339540.png" width="80%"/> </div><br>
 
 
 
@@ -138,15 +137,43 @@ exit
 
 
 
-## 5. 数据类型
+## 5. 数据类型（针对 Value）
 
 ### 5.1 数据类型设计理念
 
+**中心思想：** 作缓存以提高查询速度
+
+
+- 业务：秒杀，双 11，京东 618
+- 突发热榜：微博热榜，突发新闻
+- 高频，复杂统计数据：在线人数预览，选秀节目实时投票
 
 
 
+`Redis` 中 `k` 为 `string`，数据类型只针对 `v` 讨论
+
+ 
 
 ### 5.2 string
+
+**写：**
+
+- 存 / 批量存 / 追加存（原始信息在就追加，否则新建）
+- 删除
+
+
+
+**读：**
+
+- 取 / 批量取
+- 长度
+
+
+
+<div align="center"> <img src="image-20200919210911505.png" width="80%"/> </div><br>
+
+
+
 
 
 

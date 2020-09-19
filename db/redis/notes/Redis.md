@@ -85,13 +85,13 @@ Table of Contents
 
 启动 `redis-server`
 
-<div align="center"> <img src="image-20200919174424027.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200919174424027.png" width="80%"/> </div><br>
 
 启动 `redis-cli`
 
 
 
-<div align="center"> <img src="image-20200919175051343.png" width="70%"/> </div><br>
+<div align="center"> <img src="image-20200919175051343.png" width="60%"/> </div><br>
 
 
 
@@ -156,21 +156,29 @@ exit
 
 ### 5.2 string
 
-**写：**
+```bash
+127.0.0.1:6379> set 23 KingJames
+OK
+127.0.0.1:6379> MSET 6 AD 9 Rondo 12 DW
+OK
+127.0.0.1:6379> APPEND 23 LBJ
+(integer) 12
+127.0.0.1:6379> get 23
+"KingJamesLBJ"
+127.0.0.1:6379> MGET 6 9 12
+1) "AD"
+2) "Rondo"
+3) "DW"
+127.0.0.1:6379> del 12
+(integer) 1
+127.0.0.1:6379> STRLEN 6
+(integer) 2
+```
 
-- 存 / 批量存 / 追加存（原始信息在就追加，否则新建）
-- 删除
 
 
 
-**读：**
 
-- 取 / 批量取
-- 长度
-
-
-
-<div align="center"> <img src="image-20200919210911505.png" width="80%"/> </div><br>
 
 
 

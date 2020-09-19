@@ -9,6 +9,10 @@
 Table of Contents
 -----------------
 
+* [1. 了解 NoSQL](#1-了解-nosql)
+* [2. 什么是 Redis?](#2-什么是-redis)
+* [3. 为什么要用 Redis?](#3-为什么要用-redis)
+* [参考资料](#参考资料)
 
 
 
@@ -17,11 +21,11 @@ Table of Contents
 
 
 
-## 1. 了解 NoSQL
-
-### 1.1 什么是 NoSQL?
+## 1. NoSQL
 
 泛指非关系型数据库
+
+
 
 **特点：**
 
@@ -31,29 +35,55 @@ Table of Contents
 
  
 
-### 1.2 如何使用?
+**目的：**
 
-- KV
-- Cache
-- Persistence
+- 应对基于海量用户和海量数据前提下的数据处理问题
 
 
 
-<div align="center"> <img src="image-20200917163808061.png" width="60%"/> </div><br>
+## 2. 什么是 Redis?
 
-启动 `redis`
+使用 `C` 语言开发的高性能 `KV` 数据库
 
-```bash
-brew services start redis
-```
+**特征：**
+
+- 数据间没有必然的关联关系
+- 单线程机制
+- 高性能
+- 多数据类型支持
+- 持久化支持
+
+## 3. 为什么要用 Redis?
+
+- 为热点数据加速查询（主要场景）：如热点商品 / 新闻等高访问量信息 
+- 任务队列
+- 即时信息查询
+- 时效性信息
 
 
 
+## 4. 基本操作
+
+**命令行模式工具使用思考**
+
+- 功能性命令
+- 清屏
+- 帮助信息
+- 如何退出
+
+ 
 
 
 
+启动 `redis-server`
+
+<div align="center"> <img src="image-20200919174424027.png" width="70%"/> </div><br>
+
+启动 `redis-cli`
 
 
+
+<div align="center"> <img src="image-20200919175051343.png" width="60%"/> </div><br>
 
 
 
@@ -63,3 +93,6 @@ brew services start redis
 
 - [尚硅谷超经典Redis教程,redis实战,阳哥版从入门到精通](https://www.bilibili.com/video/BV1oW411u75R?from=search&seid=10969912493121588561)
 - [黑马112节Redis入门到精通](https://www.bilibili.com/video/BV1CJ411m7Gc?from=search&seid=17692164217584292457)
+- [NoSQL 简介](https://www.runoob.com/mongodb/nosql.html)
+- [快速上手Spring Boot整合Redis](https://www.bilibili.com/video/BV18E411e7WJ)
+- [使用brew services管理服务](https://www.jianshu.com/p/6c3b26490861)

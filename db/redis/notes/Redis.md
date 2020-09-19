@@ -7,18 +7,26 @@
 
 
 Table of Contents
------------------
+=================
 
-* [1. 了解 NoSQL](#1-了解-nosql)
+* [1. NoSQL](#1-nosql)
 * [2. 什么是 Redis?](#2-什么是-redis)
 * [3. 为什么要用 Redis?](#3-为什么要用-redis)
+* [4. 基本操作](#4-基本操作)
+* [5. 数据类型](#5-数据类型)
+   * [5.1 数据类型设计理念](#51-数据类型设计理念)
+   * [5.2 string](#52-string)
+   * [5.3 hash](#53-hash)
+   * [5.4 list](#54-list)
+   * [5.5 set](#55-set)
+   * [5.6 sorted set](#56-sorted-set)
+* [6. 通用命令](#6-通用命令)
+* [7. 持久化](#7-持久化)
+* [8. redis.conf](#8-redisconf)
+* [9. 事务](#9-事务)
+* [10. 集群](#10-集群)
+* [11. 企业级解决方案](#11-企业级解决方案)
 * [参考资料](#参考资料)
-
-
-
-
-
-
 
 
 ## 1. NoSQL
@@ -83,7 +91,210 @@ Table of Contents
 
 
 
-<div align="center"> <img src="image-20200919175051343.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200919175051343.png" width="70%"/> </div><br>
+
+
+
+`Redis` 是基于 `KV` 存储的
+
+先来接触一个最基础的命令：存入 `key-value`
+
+```bash
+set key value
+```
+
+根据 `key` 获取 `value`
+
+```bash
+get key 
+```
+
+若获取不到则返回 `nil`
+
+<div align="center"> <img src="image-20200919195907503.png" width="70%"/> </div><br>
+
+清屏：
+
+```bash
+clear
+```
+
+获取帮助：
+
+```bash
+help
+```
+
+
+<div align="center"> <img src="image-20200919200339540.png" width="70%"/> </div><br>
+
+
+
+退出：
+
+```bash
+exit
+```
+
+
+
+## 5. 数据类型
+
+### 5.1 数据类型设计理念
+
+
+
+
+
+### 5.2 string
+
+
+
+
+
+### 5.3 hash
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 5.4 list
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 5.5 set
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 5.6 sorted set
+
+
+
+
+
+
+
+## 6. 通用命令
+
+
+
+
+
+
+
+
+
+
+
+## 7. 持久化
+
+
+
+
+
+
+
+
+
+## 8. redis.conf
+
+
+
+
+
+
+
+
+
+
+
+## 9. 事务
+
+
+
+
+
+
+
+
+
+## 10. 集群
+
+
+
+
+
+
+
+
+
+## 11. 企业级解决方案
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

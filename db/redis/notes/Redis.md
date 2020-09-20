@@ -7,7 +7,7 @@
 
 
 Table of Contents
-=================
+-----------------
 
 * [1. NoSQL](#1-nosql)
 * [2. 什么是 Redis?](#2-什么是-redis)
@@ -163,6 +163,64 @@ OK
 
 
 
+### 5.3 string 应用场景
+
+**缓存**
+
+`redis` 应用于各种结构型和非结构型高热度数据访问加速
+
+<div align="center"> <img src="image-20200920112038444.png" width="80%"/> </div><br>
+
+举个例子，微博中大 V 的粉丝数量属于高热度数据，可以使用 `redis` 作缓存加快访问 / 反馈速度
+
+```bash
+127.0.0.1:6379> set user:id:001:fans 25890
+OK
+127.0.0.1:6379> get user:id:001:fans
+"25890"
+127.0.0.1:6379> INCR user:id:001:fans
+(integer) 25891
+```
+
+该场景下，`K` 的命名规则一般为：
+
+表名 : 主键 : 主键值 : 字段  
+
+
+
+
+
+
+
+**验证码**
+
+验证码讲究时效性，在 `redis` 我们可以设置键的过期时间
+
+```bash
+127.0.0.1:6379> help setex
+
+  SETEX key seconds value
+  summary: Set the value and expiration of a key
+  since: 2.0.0
+  group: string
+
+127.0.0.1:6379> SETEX vertification_code 60 8888
+OK
+127.0.0.1:6379> GET vertification_code
+"8888"
+127.0.0.1:6379> GET vertification_code
+(nil)
+```
+
+
+
+### 5.4 hash
+
+
+
+
+
+### 5.5 hash 应用场景
 
 
 
@@ -173,7 +231,14 @@ OK
 
 
 
-### 5.3 hash
+
+
+
+### 5.6 list
+
+
+
+### 5.7 list 应用场景
 
 
 
@@ -183,12 +248,7 @@ OK
 
 
 
-
-
-
-
-### 5.4 list
-
+### 5.8 set
 
 
 
@@ -196,12 +256,7 @@ OK
 
 
 
-
-
-
-
-
-### 5.5 set
+### 5.9 set 应用场景
 
 
 
@@ -211,11 +266,17 @@ OK
 
 
 
+### 5.10 sorted set
 
 
 
 
-### 5.6 sorted set
+
+### 5.11 sorted set 应用场景
+
+
+
+
 
 
 

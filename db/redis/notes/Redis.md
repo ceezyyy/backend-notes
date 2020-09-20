@@ -13,13 +13,18 @@ Table of Contents
 * [2. 什么是 Redis?](#2-什么是-redis)
 * [3. 为什么要用 Redis?](#3-为什么要用-redis)
 * [4. 基本操作](#4-基本操作)
-* [5. 数据类型](#5-数据类型)
+* [5. 数据类型（针对 Value）](#5-数据类型针对-value)
    * [5.1 数据类型设计理念](#51-数据类型设计理念)
    * [5.2 string](#52-string)
-   * [5.3 hash](#53-hash)
-   * [5.4 list](#54-list)
-   * [5.5 set](#55-set)
-   * [5.6 sorted set](#56-sorted-set)
+   * [5.3 string 应用场景](#53-string-应用场景)
+   * [5.4 hash](#54-hash)
+   * [5.5 hash 应用场景](#55-hash-应用场景)
+   * [5.6 list](#56-list)
+   * [5.7 list 应用场景](#57-list-应用场景)
+   * [5.8 set](#58-set)
+   * [5.9 set 应用场景](#59-set-应用场景)
+   * [5.10 sorted set](#510-sorted-set)
+   * [5.11 sorted set 应用场景](#511-sorted-set-应用场景)
 * [6. 通用命令](#6-通用命令)
 * [7. 持久化](#7-持久化)
 * [8. redis.conf](#8-redisconf)
@@ -27,6 +32,8 @@ Table of Contents
 * [10. 集群](#10-集群)
 * [11. 企业级解决方案](#11-企业级解决方案)
 * [参考资料](#参考资料)
+
+
 
 
 ## 1. NoSQL
@@ -214,7 +221,7 @@ OK
 
 
 
-### 5.4 hash·
+### 5.4 hash
 
 <div align="center"> <img src="hash.png" width="80%"/> </div><br>
 
@@ -296,15 +303,9 @@ OK
 
 
 
-
-
-
-
-
-
 ### 5.7 list 应用场景
 
-对顺序有要求的业务场景，例如：日志，粉丝排行榜...
+
 
 
 
@@ -313,6 +314,10 @@ OK
 
 
 ### 5.8 set
+
+
+
+
 
 
 

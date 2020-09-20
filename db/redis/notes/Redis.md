@@ -214,33 +214,97 @@ OK
 
 
 
-### 5.4 hash
+### 5.4 hash·
+
+<div align="center"> <img src="hash.png" width="80%"/> </div><br>
 
 
+
+
+
+```bash
+127.0.0.1:6379> HSET user:mac_ova_seas following 167
+(integer) 1
+127.0.0.1:6379> HSET user:mac_ova_seas followers 25890
+(integer) 1
+127.0.0.1:6379> HSET user:mac_ova_seas weibos 393
+(integer) 1
+127.0.0.1:6379> HGET user:mac_ova_seas weibos
+"393"
+127.0.0.1:6379> HLEN user:mac_ova_seas
+(integer) 3
+127.0.0.1:6379> HEXISTS user:mac_ova_seas nums
+(integer) 0
+127.0.0.1:6379> HKEYS user:mac_ova_seas
+1) "following"
+2) "followers"
+3) "weibos"
+127.0.0.1:6379> HVALS user:mac_ova_seas
+1) "167"
+2) "25890"
+3) "393"
+```
+
+
+
+
+
+注意⚠️：
+
+- `value` 只能存储 `string`
 
 
 
 ### 5.5 hash 应用场景
 
+**电商购物车场景**
+
+
+<div align="center"> <img src="image-20200920151814899.png" width="80%"/> </div><br>
 
 
 
-
-
-
-
-
-
-
+<div align="center"> <img src="image-20200920152500733.png" width="80%"/> </div><br>
 
 
 ### 5.6 list
+
+**双向列表**
+
+<div align="center"> <img src="list_new.png" width="80%"/> </div><br>
+
+
+
+```bash
+127.0.0.1:6379> LPUSH user:mac_ova_seas:msg a b c
+(integer) 3
+127.0.0.1:6379> RPUSH user:mac_ova_seas:msg d e f
+(integer) 6
+127.0.0.1:6379> LRANGE user:mac_ova_seas:msg 0 -1
+1) "c"
+2) "b"
+3) "a"
+4) "d"
+5) "e"
+6) "f"
+127.0.0.1:6379> lpop user:mac_ova_seas:msg
+"c"
+127.0.0.1:6379> rpop user:mac_ova_seas:msg
+"f"
+127.0.0.1:6379>
+```
+
+
+
+
+
+
 
 
 
 ### 5.7 list 应用场景
 
-
+对顺序有要求的业务场景，例如：日志，粉丝排行榜...
 
 
 
@@ -267,6 +331,18 @@ OK
 
 
 ### 5.10 sorted set
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

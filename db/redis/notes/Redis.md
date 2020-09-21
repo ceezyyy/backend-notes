@@ -4,36 +4,37 @@
 
 
 
-
-
 Table of Contents
 -----------------
 
 * [1. NoSQL](#1-nosql)
-* [2. 什么是 Redis?](#2-什么是-redis)
-* [3. 为什么要用 Redis?](#3-为什么要用-redis)
-* [4. 基本操作](#4-基本操作)
-* [5. 数据类型（针对 Value）](#5-数据类型针对-value)
-   * [5.1 数据类型设计理念](#51-数据类型设计理念)
-   * [5.2 string](#52-string)
-   * [5.3 string 应用场景](#53-string-应用场景)
-   * [5.4 hash](#54-hash)
-   * [5.5 hash 应用场景](#55-hash-应用场景)
-   * [5.6 list](#56-list)
-   * [5.7 list 应用场景](#57-list-应用场景)
-   * [5.8 set](#58-set)
-   * [5.9 set 应用场景](#59-set-应用场景)
-   * [5.10 sorted set](#510-sorted-set)
-   * [5.11 sorted set 应用场景](#511-sorted-set-应用场景)
-* [6. 通用命令](#6-通用命令)
-* [7. 持久化](#7-持久化)
-* [8. redis.conf](#8-redisconf)
-* [9. 事务](#9-事务)
-* [10. 集群](#10-集群)
-* [11. 企业级解决方案](#11-企业级解决方案)
+* [2. 缓存](#2-缓存)
+   * [2.1 什么是缓存?](#21-什么是缓存)
+   * [2.2 为什么要使用缓存?](#22-为什么要使用缓存)
+   * [2.3 缓存使用不当有什么后果?](#23-缓存使用不当有什么后果)
+* [3. 什么是 Redis?](#3-什么是-redis)
+* [4. 为什么要用 Redis?](#4-为什么要用-redis)
+* [5. 基本操作](#5-基本操作)
+* [6. 数据类型（针对 Value）](#6-数据类型针对-value)
+   * [6.1 数据类型设计理念](#61-数据类型设计理念)
+   * [6.2 string](#62-string)
+   * [6.3 string 应用场景](#63-string-应用场景)
+   * [6.4 hash](#64-hash)
+   * [6.5 hash 应用场景](#65-hash-应用场景)
+   * [6.6 list](#66-list)
+   * [6.7 list 应用场景](#67-list-应用场景)
+   * [6.8 set](#68-set)
+   * [6.9 set 应用场景](#69-set-应用场景)
+   * [6.10 sorted set](#610-sorted-set)
+   * [6.11 sorted set 应用场景](#611-sorted-set-应用场景)
+* [7. 通用命令](#7-通用命令)
+* [8. Springboot 整合 Redis](#8-springboot-整合-redis)
+* [9. 持久化](#9-持久化)
+* [10. redis.conf](#10-redisconf)
+* [11. 事务](#11-事务)
+* [12. 集群](#12-集群)
+* [13. 企业级解决方案](#13-企业级解决方案)
 * [参考资料](#参考资料)
-
-
 
 
 ## 1. NoSQL
@@ -56,7 +57,52 @@ Table of Contents
 
 
 
-## 2. 什么是 Redis?
+## 2. 缓存
+
+### 2.1 什么是缓存?
+
+
+
+
+
+### 2.2 为什么要使用缓存?
+
+两方面考虑：
+
+- 高性能
+- 高并发
+
+
+
+**高性能**
+
+对于以下场景：
+
+- 数据需复杂查询提取（耗时）
+
+- 冷数据（但有很多读请求）
+
+  
+
+可以直接查缓存，而避开了与 `mysql` 打交道
+
+
+
+**高并发**
+
+
+
+
+
+### 2.3 缓存使用不当有什么后果?
+
+
+
+
+
+
+
+## 3. 什么是 Redis?
 
 使用 `C` 语言开发的高性能 `KV` 数据库
 
@@ -68,7 +114,7 @@ Table of Contents
 - 多数据类型支持
 - 持久化支持
 
-## 3. 为什么要用 Redis?
+## 4. 为什么要用 Redis?
 
 - 为热点数据加速查询（主要场景）：如热点商品 / 新闻等高访问量信息 
 - 任务队列
@@ -77,7 +123,7 @@ Table of Contents
 
 
 
-## 4. 基本操作
+## 5. 基本操作
 
 **命令行模式工具使用思考**
 
@@ -122,9 +168,9 @@ exit
 
 
 
-## 5. 数据类型（针对 Value）
+## 6. 数据类型（针对 Value）
 
-### 5.1 数据类型设计理念
+### 6.1 数据类型设计理念
 
 **中心思想：** 作缓存以提高查询速度
 
@@ -139,7 +185,7 @@ exit
 
  
 
-### 5.2 string
+### 6.2 string
 
 - 存 / 批量存 / 追加存
 
@@ -170,7 +216,7 @@ OK
 
 
 
-### 5.3 string 应用场景
+### 6.3 string 应用场景
 
 **缓存**
 
@@ -221,7 +267,7 @@ OK
 
 
 
-### 5.4 hash
+### 6.4 hash
 
 <div align="center"> <img src="hash.png" width="80%"/> </div><br>
 
@@ -262,7 +308,7 @@ OK
 
 
 
-### 5.5 hash 应用场景
+### 6.5 hash 应用场景
 
 **电商购物车场景**
 
@@ -274,7 +320,7 @@ OK
 <div align="center"> <img src="image-20200920152500733.png" width="80%"/> </div><br>
 
 
-### 5.6 list
+### 6.6 list
 
 **双向列表**
 
@@ -294,16 +340,15 @@ OK
 4) "d"
 5) "e"
 6) "f"
-127.0.0.1:6379> lpop user:mac_ova_seas:msg
+127.0.0.1:6379> LPOP user:mac_ova_seas:msg
 "c"
-127.0.0.1:6379> rpop user:mac_ova_seas:msg
+127.0.0.1:6379> RPOP user:mac_ova_seas:msg
 "f"
-127.0.0.1:6379>
 ```
 
 
 
-### 5.7 list 应用场景
+### 6.7 list 应用场景
 
 
 
@@ -313,7 +358,7 @@ OK
 
 
 
-### 5.8 set
+### 6.8 set
 
 
 
@@ -325,7 +370,7 @@ OK
 
 
 
-### 5.9 set 应用场景
+### 6.9 set 应用场景
 
 
 
@@ -335,7 +380,7 @@ OK
 
 
 
-### 5.10 sorted set
+### 6.10 sorted set
 
 
 
@@ -353,7 +398,7 @@ OK
 
 
 
-### 5.11 sorted set 应用场景
+### 6.11 sorted set 应用场景
 
 
 
@@ -365,7 +410,7 @@ OK
 
 
 
-## 6. 通用命令
+## 7. 通用命令
 
 
 
@@ -375,22 +420,23 @@ OK
 
 
 
+## 8. Springboot 整合 Redis
 
 
-## 7. 持久化
 
 
 
+## 9. 持久化
 
 
 
 
 
 
-## 8. redis.conf
 
 
 
+## 10. redis.conf
 
 
 
@@ -399,43 +445,30 @@ OK
 
 
 
-## 9. 事务
 
 
 
+## 11. 事务
 
 
 
 
 
 
-## 10. 集群
 
 
 
+## 12. 集群
 
 
 
 
 
 
-## 11. 企业级解决方案
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+## 13. 企业级解决方案
 
 
 
@@ -470,3 +503,6 @@ OK
 - [NoSQL 简介](https://www.runoob.com/mongodb/nosql.html)
 - [快速上手Spring Boot整合Redis](https://www.bilibili.com/video/BV18E411e7WJ)
 - [使用brew services管理服务](https://www.jianshu.com/p/6c3b26490861)
+- [关于缓存的一些重要概念(Redis前置菜)](https://github.com/Snailclimb/JavaGuide/blob/master/docs/database/Redis/some-concepts-of-caching.md)
+- [Redis 常见问题总结](https://github.com/Snailclimb/JavaGuide/blob/master/docs/database/Redis/redis-all.md)
+- [在项目中缓存是如何使用的？缓存如果使用不当会造成什么后果？](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/why-cache.md)

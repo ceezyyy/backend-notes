@@ -16,17 +16,11 @@ Table of Contents
 * [4. 为什么要用 Redis?](#4-为什么要用-redis)
 * [5. 基本操作](#5-基本操作)
 * [6. 数据类型（针对 Value）](#6-数据类型针对-value)
-   * [6.1 数据类型设计理念](#61-数据类型设计理念)
-   * [6.2 string](#62-string)
-   * [6.3 string 应用场景](#63-string-应用场景)
-   * [6.4 hash](#64-hash)
-   * [6.5 hash 应用场景](#65-hash-应用场景)
-   * [6.6 list](#66-list)
-   * [6.7 list 应用场景](#67-list-应用场景)
-   * [6.8 set](#68-set)
-   * [6.9 set 应用场景](#69-set-应用场景)
-   * [6.10 sorted set](#610-sorted-set)
-   * [6.11 sorted set 应用场景](#611-sorted-set-应用场景)
+   * [6.1 Strings](#61-strings)
+   * [6.2 Hashes](#62-hashes)
+   * [6.3 Lists](#63-lists)
+   * [6.4 Sets](#64-sets)
+   * [6.5 Sorted sets](#65-sorted-sets)
 * [7. 通用命令](#7-通用命令)
 * [8. Springboot 整合 Redis](#8-springboot-整合-redis)
 * [9. 持久化](#9-持久化)
@@ -61,9 +55,9 @@ Table of Contents
 
 ### 2.1 什么是缓存?
 
+缓存的基本思想：用空间换时间
 
-
-
+回归到业务系统来说：缓存层的出现是为了避免用户在请求数据的时候获取速度过于缓慢
 
 ### 2.2 为什么要使用缓存?
 
@@ -89,6 +83,8 @@ Table of Contents
 
 
 **高并发**
+
+缓存是走内存的，内存天然就支撑高并发
 
 
 
@@ -170,28 +166,11 @@ exit
 
 ## 6. 数据类型（针对 Value）
 
-### 6.1 数据类型设计理念
+### 6.1 Strings
 
-**中心思想：** 作缓存以提高查询速度
+> Strings are the most basic kind of Redis value. Redis Strings are binary safe, this means that a Redis string can contain any kind of data, for instance a JPEG image or a serialized Ruby object.
 
-
-- 业务：秒杀，双 11，京东 618
-- 突发热榜：微博热榜，突发新闻
-- 高频，复杂统计数据：在线人数预览，选秀节目实时投票
-
-
-
-`Redis` 中 `k` 为 `string`，数据类型只针对 `v` 讨论
-
- 
-
-### 6.2 string
-
-- 存 / 批量存 / 追加存
-
-- 取 / 批量取 / 取长度
-
-
+最简单的类型，做 `KV` 缓存
 
 `m` 代表 `multiply`
 
@@ -216,15 +195,11 @@ OK
 
 
 
-### 6.3 string 应用场景
+**热点数据**
 
-**缓存**
-
-`redis` 应用于各种结构型和非结构型高热度数据访问加速
+关注微博大 V 后粉丝数的增加如何立即反馈给用户？ `string` 提供原子计数器功能
 
 <div align="center"> <img src="image-20200920112038444.png" width="80%"/> </div><br>
-
-举个例子，微博中大 V 的粉丝数量属于高热度数据，可以使用 `redis` 作缓存加快访问 / 反馈速度
 
 ```bash
 127.0.0.1:6379> set user:id:001:fans 25890
@@ -235,19 +210,19 @@ OK
 (integer) 25891
 ```
 
+
+
+
+
 该场景下，`K` 的命名规则一般为：
 
 表名 : 主键 : 主键值 : 字段  
 
 
 
-
-
-
-
 **验证码**
 
-验证码讲究时效性，在 `redis` 我们可以设置键的过期时间
+验证码如何实现 60s 自动过期？ `string` 提供键过期策略
 
 ```bash
 127.0.0.1:6379> help setex
@@ -267,7 +242,11 @@ OK
 
 
 
-### 6.4 hash
+### 6.2 Hashes
+
+> Redis Hashes are maps between string fields and string values, so they are the perfect data type to represent objects (e.g. A User with a number of fields like name, surname, age, and so forth)
+
+一个存储空间保存多个 `KV` 数据
 
 <div align="center"> <img src="hash.png" width="80%"/> </div><br>
 
@@ -298,17 +277,11 @@ OK
 3) "393"
 ```
 
-
-
-
-
 注意⚠️：
 
 - `value` 只能存储 `string`
 
 
-
-### 6.5 hash 应用场景
 
 **电商购物车场景**
 
@@ -319,10 +292,11 @@ OK
 
 <div align="center"> <img src="image-20200920152500733.png" width="80%"/> </div><br>
 
+### 6.3 Lists
 
-### 6.6 list
+> Redis Lists are simply lists of strings, sorted by insertion order. It is possible to add elements to a Redis List pushing new elements on the head (on the left) or on the tail (on the right) of the list.
 
-**双向列表**
+底层基于双向列表：增删快，按索引读慢
 
 <div align="center"> <img src="list_new.png" width="80%"/> </div><br>
 
@@ -348,57 +322,118 @@ OK
 
 
 
-### 6.7 list 应用场景
+### 6.4 Sets
+
+> Redis Sets are an unordered collection of Strings. It is possible to add, remove, and test for existence of members in O(1) (constant time regardless of the number of elements contained inside the Set).
+>
+> Redis Sets have the desirable property of not allowing repeated members. Adding the same element multiple times will result in a set having a single copy of this element. Practically speaking this means that adding a member does not require a *check if exists then add* operation.
+>
+> A very interesting thing about Redis Sets is that they support a number of server side commands to compute sets starting from existing sets, so you can do unions, intersections, differences of sets in very short time.
+
+无序集合，自动去重
+
+```bash
+127.0.0.1:6379> SADD lakers LBJ AD KCP Rondo
+(integer) 4
+127.0.0.1:6379> SMEMBERS lakers
+1) "Rondo"
+2) "KCP"
+3) "LBJ"
+4) "AD"
+127.0.0.1:6379> SREM lakers Rondo
+(integer) 1
+127.0.0.1:6379> SMEMBERS lakers
+1) "KCP"
+2) "LBJ"
+3) "AD"
+127.0.0.1:6379> SCARD lakers
+(integer) 3
+127.0.0.1:6379> SISMEMBER lakers LBJ
+(integer) 1
+127.0.0.1:6379> SISMEMBER lakers Rondo
+(integer) 0
+```
+
+
+
+**热点推荐**
+
+网站中的热点推荐是如何实现的？
+
+```bash
+127.0.0.1:6379> SADD news n1 n2 n3 n4 n5 n6 n7 n8 n9
+(integer) 9
+127.0.0.1:6379> SCARD news
+(integer) 9
+127.0.0.1:6379> SRANDMEMBER news 3
+1) "n7"
+2) "n2"
+3) "n1"
+127.0.0.1:6379> SCARD news
+(integer) 9
+127.0.0.1:6379> SPOP news 2
+1) "n8"
+2) "n2"
+127.0.0.1:6379> SCARD news
+(integer) 7
+```
+
+
+
+**关联操作**
+
+本质上是 **交, 并, 差**
+
+不同用户的兴趣点有哪些？不同用户有哪些共同好友？可能认识的人？
+
+```bash
+127.0.0.1:6379> SADD user:1 local business arts sports tech politics
+(integer) 6
+127.0.0.1:6379> SADD user:2 business sports international
+(integer) 3
+127.0.0.1:6379> SINTER user:1 user:2
+1) "sports"
+2) "business"
+127.0.0.1:6379> SUNION user:1 user:2
+1) "arts"
+2) "politics"
+3) "international"
+4) "local"
+5) "tech"
+6) "sports"
+7) "business"
+127.0.0.1:6379> SDIFF user:1 user:2
+1) "tech"
+2) "local"
+3) "arts"
+4) "politics"
+127.0.0.1:6379> SDIFF user:2 user:1
+1) "international"
+```
 
 
 
 
 
+**网站访问量**
 
+`PV`：访问量（通过刷新页面提高访问量）
 
+`UV`：不同用户访问次数（通过 `cookie`）
 
+`IP`：不同 `IP` 访问总次数
 
-### 6.8 set
-
-
-
-
-
-
-
-
-
-
-
-### 6.9 set 应用场景
+利用 `set` 作数据去重
 
 
 
 
 
+### 6.5 Sorted sets
 
-
-
-
-### 6.10 sorted set
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 6.11 sorted set 应用场景
+> Redis Sorted Sets are, similarly to Redis Sets, non repeating collections of Strings. The difference is that every member of a Sorted Set is associated with score, that is used in order to take the sorted set ordered, from the smallest to the greatest score. While members are unique, scores may be repeated.
+>
+> With sorted sets you can add, remove, or update elements in a very fast way (in a time proportional to the logarithm of the number of elements). Since elements are *taken in order* and not ordered afterwards, you can also get ranges by score or by rank (position) in a very fast way. Accessing the middle of a sorted set is also very fast, so you can use Sorted Sets as a smart list of non repeating elements where you can quickly access everything you need: elements in order, fast existence test, fast access to elements in the middle!
 
 
 
@@ -420,7 +455,13 @@ OK
 
 
 
+
+
 ## 8. Springboot 整合 Redis
+
+
+
+
 
 
 
@@ -506,3 +547,5 @@ OK
 - [关于缓存的一些重要概念(Redis前置菜)](https://github.com/Snailclimb/JavaGuide/blob/master/docs/database/Redis/some-concepts-of-caching.md)
 - [Redis 常见问题总结](https://github.com/Snailclimb/JavaGuide/blob/master/docs/database/Redis/redis-all.md)
 - [在项目中缓存是如何使用的？缓存如果使用不当会造成什么后果？](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/why-cache.md)
+- [Redis 都有哪些数据类型？分别在哪些场景下使用比较合适？](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-data-types.md)
+- [Redis - Data types](https://redis.io/topics/data-types#:~:text=Redis%20Sorted%20Sets%20are%2C%20similarly,smallest%20to%20the%20greatest%20score.)

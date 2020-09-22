@@ -1,3 +1,5 @@
+
+
 # HTTP 协议
 
 Table of Contents
@@ -6,14 +8,23 @@ Table of Contents
 * [1. 什么是 HTTP?](#1-什么是-http)
 * [2. 什么是 URI 和 URL?](#2-什么是-uri-和-url)
 * [3. URI 格式](#3-uri-格式)
-* [4. 什么是 stateless?](#4-什么是-stateless)
-* [5. HTTP 有哪些常见方法?](#5-http-有哪些常见方法)
+* [4. 什么是 HTTP 报文?](#4-什么是-http-报文)
+   * [Request Message](#request-message)
+   * [Response Message](#response-message)
+* [5. 如何理解 Stateless?](#5-如何理解-stateless)
+* [6. HTTP 有哪些常见方法?](#6-http-有哪些常见方法)
    * [GET](#get)
    * [POST](#post)
    * [PUT](#put)
    * [DELETE](#delete)
-* [6. 什么是状态码? HTTP 有哪些状态码?](#6-什么是状态码-http-有哪些状态码)
+* [7. 什么是状态码? HTTP 有哪些状态码?](#7-什么是状态码-http-有哪些状态码)
+* [8. HTTP 首部（了解，供查阅）](#8-http-首部了解供查阅)
+   * [通用首部字段](#通用首部字段)
+   * [请求首部字段](#请求首部字段)
+   * [响应首部字段](#响应首部字段)
+   * [实体首部字段](#实体首部字段)
 * [参考资料](#参考资料)
+
 
 
 ## 1. 什么是 HTTP?
@@ -84,15 +95,44 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
+## 4. 什么是 HTTP 报文?
+
+> HTTP messages are how data is exchanged between a server and a client. There are two types of messages: *requests* sent by the client to trigger an action on the server, and *responses*, the answer from the server
+
+`HTTP Message` ，直接从字面理解，客户端及服务器端在 `HTTP` 协议下交换的消息称为 `HTTP` 报文
 
 
-## 4. 什么是 stateless?
+
+`HTTP Message` 又分为请求报文和响应报文
+
+
+
+### Request Message
+
+<div align="center"> <img src="request_message.png" width="80%"/> </div><br>
+
+
+
+
+
+### Response Message
+
+<div align="center"> <img src="response_message.png" width="80%"/> </div><br>
+
+其中，`Message Header` 存储着客户端和服务器处理时至关重要的信息
+
+而 `Message Body` 存储着用户 / 资源信息
+
+
+
+
+## 5. 如何理解 Stateless?
 
 `HTTP` 是一种无状态协议，即协议对于发送过的请求 / 响应都不做持久化处理
 
 
 
-## 5. HTTP 有哪些常见方法?
+## 6. HTTP 有哪些常见方法?
 
 ### GET
 
@@ -116,7 +156,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-## 6. 什么是状态码? HTTP 有哪些状态码?
+## 7. 什么是状态码? HTTP 有哪些状态码?
 
 状态码的作用是当客户端向服务器发送了请求，描述响应结果
 
@@ -134,9 +174,256 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
+## 8. HTTP 首部（了解，供查阅）
+
+<div align="center"> <img src="msg_structure.png" width="80%"/> </div><br>
+
+### 通用首部字段
+
+通用首部字段是指请求报文 / 响应报文双方都会使用的首部
+
+<table>
+<thead>
+<tr>
+<th align="center">首部字段名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Cache-Control</td>
+<td align="center">控制缓存的行为</td>
+</tr>
+<tr>
+<td align="center">Connection</td>
+<td align="center">控制不再转发给代理的首部字段、管理持久连接</td>
+</tr>
+<tr>
+<td align="center">Date</td>
+<td align="center">创建报文的日期时间</td>
+</tr>
+<tr>
+<td align="center">Pragma</td>
+<td align="center">报文指令</td>
+</tr>
+<tr>
+<td align="center">Trailer</td>
+<td align="center">报文末端的首部一览</td>
+</tr>
+<tr>
+<td align="center">Transfer-Encoding</td>
+<td align="center">指定报文主体的传输编码方式</td>
+</tr>
+<tr>
+<td align="center">Upgrade</td>
+<td align="center">升级为其他协议</td>
+</tr>
+<tr>
+<td align="center">Via</td>
+<td align="center">代理服务器的相关信息</td>
+</tr>
+<tr>
+<td align="center">Warning</td>
+<td align="center">错误通知</td>
+</tr>
+</tbody>
+</table>
+
+
+### 请求首部字段
+<table>
+<thead>
+<tr>
+<th align="center">首部字段名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Accept</td>
+<td align="center">用户代理可处理的媒体类型</td>
+</tr>
+<tr>
+<td align="center">Accept-Charset</td>
+<td align="center">优先的字符集</td>
+</tr>
+<tr>
+<td align="center">Accept-Encoding</td>
+<td align="center">优先的内容编码</td>
+</tr>
+<tr>
+<td align="center">Accept-Language</td>
+<td align="center">优先的语言（自然语言）</td>
+</tr>
+<tr>
+<td align="center">Authorization</td>
+<td align="center">Web 认证信息</td>
+</tr>
+<tr>
+<td align="center">Expect</td>
+<td align="center">期待服务器的特定行为</td>
+</tr>
+<tr>
+<td align="center">From</td>
+<td align="center">用户的电子邮箱地址</td>
+</tr>
+<tr>
+<td align="center">Host</td>
+<td align="center">请求资源所在服务器</td>
+</tr>
+<tr>
+<td align="center">If-Match</td>
+<td align="center">比较实体标记（ETag）</td>
+</tr>
+<tr>
+<td align="center">If-Modified-Since</td>
+<td align="center">比较资源的更新时间</td>
+</tr>
+<tr>
+<td align="center">If-None-Match</td>
+<td align="center">比较实体标记（与 If-Match 相反）</td>
+</tr>
+<tr>
+<td align="center">If-Range</td>
+<td align="center">资源未更新时发送实体 Byte 的范围请求</td>
+</tr>
+<tr>
+<td align="center">If-Unmodified-Since</td>
+<td align="center">比较资源的更新时间（与 If-Modified-Since 相反）</td>
+</tr>
+<tr>
+<td align="center">Max-Forwards</td>
+<td align="center">最大传输逐跳数</td>
+</tr>
+<tr>
+<td align="center">Proxy-Authorization</td>
+<td align="center">代理服务器要求客户端的认证信息</td>
+</tr>
+<tr>
+<td align="center">Range</td>
+<td align="center">实体的字节范围请求</td>
+</tr>
+<tr>
+<td align="center">Referer</td>
+<td align="center">对请求中 URI 的原始获取方</td>
+</tr>
+<tr>
+<td align="center">TE</td>
+<td align="center">传输编码的优先级</td>
+</tr>
+<tr>
+<td align="center">User-Agent</td>
+<td align="center">HTTP 客户端程序的信息</td>
+</tr>
+</tbody>
+</table>
 
 
 
+
+### 响应首部字段
+
+<table>
+<thead>
+<tr>
+<th align="center">首部字段名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Accept-Ranges</td>
+<td align="center">是否接受字节范围请求</td>
+</tr>
+<tr>
+<td align="center">Age</td>
+<td align="center">推算资源创建经过时间</td>
+</tr>
+<tr>
+<td align="center">ETag</td>
+<td align="center">资源的匹配信息</td>
+</tr>
+<tr>
+<td align="center">Location</td>
+<td align="center">令客户端重定向至指定 URI</td>
+</tr>
+<tr>
+<td align="center">Proxy-Authenticate</td>
+<td align="center">代理服务器对客户端的认证信息</td>
+</tr>
+<tr>
+<td align="center">Retry-After</td>
+<td align="center">对再次发起请求的时机要求</td>
+</tr>
+<tr>
+<td align="center">Server</td>
+<td align="center">HTTP 服务器的安装信息</td>
+</tr>
+<tr>
+<td align="center">Vary</td>
+<td align="center">代理服务器缓存的管理信息</td>
+</tr>
+<tr>
+<td align="center">WWW-Authenticate</td>
+<td align="center">服务器对客户端的认证信息</td>
+</tr>
+</tbody>
+</table>
+
+
+
+### 实体首部字段
+
+<table>
+<thead>
+<tr>
+<th align="center">首部字段名</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Allow</td>
+<td align="center">资源可支持的 HTTP 方法</td>
+</tr>
+<tr>
+<td align="center">Content-Encoding</td>
+<td align="center">实体主体适用的编码方式</td>
+</tr>
+<tr>
+<td align="center">Content-Language</td>
+<td align="center">实体主体的自然语言</td>
+</tr>
+<tr>
+<td align="center">Content-Length</td>
+<td align="center">实体主体的大小</td>
+</tr>
+<tr>
+<td align="center">Content-Location</td>
+<td align="center">替代对应资源的 URI</td>
+</tr>
+<tr>
+<td align="center">Content-MD5</td>
+<td align="center">实体主体的报文摘要</td>
+</tr>
+<tr>
+<td align="center">Content-Range</td>
+<td align="center">实体主体的位置范围</td>
+</tr>
+<tr>
+<td align="center">Content-Type</td>
+<td align="center">实体主体的媒体类型</td>
+</tr>
+<tr>
+<td align="center">Expires</td>
+<td align="center">实体主体过期的日期时间</td>
+</tr>
+<tr>
+<td align="center">Last-Modified</td>
+<td align="center">资源的最后修改日期时间</td>
+</tr>
+</tbody>
+</table>
 
 
 
@@ -147,3 +434,5 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 - [What is the difference between a URI, a URL and a URN?](https://stackoverflow.com/questions/176264/what-is-the-difference-between-a-uri-a-url-and-a-urn)
 - [标识互联网上的内容](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Basics_of_HTTP/Identifying_resources_on_the_Web)
 - [Why is it said that “HTTP is a stateless protocol”?](https://stackoverflow.com/questions/13200152/why-is-it-said-that-http-is-a-stateless-protocol)
+- [HTTP Messages-MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages#:~:text=HTTP%20messages%20are%20how%20data,and%20span%20over%20multiple%20lines)
+- [HTTP Request Message](https://documentation.help/DogeTool-HTTP-Requests-vt/http_request.htm)

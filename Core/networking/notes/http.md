@@ -28,7 +28,9 @@ Table of Contents
    * [9.2 为什么要使用代理?](#92-为什么要使用代理)
    * [9.3 如何代理?](#93-如何代理)
    * [9.4 什么是正向代理? 反向代理又是什么?](#94-什么是正向代理-反向代理又是什么)
+* [10. HTTPS 与 HTTP 是什么关系?](#10-https-与-http-是什么关系)
 * [参考资料](#参考资料)
+
 
 
 
@@ -437,7 +439,13 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 ## 9. 经常挂在嘴边的代理究竟是什么? 
 
-### 9.1 什么是代理?
+### 9.1 什么是代理? 
+
+代理是什么？生活中的例子，当你做某件事的时候不亲自出马，而叫你的助理（或别人）代表你去完成，这就是代理
+
+
+
+同样的，
 
 代理服务器作用是接受客户端发送的请求后转发给其他服务器
 
@@ -445,13 +453,11 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
+<div align="center"> <img src="proxy.png" width="60%"/> </div><br>
+
 
 
 ### 9.2 为什么要使用代理?
-
-
-
-
 
 
 
@@ -485,6 +491,42 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
+
+## 10. HTTPS 与 HTTP 是什么关系?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 参考资料
 
 - [HTTP Made Easy: Understanding the Web Client-Server Communication](https://hackernoon.com/http-made-easy-understanding-the-web-client-server-communication-yz783vg3)
@@ -496,3 +538,6 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 - [HTTP Request Message](https://documentation.help/DogeTool-HTTP-Requests-vt/http_request.htm)
 - [What is a Proxy Server?](https://www.youtube.com/watch?v=5cPIukqXe5w)
 - [What is a Proxy?](https://www.youtube.com/watch?v=jGQTS1CxZTE)
+- [Proxy vs Reverse Proxy Server Explained](https://www.youtube.com/watch?v=SqqrOspasag)
+- [5 Reasons Your Company Should Use Proxy Servers](https://www.cmswire.com/information-management/5-reasons-your-company-should-use-proxy-servers/#:~:text=A%20proxy%20server%20reduces%20the,they%20act%20as%20a%20buffer.)
+

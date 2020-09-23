@@ -9,20 +9,25 @@ Table of Contents
 * [2. 什么是 URI 和 URL?](#2-什么是-uri-和-url)
 * [3. URI 格式](#3-uri-格式)
 * [4. 什么是 HTTP 报文?](#4-什么是-http-报文)
-   * [Request Message](#request-message)
-   * [Response Message](#response-message)
+   * [4.1 Request Message](#41-request-message)
+   * [4.2 Response Message](#42-response-message)
 * [5. 如何理解 Stateless?](#5-如何理解-stateless)
 * [6. HTTP 有哪些常见方法?](#6-http-有哪些常见方法)
-   * [GET](#get)
-   * [POST](#post)
-   * [PUT](#put)
-   * [DELETE](#delete)
+   * [6.1 GET](#61-get)
+   * [6.2 POST](#62-post)
+   * [6.3 PUT](#63-put)
+   * [6.4 DELETE](#64-delete)
 * [7. 什么是状态码? HTTP 有哪些状态码?](#7-什么是状态码-http-有哪些状态码)
 * [8. HTTP 首部（了解，供查阅）](#8-http-首部了解供查阅)
-   * [通用首部字段](#通用首部字段)
-   * [请求首部字段](#请求首部字段)
-   * [响应首部字段](#响应首部字段)
-   * [实体首部字段](#实体首部字段)
+   * [8.1 通用首部字段](#81-通用首部字段)
+   * [8.2 请求首部字段](#82-请求首部字段)
+   * [8.3 响应首部字段](#83-响应首部字段)
+   * [8.4 实体首部字段](#84-实体首部字段)
+* [9. 经常挂在嘴边的代理究竟是什么?](#9-经常挂在嘴边的代理究竟是什么)
+   * [9.1 什么是代理?](#91-什么是代理)
+   * [9.2 为什么要使用代理?](#92-为什么要使用代理)
+   * [9.3 如何代理?](#93-如何代理)
+   * [9.4 什么是正向代理? 反向代理又是什么?](#94-什么是正向代理-反向代理又是什么)
 * [参考资料](#参考资料)
 
 
@@ -107,7 +112,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-### Request Message
+### 4.1 Request Message
 
 <div align="center"> <img src="request_message.png" width="80%"/> </div><br>
 
@@ -115,7 +120,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-### Response Message
+### 4.2 Response Message
 
 <div align="center"> <img src="response_message.png" width="80%"/> </div><br>
 
@@ -134,21 +139,21 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 ## 6. HTTP 有哪些常见方法?
 
-### GET
+### 6.1 GET
 
 获取资源
 
-### POST
+### 6.2 POST
 
 传输实体主体
 
-### PUT
+### 6.3 PUT
 
 上传文件
 
 由于自身不带验证机制，因此存在安全性问题，一般不使用
 
-### DELETE
+### 6.4 DELETE
 
 删除文件
 
@@ -178,7 +183,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 <div align="center"> <img src="msg_structure.png" width="80%"/> </div><br>
 
-### 通用首部字段
+### 8.1 通用首部字段
 
 通用首部字段是指请求报文 / 响应报文双方都会使用的首部
 
@@ -230,7 +235,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 </table>
 
 
-### 请求首部字段
+### 8.2 请求首部字段
 <table>
 <thead>
 <tr>
@@ -321,7 +326,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-### 响应首部字段
+### 8.3 响应首部字段
 
 <table>
 <thead>
@@ -372,7 +377,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-### 实体首部字段
+### 8.4 实体首部字段
 
 <table>
 <thead>
@@ -427,6 +432,59 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
+
+
+
+## 9. 经常挂在嘴边的代理究竟是什么? 
+
+### 9.1 什么是代理?
+
+代理服务器作用是接受客户端发送的请求后转发给其他服务器
+
+但不改变请求 `URI`，会直接发送给前方持有资源的目标服务器
+
+
+
+
+
+### 9.2 为什么要使用代理?
+
+
+
+
+
+
+
+
+
+
+
+
+
+### 9.3 如何代理?
+
+基本分为两种方法：
+
+- 是否使用缓存
+- 是否会修改报文
+
+
+
+
+
+
+
+### 9.4 什么是正向代理? 反向代理又是什么?
+
+
+
+
+
+
+
+
+
+
 ## 参考资料
 
 - [HTTP Made Easy: Understanding the Web Client-Server Communication](https://hackernoon.com/http-made-easy-understanding-the-web-client-server-communication-yz783vg3)
@@ -436,3 +494,5 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 - [Why is it said that “HTTP is a stateless protocol”?](https://stackoverflow.com/questions/13200152/why-is-it-said-that-http-is-a-stateless-protocol)
 - [HTTP Messages-MDN](https://developer.mozilla.org/en-US/docs/Web/HTTP/Messages#:~:text=HTTP%20messages%20are%20how%20data,and%20span%20over%20multiple%20lines)
 - [HTTP Request Message](https://documentation.help/DogeTool-HTTP-Requests-vt/http_request.htm)
+- [What is a Proxy Server?](https://www.youtube.com/watch?v=5cPIukqXe5w)
+- [What is a Proxy?](https://www.youtube.com/watch?v=jGQTS1CxZTE)

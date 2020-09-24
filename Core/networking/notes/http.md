@@ -28,8 +28,10 @@ Table of Contents
    * [9.2 为什么要使用代理?](#92-为什么要使用代理)
    * [9.3 如何代理?](#93-如何代理)
    * [9.4 什么是正向代理? 反向代理又是什么?](#94-什么是正向代理-反向代理又是什么)
-* [10. HTTPS 与 HTTP 是什么关系?](#10-https-与-http-是什么关系)
+* [10. HTTP 的缺点](#10-http-的缺点)
+* [11. HTTPS 的出现](#11-https-的出现)
 * [参考资料](#参考资料)
+
 
 
 
@@ -492,7 +494,27 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-## 10. HTTPS 与 HTTP 是什么关系?
+## 10. HTTP 的缺点
+
+任何事物都有两面性，
+
+
+
+
+
+
+
+
+
+## 11. HTTPS 的出现
+
+
+
+
+
+
+
+
 
 
 
@@ -540,4 +562,6 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 - [What is a Proxy?](https://www.youtube.com/watch?v=jGQTS1CxZTE)
 - [Proxy vs Reverse Proxy Server Explained](https://www.youtube.com/watch?v=SqqrOspasag)
 - [5 Reasons Your Company Should Use Proxy Servers](https://www.cmswire.com/information-management/5-reasons-your-company-should-use-proxy-servers/#:~:text=A%20proxy%20server%20reduces%20the,they%20act%20as%20a%20buffer.)
+- [How to Become a Good Backend Engineer (Fundamentals)](https://www.youtube.com/watch?v=V3ZPPPKEipA)
+- [Hyper Text Transfer Protocol Crash Course - HTTP 1.0, 1.1, HTTP/2, HTTP/3](https://www.youtube.com/watch?v=0OrmKCB0UrQ&t=1127s)
 

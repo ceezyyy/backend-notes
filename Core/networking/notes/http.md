@@ -496,7 +496,61 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 ## 10. HTTP 的缺点
 
-任何事物都有两面性，
+任何事物都有两面性，`HTTP` 的不足主要体现在以下几个方面：
+
+
+
+**通信使用明文，可能会被窃听**
+
+`HTTP` 的报文使用明文方式发送，那为什么通信时不加密呢？
+
+按 `TCP/IP` 协议族的工作机制，通信内容在所有的通信线路上都有可能遭到窥视
+
+互联网中，无论世界哪个角落的服务器和客户端在进行通信时，在此通信线路的某些网络设备 / 光缆 / 计算机都不可能为私有财产，所以不排除在某个环节遭到窥视
+
+
+
+**不验证通信方的身份，可能遭遇伪装**
+
+`HTTP` 协议通信时，由于不存在确认通信方的处理步骤，任何人都可以发起请求
+
+<div align="center"> <img src="dos.png" width="70%"/> </div><br>
+
+
+
+
+
+**无法验证报文的完整性，可能遭篡改**
+
+没有办法确认发出的请求 / 响应和接收到的请求 / 响应是前后相同的
+
+<div align="center"> <img src="mitm.png" width="60%"/> </div><br>
+
+## 11. 什么是 SSL / TSL?
+
+在引入 `HTTPS` 之前，先介绍一下 `SSL / TSL`
+
+`SSL / TSL` 的出现是为了解决 `HTTP` 三大风险而设计的，希望达到：
+
+- 所有信息都是加密传播，第三方无法窃听
+- 具有校验机制，一旦被篡改，通信双方会立刻发现
+- 配备身份证书，防止身份被冒充
+
+
+
+
+
+## 12. SSL / TSL 是如何运作的?
+
+`SSL / TSL` 协议的基本思路是采用公钥加密法
+
+开始加密通信之前，
+
+
+
+
+
+<div align="center"> <img src="bob.png" width="70%"/> </div><br>
 
 
 
@@ -506,15 +560,19 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-## 11. HTTPS 的出现
 
 
 
 
 
 
+## 13. HTTPS 的出现
+
+**HTTP + 加密 + 认证 + 完整性保护 = HTTPS**
 
 
+
+<div align="center"> <img src="https.jpg" width="50%"/> </div><br>
 
 
 
@@ -564,4 +622,6 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 - [5 Reasons Your Company Should Use Proxy Servers](https://www.cmswire.com/information-management/5-reasons-your-company-should-use-proxy-servers/#:~:text=A%20proxy%20server%20reduces%20the,they%20act%20as%20a%20buffer.)
 - [How to Become a Good Backend Engineer (Fundamentals)](https://www.youtube.com/watch?v=V3ZPPPKEipA)
 - [Hyper Text Transfer Protocol Crash Course - HTTP 1.0, 1.1, HTTP/2, HTTP/3](https://www.youtube.com/watch?v=0OrmKCB0UrQ&t=1127s)
-
+- [SSL/TLS协议运行机制的概述](http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html)
+- [图解SSL/TLS协议](http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html)
+- [What is Public Key Cryptography?](https://www.twilio.com/blog/what-is-public-key-cryptography)

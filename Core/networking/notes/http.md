@@ -29,11 +29,10 @@ Table of Contents
    * [9.3 如何代理?](#93-如何代理)
    * [9.4 什么是正向代理? 反向代理又是什么?](#94-什么是正向代理-反向代理又是什么)
 * [10. HTTP 的缺点](#10-http-的缺点)
-* [11. HTTPS 的出现](#11-https-的出现)
+* [11. 什么是 SSL / TLS?](#11-什么是-ssl--tls)
+* [12. SSL / TLS 是如何运作的?](#12-ssl--tls-是如何运作的)
+* [13. HTTPS 的出现](#13-https-的出现)
 * [参考资料](#参考资料)
-
-
-
 
 
 ## 1. 什么是 HTTP?
@@ -526,11 +525,11 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 <div align="center"> <img src="mitm.png" width="60%"/> </div><br>
 
-## 11. 什么是 SSL / TSL?
+## 11. 什么是 SSL / TLS?
 
-在引入 `HTTPS` 之前，先介绍一下 `SSL / TSL`
+在引入 `HTTPS` 之前，先介绍一下 `SSL / TLS`
 
-`SSL / TSL` 的出现是为了解决 `HTTP` 三大风险而设计的，希望达到：
+`SSL / TLS` 的出现是为了解决 `HTTP` 三大风险而设计的，希望达到：
 
 - 所有信息都是加密传播，第三方无法窃听
 - 具有校验机制，一旦被篡改，通信双方会立刻发现
@@ -538,19 +537,27 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
+## 12. SSL / TLS 是如何运作的?
+
+`SSL / TLS` 协议的基本思路是采用公钥加密法（公钥加密法具体内容暂不赘述，可以查阅文末参考资料）
+
+基本过程是这样的：
+
+1. 客户端向服务器端索要并验证公钥
+2. 双方协商生成 “对话密钥”
+3. 双方采用 “对话密钥” 进行加密通信
+
+其中 1 2 步称作 “握手阶段”
 
 
-## 12. SSL / TSL 是如何运作的?
-
-`SSL / TSL` 协议的基本思路是采用公钥加密法
-
-开始加密通信之前，
 
 
 
 
 
-<div align="center"> <img src="bob.png" width="70%"/> </div><br>
+
+
+<div align="center"> <img src="bob.png" width="100%"/> </div><br>
 
 
 
@@ -625,3 +632,4 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 - [SSL/TLS协议运行机制的概述](http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html)
 - [图解SSL/TLS协议](http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html)
 - [What is Public Key Cryptography?](https://www.twilio.com/blog/what-is-public-key-cryptography)
+- [公开密钥加密](https://zh.wikipedia.org/wiki/%E5%85%AC%E5%BC%80%E5%AF%86%E9%92%A5%E5%8A%A0%E5%AF%86)

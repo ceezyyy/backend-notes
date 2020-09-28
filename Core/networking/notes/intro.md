@@ -151,7 +151,7 @@ Table of Contents
 
 
 
-<div align="center"> <img src="image-20200928175308491.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200928175308491.png" width="80%"/> </div><br>
 
 
 
@@ -159,7 +159,7 @@ Table of Contents
 
 
 
-<div align="center"> <img src="image-20200928211701192.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20200928211701192.png" width="80%"/> </div><br>
 
 
 

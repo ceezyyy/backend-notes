@@ -1,11 +1,10 @@
 # TCP / IP
 
-- 概述
+- [概述](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/intro.md)
 - 数据链路
 - IP 协议
-- IP 协议相关技术
+- IP 协议相关技术 (ARP / RARP, ICMP, DNS)
 - TCP / UDP
-- DNS
 - FTP
 - [HTTP](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/http.md)
 

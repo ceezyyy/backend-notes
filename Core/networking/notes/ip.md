@@ -30,14 +30,22 @@ Table of Contents
 
 而数据链路层只负责当前区间的行程，例如：地铁 或 飞机 或 磁悬浮列车
 
-<div align="center"> <img src="image-20201008165921254.png" width="60%"/> </div><br>
-
+<div align="center"> <img src="image-20201008165921254.png" width="70%"/> </div><br>
 
 
 
 
 
 ## 3. 什么是 IP 地址?
+
+<div align="center"> <img src="image-20201008170653495.png" width="70%"/> </div><br>
+
+
+
+
+
+
+
 
 
 

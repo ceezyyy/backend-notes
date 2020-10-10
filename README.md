@@ -1,4 +1,4 @@
-# backend-notes
+# Backend-notes
 
 [![](https://img.shields.io/badge/Java-Notes-orange?style=flat-square)](https://github.com/ceezyyy/Java-study-notes)
 
@@ -73,7 +73,7 @@
 
 ## :hammer: Tools
 
-- [Maven](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Maven/Maven.md)
-- [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/Tools/Swagger/notes/Swagger.md)
+- [Maven](https://github.com/ceezyyy/backend-notes/blob/master/tools/Maven/Maven.md)
+- [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/tools/Swagger/notes/Swagger.md)
 - [Git](https://github.com/ceezyyy/backend-notes/blob/master/tools/git/notes/git.md)
 

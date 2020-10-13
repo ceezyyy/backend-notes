@@ -5,7 +5,6 @@
 - [IP 协议](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/ip.md)
 - [IP 协议相关技术 (ARP / RARP, ICMP, DNS)](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/ip-ref.md)
 - [TCP / UDP](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/tcp-udp.md)
-- [FTP](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/ftp.md)
 - [HTTP](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/http.md)
 
 ## 参考资料

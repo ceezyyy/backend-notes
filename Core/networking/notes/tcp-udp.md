@@ -7,8 +7,14 @@ Table of Contents
 * [1. 什么是 UDP?](#1-什么是-udp)
 * [2. 既然 UDP 面向无连接, 那有何应用场景?](#2-既然-udp-面向无连接-那有何应用场景)
 * [3. 什么是 TCP?](#3-什么是-tcp)
-
-
+* [4. TCP 有何特点（来保证可靠传输）?](#4-tcp-有何特点来保证可靠传输)
+* [5. TCP 首部](#5-tcp-首部)
+* [6. TCP 连接管理之三次握手（Three way handshake）?](#6-tcp-连接管理之三次握手three-way-handshake)
+* [7. TCP 连接管理之四次挥手?](#7-tcp-连接管理之四次挥手)
+* [8. TCP 可靠传输](#8-tcp-可靠传输)
+* [9. TCP 如何进行流量控制?](#9-tcp-如何进行流量控制)
+* [10. TCP 如何进行拥塞控制?](#10-tcp-如何进行拥塞控制)
+* [参考资料](#参考资料)
 
 ## 前言
 
@@ -60,12 +66,62 @@ Table of Contents
 
 `TCP` 有以下特点：
 
-- 检验和
-- 序列号
-- 确认应答
-- 重发控制
-- 连接管理
-- 窗口控制
+1. 面向连接（在通信之前先建立连接）
+2. 点对点通信
+3. 可靠有序，不丢包不重复
+4. 全双工通信：
+   1. 发送缓存：准备发送的数据 和 已发送但未收到确认的数据
+   2. 接收缓存：按序到达但尚未被接收的应用程序读取的数据 和 不按序到达的数据
+5. 面向字节流：将数据看成一连串无结构的字节流
+
+
+
+## 5. TCP 首部
+
+<div align="center"> <img src="image-20201013095218020.png" width="60%"/> </div><br>
+
+
+
+- 原端口号
+
+- 目标端口号
+
+- 序列号 （Sequence Number, 重要）：发送数据的位置，每发送一次数据，就累加一次该数据字节数的大小
+
+  序列号不会从 0 或 1 开始，而是在建立连接时由计算机生成的随机数作为其初始值，通过 `SYN` 包传给接收端主机。
+
+  **然后再将每转发过去的字节数累加到初始值上表示数据的位置**。此外，**在建立连接和断开连接时发送的 SYN 包和 FIN 包虽然不携带数据，但是也会作为一个字节增加对应的序列号**
+
+- 确认应答号 （Acknowledgement Number, 重要）：**指下一次应该收到的数据的序列号**。实际上，它是指已收到确认应答号 - 1 为止的数据。发送端收到这个确认应答后可以认为在这个序号以前的数据都已经被正常接收
+
+- 数据偏移：`TCP` 首部的长度
+
+- 保留
+
+- 控制位：
+
+  - ACK（Acknowledgement Flag）：该位为 1 时，确认应答的字段变为有效。**TCP 规定除了最初建立连接时的 SYN 包之外该位必须设置为 1**
+  - SYN（Synchronize Flag）：用于建立连接。**SYN 为 1 时表示希望建立连接，并在其序列号的字段进行序列号初始值的设定**
+  - FIN（Fin Flag）：该位为 1 时，**表示今后不会再有数据发送，希望断开连接**。当通信结束希望断开连接时，通信双方的主机之间就可以相互交换 `FIN` 位置为 1 的 `TCP` 段。每个主机又对对方的 `FIN` 包进行确认应答以后就可以断开连接（不过，主机收到 `FIN` 设置为 1 的 `TCP` 段以后不必马上回复一个 `FIN` 包，而是可以等到缓冲区中的所有数据都已成功发送而被自动删除之后再发）
+  
+  <div align="center"> <img src="image-20201013102928356.png" width="50%"/> </div><br>
+
+
+
+
+
+
+## 6. TCP 连接管理之三次握手（Three way handshake）?
+
+
+
+<div align="center"> <img src="three-way-handshake.png" width="70%"/> </div><br>
+
+
+
+
+
+## 7. TCP 连接管理之四次挥手?
 
 
 
@@ -73,23 +129,13 @@ Table of Contents
 
 
 
-## 5. ACK 确认应答
-
-<div align="center"> <img src="image-20201010163511531.png" width="50%"/> </div><br>
-
-“你懂了吗？”
-
-”我懂了“
-
-
-
-在 `TCP` 中，当发送端的数据达到接收主机时，接收端主机会返回一个已收到消息的通知，称为确认应答 `ACK`
 
 
 
 
 
-## 6. 序列号
+
+## 8. TCP 可靠传输
 
 
 
@@ -97,5 +143,40 @@ Table of Contents
 
 
 
-<div align="center"> <img src="image-20201010164445368.png" width="50%"/> </div><br>
 
+
+
+
+## 9. TCP 如何进行流量控制?
+
+
+
+
+
+
+
+
+
+
+
+## 10. TCP 如何进行拥塞控制?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 参考资料
+
+- [Why do we need a 3-way handshake? Why not just 2-way?](https://networkengineering.stackexchange.com/questions/24068/why-do-we-need-a-3-way-handshake-why-not-just-2-way)
+- [通俗大白话来理解TCP协议的三次握手和四次分手](https://github.com/jawil/blog/issues/14)
+- [35 张图解：被问千百遍的 TCP 三次握手和四次挥手面试题](https://www.cnblogs.com/xiaolincoding/p/12638546.html)

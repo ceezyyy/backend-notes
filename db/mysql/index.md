@@ -1,7 +1,5 @@
-# 数据库
+# MySQL
 
-- SQL 语句书写
-- SQL 语句优化
-- 事务及隔离级别
-- 索引
-- 锁
+- [SQL 语句](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/notes/MysqlQuickstart.md)
+- [MySQL 实战 45 讲](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/notes/mysql-pro.md)
+

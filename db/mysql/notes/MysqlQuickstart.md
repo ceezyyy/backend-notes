@@ -1,36 +1,33 @@
-# MySQL Quickstart
+# SQL 语句
 
-## Category
+Table of Contents
+-----------------
 
-* [Create Database / Table](#create-database---table)
-  + [Create database](#create-database)
-  + [Create table](#create-table)
+* [Create Database / Table](#create-database--table)
+   * [Create database](#create-database)
+   * [Create table](#create-table)
 * [Retrieve table](#retrieve-table)
 * [Update table](#update-table)
-  + [RENAME TO](#rename-to)
-  + [CHARACTER SET](#character-set)
-  + [CHANGE](#change)
-  + [ADD](#add)
-  + [DROP](#drop)
+   * [RENAME TO](#rename-to)
+   * [CHARACTER SET](#character-set)
+   * [CHANGE](#change)
+   * [ADD](#add)
+   * [DROP](#drop)
 * [Add data](#add-data)
 * [Delete data](#delete-data)
 * [Update data](#update-data)
 * [Query](#query)
-  + [DISTINCT](#distinct)
-  + [BETWEEN AND](#between-and)
-  + [ORDER BY](#order-by)
-  + [COUNT](#count)
-  + [GROUP BY](#group-by)
-  + [分页](#--)
+   * [DISTINCT](#distinct)
+   * [BETWEEN AND](#between-and)
+   * [ORDER BY](#order-by)
+   * [COUNT](#count)
+   * [GROUP BY](#group-by)
+   * [分页](#分页)
 * [Constraint](#constraint)
-  + [Primary Key](#primary-key)
-  + [Not null](#not-null)
-  + [Unique](#unique)
-  + [Foreign Key](#foreign-key)
-
-
-
-
+   * [Primary Key](#primary-key)
+   * [Not null](#not-null)
+   * [Unique](#unique)
+   * [Foreign Key](#foreign-key)
 
 ## Create Database / Table
 

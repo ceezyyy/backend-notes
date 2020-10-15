@@ -10,6 +10,8 @@ Table of Contents
    * [优化器](#优化器)
    * [执行器](#执行器)
 * [2. 一条 SQL 更新语句是如何执行的?](#2-一条-sql-更新语句是如何执行的)
+   * [redo log](#redo-log)
+   * [binlog](#binlog)
 * [3. 事务隔离: 为什么你改了我还看不见?](#3-事务隔离-为什么你改了我还看不见)
 * [4. 深入浅出索引](#4-深入浅出索引)
 * [5. 全局锁和表锁: 给表加个字段怎么有那么多阻碍?](#5-全局锁和表锁-给表加个字段怎么有那么多阻碍)
@@ -139,27 +141,54 @@ mysql> select * from T where ID=10；
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ## 2. 一条 SQL 更新语句是如何执行的?
+
+了解了查询的基本流程，再看看更新语句
+
+举个例子，创建表 `T`
+
+```mysql
+mysql> create table T(ID int primary key, c int);
+```
+
+更新数据：
+
+```mysql
+mysql> update T set c=c+1 where ID=2;
+```
+
+流程跟查询有类似，经过连接器，分析器，执行器
+
+但与查询流程不一样的是，更新流程还涉及到两个重要的日志模块：
+
+- redo log（重做日志）
+- binlog（归档日志）
+
+
+
+下面先看一个例子：
+
+<div align="center"> <img src="image-20201015200534724.png" width="80%"/> </div><br> 
+
+
+### redo log
+
+具体来说，当有一条记录需要更新的时候，`InnoDB` 就会先把记录写到 `redo log`（粉板），并更新内存（保证数据实时性），这个时候更新就算完成。在适当的时候，`InnoDB` 将这个操作更新到磁盘中（打烊后掌柜将粉板的记录更新到汇总账单）
+
+
+
+<div align="center"> <img src="redo.png" width="60%"/> </div><br> 
+
+值得注意的是：
+
+- `InnoDB` 的 `redo log` 是固定大小的，这块粉板总共可以记录 4GB 的操作
+- 有了 `redo log`，`InnoDB` 可以保证即使数据库发生异常重启，之前提交的记录都不会丢失，称为 `crash-safe`
+
+
+
+### binlog
+
+
 
 
 

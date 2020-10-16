@@ -497,22 +497,6 @@ OK
 </dependencies>
 ```
 
-**Student.java**
-
-```java
-@Data
-public class Student implements Serializable {
-    private Long id;
-    private String name;
-}
-```
-
-**为什么要实现序列化接口? **
-
-
-
-
-
 
 
 **application.yml**
@@ -524,6 +508,59 @@ spring:
     port: 6379
 ```
 
+
+
+**Student.java**
+
+```java
+@Data
+public class Student implements Serializable {
+    private Long id;
+    private String name;
+}
+```
+
+
+
+**为什么要实现序列化接口?**
+
+
+
+
+
+
+
+**StudentController.java**
+
+```java
+@RestController
+@RequestMapping("/student")
+public class StudentController {
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
+    @PostMapping("/set")
+    public String set(@RequestBody Student student) {
+        redisTemplate.opsForValue().set("student1", student);
+        return "Set succeeded!";
+    }
+
+    @GetMapping("/get/{key}")
+    public Student get(@PathVariable(value = "key") String key) {
+        Student student = (Student) redisTemplate.opsForValue().get(key);
+        return student;
+    }
+}
+```
+
+
+
+<div align="center"> <img src="image-20201016141532539.png" width="80%"/> </div><br>
+
+
+
+<div align="center"> <img src="image-20201016142656308.png" width="80%"/> </div><br>
 
 
 

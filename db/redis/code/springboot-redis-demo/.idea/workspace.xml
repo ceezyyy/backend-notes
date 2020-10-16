@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="94d32c66-1600-4e80-8e2c-6678155cba6e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../mysql/notes/mysql-combat-45.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../mysql/notes/mysql-combat-45.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/springbootredisdemo/SpringbootRedisDemoApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/springbootredisdemo/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ceezyyy/springbootredisdemo/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/ceezyyy/springbootredisdemo/SpringbootRedisDemoApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../notes/Redis.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../notes/Redis.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$USER_HOME$/.m2/wrapper/dists/apache-maven-3.6.3-bin/1iopthnavndlasol9gbrbg6bf2/apache-maven-3.6.3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1iwKkKv0yU2TaqsYsyZXlgnnS8U" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="SpringbootRedisDemoApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="springboot-redis-demo" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.ceezyyy.springbootredisdemo.SpringbootRedisDemoApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="94d32c66-1600-4e80-8e2c-6678155cba6e" name="Default Changelist" comment="" />
+      <created>1602813356508</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1602813356508</updated>
+      <workItem from="1602813357744" duration="915000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1939" y="147" width="724" height="574" key="find.popup" timestamp="1602813402522">
+      <screen x="1440" y="-157" width="1920" height="1057" />
+    </state>
+    <state x="1939" y="147" width="724" height="574" key="find.popup/51.23.1389.877/1440.-157.1920.1057@1440.-157.1920.1057" timestamp="1602813402522" />
+    <state x="1624" y="-125" key="new project wizard" timestamp="1602819072678">
+      <screen x="1440" y="-180" width="1920" height="1080" />
+    </state>
+    <state x="1624" y="-125" key="new project wizard/0.0.1440.900/1440.-180.1920.1080@1440.-180.1920.1080" timestamp="1602819072678" />
+  </component>
+</project>

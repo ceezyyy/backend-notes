@@ -156,6 +156,12 @@ clear
 help
 ```
 
+关闭服务器：
+
+```bash
+shutdown
+```
+
 退出：
 
 ```bash
@@ -459,6 +465,71 @@ OK
 
 ## 8. Springboot 整合 Redis
 
+**pom.xml**
+
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-redis</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <optional>true</optional>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+        <exclusions>
+            <exclusion>
+                <groupId>org.junit.vintage</groupId>
+                <artifactId>junit-vintage-engine</artifactId>
+            </exclusion>
+        </exclusions>
+    </dependency>
+</dependencies>
+```
+
+**Student.java**
+
+```java
+@Data
+public class Student implements Serializable {
+    private Long id;
+    private String name;
+}
+```
+
+**为什么要实现序列化接口? **
+
+
+
+
+
+
+
+**application.yml**
+
+```yaml
+spring:
+  redis:
+    host: localhost
+    port: 6379
+```
+
+
+
+
+
+
+
 
 
 
@@ -549,3 +620,4 @@ OK
 - [在项目中缓存是如何使用的？缓存如果使用不当会造成什么后果？](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/why-cache.md)
 - [Redis 都有哪些数据类型？分别在哪些场景下使用比较合适？](https://github.com/doocs/advanced-java/blob/master/docs/high-concurrency/redis-data-types.md)
 - [Redis - Data types](https://redis.io/topics/data-types#:~:text=Redis%20Sorted%20Sets%20are%2C%20similarly,smallest%20to%20the%20greatest%20score.)
+- [Spring-boot通过redisTemplate使用redis(无须手动序列化)](https://blog.csdn.net/m0_37893932/article/details/78259288)

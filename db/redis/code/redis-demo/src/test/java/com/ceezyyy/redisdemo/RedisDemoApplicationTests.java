@@ -1,10 +1,10 @@
-package com.ceezyyy.springbootredisdemo;
+package com.ceezyyy.redisdemo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringbootRedisDemoApplicationTests {
+class RedisDemoApplicationTests {
 
     @Test
     void contextLoads() {

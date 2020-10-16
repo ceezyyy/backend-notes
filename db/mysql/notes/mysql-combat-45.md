@@ -181,12 +181,16 @@ mysql> update T set c=c+1 where ID=2;
 
 值得注意的是：
 
-- `InnoDB` 的 `redo log` 是固定大小的，这块粉板总共可以记录 4GB 的操作
-- 有了 `redo log`，`InnoDB` 可以保证即使数据库发生异常重启，之前提交的记录都不会丢失，称为 `crash-safe`
+- `InnoDB` 的 `redo log` 是固定大小的，这块粉板总共可以记录 4GB 的操作（在清楚当前日志前会确保记录写入磁盘中，持久化）
+- 有了 `redo log`，`InnoDB` 可以保证即使数据库发生异常重启，之前提交的记录都不会丢失，称为 `crash-safe`（记录在粉板中）
 
 
 
 ### binlog
+
+
+
+
 
 
 
@@ -243,6 +247,8 @@ mysql> update T set c=c+1 where ID=2;
 
 
 ## 14. "order by" 如何工作?
+
+
 
 
 
@@ -395,3 +401,4 @@ mysql> update T set c=c+1 where ID=2;
 ## 参考资料
 
 - [MySQL实战45讲-极客时间](https://time.geekbang.org/column/intro/100020801)
+- [MySQL 的 crash-safe 原理解析](https://juejin.im/post/6844904167782236167)

@@ -36,4 +36,16 @@ public class StudentController {
         Student student = (Student) redisTemplate.opsForValue().get(key);
         return student;
     }
+
+    /**
+     * Delete value from key
+     *
+     * @param key
+     * @return
+     */
+    @DeleteMapping("/delete/{key}")
+    public boolean delete(@PathVariable(value = "key") String key) {
+        Boolean isDelete = redisTemplate.delete(key);
+        return isDelete;
+    }
 }

@@ -1,3 +1,7 @@
+
+
+
+
 # Redis 
 
 <div align="center"> <img src="logo.png" width="50%"/> </div><br>
@@ -540,28 +544,62 @@ public class StudentController {
     @Autowired
     private RedisTemplate redisTemplate;
 
+
+    /**
+     * Set key-value
+     *
+     * @param student
+     * @return
+     */
     @PostMapping("/set")
     public String set(@RequestBody Student student) {
         redisTemplate.opsForValue().set("student1", student);
         return "Set succeeded!";
     }
 
+    /**
+     * Get value from key
+     *
+     * @param key
+     * @return
+     */
     @GetMapping("/get/{key}")
     public Student get(@PathVariable(value = "key") String key) {
         Student student = (Student) redisTemplate.opsForValue().get(key);
         return student;
+    }
+
+    /**
+     * Delete value from key
+     *
+     * @param key
+     * @return
+     */
+    @DeleteMapping("/delete/{key}")
+    public boolean delete(@PathVariable(value = "key") String key) {
+        Boolean isDelete = redisTemplate.delete(key);
+        return isDelete;
     }
 }
 ```
 
 
 
+添加成功
+
 <div align="center"> <img src="image-20201016141532539.png" width="80%"/> </div><br>
 
 
 
+获取成功
 <div align="center"> <img src="image-20201016142656308.png" width="80%"/> </div><br>
 
+
+
+
+
+删除成功
+<div align="center"> <img src="image-20201016143122209.png" width="80%"/> </div><br>
 
 
 

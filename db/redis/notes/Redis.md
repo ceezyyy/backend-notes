@@ -643,7 +643,7 @@ public String testStrings() {
 
 
 
-<div align="center"> <img src="image-20201019113835791.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20201019113835791.png" width="90%"/> </div><br>
 
 
 
@@ -668,38 +668,69 @@ public Map<String, String> testHashes() {
 
 
 
-<div align="center"> <img src="image-20201019114922284.png" width="80%"/> </div><br>
+<div align="center"> <img src="image-20201019114922284.png" width="90%"/> </div><br>
 
 
 
 **Lists**
 
+```java
+/**
+ * Store lists
+ *
+ * @return
+ */
+@GetMapping("/lists")
+public List<String> testLists() {
+    redisTemplate.opsForList().rightPush("CDC", "higher brothers");
+    redisTemplate.opsForList().rightPush("CDC", "3ho");
+    redisTemplate.opsForList().rightPush("CDC", "Ty");
+    return redisTemplate.opsForList().range("CDC", 0, -1);
+}
+```
 
 
 
-
-
+<div align="center"> <img src="image-20201019135720673.png" width="90%"/> </div><br>
 
 
 
 **Sets**
 
+```java
+/**
+ * Store sets
+ *
+ * @return
+ */
+@GetMapping("/sets")
+public Set<String> testSets() {
+    redisTemplate.opsForSet().add("CDC members", "higher brothers", "higher brothers", "higher brothers");
+    Set members = redisTemplate.opsForSet().members("CDC members");
+    return members;
+}
+```
 
-
-
-
-
-
-
+<div align="center"> <img src="image-20201019140312030.png" width="90%"/> </div><br>
 
 **Sorted Sets**
 
-
-
-
-
-
-
+```java
+/**
+ * Store sorted set
+ *
+ * @return
+ */
+@GetMapping("/zsets")
+public Set<String> testSortedSets() {
+    redisTemplate.opsForZSet().add("Higher essentials", "mr enjoy da money", 200);
+    redisTemplate.opsForZSet().add("Higher essentials", "prince charming", 100);
+    redisTemplate.opsForZSet().add("Higher essentials", "five stars", 300);
+    Set higherEssentialsReversed = redisTemplate.opsForZSet().reverseRange("Higher essentials", 0, -1);
+    return higherEssentialsReversed;
+}
+```
+<div align="center"> <img src="image-20201019141138994.png" width="90%"/> </div><br>
 
 
 

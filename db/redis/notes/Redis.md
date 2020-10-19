@@ -20,19 +20,21 @@ Table of Contents
 * [4. 为什么要用 Redis?](#4-为什么要用-redis)
 * [5. 基本操作](#5-基本操作)
 * [6. 数据类型（针对 Value）](#6-数据类型针对-value)
-   * [6.1 Strings](#61-strings)
-   * [6.2 Hashes](#62-hashes)
-   * [6.3 Lists](#63-lists)
-   * [6.4 Sets](#64-sets)
-   * [6.5 Sorted sets](#65-sorted-sets)
+   * [Strings](#strings)
+   * [Hashes](#hashes)
+   * [Lists](#lists)
+   * [Sets](#sets)
+   * [Sorted sets](#sorted-sets)
 * [7. 通用命令](#7-通用命令)
 * [8. Springboot 整合 Redis](#8-springboot-整合-redis)
-* [9. 持久化](#9-持久化)
-* [10. redis.conf](#10-redisconf)
-* [11. 事务](#11-事务)
+* [9. Springboot 操作五种数据类型](#9-springboot-操作五种数据类型)
+* [10. 持久化](#10-持久化)
+* [11. redis.conf](#11-redisconf)
+* [12. 事务](#12-事务)
 * [12. 集群](#12-集群)
-* [13. 企业级解决方案](#13-企业级解决方案)
+* [14. 企业级解决方案](#14-企业级解决方案)
 * [参考资料](#参考资料)
+
 
 
 ## 1. NoSQL
@@ -176,7 +178,7 @@ exit
 
 ## 6. 数据类型（针对 Value）
 
-### 6.1 Strings
+### Strings
 
 > Strings are the most basic kind of Redis value. Redis Strings are binary safe, this means that a Redis string can contain any kind of data, for instance a JPEG image or a serialized Ruby object.
 
@@ -252,7 +254,7 @@ OK
 
 
 
-### 6.2 Hashes
+### Hashes
 
 > Redis Hashes are maps between string fields and string values, so they are the perfect data type to represent objects (e.g. A User with a number of fields like name, surname, age, and so forth)
 
@@ -302,7 +304,7 @@ OK
 
 <div align="center"> <img src="image-20200920152500733.png" width="80%"/> </div><br>
 
-### 6.3 Lists
+### Lists
 
 > Redis Lists are simply lists of strings, sorted by insertion order. It is possible to add elements to a Redis List pushing new elements on the head (on the left) or on the tail (on the right) of the list.
 
@@ -332,7 +334,7 @@ OK
 
 
 
-### 6.4 Sets
+### Sets
 
 > Redis Sets are an unordered collection of Strings. It is possible to add, remove, and test for existence of members in O(1) (constant time regardless of the number of elements contained inside the Set).
 >
@@ -439,7 +441,7 @@ OK
 
 
 
-### 6.5 Sorted sets
+### Sorted sets
 
 > Redis Sorted Sets are, similarly to Redis Sets, non repeating collections of Strings. The difference is that every member of a Sorted Set is associated with score, that is used in order to take the sorted set ordered, from the smallest to the greatest score. While members are unique, scores may be repeated.
 >
@@ -570,7 +572,7 @@ public class StudentController {
     }
 
     /**
-     * Delete value from key
+     * Delete key-value
      *
      * @param key
      * @return
@@ -609,33 +611,125 @@ public class StudentController {
 
 
 
+## 9. Springboot 操作五种数据类型
 
+`RedisTemplate` 封装了几个类分别操作 `redis` 五种类型：
 
-
-
-## 9. 持久化
-
-
-
-
-
-
-
-
-
-## 10. redis.conf
+- ValueOperations<K, V>
+- <HK, HV> HashOperations<K, HK, HV>
+- ListOperations<K, V>
+- SetOperations<K, V>
+- ZSetOperations<K, V>
 
 
 
 
 
+**Strings**
+
+```java
+/**
+ * Store strings
+ *
+ * @return
+ */
+@GetMapping("/strings")
+public String testStrings() {
+    redisTemplate.opsForValue().set("Hello", "World");
+    String value = (String) redisTemplate.opsForValue().get("Hello");
+    return value;
+}
+```
+
+
+
+<div align="center"> <img src="image-20201019113835791.png" width="80%"/> </div><br>
+
+
+
+
+
+**Hashes**
+
+```java
+/**
+ * Store hashes
+ *
+ * @return
+ */
+@GetMapping("/hashes")
+public Map<String, String> testHashes() {
+    redisTemplate.opsForHash().put("001", "Hello", "World");
+    redisTemplate.opsForHash().put("001", "CDC", "3ho");
+    Map entries = redisTemplate.opsForHash().entries("001");
+    return entries;
+}
+```
+
+
+
+<div align="center"> <img src="image-20201019114922284.png" width="80%"/> </div><br>
+
+
+
+**Lists**
 
 
 
 
 
 
-## 11. 事务
+
+
+
+**Sets**
+
+
+
+
+
+
+
+
+
+**Sorted Sets**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 10. 持久化
+
+
+
+
+
+
+
+
+
+## 11. redis.conf
+
+
+
+
+
+
+
+
+
+
+
+## 12. 事务
 
 
 
@@ -655,7 +749,7 @@ public class StudentController {
 
 
 
-## 13. 企业级解决方案
+## 14. 企业级解决方案
 
 
 

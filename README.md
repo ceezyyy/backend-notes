@@ -34,7 +34,7 @@
 
 - [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/index.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/db/redis/notes/Redis.md)
-- MyBatis
+- [MyBatis](https://github.com/ceezyyy/backend-notes/blob/master/db/ORM/MyBatis/notes/MyBatis.md)
 - [MyBatis Plus](https://github.com/ceezyyy/backend-notes/blob/master/db/ORM/mybatis-plus/notes/mybatis-plus.md)
 
 
@@ -76,4 +76,3 @@
 - [Maven](https://github.com/ceezyyy/backend-notes/blob/master/tools/Maven/Maven.md)
 - [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/tools/Swagger/notes/Swagger.md)
 - [Git](https://github.com/ceezyyy/backend-notes/blob/master/tools/git/notes/git.md)
-

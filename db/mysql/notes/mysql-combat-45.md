@@ -10,7 +10,7 @@ Table of Contents
    * [优化器](#优化器)
    * [执行器](#执行器)
 * [2. 一条 SQL 更新语句是如何执行的?](#2-一条-sql-更新语句是如何执行的)
-   * [redo log](#redo-log)
+   * [redo log ( InnoDB 特有的日志)](#redo-log--innodb-特有的日志)
    * [binlog](#binlog)
 * [3. 事务隔离: 为什么你改了我还看不见?](#3-事务隔离-为什么你改了我还看不见)
 * [4. 深入浅出索引](#4-深入浅出索引)
@@ -52,7 +52,6 @@ Table of Contents
 * [40. 要不要使用分区表?](#40-要不要使用分区表)
 * [41. 自增 ID 用完了怎么办?](#41-自增-id-用完了怎么办)
 * [参考资料](#参考资料)
-
 
 
 ## 1. 一条 SQL 查询语句是如何执行的?
@@ -171,7 +170,7 @@ mysql> update T set c=c+1 where ID=2;
 <div align="center"> <img src="image-20201015200534724.png" width="80%"/> </div><br> 
 
 
-### redo log
+### redo log ( InnoDB 特有的日志)
 
 具体来说，当有一条记录需要更新的时候，`InnoDB` 就会先把记录写到 `redo log`（粉板），并更新内存（保证数据实时性），这个时候更新就算完成。在适当的时候，`InnoDB` 将这个操作更新到磁盘中（打烊后掌柜将粉板的记录更新到汇总账单）
 
@@ -187,6 +186,20 @@ mysql> update T set c=c+1 where ID=2;
 
 
 ### binlog
+
+**binlog 是什么? 为什么需要有两份日志?**
+
+`binlog` 是属于 `server` 层的日志，用作归档（没有 `crash-safe` 能力）
+
+这两种日志有以下 3 点区别：
+
+1. `redo log` 是 `InnoDB` 引擎特有的，而 `binlog` 是 `server` 层实现的，所有引擎都可以使用
+2. `redo log` 是物理日志，`binlog` 是逻辑日志
+3. `redo log` 是循环写的，空间固定会用完，而 `bin log` 是可以追加写入的
+
+
+
+举个例子来说明两种日志的区别：
 
 
 

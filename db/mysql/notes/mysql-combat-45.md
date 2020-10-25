@@ -10,8 +10,8 @@ Table of Contents
    * [优化器](#优化器)
    * [执行器](#执行器)
 * [2. 一条 SQL 更新语句是如何执行的?](#2-一条-sql-更新语句是如何执行的)
-   * [redo log ( InnoDB 特有的日志)](#redo-log--innodb-特有的日志)
-   * [binlog](#binlog)
+   * [redo log ( InnoDB 特有日志)](#redo-log--innodb-特有日志)
+   * [binlog (归档日志)](#binlog-归档日志)
 * [3. 事务隔离: 为什么你改了我还看不见?](#3-事务隔离-为什么你改了我还看不见)
 * [4. 深入浅出索引](#4-深入浅出索引)
 * [5. 全局锁和表锁: 给表加个字段怎么有那么多阻碍?](#5-全局锁和表锁-给表加个字段怎么有那么多阻碍)
@@ -52,6 +52,8 @@ Table of Contents
 * [40. 要不要使用分区表?](#40-要不要使用分区表)
 * [41. 自增 ID 用完了怎么办?](#41-自增-id-用完了怎么办)
 * [参考资料](#参考资料)
+
+
 
 
 ## 1. 一条 SQL 查询语句是如何执行的?
@@ -170,7 +172,7 @@ mysql> update T set c=c+1 where ID=2;
 <div align="center"> <img src="image-20201015200534724.png" width="80%"/> </div><br> 
 
 
-### redo log ( InnoDB 特有的日志)
+### redo log ( InnoDB 特有日志)
 
 具体来说，当有一条记录需要更新的时候，`InnoDB` 就会先把记录写到 `redo log`（粉板），并更新内存（保证数据实时性），这个时候更新就算完成。在适当的时候，`InnoDB` 将这个操作更新到磁盘中（打烊后掌柜将粉板的记录更新到汇总账单）
 
@@ -185,7 +187,7 @@ mysql> update T set c=c+1 where ID=2;
 
 
 
-### binlog
+### binlog (归档日志)
 
 **binlog 是什么? 为什么需要有两份日志?**
 
@@ -201,7 +203,17 @@ mysql> update T set c=c+1 where ID=2;
 
 举个例子来说明两种日志的区别：
 
+```mysql
+mysql> update T set c=c+1 where ID=2;
+```
 
+1. 执行器找引擎取 `ID` = 2的这一行，若这一行的数据本来就在内存中，直接返回；否则从磁盘中读入内存，再返回
+2. 执行器获取数据后，将 `c` 这一列赋予新值，然后调用引擎接口写入数据
+3. 引擎将这行数据更新到内存中，同时将这个更新操作记录写到 `redo log` 中，此时 `redo log` 处于 `prepare` 状态。然后告知执行器执行完成了，随时可以提交事务
+4. 执行器生成这个操作的 `binlog`，并把 `binlog` 写入磁盘
+5. 执行器调用引擎的提交事务接口，引擎把刚刚写入的 `redo log` 改成 `commit` 状态，更新完成
+
+<div align="center"> <img src="image-20201025175044474.png" width="50%"/> </div><br> 
 
 
 
@@ -212,6 +224,45 @@ mysql> update T set c=c+1 where ID=2;
 
 
 ## 3. 事务隔离: 为什么你改了我还看不见?
+
+**什么是事务?**
+
+**事务就是要保证一组数据库操作要么全部成功，要么全部失败** 
+
+
+
+举个例子，假如 Jack 要给 Rose 转账 1 个亿。这个动作包含了两个关键操作：
+
+1. Jack 账户将减少 1 个亿
+2. Rose 账户将增加 1 个亿
+
+
+
+万一这两个操作之间突然出现错误比如银行系统崩溃，导致 Jack 账户余额减少而 Rose 账户余额没有增加， 1 个亿离奇消失！
+
+在现实生活中这种情况是不允许发生的
+
+
+
+**什么是事务的四大特性?**
+
+事务有四大特性：`ACID`（面试常客）
+
+**A:** Atomicity，确保动作要不全部成功，要不全部失败
+
+**C:** Consistency，执行事务前后，数据保持一致（无论事务成功与否，转账人和收款人金额总额不变）
+
+**I:** Isolation，并发访问数据库时，一个用户的事务不被其他事物所干扰
+
+**D:** Durability，一个事务被 `commit` 之后，数据库中的数据改变是持久的
+
+
+
+**并发事务会带来什么问题?**
+
+
+
+
 
 
 
@@ -415,3 +466,4 @@ mysql> update T set c=c+1 where ID=2;
 
 - [MySQL实战45讲-极客时间](https://time.geekbang.org/column/intro/100020801)
 - [MySQL 的 crash-safe 原理解析](https://juejin.im/post/6844904167782236167)
+- [事务隔离级别(图文详解)](https://github.com/Snailclimb/JavaGuide/blob/master/docs/database/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB(%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3).md)

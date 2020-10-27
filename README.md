@@ -76,4 +76,4 @@
 - [Maven](https://github.com/ceezyyy/backend-notes/blob/master/tools/Maven/Maven.md)
 - [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/tools/Swagger/notes/Swagger.md)
 - [Git](https://github.com/ceezyyy/backend-notes/blob/master/tools/git/notes/git.md)
-- [Nginx]()
+- [Nginx](https://github.com/ceezyyy/backend-notes/blob/master/tools/nginx/nginx.md)

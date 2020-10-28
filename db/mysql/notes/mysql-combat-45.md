@@ -318,13 +318,13 @@ insert into T(c) values(1);
 
 <div align="center"> <img src="hash.png" width="50%"/> </div><br> 
 
-优点：
-
-缺点：
 
 
+优点：`key-value` 结构，通过 `hash` 函数将 `key` 映射为` value`，查询 `O(1)`，插入采用追加模式
 
+缺点：区间查询慢
 
+适用场景：适合等值查询
 
 
 
@@ -334,25 +334,75 @@ insert into T(c) values(1);
 
 <div align="center"> <img src="array.png" width="50%"/> </div><br> 
 
-优点：
+优点：查询 `O(logn)`
 
-缺点：
+缺点：插入慢
 
-
-
-
+适用场景：静态存储引擎（冷数据）
 
 
 
 
 
-**搜索树**
+**搜索树（N 叉树）**
 
 <div align="center"> <img src="search_tree.png" width="50%"/> </div><br> 
 
-优点：
+优点：查询 `O(logn)`，适配磁盘的访问模式
 
 缺点：
+
+适用场景：
+
+
+
+
+
+### 4.4 InnoDB 索引模型
+
+在 `mysql` 中，索引在存储引擎层实现，即不同的存储引擎索引的工作方式不同（即使同类型的索引，底层实现也可能不同）
+
+在 `InnoDB` 中，每个索引都是一颗 `B+` 树
+
+看一个例子，
+
+```mysql
+mysql> create table T(
+id int primary key, 
+k int not null, 
+name varchar(16),
+index (k))engine=InnoDB;
+```
+
+该表有 5 条数据：
+
+R1 (100, 1)
+
+R2 (200, 2)
+
+R3 (300, 3)
+
+R4 (500, 5)
+
+R5 (600, 6)
+
+
+
+<div align="center"> <img src="index.png" width="50%"/> </div><br> 
+
+左图为主键索引 / 聚簇索引
+
+右图为非主键索引 / 二级索引
+
+
+
+
+
+
+
+ 
+
+
 
 
 
@@ -577,3 +627,5 @@ insert into T(c) values(1);
 - [MySQL实战45讲-极客时间](https://time.geekbang.org/column/intro/100020801)
 - [MySQL 的 crash-safe 原理解析](https://juejin.im/post/6844904167782236167)
 - [事务隔离级别(图文详解)](https://github.com/Snailclimb/JavaGuide/blob/master/docs/database/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB(%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3).md)
+- [10.2 B Trees and B+ Trees. How they are useful in Databases](https://www.youtube.com/watch?v=aZjYr87r1b8&t=15s)
+

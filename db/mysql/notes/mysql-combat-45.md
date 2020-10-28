@@ -20,6 +20,9 @@ Table of Contents
    * [4.1 什么是索引?](#41-什么是索引)
    * [4.2 索引有什么用?](#42-索引有什么用)
    * [4.3 三种提高读写的数据结构](#43-三种提高读写的数据结构)
+   * [4.4 B-trees](#44-b-trees)
+   * [4.5 B  trees](#45-b-trees)
+   * [4.6 InnoDB 索引模型](#46-innodb-索引模型)
 * [5. 全局锁和表锁: 给表加个字段怎么有那么多阻碍?](#5-全局锁和表锁-给表加个字段怎么有那么多阻碍)
 * [6. 怎么减少行锁对性能对影响?](#6-怎么减少行锁对性能对影响)
 * [7. 事务到底是隔离的还是不隔离的?](#7-事务到底是隔离的还是不隔离的)
@@ -58,6 +61,7 @@ Table of Contents
 * [40. 要不要使用分区表?](#40-要不要使用分区表)
 * [41. 自增 ID 用完了怎么办?](#41-自增-id-用完了怎么办)
 * [参考资料](#参考资料)
+
 
 
 
@@ -320,7 +324,7 @@ insert into T(c) values(1);
 
 
 
-优点：`key-value` 结构，通过 `hash` 函数将 `key` 映射为` value`，查询 `O(1)`，插入采用追加模式
+优点：`key-value` 结构，通过 `hash` 函数将 `key` 映射为`value`，查询 `O(1)`，插入采用追加模式
 
 缺点：区间查询慢
 
@@ -358,7 +362,36 @@ insert into T(c) values(1);
 
 
 
-### 4.4 InnoDB 索引模型
+### 4.4 B-trees
+
+维基百科
+
+> B-tree 是一种自平衡的树，能够保持数据有序。这种数据结构能够让查找数据、顺序访问、插入数据及删除的动作，在对数时间内完成。B树，概括来说是一个一般化的二叉查找树（binary search tree）一个节点可以拥有2个以上的子节点。与自平衡二叉查找树不同，B树适用于读写相对大的数据块的存储系统，例如磁盘。B树减少定位记录时所经历的中间过程，从而加快存取速度。B树这种数据结构可以用来描述外部存储。这种数据结构常被应用在数据库和文件系统的实现上。
+
+
+
+`B-tree` 本质是一颗自平衡树，不过是在 `BST` 上加了一些规则限制
+
+
+
+
+
+看一个 `demo`
+
+当插入的数据为 90 29 91 98 84 87 71 34 36 80 38 54 22 59 57 2 95 33，`degree` 为 3时：
+
+
+
+<div align="center"> <img src="image-20201028212033992.png" width="60%"/> </div><br> 
+
+
+
+
+### 4.5 B+ trees
+
+
+
+### 4.6 InnoDB 索引模型
 
 在 `mysql` 中，索引在存储引擎层实现，即不同的存储引擎索引的工作方式不同（即使同类型的索引，底层实现也可能不同）
 
@@ -386,8 +419,6 @@ R4 (500, 5)
 
 R5 (600, 6)
 
-
-
 <div align="center"> <img src="index.png" width="50%"/> </div><br> 
 
 左图为主键索引 / 聚簇索引
@@ -395,6 +426,14 @@ R5 (600, 6)
 右图为非主键索引 / 二级索引
 
 
+
+
+
+
+
+
+
+ 
 
 
 
@@ -628,4 +667,5 @@ R5 (600, 6)
 - [MySQL 的 crash-safe 原理解析](https://juejin.im/post/6844904167782236167)
 - [事务隔离级别(图文详解)](https://github.com/Snailclimb/JavaGuide/blob/master/docs/database/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB(%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3).md)
 - [10.2 B Trees and B+ Trees. How they are useful in Databases](https://www.youtube.com/watch?v=aZjYr87r1b8&t=15s)
-
+- [Introduction of B-Tree](https://www.geeksforgeeks.org/introduction-of-b-tree-2/)
+- [B-Tree Visualization](https://www.cs.usfca.edu/~galles/visualization/BTree.html)

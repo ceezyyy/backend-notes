@@ -35,9 +35,8 @@ Table of Contents
 正向代理的特点有：
 
 - 匿名：隐藏客户端的身份
-- 缓存
-- 屏蔽禁网：代理服务器犹如一层屏障，拦截了一些 “机构” 不想让你访问的网站
-- 地理围栏：类似于上一点
+- 缓存：加速访问资源
+- 屏蔽禁网：对客户端访问授权，上网进行认证
 
 <div align="center"> <img src="image-20201027172547290.png" width="60%"/> </div><br>
 
@@ -47,6 +46,7 @@ Table of Contents
 
 ## 4. 什么是反向代理 ?
 
+<div align="center"> <img src="image-20201028094833305.png" width="60%"/> </div><br>
 
 
 
@@ -88,3 +88,4 @@ Table of Contents
 - [What is NGINX?](https://www.nginx.com/resources/glossary/nginx/)
 - [Proxy vs. Reverse Proxy (Explained by Example)](https://www.youtube.com/watch?v=ozhe__GdWC8)
 - [写给后端的Nginx初级入门教程:基础篇](https://juejin.im/post/6844903966128635918)
+- [正向代理与反向代理【总结】](https://www.cnblogs.com/Anker/p/6056540.html)

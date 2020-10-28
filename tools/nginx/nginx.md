@@ -46,7 +46,15 @@ Table of Contents
 
 ## 4. 什么是反向代理 ?
 
+如果说正向代理
+
 <div align="center"> <img src="image-20201028094833305.png" width="60%"/> </div><br>
+
+
+
+
+
+
 
 
 

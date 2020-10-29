@@ -23,6 +23,8 @@ Table of Contents
    * [4.4 B-trees](#44-b-trees)
    * [4.5 B  trees](#45-b-trees)
    * [4.6 InnoDB 索引模型](#46-innodb-索引模型)
+   * [4.7 主键索引和普通查询有什么区别?](#47-主键索引和普通查询有什么区别)
+   * [4.8 主键自增和索引有什么关系?](#48-主键自增和索引有什么关系)
 * [5. 全局锁和表锁: 给表加个字段怎么有那么多阻碍?](#5-全局锁和表锁-给表加个字段怎么有那么多阻碍)
 * [6. 怎么减少行锁对性能对影响?](#6-怎么减少行锁对性能对影响)
 * [7. 事务到底是隔离的还是不隔离的?](#7-事务到底是隔离的还是不隔离的)
@@ -61,6 +63,7 @@ Table of Contents
 * [40. 要不要使用分区表?](#40-要不要使用分区表)
 * [41. 自增 ID 用完了怎么办?](#41-自增-id-用完了怎么办)
 * [参考资料](#参考资料)
+
 
 
 
@@ -374,11 +377,9 @@ insert into T(c) values(1);
 
 
 
-
-
 看一个 `demo`
 
-当插入的数据为 90 29 91 98 84 87 71 34 36 80 38 54 22 59 57 2 95 33，`degree` 为 3时：
+当插入的数据为 90 29 91 98 84 87 71 34 36 80 38 54 22 59 57 2 95 33，`degree` 为 3 时：
 
 
 
@@ -386,9 +387,16 @@ insert into T(c) values(1);
 
 
 
-
 ### 4.5 B+ trees
 
+`B+ tree` 是 `B tree` 的 `pro` 版，区别主要有两点：
+
+> - all leaf nodes are linked together in a doubly-linked list
+> - satellite data is stored on the leaf nodes only. Internal nodes only hold keys and act as routers to the correct leaf node
+
+
+
+<div align="center"> <img src="image-20201029160331600.png" width="80%"/> </div><br> 
 
 
 ### 4.6 InnoDB 索引模型
@@ -427,15 +435,43 @@ R5 (600, 6)
 
 
 
+### 4.7 主键索引和普通查询有什么区别?
+
+```mysql
+select * from T where ID=500;
+```
+
+这种采用主键查询方式，只需要搜索 `id` 索引树
+
+
+
+```mysql
+select * from T where k=5;
+```
+
+这种方式则采用普通索引查询方式，需要搜索 `k` 索引树，得到 `id` 的值，再到 `id` 索引树搜索一次，这个过程称为**回表**
 
 
 
 
 
+### 4.8 主键自增和索引有什么关系?
 
- 
+主键自增的好处在于插入数据是递增的，在 `b+` 树中每次插入都是追加操作，不涉及挪动其他记录，也不会触发叶子结点的分裂
 
 
+
+现在有一个场景：
+
+假设数据表有一个唯一字段：身份证（`string` 类型）
+
+
+
+由于每个非主键索引的叶子节点上都是主键的值。如果用身份证号做主键，那么每个二级索引的叶子节点占用约 20 个字节，而如果用整型做主键，则只要 4 个字节，如果是长整型（`bigint`）则是 8 个字节。
+
+
+
+**显然，主键长度越小，普通索引的叶子结点越小，占用的空间也就越小**
 
 
 
@@ -669,3 +705,5 @@ R5 (600, 6)
 - [10.2 B Trees and B+ Trees. How they are useful in Databases](https://www.youtube.com/watch?v=aZjYr87r1b8&t=15s)
 - [Introduction of B-Tree](https://www.geeksforgeeks.org/introduction-of-b-tree-2/)
 - [B-Tree Visualization](https://www.cs.usfca.edu/~galles/visualization/BTree.html)
+- [平衡二叉树、B树、B+树、B*树 理解其中一种你就都明白了](https://zhuanlan.zhihu.com/p/27700617)
+- [The Difference Between B-trees and B+trees](https://www.baeldung.com/cs/b-trees-vs-btrees)

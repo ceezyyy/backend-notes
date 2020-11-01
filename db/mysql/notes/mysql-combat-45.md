@@ -651,6 +651,14 @@ select ID from T where k between 3 and 5;
 
 
 
+
+
+
+
+
+
+
+
 ## 9. MySQL 为什么有时候会选错索引?
 
 

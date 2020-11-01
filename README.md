@@ -11,10 +11,10 @@
 
 ## :key: ​CS Core
 
-- 数据结构与算法
-- [TCP / IP 协议栈](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/index.md)
-- [操作系统](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/index.md)
-- [设计模式](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/index.md)
+- [Data Structures & Algorithms](https://github.com/ceezyyy/LeetCode-daily)
+- [TCP / IP](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/index.md)
+- [OS](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/index.md)
+- [Design Patterns](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/index.md)
 
 
 

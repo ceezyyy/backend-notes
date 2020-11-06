@@ -2,18 +2,29 @@
 
 <div align="center"> <img src="logo.png" width="50%"/> </div><br>
 
+
+
 Table of Contents
 -----------------
 
-* [1. 什么是 git?](#1-什么是-git)
-* [2. Git workflow](#2-git-workflow)
+* [Overview](#overview)
+* [1. 什么是 Git?](#1-什么是-git)
+* [2. Git 分区](#2-git-分区)
 * [3. Git branch](#3-git-branch)
-* [参考链接](#参考链接)
+* [References](#references)
+
+
+
+## Overview
+
+`git` 的学习遵循 “二八原则” ，即 20% 的命令能满足日常开发过程中 80% 的需求
+
+本文参考 `labuladong` 大神的 "我用四个命令概括了 Git 的所有套路" 文章，针对 `add`，`commit`，`reset` 以及 `checkout` 四个命令进行剖析
 
 
 
 
-## 1. 什么是 git?
+## 1. 什么是 Git?
 
 维基百科
 
@@ -21,14 +32,19 @@ Table of Contents
 
 
 
-## 2. Git workflow
+## 2. Git 分区
 
-<div align="center"> <img src="workflow.png" width="60%"/> </div><br>
+`git` 分为三个区：
 
-- remote：远程仓库
-- repository：本地仓库 / 版本库
-- index：暂存区
-- workspace：工作区（本地）
+- work dir：工作目录，肉眼能见到的文件
+- stage：从 `work dir` 使用 `git add` 命令后，文件就提交到了此暂存区
+- history：从暂存区使用 `git commit` 提交后，文件就到了此区，即 `HEAD` 指向的位置
+
+
+
+<div align="center"> <img src="areas.png" width="50%"/> </div><br>
+
+
 
 
 
@@ -84,7 +100,8 @@ Table of Contents
 
 
 
-## 参考链接
+## References
 
 - [Git教程 - 廖雪峰的官方网站](https://www.liaoxuefeng.com/wiki/896043488029600)
 - [您必须知道的 Git 分支开发规范](https://juejin.im/post/6844903635533594632)
+- [我用四个命令概括了 Git 的所有套路](https://labuladong.gitbook.io/algo/di-wu-zhang-ji-shu-wen-zhang-xi-lie/git-chang-yong-ming-ling)

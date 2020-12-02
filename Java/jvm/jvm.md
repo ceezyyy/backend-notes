@@ -43,13 +43,13 @@ Table of Contents
 
 **作用:** 将类的字节码文件从 `JVM` 外部加载到内存中
 
-<div align="center"> <img src="image-20201202175525446.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20201202175525446.png" width="60%"/> </div><br>
 
 **Car.java**
 
 
 ```java
-public class Car {
+≥public class Car {
 
     private double price;
 

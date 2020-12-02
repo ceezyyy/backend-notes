@@ -79,3 +79,6 @@
 - [Nginx](https://github.com/ceezyyy/backend-notes/blob/master/tools/nginx/nginx.md)
 - [Log](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-log-style.md)
 
+## :books: Reading
+
+- [程序员修炼之道: 通向务实的最高境界(第二版)]()

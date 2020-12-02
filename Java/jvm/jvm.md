@@ -39,8 +39,43 @@ Table of Contents
 
 
 
-
 ## 3. 类加载器
+
+**作用:** 将类的字节码文件从 `JVM` 外部加载到内存中
+
+<div align="center"> <img src="image-20201202175525446.png" width="50%"/> </div><br>
+
+**Car.java**
+
+
+```java
+public class Car {
+
+    private double price;
+
+    public static void main(String[] args) {
+
+        Car maybach = new Car();
+        Car bentley = new Car();
+        Car porsche = new Car();
+
+        System.out.println(maybach.hashCode());  // 621009875
+        System.out.println(bentley.hashCode());  // 1265094477
+        System.out.println(porsche.hashCode());  // 2125039532
+
+        Class<? extends Car> maybachClass = maybach.getClass();
+        Class<? extends Car> bentleyClass = bentley.getClass();
+        Class<? extends Car> porscheClass = porsche.getClass();
+
+        System.out.println(maybachClass.hashCode());  // 856419764
+        System.out.println(bentleyClass.hashCode());  // 856419764
+        System.out.println(porscheClass.hashCode());  // 856419764
+
+    }
+}
+```
+
+
 
 ## 4. 双亲委派
 

@@ -21,10 +21,24 @@ Table of Contents
 * [16. JMM](#16-jmm)
 * [参考链接](#参考链接)
 
-
 ## 1. JVM 的位置
 
+<div align="center"> <img src="image-20201202162828154.png" width="30%"/> </div><br>
+
+
+
+ 
+
+
+
 ## 2. JVM 的体系结构
+
+<div align="center"> <img src="image-20201202164425125.png" width="60%"/> </div><br>
+
+
+
+
+
 
 ## 3. 类加载器
 

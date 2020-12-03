@@ -3,23 +3,25 @@
 Table of Contents
 -----------------
 
-* [1. JVM 的位置](#1-jvm-的位置)
-* [2. JVM 的体系结构](#2-jvm-的体系结构)
-* [3. 类加载器](#3-类加载器)
-* [4. 双亲委派](#4-双亲委派)
-* [5. 沙箱安全](#5-沙箱安全)
-* [6. Native](#6-native)
-* [7. PC 寄存器](#7-pc-寄存器)
-* [8. 方法区](#8-方法区)
-* [9. 栈](#9-栈)
-* [10. 三种 JVM](#10-三种-jvm)
-* [11. 堆](#11-堆)
-* [12. 新生区 老年区](#12-新生区-老年区)
-* [13. 永久区](#13-永久区)
-* [14. 堆内存调优](#14-堆内存调优)
-* [15. GC](#15-gc)
-* [16. JMM](#16-jmm)
-* [参考资料](#参考资料)
+   * [JVM](#jvm)
+      * [Table of Contents](#table-of-contents)
+      * [1. JVM 的位置](#1-jvm-的位置)
+      * [2. JVM 的体系结构](#2-jvm-的体系结构)
+      * [3. 类加载器](#3-类加载器)
+      * [4. 双亲委派](#4-双亲委派)
+      * [5. Native](#5-native)
+      * [6. PC 寄存器](#6-pc-寄存器)
+      * [7. 方法区](#7-方法区)
+      * [8. 栈](#8-栈)
+      * [9. 三种 JVM](#9-三种-jvm)
+      * [10. 堆](#10-堆)
+      * [11. 新生区 老年区](#11-新生区-老年区)
+      * [12. 永久区](#12-永久区)
+      * [13. 堆内存调优](#13-堆内存调优)
+      * [14. GC](#14-gc)
+      * [15. JMM](#15-jmm)
+      * [参考资料](#参考资料)
+
 
 
 ## 1. JVM 的位置
@@ -120,6 +122,8 @@ Table of Contents
 
 
 
+（源码部分删减）
+
 **ClassLoader.java**
 
 ```java
@@ -163,29 +167,44 @@ protected Class<?> findClass(String name) throws ClassNotFoundException {
 
 
 
-## 5. 沙箱安全
 
-## 6. Native
+P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
-## 7. PC 寄存器
 
-## 8. 方法区
 
-## 9. 栈
+## 5. Native 
 
-## 10. 三种 JVM
+> A *native* method is a Java method (either an instance method or a class method) whose implementation is also written in another programming language such as C/C++.
+>
+> Moreover, a method marked as *native* cannot have a body and should end with a semicolon
 
-## 11. 堆
 
-## 12. 新生区 老年区
 
-## 13. 永久区
+当调用有 `native` 关键词修饰的方法时：
 
-## 14. 堆内存调优
+会入 `native method area`（本地方法栈），调用本地方法接口
 
-## 15. GC
 
-## 16. JMM
+
+## 6. PC 寄存器
+
+## 7. 方法区
+
+## 8. 栈
+
+## 9. 三种 JVM
+
+## 10. 堆
+
+## 11. 新生区 老年区
+
+## 12. 永久区
+
+## 13. 堆内存调优
+
+## 14. GC
+
+## 15. JMM
 
 
 

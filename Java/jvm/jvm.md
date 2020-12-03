@@ -19,7 +19,8 @@ Table of Contents
 * [14. 堆内存调优](#14-堆内存调优)
 * [15. GC](#15-gc)
 * [16. JMM](#16-jmm)
-* [参考链接](#参考链接)
+* [参考资料](#参考资料)
+
 
 ## 1. JVM 的位置
 
@@ -89,12 +90,75 @@ Table of Contents
 
 <div align="center"> <img src="image-20201203081618129.png" width="30%"/> </div><br>
 
-看一个 `demo` 来理解 `JVM` 中何为双亲委派
+进入正题，
+
+`JVM` 提供了三种类加载器：
+
+- Bootstrap 加载器：主要加载 `JVM` 自身需要的类，负责加载 `<JAVA_HOME>/lib` 路径下的核心类库
+- Extension 加载器：负责加载 `<JAVA_HOME>/lib/ext` 下的类库
+- Application 加载器：加载 `classpath` 下的类库
 
 
 
+**什么是双亲委派机制？**
+
+> The Java platform uses a delegation model for loading classes. **The basic idea is that every class loader has a "parent" class loader.** When loading a class, a class loader first "delegates" the search for the class to its parent class loader before attempting to find the class itself.
+
+即当 `class loader` 收到 “需要加载类” 的命令后，先向上找父类加载器（依次递归），若父类能找到就加载且成功返回，反之自己加载
+
+<div align="center"> <img src="image-20201203093747163.png" width="50%"/> </div><br>
 
 
+
+**双亲委派机制的作用是什么？**
+
+保证安全
+
+例如，`java.lang.String` 这个类，无论哪个 `class loader` 加载时**最终**都需要到 `Bootstrap` 加载器去找这个类，因此保证类的唯一性
+
+假若没有双亲委派机制，开发者在 `classpath` 下自行写了 `java.lang.String` 这个类，那么系统将混乱（不知道应该加载哪一个）
+
+
+
+**ClassLoader.java**
+
+```java
+protected Class<?> loadClass(String name, boolean resolve)
+    throws ClassNotFoundException
+{
+    synchronized (getClassLoadingLock(name)) {
+        // First, check if the class has already been loaded
+        Class<?> c = findLoadedClass(name);
+        if (c == null) {
+            try {
+                if (parent != null) {
+                    // 向上委派
+                    c = parent.loadClass(name, false);
+                } else {
+                    // 直接到 Bootstrap 类加载器去找
+                    c = findBootstrapClassOrNull(name);
+                }
+            } catch (ClassNotFoundException e) {
+                // ClassNotFoundException thrown if class not found
+                // from the non-null parent class loader
+            }
+          
+            // 若还是找不到 则在 Application 类加载器找
+            if (c == null) {
+                // If still not found, then invoke findClass in order
+                // to find the class.
+                c = findClass(name);
+            }
+        }
+        return c;
+    }
+}
+
+
+protected Class<?> findClass(String name) throws ClassNotFoundException {
+        throw new ClassNotFoundException(name);
+    }
+```
 
 
 
@@ -125,6 +189,7 @@ Table of Contents
 
 
 
-## 参考链接
+## 参考资料
 
 - [【狂神说Java】JVM快速入门篇](https://www.bilibili.com/video/BV1iJ411d7jS)
+- [深入理解Java类加载器(ClassLoader)](https://blog.csdn.net/javazejian/article/details/73413292)

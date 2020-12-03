@@ -182,7 +182,7 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 当调用有 `native` 关键词修饰的方法时：
 
-会入 `native method area`（本地方法栈），调用本地方法接口
+会入 `native method stack`（本地方法栈），调用本地方法接口
 
 
 

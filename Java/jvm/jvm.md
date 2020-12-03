@@ -79,6 +79,26 @@ Table of Contents
 
 ## 4. 双亲委派
 
+> 什么是 jar 包?
+>
+> jar 包实际上是 zip 压缩包，别人写好的类封装到一个 jar 包中，你在项目中可以引用该 jar 包，即直接使用他人已封装好的类（包括方法 / 属性）
+
+<div align="center"> <img src="image-20201203081435192.png" width="30%"/> </div><br>
+
+其中，`rt.jar` 是 `Java` 基础类库
+
+<div align="center"> <img src="image-20201203081618129.png" width="30%"/> </div><br>
+
+看一个 `demo` 来理解 `JVM` 中何为双亲委派
+
+
+
+
+
+
+
+
+
 ## 5. 沙箱安全
 
 ## 6. Native

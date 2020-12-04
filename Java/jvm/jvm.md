@@ -36,7 +36,7 @@ Table of Contents
 
 ## 2. JVM 内存模型
 
-<div align="center"> <img src="jvm-memory-structure.jpg" width="60%"/> </div><br>
+<div align="center"> <img src="jvm-memory-structure.jpg" width="50%"/> </div><br>
 
 
 
@@ -46,7 +46,7 @@ Table of Contents
 
 **作用:** 将类的字节码文件从 `JVM` 外部加载到内存中
 
-<div align="center"> <img src="image-20201202175525446.png" width="60%"/> </div><br>
+<div align="center"> <img src="image-20201202175525446.png" width="50%"/> </div><br>
 
 **Car.java**
 
@@ -90,7 +90,7 @@ public class Car {
 
 其中，`rt.jar` 是 `Java` 基础类库
 
-<div align="center"> <img src="image-20201203081618129.png" width="30%"/> </div><br>
+<div align="center"> <img src="image-20201203081618129.png" width="25%"/> </div><br>
 
 进入正题，
 

@@ -283,7 +283,7 @@ public class PersonBuilder {
 
 
 
-<div align="center"> <img src="java-heap-stack-diagram.png" width="70%"/> </div><br>
+<div align="center"> <img src="java-heap-stack-diagram.png" width="80%"/> </div><br>
 
 ## 10. 方法区 (JDK 1.7)
 

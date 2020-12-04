@@ -238,7 +238,7 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-**P.S：**实例变量存放在 `heap` 中
+**P.S：** 实例变量存放在 `heap` 中
 
 
 

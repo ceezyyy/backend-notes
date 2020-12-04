@@ -186,7 +186,30 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 6. PC 寄存器
+## 6. 程序计数器（PC 寄存器）
+
+**作用：**
+
+- 字节码解释器通过改变程序计数器来依次读取指令，从而实现代码控制流
+- 在多线程下，程序计数器记录当前线程执行的位置，从而当线程切换回来时，就知道上一次执行到哪了（线程私有，随着线程而诞生消亡）
+
+
+
+## 7. Stack（虚拟机栈）
+
+`Java` 栈由一个个帧栈组成，帧栈随着每调用一个方法时产生
+
+每调用一个方法时压栈，方法执行结束后出栈
+
+
+
+<div align="center"> <img src="jvm-stack.jpg" width="50%"/> </div><br>
+
+
+
+
+
+## 元数据区
 
 
 
@@ -196,23 +219,19 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 7. 方法区
+## 三种 JVM
 
-## 8. 栈
+## 堆
 
-## 9. 三种 JVM
+## 新生区 老年区
 
-## 10. 堆
+## 永久区
 
-## 11. 新生区 老年区
+## 堆内存调优
 
-## 12. 永久区
+## GC
 
-## 13. 堆内存调优
-
-## 14. GC
-
-## 15. JMM
+## JMM
 
 
 
@@ -221,3 +240,4 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 - [【狂神说Java】JVM快速入门篇](https://www.bilibili.com/video/BV1iJ411d7jS)
 - [深入理解Java类加载器(ClassLoader)](https://blog.csdn.net/javazejian/article/details/73413292)
 - [Java 运行时的内存划分](https://github.com/crossoverJie/JCSprout/blob/master/MD/MemoryAllocation.md)
+- [JVM 内存结构](https://github.com/doocs/jvm/blob/main/docs/01-jvm-memory-structure.md)

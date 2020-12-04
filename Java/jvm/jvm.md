@@ -1,24 +1,28 @@
+
+
+
+
+
+
 # JVM
 
 Table of Contents
 -----------------
 
 * [1. JVM 的位置](#1-jvm-的位置)
-* [2. JVM 内存模型](#2-jvm-内存模型)
+* [2. JVM 内存结构](#2-jvm-内存结构)
 * [3. 类加载器](#3-类加载器)
 * [4. 双亲委派](#4-双亲委派)
 * [5. Native](#5-native)
 * [6. 程序计数器（PC 寄存器）](#6-程序计数器pc-寄存器)
-* [7. Stack（虚拟机栈）](#7-stack虚拟机栈)
-* [8. Heap](#8-heap)
-* [9. 方法区（JDK 1.7）](#9-方法区jdk-17)
-* [10. 元数据区（JDK 1.8）](#10-元数据区jdk-18)
-* [三种 JVM](#三种-jvm)
-* [新生区 老年区](#新生区-老年区)
-* [永久区](#永久区)
-* [堆内存调优](#堆内存调优)
-* [GC](#gc)
-* [JMM](#jmm)
+* [7. Stack Memory](#7-stack-memory)
+* [8. Heap Space](#8-heap-space)
+* [9. 堆栈之间的关系](#9-堆栈之间的关系)
+* [10. 方法区 (JDK 1.7)](#10-方法区-jdk-17)
+* [11. 元数据区 (JDK 1.8)](#11-元数据区-jdk-18)
+* [12. 堆内存调优](#12-堆内存调优)
+* [13. GC](#13-gc)
+* [14. JMM](#14-jmm)
 * [参考资料](#参考资料)
 
 
@@ -195,7 +199,11 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 7. Stack（虚拟机栈）
+## 7. Stack Memory
+
+> **Stack Memory in Java is used for static memory allocation and the execution of a thread.** 
+
+
 
 `Java` 栈由一个个帧栈组成，帧栈随着每调用一个方法时产生（线程私有）
 
@@ -213,7 +221,11 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 8. Heap
+## 8. Heap Space
+
+> **Heap space in Java is used for dynamic memory allocation for Java objects and JRE classes at the runtime**.
+
+
 
 堆是用来存放对象的内存空间
 
@@ -222,9 +234,58 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 - 线程共享
 - 是 `GC` （垃圾回收）的主要场所
 
+<div align="center"> <img src="Java_Heap.png" width="50%"/> </div><br>
+
+其中 `heap` 分为三块区域：
+
+- **Young Generation –** this is where all new objects are allocated and aged. A minor Garbage collection occurs when this fills up
+
+- **Old or Tenured Generation –** this is where long surviving objects are stored. When objects are stored in the Young Generation, a threshold for the object's age is set and when that threshold is reached, the object is moved to the old generation
+
+- **Permanent Generation –** this consists of JVM metadata for the runtime classes and application methods
 
 
-## 9. 方法区 (JDK 1.7)
+
+## 9. 堆栈之间的关系
+
+堆：`heap`
+
+栈：`Java` 栈
+
+
+
+**Person.java**
+
+```java
+class Person {
+    int id;
+    String name;
+
+    public Person(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+public class PersonBuilder {
+    private static Person buildPerson(int id, String name) {
+        return new Person(id, name);
+    }
+
+    public static void main(String[] args) {
+        int id = 23;
+        String name = "John";
+        Person person = null;
+        person = buildPerson(id, name);
+    }
+}
+```
+
+
+
+<div align="center"> <img src="java-heap-stack-diagram.png" width="70%"/> </div><br>
+
+## 10. 方法区 (JDK 1.7)
 
 以下三者存放在方法区中：
 
@@ -242,7 +303,7 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 10. 元数据区 (JDK 1.8)
+## 11. 元数据区 (JDK 1.8)
 
 
 
@@ -250,15 +311,47 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 新生区 老年区
 
-## 永久区
 
-## 堆内存调优
+## 12. 堆内存调优
 
-## GC
 
-## JMM
+
+
+
+
+
+
+
+
+
+
+
+## 13. GC
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 14. JMM
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -268,3 +361,4 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 - [深入理解Java类加载器(ClassLoader)](https://blog.csdn.net/javazejian/article/details/73413292)
 - [Java 运行时的内存划分](https://github.com/crossoverJie/JCSprout/blob/master/MD/MemoryAllocation.md)
 - [JVM 内存结构](https://github.com/doocs/jvm/blob/main/docs/01-jvm-memory-structure.md)
+- [Stack Memory and Heap Space in Java](https://www.baeldung.com/java-stack-heap)

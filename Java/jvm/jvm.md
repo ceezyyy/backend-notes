@@ -23,18 +23,18 @@ Table of Contents
 
 
 
-
 ## 1. JVM 的位置
+
+本篇文章基于 `HotSpot` 虚拟机
+
+<div align="center"> <img src="image-20201204155104566.png" width="50%"/> </div><br>
+
 
 <div align="center"> <img src="image-20201202162828154.png" width="30%"/> </div><br>
 
 
 
- 
-
-
-
-## 2. JVM 内存模型
+## 2. JVM 内存结构
 
 <div align="center"> <img src="jvm-memory-structure.jpg" width="50%"/> </div><br>
 
@@ -247,12 +247,6 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-
-
-
-
-
-## 三种 JVM
 
 
 

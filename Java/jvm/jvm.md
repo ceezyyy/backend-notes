@@ -34,9 +34,9 @@ Table of Contents
 
 
 
-## 2. JVM 的体系结构
+## 2. JVM 内存模型
 
-<div align="center"> <img src="image-20201202164425125.png" width="60%"/> </div><br>
+<div align="center"> <img src="jvm-memory-structure.jpg" width="60%"/> </div><br>
 
 
 
@@ -52,7 +52,7 @@ Table of Contents
 
 
 ```java
-≥public class Car {
+public class Car {
 
     private double price;
 
@@ -188,6 +188,14 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 ## 6. PC 寄存器
 
+
+
+
+
+
+
+
+
 ## 7. 方法区
 
 ## 8. 栈
@@ -212,3 +220,4 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 - [【狂神说Java】JVM快速入门篇](https://www.bilibili.com/video/BV1iJ411d7jS)
 - [深入理解Java类加载器(ClassLoader)](https://blog.csdn.net/javazejian/article/details/73413292)
+- [Java 运行时的内存划分](https://github.com/crossoverJie/JCSprout/blob/master/MD/MemoryAllocation.md)

@@ -15,16 +15,15 @@ Table of Contents
 * [4. 双亲委派](#4-双亲委派)
 * [5. Native](#5-native)
 * [6. 程序计数器（PC 寄存器）](#6-程序计数器pc-寄存器)
-* [7. Stack Memory](#7-stack-memory)
-* [8. Heap Space](#8-heap-space)
-* [9. 堆栈之间的关系](#9-堆栈之间的关系)
+* [7. Stack Memory (线程私有)](#7-stack-memory-线程私有)
+* [8. Heap Space (线程共享)](#8-heap-space-线程共享)
+* [9. JVM 如何分配内存给堆栈](#9-jvm-如何分配内存给堆栈)
 * [10. 方法区 (JDK 1.7)](#10-方法区-jdk-17)
 * [11. 元数据区 (JDK 1.8)](#11-元数据区-jdk-18)
 * [12. 堆内存调优](#12-堆内存调优)
 * [13. GC](#13-gc)
 * [14. JMM](#14-jmm)
 * [参考资料](#参考资料)
-
 
 
 ## 1. JVM 的位置
@@ -199,40 +198,60 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 7. Stack Memory
+## 7. Stack Memory (线程私有)
+
+
+**什么是栈?**
 
 > **Stack Memory in Java is used for static memory allocation and the execution of a thread.** 
 
-
-
-`Java` 栈由一个个帧栈组成，帧栈随着每调用一个方法时产生（线程私有）
+`Java` 栈由一个个帧栈组成，帧栈随着每调用一个方法时产生
 
 每调用一个方法时压栈，方法执行结束后出栈
 
 
 
+
+
+**栈有什么特点?**
+
+- It grows and shrinks as new methods are called and returned respectively
+- Variables inside stack exist only as long as the method that created them is running
+- It's automatically allocated and deallocated when method finishes execution
+- If this memory is full, Java throws *java.lang.StackOverFlowError*
+- Access to this memory is fast when compared to heap memory
+- This memory is threadsafe as each thread operates in its own stack
+
+
+
 <div align="center"> <img src="jvm-stack.jpg" width="50%"/> </div><br>
 
-**P.S:**
-
-- 若方法递归调用出现死循环，会造成帧栈过多，抛出 `StackOverflowError`
-- 若线程执行中帧栈大小超出 `Java` 栈限制，也会抛出 `StackOverflowError`
-- 若 `Java` 栈允许动态扩展，在为一个新线程初始化新的 `Java` 栈时申请不到足够的内存，则会抛出 `OutOfMemoryError`
 
 
 
-## 8. Heap Space
+
+## 8. Heap Space (线程共享)
+
+
+**什么是堆?**
+
 
 > **Heap space in Java is used for dynamic memory allocation for Java objects and JRE classes at the runtime**.
 
 
-
 堆是用来存放对象的内存空间
 
-有如下特点：
 
-- 线程共享
-- 是 `GC` 的主要场所
+
+**堆有什么特点?**
+
+- It's accessed via complex memory management techniques that include Young Generation, Old or Tenured Generation, and Permanent Generation
+- If heap space is full, Java throws *java.lang.OutOfMemoryError*
+- Access to this memory is relatively slower than stack memory
+- This memory, in contrast to stack, isn't automatically deallocated. It needs Garbage Collector to free up unused objects so as to keep the efficiency of the memory usage
+- Unlike stack, a heap isn't threadsafe and needs to be guarded by properly synchronizing the code
+
+
 
 <div align="center"> <img src="Java_Heap.png" width="50%"/> </div><br>
 
@@ -246,7 +265,7 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 9. 堆栈之间的关系
+## 9. JVM 如何分配内存给堆栈
 
 **Person.java**
 
@@ -279,11 +298,68 @@ public class PersonBuilder {
 
 <div align="center"> <img src="java-heap-stack-diagram.png" width="80%"/> </div><br>
 
-这段代码运行的流程：
+在讨论 `JVM` 如何分配内存给堆栈之前，需要懂得一个概念：
 
 
 
+**String Pool**
 
+
+
+> When we create a *String* variable and assign a value to it, the JVM searches the pool for a *String* of equal value.
+>
+> **If found, the Java compiler will simply return a reference to its memory address, without allocating additional memory.**
+>
+> If not found, it'll be added to the pool (interned) and its reference will be returned.
+
+
+
+```java
+public class App {
+    public static void main(String[] args) {
+        
+        String s1 = "Hello World";
+        String s2 = "Hello World";
+
+        System.out.println(s1 == s2);  // true
+        
+    }
+}
+```
+
+
+
+但当使用 `new` 关键字（`String` 构造函数）创建 `string` 时，`JVM` 会在堆内存中给其分配新的空间
+
+```java
+public class App {
+    public static void main(String[] args) {
+
+        String s1 = "Hello World";
+        String s2 = new String("Hello World");
+
+        System.out.println(s1 == s2);  // false
+
+    }
+}
+```
+
+
+
+或者：
+
+```java
+public class App {
+    public static void main(String[] args) {
+
+        String s1 = new String("Hello World");
+        String s2 = new String("Hello World");
+
+        System.out.println(s1 == s2);  // false
+
+    }
+}
+```
 
 
 

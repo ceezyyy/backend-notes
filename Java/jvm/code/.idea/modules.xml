@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/class-loader/class-loader.iml" filepath="$PROJECT_DIR$/class-loader/class-loader.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/code.iml" filepath="$PROJECT_DIR$/.idea/code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/string-pool/string-pool.iml" filepath="$PROJECT_DIR$/string-pool/string-pool.iml" />
     </modules>
   </component>
 </project>

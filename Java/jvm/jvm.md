@@ -232,7 +232,7 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 有如下特点：
 
 - 线程共享
-- 是 `GC` （垃圾回收）的主要场所
+- 是 `GC` 的主要场所
 
 <div align="center"> <img src="Java_Heap.png" width="50%"/> </div><br>
 
@@ -247,12 +247,6 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 ## 9. 堆栈之间的关系
-
-堆：`heap`
-
-栈：`Java` 栈
-
-
 
 **Person.java**
 
@@ -284,6 +278,14 @@ public class PersonBuilder {
 
 
 <div align="center"> <img src="java-heap-stack-diagram.png" width="80%"/> </div><br>
+
+这段代码运行的流程：
+
+
+
+
+
+
 
 ## 10. 方法区 (JDK 1.7)
 
@@ -362,3 +364,5 @@ public class PersonBuilder {
 - [Java 运行时的内存划分](https://github.com/crossoverJie/JCSprout/blob/master/MD/MemoryAllocation.md)
 - [JVM 内存结构](https://github.com/doocs/jvm/blob/main/docs/01-jvm-memory-structure.md)
 - [Stack Memory and Heap Space in Java](https://www.baeldung.com/java-stack-heap)
+- [What is the concept of String Pool in java?](https://www.edureka.co/blog/java-string-pool/#:~:text=String%20Pool%20is%20a%20storage,performance%20and%20decrease%20memory%20overhead.)
+- [Guide to Java String Pool](https://www.baeldung.com/java-string-pool)

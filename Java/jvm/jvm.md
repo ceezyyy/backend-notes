@@ -14,7 +14,7 @@ Table of Contents
 * [3. 类加载器](#3-类加载器)
 * [4. 双亲委派](#4-双亲委派)
 * [5. Native](#5-native)
-* [6. 程序计数器（PC 寄存器）](#6-程序计数器pc-寄存器)
+* [6. 程序计数器 (PC 寄存器)](#6-程序计数器-pc-寄存器)
 * [7. Stack Memory (线程私有)](#7-stack-memory-线程私有)
 * [8. Heap Space (线程共享)](#8-heap-space-线程共享)
 * [9. JVM 如何分配内存给堆栈](#9-jvm-如何分配内存给堆栈)
@@ -24,6 +24,7 @@ Table of Contents
 * [13. GC](#13-gc)
 * [14. JMM](#14-jmm)
 * [参考资料](#参考资料)
+
 
 
 ## 1. JVM 的位置
@@ -189,7 +190,7 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 6. 程序计数器（PC 寄存器）
+## 6. 程序计数器 (PC 寄存器)
 
 **作用：**
 
@@ -267,36 +268,7 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 ## 9. JVM 如何分配内存给堆栈
 
-**Person.java**
 
-```java
-class Person {
-    int id;
-    String name;
-
-    public Person(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-}
-
-public class PersonBuilder {
-    private static Person buildPerson(int id, String name) {
-        return new Person(id, name);
-    }
-
-    public static void main(String[] args) {
-        int id = 23;
-        String name = "John";
-        Person person = null;
-        person = buildPerson(id, name);
-    }
-}
-```
-
-
-
-<div align="center"> <img src="java-heap-stack-diagram.png" width="80%"/> </div><br>
 
 在讨论 `JVM` 如何分配内存给堆栈之前，需要懂得一个概念：
 
@@ -363,6 +335,43 @@ public class App {
 
 
 
+看一段 `demo`：
+
+
+
+**Person.java**
+
+```java
+class Person {
+    int id;
+    String name;
+
+    public Person(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+}
+
+public class PersonBuilder {
+    private static Person buildPerson(int id, String name) {
+        return new Person(id, name);
+    }
+
+    public static void main(String[] args) {
+        int id = 23;
+        String name = "John";
+        Person person = null;
+        person = buildPerson(id, name);
+    }
+}
+```
+
+<div align="center"> <img src="java-heap-stack-diagram.png" width="80%"/> </div><br>
+
+
+
+
+
 ## 10. 方法区 (JDK 1.7)
 
 以下三者存放在方法区中：
@@ -378,6 +387,8 @@ public class App {
 
 
 **P.S：** 实例变量存放在 `heap` 中
+
+
 
 
 

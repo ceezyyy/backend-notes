@@ -28,7 +28,7 @@ Table of Contents
 
 ## Brainstorming
 
-<div align="center"> <img src="JVM.svg" width="80%"/> </div><br>
+<div align="center"> <img src="JVM.svg" width="90%"/> </div><br>
 
 
 
@@ -257,7 +257,9 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-<div align="center"> <img src="Java_Heap.png" width="50%"/> </div><br>
+<div align="center"> <img src="heap-space.png" width="80%"/> </div><br>
+
+
 
 其中 `heap` 分为三块区域：
 
@@ -387,8 +389,6 @@ public class PersonBuilder {
 
 
 
-
-
 ## 11. GC
 
 
@@ -428,8 +428,9 @@ public class PersonBuilder {
 - [Guide to Java String Pool](https://www.baeldung.com/java-string-pool)
 - [Java 内存区域详解](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/jvm/Java内存区域.md#java-内存区域详解)
 - [JVM 垃圾回收](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/jvm/JVM垃圾回收.md#jvm-垃圾回收)
+- [垃圾回收](https://github.com/crossoverJie/JCSprout/blob/master/MD/GarbageCollection.md)
 - [类文件结构](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/jvm/类文件结构.md#类文件结构)
 - [类加载过程](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/jvm/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.md)
-- [Java 虚拟机底层原理知识总结](https://github.com/doocs/jvm)
 - [Difference Between JVM, JRE, and JDK](https://www.baeldung.com/jvm-vs-jre-vs-jdk#:~:text=The%20method%20area%2C%20also%20known,threads%20share%20this%20memory%20area.&text=The%20JVM%20allocates%20the%20memory,and%20arrays%20from%20this%20area.)
 - [Class Loaders in Java](https://www.baeldung.com/java-classloaders)
+- [JVM Garbage Collectors](https://www.baeldung.com/jvm-garbage-collectors)

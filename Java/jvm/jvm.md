@@ -14,17 +14,16 @@ Table of Contents
 * [2. JVM 内存结构](#2-jvm-内存结构)
 * [3. 类加载器](#3-类加载器)
 * [4. 双亲委派](#4-双亲委派)
-* [5. Native](#5-native)
-* [6. 程序计数器 (PC 寄存器)](#6-程序计数器-pc-寄存器)
-* [7. Stack Memory (线程私有)](#7-stack-memory-线程私有)
-* [8. Heap Space (线程共享)](#8-heap-space-线程共享)
+* [5. Native Method Stacks](#5-native-method-stacks)
+* [6. PC Registers](#6-pc-registers)
+* [7. Stack Memory](#7-stack-memory)
+* [8. Heap Space](#8-heap-space)
 * [9. JVM 如何分配内存给堆栈](#9-jvm-如何分配内存给堆栈)
-* [10. 方法区 (JDK 1.7)](#10-方法区-jdk-17)
-* [11. 元数据区 (JDK 1.8)](#11-元数据区-jdk-18)
-* [12. 堆内存调优](#12-堆内存调优)
-* [13. GC](#13-gc)
-* [14. JMM](#14-jmm)
+* [10. Method Area](#10-method-area)
+* [11. GC](#11-gc)
+* [12. JMM](#12-jmm)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -178,7 +177,7 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 5. Native 
+## 5. Native Method Stacks
 
 > A *native* method is a Java method (either an instance method or a class method) whose implementation is also written in another programming language such as C/C++.
 >
@@ -188,11 +187,11 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 当调用有 `native` 关键词修饰的方法时：
 
-会入 `native method stack`（本地方法栈），调用本地方法接口
+会入 `native method stacks`（本地方法栈），调用本地方法接口
 
 
 
-## 6. 程序计数器 (PC 寄存器)
+## 6. PC Registers
 
 **作用：**
 
@@ -201,7 +200,7 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 7. Stack Memory (线程私有)
+## 7. Stack Memory
 
 
 **什么是栈?**
@@ -233,7 +232,7 @@ P.S: 英文原文为 `parent delegation model`，国内习惯于叫双亲
 
 
 
-## 8. Heap Space (线程共享)
+## 8. Heap Space
 
 
 **什么是堆?**
@@ -374,37 +373,21 @@ public class PersonBuilder {
 
 
 
-## 10. 方法区 (JDK 1.7)
+## 10. Method Area
 
 以下三者存放在方法区中：
 
-- 被 `static`，`final` 关键词修饰的变量
+- 常量
 - 类信息（构造方法，接口定义）
 - 运行时常量池
 
 
 
-因为方法区中的信息需要长期存在，又称：“永久代”
-
-
-
-**P.S：** 实例变量存放在 `heap` 中
 
 
 
 
-
-## 11. 元数据区 (JDK 1.8)
-
-
-
-
-
-
-
-
-
-## 12. 堆内存调优
+## 11. GC
 
 
 
@@ -418,21 +401,7 @@ public class PersonBuilder {
 
 
 
-## 13. GC
-
-
-
-
-
-
-
-
-
-
-
-
-
-## 14. JMM
+## 12. JMM
 
 
 

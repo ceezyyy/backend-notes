@@ -30,7 +30,7 @@ Table of Contents
 
 ## Brainstorming
 
-<div align="center"> <img src="jvm.svg" width="80%"/> </div><br>
+<div align="center"> <img src="JVM.svg" width="80%"/> </div><br>
 
 
 

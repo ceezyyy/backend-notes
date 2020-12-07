@@ -34,6 +34,8 @@ Table of Contents
 
 ## 1. JVM 的位置
 
+> **Java Virtual Machine (JVM) is an implementation of a virtual machine which executes a Java program.**
+
 本篇文章基于 `HotSpot` 虚拟机
 
 <div align="center"> <img src="image-20201204155104566.png" width="50%"/> </div><br>

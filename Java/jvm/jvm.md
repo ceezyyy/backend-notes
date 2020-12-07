@@ -28,7 +28,7 @@ Table of Contents
 
 ## Brainstorming
 
-<div align="center"> <img src="JVM.svg" width="90%"/> </div><br>
+<div align="center"> <img src="JVM.svg" width="100%"/> </div><br>
 
 
 

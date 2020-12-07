@@ -9,6 +9,7 @@
 Table of Contents
 -----------------
 
+* [Brainstorming](#brainstorming)
 * [1. JVM 的位置](#1-jvm-的位置)
 * [2. JVM 内存结构](#2-jvm-内存结构)
 * [3. 类加载器](#3-类加载器)
@@ -27,6 +28,12 @@ Table of Contents
 
 
 
+## Brainstorming
+
+<div align="center"> <img src="jvm.svg" width="80%"/> </div><br>
+
+
+
 ## 1. JVM 的位置
 
 本篇文章基于 `HotSpot` 虚拟机
@@ -41,10 +48,6 @@ Table of Contents
 ## 2. JVM 内存结构
 
 <div align="center"> <img src="jvm-memory-structure.jpg" width="50%"/> </div><br>
-
-
-
-
 
 ## 3. 类加载器
 
@@ -453,3 +456,8 @@ public class PersonBuilder {
 - [Stack Memory and Heap Space in Java](https://www.baeldung.com/java-stack-heap)
 - [What is the concept of String Pool in java?](https://www.edureka.co/blog/java-string-pool/#:~:text=String%20Pool%20is%20a%20storage,performance%20and%20decrease%20memory%20overhead.)
 - [Guide to Java String Pool](https://www.baeldung.com/java-string-pool)
+- [Java 内存区域详解](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/jvm/Java内存区域.md#java-内存区域详解)
+- [JVM 垃圾回收](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/jvm/JVM垃圾回收.md#jvm-垃圾回收)
+- [类文件结构](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/jvm/类文件结构.md#类文件结构)
+- [类加载过程](https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/jvm/%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B.md)
+- [Java 虚拟机底层原理知识总结](https://github.com/doocs/jvm)

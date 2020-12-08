@@ -168,57 +168,77 @@ import static java.util.Collections.EMPTY_LIST;
 
 
 
+### Q5. What Are the Methods of the Object Class and What Do They Do?
 
-### Q5. What Is the Difference Between the *Comparable* and *Comparator* Interfaces?
+  <div align="center"> <img src="image-20201208163029796.png" width="30%"/> </div><br>
 
+- getClass: Returns the runtime class of this object
+- hashCode: Returns a hash code value for the object
+- equals:
+- clone:
+- toString:
+- notify:
+- notifyAll:
+- wait:
+- finalize:
 
 
 
+**App.java**
 
+```java
+public class App {
 
-### Q6. What Are the Methods of the Object Class and What Do They Do?
+    public static void main(String[] args) {
 
+        String a = "aaa";
+        System.out.println(a.getClass());  // class java.lang.String
 
+        Integer b = 100;
+        System.out.println(b.getClass());  // class java.lang.Integer
 
+    }
 
+}
+```
 
-### Q7. What Is an Enum and How We Can Use It?
 
 
 
 
+### Q6. What Is an Enum and How We Can Use It?
 
 
 
-### Q8. What Is **a** JAR?
 
 
 
 
+### Q7. What Is **a** JAR?
 
 
 
 
 
-### Q9. What Is **a** *NullPointerException*?
 
 
 
 
+### Q8. What Is **a** *NullPointerException*?
 
-### Q10. What Are Two Types of Casting in Java? Which Exception May Be Thrown While Casting? How Can We Avoid It?
 
 
 
 
+### Q9. What Are Two Types of Casting in Java? Which Exception May Be Thrown While Casting? How Can We Avoid It?
 
 
 
-### Q11. Why Is String an Immutable Class?
 
 
 
 
+### Q10. Why Is String an Immutable Class?
 
 
 
@@ -226,35 +246,39 @@ import static java.util.Collections.EMPTY_LIST;
 
 
 
-### Q12. What Is the Difference Between Dynamic Binding and Static Binding?
 
 
 
 
+### Q11. What Is the Difference Between Dynamic Binding and Static Binding?
 
-### Q13. What Is JIT?
 
 
 
 
+### Q12. What Is JIT?
 
-### Q14. What Is Reflection in Java?
 
 
 
 
+### Q13. What Is Reflection in Java?
 
 
 
-### Q15. What Is the Difference Between Static and Dynamic Class Loading?
 
 
 
 
+### Q14. What Is the Difference Between Static and Dynamic Class Loading?
 
 
 
-### Q16. What Is the Purpose of the *Serializable* Interface?
+
+
+
+
+### Q15. What Is the Purpose of the *Serializable* Interface?
 
 
 

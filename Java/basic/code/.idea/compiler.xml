@@ -7,9 +7,11 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="pass-by-value" />
+        <module name="object-class" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="object-class" target="1.5" />
       <module name="pass-by-value" target="1.5" />
     </bytecodeTargetLevel>
   </component>

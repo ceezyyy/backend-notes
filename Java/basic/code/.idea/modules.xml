@@ -55,6 +55,7 @@
       <module fileurl="file://$PROJECT_DIR$/Exception/TryCatch/TryCatch.iml" filepath="$PROJECT_DIR$/Exception/TryCatch/TryCatch.iml" />
       <module fileurl="file://$PROJECT_DIR$/VarArgs/VarArgs.iml" filepath="$PROJECT_DIR$/VarArgs/VarArgs.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/code.iml" filepath="$PROJECT_DIR$/.idea/code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/object-class/object-class.iml" filepath="$PROJECT_DIR$/object-class/object-class.iml" />
       <module fileurl="file://$PROJECT_DIR$/pass-by-value/pass-by-value.iml" filepath="$PROJECT_DIR$/pass-by-value/pass-by-value.iml" />
     </modules>
   </component>

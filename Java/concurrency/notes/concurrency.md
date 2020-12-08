@@ -71,4 +71,48 @@ Table of Contents
 
 **让一个线程执行一个子任务，则一个进程就包含了多个线程**
 
+## 2. 如何创建线程?
+
+三种方式：
+
+- 继承 Thread
+
+
+
+
+
+**MyThread.java**
+
+```java
+@Slf4j
+public class MyThread extends Thread {
+    @Override
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            log.info("t1 " + i);
+        }
+    }
+}
+```
+
+**App.java**
+
+```java
+@Slf4j
+public class App {
+    public static void main(String[] args) {
+
+        MyThread t1 = new MyThread();
+        t1.start();
+
+        for (int i = 0; i < 5; i++) {
+            log.info("main " + i);
+        }
+
+    }
+}
+```
+
+
+<div align="center"> <img src="image-20201208215922133.png" width="40%"/> </div><br>
 

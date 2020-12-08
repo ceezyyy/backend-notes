@@ -5,13 +5,53 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64738123-e022-423c-af43-a7060b0565c1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../notes/concurrent-basic.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../index.md" beforeDir="false" afterPath="$PROJECT_DIR$/../index.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/code.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_simple_1_7_30.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-implementations/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-implementations/src/main/java/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-implementations/src/main/java/MyThread.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-implementations/target/classes/App.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-implementations/target/classes/MyThread.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-implementations/thread-implementations.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/concurrent-demo.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/src/main/java/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/src/main/resources/logback.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/target/classes/App$ThreadA.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/target/classes/App$ThreadB.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/target/classes/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/target/classes/logback.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/target/concurrent-demo-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/concurrent-demo/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
@@ -24,15 +64,46 @@
     </option>
   </component>
   <component name="ProjectId" id="1gRifrZkm9bZKEHokDynjEMvLWY" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="App" />
+      <module name="thread-implementations" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -43,6 +114,7 @@
       <option name="presentableId" value="Default" />
       <updated>1598083912121</updated>
       <workItem from="1598083913192" duration="89000" />
+      <workItem from="1607435038349" duration="908000" />
     </task>
     <servers />
   </component>
@@ -50,9 +122,33 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1478" y="-44" key="new project wizard" timestamp="1598083994969">
-      <screen x="1440" y="-180" width="1920" height="1080" />
+    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser" timestamp="1607435302738">
+      <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="1478" y="-44" key="new project wizard/0.0.1440.900/1440.-180.1920.1080@1440.-180.1920.1080" timestamp="1598083994969" />
+    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1607435302738" />
+    <state width="1388" height="357" key="GridCell.Tab.0.bottom" timestamp="1607435875560">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1388" height="357" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1607435875560" />
+    <state width="1388" height="357" key="GridCell.Tab.0.center" timestamp="1607435875558">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1388" height="357" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1607435875558" />
+    <state width="1388" height="357" key="GridCell.Tab.0.left" timestamp="1607435875557">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1388" height="357" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1607435875557" />
+    <state width="1388" height="357" key="GridCell.Tab.0.right" timestamp="1607435875559">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1388" height="357" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1607435875559" />
+    <state x="0" y="37" key="new project wizard" timestamp="1607435082395">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="0" y="37" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1607435082395" />
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup" timestamp="1607435598845">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1607435598845" />
   </component>
 </project>

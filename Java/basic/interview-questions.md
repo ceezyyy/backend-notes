@@ -20,7 +20,6 @@ Table of Contents
 * [Q15. What Is Reflection in Java?](#q15-what-is-reflection-in-java)
 * [Q16. What Is the Difference Between Static and Dynamic Class Loading?](#q16-what-is-the-difference-between-static-and-dynamic-class-loading)
 * [Q17. What Is the Purpose of the <em>Serializable</em> Interface?](#q17-what-is-the-purpose-of-the-serializable-interface)
-
 * [References](#references)
 
 

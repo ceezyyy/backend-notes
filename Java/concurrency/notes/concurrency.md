@@ -149,7 +149,7 @@ public class App {
 
 <div align="center"> <img src="image-20201208225031655.png" width="45%"/> </div><br>
 
-生活中有着许多并发的场景，比如你最喜爱的 rapstar 要开 live 了，疯狂的粉丝进行抢票（可能也包括 bot），若不对线程进行管理，后果将不堪设想
+生活中有着许多并发的场景，比如你最喜爱的 rapstar 要开 live 了，粉丝和 bot 疯狂进行抢票，面对并发问题若不采取措施，后果将不堪设想
 
 
 

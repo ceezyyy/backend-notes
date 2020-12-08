@@ -41,6 +41,8 @@ Table of Contents
 
 举个例子：
 
+
+
 **App.java**
 
 ```java
@@ -52,20 +54,56 @@ public class App {
         int x = 1;
         int y = 2;
 
-        assertEquals(x, 1);
-        assertEquals(y, 2);
+        assertEquals(1, x);
+        assertEquals(2, y);
 
-        modify(x, y);
+        modifyPrimitives(x, y);
 
         // Test passed
-        assertEquals(x, 1);
-        assertEquals(y, 2);
+        assertEquals(1, x);
+        assertEquals(2, y);
 
     }
 
-    public void modify(int x, int y) {
+    public void modifyPrimitives(int x, int y) {
         x = 5;
         y = 10;
+    }
+
+    @Test
+    public void testNonPrimitives() {
+
+        Person a = new Person(1);
+        Person b = new Person(2);
+
+        assertEquals(1, a.age);
+        assertEquals(2, b.age);
+
+        modifyNonPrimitives(a, b);
+
+        // Test passed
+        assertEquals(2, a.age);
+        assertEquals(2, b.age);
+
+    }
+
+    public void modifyNonPrimitives(Person a, Person b) {
+
+        a.age++;
+
+        Person newPerson = new Person(23);
+        newPerson.age++;
+
+    }
+
+    public class Person {
+
+        int age;
+
+        public Person(int age) {
+            this.age = age;
+        }
+
     }
 
 }
@@ -73,11 +111,28 @@ public class App {
 
 
 
-对于 `testPrimitives`：
+
+
+### Q2. What Is the Difference Between Import and Static Imports?
 
 
 
-  <div align="center"> <img src="pass-by-value-primitives.jpg" width="70%"/> </div><br>
+```java
+import java.util.ArrayList; //specific class
+import java.util.*; //all classes in util package
+
+import static java.util.Collections.EMPTY_LIST;
+```
+
+
+
+**区别：** 调用方法 / 变量的时候可以直接写，而不用以  `className.function()` 的形式调用
+
+
+
+
+
+
 
 ## References
 

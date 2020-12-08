@@ -39,8 +39,47 @@ Table of Contents
 
 
 
+举个例子：
 
+**App.java**
+
+```java
+public class App {
+
+    @Test
+    public void testPrimitives() {
+
+        int x = 1;
+        int y = 2;
+
+        assertEquals(x, 1);
+        assertEquals(y, 2);
+
+        modify(x, y);
+
+        // Test passed
+        assertEquals(x, 1);
+        assertEquals(y, 2);
+
+    }
+
+    public void modify(int x, int y) {
+        x = 5;
+        y = 10;
+    }
+
+}
+```
+
+
+
+对于 `testPrimitives`：
+
+
+
+  <div align="center"> <img src="pass-by-value-primitives.jpg" width="70%"/> </div><br>
 
 ## References
 
 - [Java Interview Questions](https://www.baeldung.com/java-interview-questions)
+- [Cannot find symbol assertEquals](https://stackoverflow.com/questions/20631621/cannot-find-symbol-assertequals)

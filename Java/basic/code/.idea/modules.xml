@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Interface/Abstract/Abstract.iml" filepath="$PROJECT_DIR$/Interface/Abstract/Abstract.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Array/Array.iml" filepath="$PROJECT_DIR$/Class/Array/Array.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/ArrayList/ArrayList.iml" filepath="$PROJECT_DIR$/Class/ArrayList/ArrayList.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Array/ArrayParam/ArrayParam.iml" filepath="$PROJECT_DIR$/Class/Array/ArrayParam/ArrayParam.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Array/ArrayReturn/ArrayReturn.iml" filepath="$PROJECT_DIR$/Class/Array/ArrayReturn/ArrayReturn.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Array/ArraysDemo/ArraysDemo.iml" filepath="$PROJECT_DIR$/Class/Array/ArraysDemo/ArraysDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/ClassStudent/ClassStudent.iml" filepath="$PROJECT_DIR$/Class/ClassStudent/ClassStudent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Collection/CollectionDemo/CollectionDemo.iml" filepath="$PROJECT_DIR$/Collection/CollectionDemo/CollectionDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Collections/Collections.iml" filepath="$PROJECT_DIR$/Collections/Collections.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Object/Date/Date.iml" filepath="$PROJECT_DIR$/Object/Date/Date.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Debug/Debug.iml" filepath="$PROJECT_DIR$/Debug/Debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exception/Exception/Exception.iml" filepath="$PROJECT_DIR$/Exception/Exception/Exception.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Extends/ExtendsDemo/ExtendsDemo.iml" filepath="$PROJECT_DIR$/Extends/ExtendsDemo/ExtendsDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Extends/ExtendsField/ExtendsField.iml" filepath="$PROJECT_DIR$/Extends/ExtendsField/ExtendsField.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Final/FinalDemo/FinalDemo.iml" filepath="$PROJECT_DIR$/Final/FinalDemo/FinalDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/IO/IO.iml" filepath="$PROJECT_DIR$/IO/IO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Final/InnerClass/InnerClass/InnerClass.iml" filepath="$PROJECT_DIR$/Final/InnerClass/InnerClass/InnerClass.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Final/InnerClass/InnerClassMethod/InnerClassMethod.iml" filepath="$PROJECT_DIR$/Final/InnerClass/InnerClassMethod/InnerClassMethod.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Integer/Integer.iml" filepath="$PROJECT_DIR$/Class/Integer/Integer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Interface/InterfaceDemo/InterfaceDemo.iml" filepath="$PROJECT_DIR$/Interface/InterfaceDemo/InterfaceDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Collection/IteratorDemo/IteratorDemo.iml" filepath="$PROJECT_DIR$/Collection/IteratorDemo/IteratorDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Junit/Junit.iml" filepath="$PROJECT_DIR$/Junit/Junit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/List&amp;Set/List/LinkedListDemo/LinkedListDemo.iml" filepath="$PROJECT_DIR$/List&amp;Set/List/LinkedListDemo/LinkedListDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/List&amp;Set/List/ListDemo/ListDemo.iml" filepath="$PROJECT_DIR$/List&amp;Set/List/ListDemo/ListDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Map/Map.iml" filepath="$PROJECT_DIR$/Map/Map.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Math/Math.iml" filepath="$PROJECT_DIR$/Class/Math/Math.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Extends/MethodOverload/MethodOverload.iml" filepath="$PROJECT_DIR$/Extends/MethodOverload/MethodOverload.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Object/Object/Object.iml" filepath="$PROJECT_DIR$/Object/Object/Object.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Person/Person.iml" filepath="$PROJECT_DIR$/Class/Person/Person.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/PersonArray/PersonArray.iml" filepath="$PROJECT_DIR$/Class/PersonArray/PersonArray.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Phone/Phone.iml" filepath="$PROJECT_DIR$/Class/Phone/Phone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Interface/Polymorphism/Polymorphism.iml" filepath="$PROJECT_DIR$/Interface/Polymorphism/Polymorphism.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Random/Random.iml" filepath="$PROJECT_DIR$/Class/Random/Random.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Reflection/Reflection.iml" filepath="$PROJECT_DIR$/Reflection/Reflection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/String/Scanner/Scanner.iml" filepath="$PROJECT_DIR$/String/Scanner/Scanner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/List&amp;Set/Set/Set.iml" filepath="$PROJECT_DIR$/List&amp;Set/Set/Set.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Static/Static.iml" filepath="$PROJECT_DIR$/Class/Static/Static.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Object/StringBuilder/StringBuilder.iml" filepath="$PROJECT_DIR$/Object/StringBuilder/StringBuilder.iml" />
+      <module fileurl="file://$PROJECT_DIR$/String/StringEquals/StringEquals.iml" filepath="$PROJECT_DIR$/String/StringEquals/StringEquals.iml" />
+      <module fileurl="file://$PROJECT_DIR$/String/StringGet/StringGet.iml" filepath="$PROJECT_DIR$/String/StringGet/StringGet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/String/StringMethods/StringMethods.iml" filepath="$PROJECT_DIR$/String/StringMethods/StringMethods.iml" />
+      <module fileurl="file://$PROJECT_DIR$/String/StringPool/StringPool.iml" filepath="$PROJECT_DIR$/String/StringPool/StringPool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/String/StringSplit/StringSplit.iml" filepath="$PROJECT_DIR$/String/StringSplit/StringSplit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Class/Student/Student.iml" filepath="$PROJECT_DIR$/Class/Student/Student.iml" />
+      <module fileurl="file://$PROJECT_DIR$/String/SubStringConvert/SubStringConvert.iml" filepath="$PROJECT_DIR$/String/SubStringConvert/SubStringConvert.iml" />
+      <module fileurl="file://$PROJECT_DIR$/String/SubStringMethods/SubStringMethods.iml" filepath="$PROJECT_DIR$/String/SubStringMethods/SubStringMethods.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Object/System/System.iml" filepath="$PROJECT_DIR$/Object/System/System.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exception/Throw/Throw.iml" filepath="$PROJECT_DIR$/Exception/Throw/Throw.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exception/Throwable/Throwable.iml" filepath="$PROJECT_DIR$/Exception/Throwable/Throwable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exception/Throws/Throws.iml" filepath="$PROJECT_DIR$/Exception/Throws/Throws.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Exception/TryCatch/TryCatch.iml" filepath="$PROJECT_DIR$/Exception/TryCatch/TryCatch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/VarArgs/VarArgs.iml" filepath="$PROJECT_DIR$/VarArgs/VarArgs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/code.iml" filepath="$PROJECT_DIR$/.idea/code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pass-by-value/pass-by-value.iml" filepath="$PROJECT_DIR$/pass-by-value/pass-by-value.iml" />
+    </modules>
+  </component>
+</project>

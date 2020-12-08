@@ -8,6 +8,8 @@ Table of Contents
    * [1.1 批处理操作系统](#11-批处理操作系统)
    * [1.2 进程的提出](#12-进程的提出)
    * [1.3 线程的提出](#13-线程的提出)
+* [2. 如何创建线程?](#2-如何创建线程)
+
 
 
 ## Brainstorming
@@ -75,11 +77,7 @@ Table of Contents
 
 三种方式：
 
-- 继承 Thread
-
-
-
-
+- 继承 Thread，重写 run 方法
 
 **MyThread.java**
 
@@ -116,3 +114,39 @@ public class App {
 
 <div align="center"> <img src="image-20201208215922133.png" width="40%"/> </div><br>
 
+- 实现 Runnable 接口，重写 run 方法
+
+**MyRunnable.java**
+
+```java
+@Slf4j
+public class MyRunnable implements Runnable {
+    public void run() {
+        for (int i = 0; i < 5; i++) {
+            log.info("t1 " + i);
+        }
+    }
+}
+```
+
+**App.java**
+
+```java
+@Slf4j
+public class App {
+    public static void main(String[] args) {
+
+        Thread t1 = new Thread(new MyRunnable());
+        t1.start();
+
+        for (int i = 0; i < 5; i++) {
+            log.info("main " + i);
+        }
+
+    }
+}
+```
+
+<div align="center"> <img src="image-20201208225031655.png" width="45%"/> </div><br>
+
+## References

@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64738123-e022-423c-af43-a7060b0565c1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/thread-implementations/src/main/java/MyRunnable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-implementations/src/main/java/LiveHouseTickets.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thread-implementations/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/thread-implementations/src/main/java/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/thread-implementations/target/classes/App.class" beforeDir="false" afterPath="$PROJECT_DIR$/thread-implementations/target/classes/App.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,9 +47,16 @@
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.LiveHouseTickets">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="App" />
+      <module name="thread-implementations" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LiveHouseTickets" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="LiveHouseTickets" />
       <module name="thread-implementations" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -70,6 +75,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.LiveHouseTickets" />
         <item itemvalue="Application.App" />
       </list>
     </recent_temporary>
@@ -83,7 +89,7 @@
       <option name="presentableId" value="Default" />
       <updated>1598083912121</updated>
       <workItem from="1598083913192" duration="89000" />
-      <workItem from="1607435038349" duration="1721000" />
+      <workItem from="1607435038349" duration="2373000" />
     </task>
     <servers />
   </component>
@@ -91,26 +97,26 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser" timestamp="1607438673180">
+    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser" timestamp="1607439777004">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1607438673180" />
-    <state width="1388" height="357" key="GridCell.Tab.0.bottom" timestamp="1607438954389">
+    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1607439777004" />
+    <state width="1388" height="174" key="GridCell.Tab.0.bottom" timestamp="1607440035296">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="357" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1607438954389" />
-    <state width="1388" height="357" key="GridCell.Tab.0.center" timestamp="1607438954388">
+    <state width="1388" height="174" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1607440035296" />
+    <state width="1388" height="174" key="GridCell.Tab.0.center" timestamp="1607440035295">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="357" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1607438954388" />
-    <state width="1388" height="357" key="GridCell.Tab.0.left" timestamp="1607438954387">
+    <state width="1388" height="174" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1607440035295" />
+    <state width="1388" height="174" key="GridCell.Tab.0.left" timestamp="1607440035294">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="357" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1607438954387" />
-    <state width="1388" height="357" key="GridCell.Tab.0.right" timestamp="1607438954389">
+    <state width="1388" height="174" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1607440035294" />
+    <state width="1388" height="174" key="GridCell.Tab.0.right" timestamp="1607440035296">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="357" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1607438954389" />
+    <state width="1388" height="174" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1607440035296" />
     <state x="0" y="37" key="new project wizard" timestamp="1607435082395">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

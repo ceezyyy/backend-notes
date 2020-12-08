@@ -149,4 +149,45 @@ public class App {
 
 <div align="center"> <img src="image-20201208225031655.png" width="45%"/> </div><br>
 
+生活中有着许多并发的场景，比如你最喜爱的 rapstar 要开 live 了，疯狂的粉丝进行抢票（可能也包括 bot），若不对线程进行管理，后果将不堪设想
+
+
+
+比如说：
+
+**LiveHouseTickets.java**
+
+```java
+@Slf4j
+public class LiveHouseTickets implements Runnable{
+
+    private int ticket = 5;
+
+    public void run() {
+        while (true) {
+
+            if (ticket <= 0) break;
+
+            log.info(Thread.currentThread().getName() + " is buying no." + ticket + " ticket");
+            ticket--;
+
+        }
+    }
+
+    public static void main(String[] args) {
+        new Thread(new LiveHouseTickets()).start();
+        new Thread(new LiveHouseTickets()).start();
+        new Thread(new LiveHouseTickets()).start();
+    }
+
+}
+```
+
+<div align="center"> <img src="image-20201208231042938.png" width="60%"/> </div><br>
+
+
+
+
+
+
 ## References

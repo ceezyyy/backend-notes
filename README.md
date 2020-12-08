@@ -23,9 +23,9 @@
 - [Core Interview Questions](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/core-interview-questions.md)
 - [集合源码](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
+- [Concurrency](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/index.md)
 - IO / NIO
 - [Java 8 新特性](https://github.com/ceezyyy/backend-notes/blob/master/Java/Java8/index.md)
-- [并发 / 多线程](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrent/index.md)
 
 
 

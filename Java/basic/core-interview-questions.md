@@ -1,26 +1,17 @@
 # Core Interview Questions
 
-Table of Content
+Table of Contents
 -----------------
 
 * [Q1. Is Data Passed by Reference or by Value in Java?](#q1-is-data-passed-by-reference-or-by-value-in-java)
 * [Q2. What Is the Difference Between Import and Static Imports?](#q2-what-is-the-difference-between-import-and-static-imports)
 * [Q3. Which Access Modifiers Are Available in Java and What Is Their Purpose?](#q3-which-access-modifiers-are-available-in-java-and-what-is-their-purpose)
 * [Q4. What Is the Difference Between JDK, JRE, and JVM?](#q4-what-is-the-difference-between-jdk-jre-and-jvm)
-* [Q5. What Is the Difference Between the <em>Comparable</em> and <em>Comparator</em> Interfaces?](#q5-what-is-the-difference-between-the-comparable-and-comparator-interfaces)
-* [Q6. What Are the Methods of the Object Class and What Do They Do?](#q6-what-are-the-methods-of-the-object-class-and-what-do-they-do)
-* [Q7. What Is an Enum and How We Can Use It?](#q7-what-is-an-enum-and-how-we-can-use-it)
-* [Q8. What Is <strong>a</strong> JAR?](#q8-what-is-a-jar)
-* [Q9. What Is <strong>a</strong> <em>NullPointerException</em>?](#q9-what-is-a-nullpointerexception)
-* [Q10. What Are Two Types of Casting in Java? Which Exception May Be Thrown While Casting? How Can We Avoid It?](#q10-what-are-two-types-of-casting-in-java-which-exception-may-be-thrown-while-casting-how-can-we-avoid-it)
-* [Q11. Why Is String an Immutable Class?](#q11-why-is-string-an-immutable-class)
-* [Q12. What Is the Difference Between Dynamic Binding and Static Binding?](#q12-what-is-the-difference-between-dynamic-binding-and-static-binding)
-* [Q13. What Is JIT?](#q13-what-is-jit)
-* [Q14. What Is Reflection in Java?](#q14-what-is-reflection-in-java)
-* [Q15. What Is the Difference Between Static and Dynamic Class Loading?](#q15-what-is-the-difference-between-static-and-dynamic-class-loading)
-* [Q16. What Is the Purpose of the <em>Serializable</em> Interface?](#q16-what-is-the-purpose-of-the-serializable-interface)
+* [Q5. What Are the Methods of the Object Class and What Do They Do?](#q5-what-are-the-methods-of-the-object-class-and-what-do-they-do)
+* [Q6. What Is an Enum and How We Can Use It?](#q6-what-is-an-enum-and-how-we-can-use-it)
+* [Q7. What Are Two Types of Casting in Java? Which Exception May Be Thrown While Casting? How Can We Avoid It?](#q7-what-are-two-types-of-casting-in-java-which-exception-may-be-thrown-while-casting-how-can-we-avoid-it)
+* [Q8. Why Is String an Immutable Class?](#q8-why-is-string-an-immutable-class)
 * [References](#references)
-
 
 
 ### Q1. Is Data Passed by Reference or by Value in Java?
@@ -173,10 +164,10 @@ import static java.util.Collections.EMPTY_LIST;
   <div align="center"> <img src="image-20201208163029796.png" width="30%"/> </div><br>
 
 - getClass: Returns the runtime class of this object
-- hashCode: Returns a hash code value for the object
-- equals:
+- hashCode: The hashCode method does return distinct integers for distinct objects
+- equals: Indicates whether some other object is "equal to" this one
 - clone:
-- toString:
+- toString: Returns a string representation of the object
 - notify:
 - notifyAll:
 - wait:
@@ -208,37 +199,26 @@ public class App {
 
 ### Q6. What Is an Enum and How We Can Use It?
 
+**优点：**
+
+- 方便定义常量（更加 readable，尤其是当你需要使用 `public final static` 修饰的变量）
+- 提供编译时期检查
 
 
 
+### Q7. What Are Two Types of Casting in Java? Which Exception May Be Thrown While Casting? How Can We Avoid It?
 
+```java
+Object o = "string";
+String str = (String) o; // it's ok
 
+Object o2 = new Object();
+String str2 = (String) o2; // ClassCastException will be thrown
 
-### Q7. What Is **a** JAR?
-
-
-
-
-
-
-
-
-
-### Q8. What Is **a** *NullPointerException*?
-
-
-
-
-
-### Q9. What Are Two Types of Casting in Java? Which Exception May Be Thrown While Casting? How Can We Avoid It?
-
-
-
-
-
-
-
-### Q10. Why Is String an Immutable Class?
+if (o2 instanceof String) { // returns false
+    String str3 = (String) o2;
+}
+```
 
 
 
@@ -246,39 +226,7 @@ public class App {
 
 
 
-
-
-
-
-### Q11. What Is the Difference Between Dynamic Binding and Static Binding?
-
-
-
-
-
-### Q12. What Is JIT?
-
-
-
-
-
-### Q13. What Is Reflection in Java?
-
-
-
-
-
-
-
-### Q14. What Is the Difference Between Static and Dynamic Class Loading?
-
-
-
-
-
-
-
-### Q15. What Is the Purpose of the *Serializable* Interface?
+### Q8. Why Is String an Immutable Class?
 
 
 
@@ -290,3 +238,5 @@ public class App {
 
 - [Java Interview Questions](https://www.baeldung.com/java-interview-questions)
 - [Cannot find symbol assertEquals](https://stackoverflow.com/questions/20631621/cannot-find-symbol-assertequals)
+- [A Guide to Java Enums](https://www.baeldung.com/a-guide-to-java-enums)
+- [Why String is Immutable in Java?](https://www.baeldung.com/java-string-immutable)

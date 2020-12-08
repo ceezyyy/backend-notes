@@ -1,6 +1,6 @@
-# Java Interview Questions
+# Core Interview Questions
 
-Table of Contentsg
+Table of Content
 -----------------
 
 * [Q1. Is Data Passed by Reference or by Value in Java?](#q1-is-data-passed-by-reference-or-by-value-in-java)
@@ -19,8 +19,8 @@ Table of Contentsg
 * [Q14. What Is Reflection in Java?](#q14-what-is-reflection-in-java)
 * [Q15. What Is the Difference Between Static and Dynamic Class Loading?](#q15-what-is-the-difference-between-static-and-dynamic-class-loading)
 * [Q16. What Is the Purpose of the <em>Serializable</em> Interface?](#q16-what-is-the-purpose-of-the-serializable-interface)
-
 * [References](#references)
+
 
 
 ### Q1. Is Data Passed by Reference or by Value in Java?

@@ -82,5 +82,5 @@
 ## :orange_book: ​Reading
 
 - [程序员修炼之道: 通向务实的最高境界(第二版)](https://github.com/ceezyyy/backend-notes/blob/master/reading/the-pragmatic-programmer.md)
-- [PRINCIPLES]()
+- [PRINCIPLES](https://github.com/ceezyyy/backend-notes/blob/master/reading/principles.md)
 

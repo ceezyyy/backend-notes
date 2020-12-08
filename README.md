@@ -20,7 +20,7 @@
 
 ## :coffee: Java 
 
-- [基础](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/index.md)
+- [Interview Questions](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/interview-questions.md)
 - [集合源码](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
 - IO / NIO

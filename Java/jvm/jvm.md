@@ -391,7 +391,31 @@ public class PersonBuilder {
 
 ## 11. GC
 
+**什么是 GC?**
 
+`GC` 是 `Garbage Collectors` 的缩写，核心就是追踪堆内存中的对象，对于一些不再使用的对象（可以理解为垃圾）进行回收
+
+
+
+**Strong Reference**
+
+
+
+
+
+**Weak Reference**
+
+
+
+
+
+**Soft Reference**
+
+
+
+
+
+**Phatom Reference**
 
 
 

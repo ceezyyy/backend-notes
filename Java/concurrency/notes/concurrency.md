@@ -375,7 +375,7 @@ public class App {
 
 
 
-<div align="center"> <img src="image-20201209185506354.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20201209191006406.png" width="40%"/> </div><br>
 
 **volatile的作用：**
 
@@ -428,7 +428,7 @@ public class App {
 
 ```java
 public void interrupt() {
-  		// Do something
+  	// Do something
 }
 ```
 

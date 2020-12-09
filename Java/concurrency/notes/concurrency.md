@@ -369,13 +369,12 @@ public class App {
 
 若 t1 和 t2 进行通行：
 
-1. t1 将更新过的变量写入自己的 `local memor` 中
+1. t1 将更新过的变量写入自己的 `local memory` 中
 2. `local memory`（t1 的） 刷新到 `main memory` 中
 3. t2 的 `local memory` 从 `main memory` 读取最新的值
 
 
-
-<div align="center"> <img src="image-20201209191006406.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20201209191214376.png" width="40%"/> </div><br>
 
 **volatile的作用：**
 

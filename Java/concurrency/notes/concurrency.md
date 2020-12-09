@@ -349,7 +349,96 @@ public class App {
 
 <div align="center"> <img src="image-20201209170825204.png" width="50%"/> </div><br>
 
-**为什么会出现这种情况？这个就涉及到 JMM 相关知识了**
+**为什么会出现这种情况？**
+
+要想弄明白，首先要熟悉 `JMM`
+
+
+
+**什么是 JMM?**
+
+`JMM` 是 `Java memory model` 的缩写，隶属于 `JVM`，定义了 `JVM` 在 `RAM` 中的工作方式
+
+<div align="center"> <img src="jmm-explained.png" width="50%"/> </div><br>
+
+`Main memory`：存放共享变量（可以理解为 `JVM` 中的堆内存）
+
+`Local memory`：线程私有，存放共享变量的副本，读 / 写都只通过本地内存（可以理解为 `JVM` 中的虚拟机栈）
+
+
+
+若 t1 和 t2 进行通行：
+
+1. t1 将更新过的变量写入自己的 `local memor` 中
+2. `local memory`（t1 的） 刷新到 `main memory` 中
+3. t2 的 `local memory` 从 `main memory` 读取最新的值
+
+
+
+<div align="center"> <img src="image-20201209185506354.png" width="40%"/> </div><br>
+
+**volatile的作用：**
+
+当一个变量被 `volatile` 修饰时，任何线程对它的写操作都会立即刷新到主内存中，并且会强制让缓存了该变量的线程中的数据清空，必须从主内存重新读取最新数据。
+
+
+
+
+
+当给 `flag` 加上 `volatile` 修饰之后，程序就避免了死循环
+
+**App.java**
+
+```java
+@Slf4j
+public class App {
+
+    // Use static keyword because
+    // Non-static cannot be referenced from a static context
+    volatile static Boolean flag = true;
+
+    public static void main(String[] args) {
+
+        log.info(Thread.currentThread().getName() + " started");
+
+        new Thread(() -> {
+            log.info(Thread.currentThread().getName() + " started");
+            while (flag) {
+                // Do nothing
+            }
+            log.info(Thread.currentThread().getName() + " stopped");
+        }).start();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        flag = false;
+        log.info(Thread.currentThread().getName() + " stopped");
+
+    }
+}
+```
+
+<div align="center"> <img src="image-20201209190256939.png" width="50%"/> </div><br>
+
+- 调用 `Thread.interrupt()`
+
+```java
+public void interrupt() {
+  		// Do something
+}
+```
+
+
+
+
+
+
+
+
 
 
 

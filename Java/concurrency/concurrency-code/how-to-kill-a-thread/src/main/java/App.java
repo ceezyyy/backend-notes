@@ -5,7 +5,7 @@ public class App {
 
     // Use static keyword because
     // Non-static cannot be referenced from a static context
-    static Boolean flag = true;
+    volatile static Boolean flag = true;
 
     public static void main(String[] args) {
 
@@ -20,7 +20,7 @@ public class App {
         }).start();
 
         try {
-            Thread.sleep(10000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -29,5 +29,4 @@ public class App {
         log.info(Thread.currentThread().getName() + " stopped");
 
     }
-
 }

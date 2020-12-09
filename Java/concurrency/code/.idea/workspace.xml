@@ -5,8 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64738123-e022-423c-af43-a7060b0565c1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/thread-implementations/src/main/java/LiveHouseTickets.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/how-to-kill-a-thread/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/how-to-kill-a-thread/src/main/java/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/how-to-kill-a-thread/src/main/java/MyThread.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notes/concurrency.md" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/concurrency.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notes/concurrency.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/concurrency.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../jvm/JVM.xmind" beforeDir="false" afterPath="$PROJECT_DIR$/../../jvm/JVM.xmind" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +55,14 @@
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
-  <component name="RunManager" selected="Application.LiveHouseTickets">
+  <component name="RunManager" selected="Application.App (1)">
+    <configuration name="App (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="App" />
+      <module name="how-to-kill-a-thread" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="App" />
       <module name="thread-implementations" />
@@ -75,6 +90,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.App (1)" />
         <item itemvalue="Application.LiveHouseTickets" />
         <item itemvalue="Application.App" />
       </list>
@@ -89,7 +105,7 @@
       <option name="presentableId" value="Default" />
       <updated>1598083912121</updated>
       <workItem from="1598083913192" duration="89000" />
-      <workItem from="1607435038349" duration="2553000" />
+      <workItem from="1607435038349" duration="6151000" />
     </task>
     <servers />
   </component>
@@ -97,33 +113,45 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser" timestamp="1607439777004">
+    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser" timestamp="1607484165145">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1607439777004" />
-    <state width="1388" height="174" key="GridCell.Tab.0.bottom" timestamp="1607440035296">
+    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1607484165145" />
+    <state width="1388" height="315" key="GridCell.Tab.0.bottom" timestamp="1607487134576">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="174" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1607440035296" />
-    <state width="1388" height="174" key="GridCell.Tab.0.center" timestamp="1607440035295">
+    <state width="1388" height="315" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1607487134576" />
+    <state width="1388" height="315" key="GridCell.Tab.0.center" timestamp="1607487134575">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="174" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1607440035295" />
-    <state width="1388" height="174" key="GridCell.Tab.0.left" timestamp="1607440035294">
+    <state width="1388" height="315" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1607487134575" />
+    <state width="1388" height="315" key="GridCell.Tab.0.left" timestamp="1607487134574">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="174" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1607440035294" />
-    <state width="1388" height="174" key="GridCell.Tab.0.right" timestamp="1607440035296">
+    <state width="1388" height="315" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1607487134574" />
+    <state width="1388" height="315" key="GridCell.Tab.0.right" timestamp="1607487134575">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="174" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1607440035296" />
-    <state x="0" y="37" key="new project wizard" timestamp="1607435082395">
+    <state width="1388" height="315" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1607487134575" />
+    <state x="0" y="37" key="new project wizard" timestamp="1607484119953">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="37" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1607435082395" />
-    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup" timestamp="1607435598845">
+    <state x="0" y="37" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1607484119953" />
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup" timestamp="1607480438995">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1607435598845" />
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1607480438995" />
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/46.23.1394.877@46.23.1394.877" timestamp="1607480431011" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/how-to-kill-a-thread/src/main/java/MyThread.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

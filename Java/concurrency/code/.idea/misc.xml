@@ -4,6 +4,7 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/thread-implementations/pom.xml" />
+        <option value="$PROJECT_DIR$/how-to-kill-a-thread/pom.xml" />
       </list>
     </option>
   </component>

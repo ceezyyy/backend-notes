@@ -9,7 +9,9 @@ Table of Contents
    * [1.2 进程的提出](#12-进程的提出)
    * [1.3 线程的提出](#13-线程的提出)
 * [2. 如何创建线程?](#2-如何创建线程)
-
+* [3. 线程状态](#3-线程状态)
+* [4. 如何优雅地停止线程?](#4-如何优雅地停止线程)
+* [References](#references)
 
 
 ## Brainstorming
@@ -114,7 +116,7 @@ public class App {
 
 <div align="center"> <img src="image-20201208215922133.png" width="40%"/> </div><br>
 
-- 实现 Runnable 接口，重写 run 方法
+- 实现 Runnable 接口，实现 run 方法
 
 **MyRunnable.java**
 
@@ -187,7 +189,70 @@ public class LiveHouseTickets implements Runnable{
 
 
 
+**P.S: ** 日志相关的 `maven` 依赖如下
+
+```xml
+<dependencies>
+    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+    <dependency>
+        <groupId>org.projectlombok</groupId>
+        <artifactId>lombok</artifactId>
+        <version>1.18.12</version>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.30</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>1.7.30</version>
+    </dependency>
+
+</dependencies>
+```
+
+
+
+
+
+## 3. 线程状态
+
+<div align="center"> <img src="Life_cycle_of_a_Thread_in_Java.jpg" width="75%"/> </div><br>
+
+
+
+## 4. 如何优雅地停止线程?
+
+- Using a flag
+
+
+
+
+
+
+
+
+
+其中 `volatile` 保证了内存可见性
+
+
+
+
+
+
 
 
 
 ## References
+
+- [Life Cycle of a Thread in Java](https://www.baeldung.com/java-thread-lifecycle)
+- [你应该知道的 volatile 关键字](https://crossoverjie.top/2018/03/09/volatile/)
+- [How to Kill a Java Thread](https://www.baeldung.com/java-thread-stop)
+- [Killing threads in Java](https://www.geeksforgeeks.org/killing-threads-in-java/)

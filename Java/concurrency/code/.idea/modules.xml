@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/code.iml" filepath="$PROJECT_DIR$/.idea/code.iml" />
+      <module fileurl="file://$PROJECT_DIR$/how-to-kill-a-thread/how-to-kill-a-thread.iml" filepath="$PROJECT_DIR$/how-to-kill-a-thread/how-to-kill-a-thread.iml" />
       <module fileurl="file://$PROJECT_DIR$/thread-implementations/thread-implementations.iml" filepath="$PROJECT_DIR$/thread-implementations/thread-implementations.iml" />
     </modules>
   </component>

@@ -5,13 +5,28 @@ public class App {
 
     // Use static keyword because
     // Non-static cannot be referenced from a static context
-    static boolean flag = false;
+    static Boolean flag = true;
 
     public static void main(String[] args) {
 
+        log.info(Thread.currentThread().getName() + " started");
+
         new Thread(() -> {
-            
-        });
+            log.info(Thread.currentThread().getName() + " started");
+            while (flag) {
+                // Do nothing
+            }
+            log.info(Thread.currentThread().getName() + " stopped");
+        }).start();
+
+        try {
+            Thread.sleep(10000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        flag = false;
+        log.info(Thread.currentThread().getName() + " stopped");
 
     }
 

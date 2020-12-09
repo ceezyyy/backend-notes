@@ -311,6 +311,45 @@ public class App {
 
 看起来程序没毛病，可当代码逻辑处理不当，线程进入死循环时，情况就发生变化了：
 
+```java
+@Slf4j
+public class App {
+
+    // Use static keyword because
+    // Non-static cannot be referenced from a static context
+    static boolean flag = true;
+
+    public static void main(String[] args) {
+
+        log.info(Thread.currentThread().getName() + " started");
+
+        new Thread(() -> {
+            log.info(Thread.currentThread().getName() + " started");
+            while (flag) {
+                // Do nothing
+            }
+            log.info(Thread.currentThread().getName() + " stopped");
+        }).start();
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        flag = false;
+        log.info(Thread.currentThread().getName() + " stopped");
+
+    }
+
+}
+```
+
+程序会无限循环下去
+
+<div align="center"> <img src="image-20201209170825204.png" width="50%"/> </div><br>
+
+**为什么会出现这种情况？这个就涉及到 JMM 相关知识了**
 
 
 
@@ -322,3 +361,4 @@ public class App {
 - [你应该知道的 volatile 关键字](https://crossoverjie.top/2018/03/09/volatile/)
 - [How to Kill a Java Thread](https://www.baeldung.com/java-thread-stop)
 - [Killing threads in Java](https://www.geeksforgeeks.org/killing-threads-in-java/)
+- [Guide to the Volatile Keyword in Java](https://www.baeldung.com/java-volatile)

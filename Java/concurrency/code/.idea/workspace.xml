@@ -5,16 +5,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64738123-e022-423c-af43-a7060b0565c1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/how-to-kill-a-thread/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/how-to-kill-a-thread/src/main/java/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/how-to-kill-a-thread/src/main/java/MyThread.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/code.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_projectlombok_lombok_1_18_12.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_simple_1_7_30.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/how-to-kill-a-thread/how-to-kill-a-thread.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/how-to-kill-a-thread/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/how-to-kill-a-thread/src/main/java/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/how-to-kill-a-thread/src/main/java/MyThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/how-to-kill-a-thread/target/classes/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/how-to-kill-a-thread/target/classes/MyThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-implementations/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-implementations/src/main/java/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-implementations/src/main/java/LiveHouseTickets.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-implementations/src/main/java/MyRunnable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-implementations/src/main/java/MyThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-implementations/target/classes/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-implementations/target/classes/LiveHouseTickets.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-implementations/target/classes/MyRunnable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-implementations/target/classes/MyThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-implementations/thread-implementations.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notes/concurrency.md" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/concurrency.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../notes/concurrency.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/concurrency.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../jvm/JVM.xmind" beforeDir="false" afterPath="$PROJECT_DIR$/../../jvm/JVM.xmind" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +71,9 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="jdk.selected.JAVA_MODULE" value="1.8" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RunManager" selected="Application.App (1)">
     <configuration name="App (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -105,7 +125,7 @@
       <option name="presentableId" value="Default" />
       <updated>1598083912121</updated>
       <workItem from="1598083913192" duration="89000" />
-      <workItem from="1607435038349" duration="6151000" />
+      <workItem from="1607435038349" duration="7247000" />
     </task>
     <servers />
   </component>
@@ -113,45 +133,42 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser" timestamp="1607484165145">
+    <state x="80" y="0" key="#Project_Structure" timestamp="1607494303571">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1607484165145" />
-    <state width="1388" height="315" key="GridCell.Tab.0.bottom" timestamp="1607487134576">
+    <state x="80" y="0" key="#Project_Structure/0.0.1440.900@0.0.1440.900" timestamp="1607494303571" />
+    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser" timestamp="1607493204292">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="315" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1607487134576" />
-    <state width="1388" height="315" key="GridCell.Tab.0.center" timestamp="1607487134575">
+    <state x="486" y="99" key="#com.intellij.ide.util.MemberChooser/0.0.1440.900@0.0.1440.900" timestamp="1607493204292" />
+    <state width="1342" height="204" key="GridCell.Tab.0.bottom" timestamp="1607494363658">
+      <screen x="46" y="23" width="1394" height="877" />
+    </state>
+    <state width="1388" height="379" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1607493852758" />
+    <state width="1342" height="204" key="GridCell.Tab.0.bottom/46.23.1394.877@46.23.1394.877" timestamp="1607494363658" />
+    <state width="1342" height="204" key="GridCell.Tab.0.center" timestamp="1607494363657">
+      <screen x="46" y="23" width="1394" height="877" />
+    </state>
+    <state width="1388" height="379" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1607493852757" />
+    <state width="1342" height="204" key="GridCell.Tab.0.center/46.23.1394.877@46.23.1394.877" timestamp="1607494363657" />
+    <state width="1342" height="204" key="GridCell.Tab.0.left" timestamp="1607494363656">
+      <screen x="46" y="23" width="1394" height="877" />
+    </state>
+    <state width="1388" height="379" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1607493852757" />
+    <state width="1342" height="204" key="GridCell.Tab.0.left/46.23.1394.877@46.23.1394.877" timestamp="1607494363656" />
+    <state width="1342" height="204" key="GridCell.Tab.0.right" timestamp="1607494363658">
+      <screen x="46" y="23" width="1394" height="877" />
+    </state>
+    <state width="1388" height="379" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1607493852758" />
+    <state width="1342" height="204" key="GridCell.Tab.0.right/46.23.1394.877@46.23.1394.877" timestamp="1607494363658" />
+    <state x="0" y="37" key="new project wizard" timestamp="1607494356889">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="315" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1607487134575" />
-    <state width="1388" height="315" key="GridCell.Tab.0.left" timestamp="1607487134574">
+    <state x="0" y="37" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1607494356889" />
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup" timestamp="1607493275738">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state width="1388" height="315" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1607487134574" />
-    <state width="1388" height="315" key="GridCell.Tab.0.right" timestamp="1607487134575">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state width="1388" height="315" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1607487134575" />
-    <state x="0" y="37" key="new project wizard" timestamp="1607484119953">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="0" y="37" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1607484119953" />
-    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup" timestamp="1607480438995">
-      <screen x="0" y="0" width="1440" height="900" />
-    </state>
-    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1607480438995" />
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1607493275738" />
     <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/46.23.1394.877@46.23.1394.877" timestamp="1607480431011" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/how-to-kill-a-thread/src/main/java/MyThread.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

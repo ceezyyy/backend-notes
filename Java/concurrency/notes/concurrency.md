@@ -189,10 +189,11 @@ public class LiveHouseTickets implements Runnable{
 
 
 
-**P.S: ** 日志相关的 `maven` 依赖如下
+**P.S:** 日志相关的 `maven` 依赖如下
 
 ```xml
 <dependencies>
+  
     <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
     <dependency>
         <groupId>org.projectlombok</groupId>
@@ -232,18 +233,83 @@ public class LiveHouseTickets implements Runnable{
 
 - Using a flag
 
+**MyThread.java**
+
+```java
+@Slf4j
+public class MyThread implements Runnable {
+
+    private boolean flag;
+    private String name;
+
+    public MyThread(String name) {
+
+        this.name = name;
+        flag = true;
+
+        new Thread(this, name).start();
+        log.info("New thread: " + name);
+
+    }
+
+    public void stop() {
+        flag = false;
+    }
+
+    public void run() {
+        int i = 0;
+        while (flag) {
+            try {
+                log.info(Thread.currentThread().getName() + " " + i );
+                i++;
+                // Make it a bit slower
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        log.info(Thread.currentThread().getName() + " stopped");
+
+    }
+}
+```
+
+**App.java**
+
+```java
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+public class App {
+
+    public static void main(String[] args) {
+
+        log.info("Main started");
+
+        MyThread t1 = new MyThread("t1");
+        MyThread t2 = new MyThread("t2");
+
+        try {
+            Thread.sleep(2000);
+            t1.stop();
+            t2.stop();
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        log.info("Main stopped");
+
+    }
+}						
+```
+
+<div align="center"> <img src="image-20201209140435692.png" width="50%"/> </div><br>
 
 
 
-
-
-
-
-
-其中 `volatile` 保证了内存可见性
-
-
-
+看起来程序没毛病，可当代码逻辑处理不当，线程进入死循环时，情况就发生变化了：
 
 
 

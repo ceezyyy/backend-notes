@@ -6,13 +6,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="thread-implementations" />
         <module name="how-to-kill-a-thread" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="how-to-kill-a-thread" target="1.5" />
-      <module name="thread-implementations" target="1.5" />
-    </bytecodeTargetLevel>
   </component>
 </project>

@@ -11,7 +11,10 @@ Table of Contents
 * [2. 如何创建线程?](#2-如何创建线程)
 * [3. 线程状态](#3-线程状态)
 * [4. 如何优雅地停止线程?](#4-如何优雅地停止线程)
+* [5. Thread 常用方法](#5-thread-常用方法)
+   * [5.1 Thread.sleep()](#51-threadsleep)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -376,7 +379,7 @@ public class App {
 
 <div align="center"> <img src="image-20201209191214376.png" width="40%"/> </div><br>
 
-**volatile的作用：**
+**volatile 的作用：**
 
 当一个变量被 `volatile` 修饰时，任何线程对它的写操作都会立即刷新到主内存中，并且会强制让缓存了该变量的线程中的数据清空，必须从主内存重新读取最新数据。
 
@@ -437,10 +440,46 @@ public void interrupt() {
 
 
 
+## 5. Thread 常用方法
+
+### 5.1 Thread.sleep()
+
+**特点：**
+
+- 模拟网络延时：放大问题安全性；模拟 countdown
+- 会抛出 `InterruptedException`
+- 不会释放锁
 
 
 
+**App.java**
 
+```java
+@Slf4j
+public class App {
+
+    private static Integer countdown = 10;
+
+    public static void main(String[] args) {
+
+        new Thread(() -> {
+            while (countdown >= 0) {
+                try {
+                    log.info(countdown.toString());
+                    countdown--;
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+    }
+}
+```
+
+
+<div align="center"> <img src="image-20201210164003359.png" width="50%"/> </div><br>
 
 
 ## References

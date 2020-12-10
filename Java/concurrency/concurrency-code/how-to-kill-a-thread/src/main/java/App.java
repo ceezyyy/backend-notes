@@ -5,7 +5,7 @@ public class App {
 
     // Use static keyword because
     // Non-static cannot be referenced from a static context
-    volatile static Boolean flag = true;
+    static Boolean flag = true;
 
     public static void main(String[] args) {
 
@@ -15,6 +15,8 @@ public class App {
             log.info(Thread.currentThread().getName() + " started");
             while (flag) {
                 // Do nothing
+//                log.info(Thread.currentThread().getName() + " is processing");
+                System.out.println("xxx");
             }
             log.info(Thread.currentThread().getName() + " stopped");
         }).start();

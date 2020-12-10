@@ -14,7 +14,10 @@ Table of Contents
 * [5. Thread 常用方法](#5-thread-常用方法)
    * [5.1 Thread.sleep()](#51-threadsleep)
    * [5.2 Thread.join()](#52-threadjoin)
+* [6. Daemon threads（守护线程）](#6-daemon-threads守护线程)
+* [7. 线程同步](#7-线程同步)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -538,6 +541,36 @@ public class App {
 
 
 
+
+## 6. Daemon threads（守护线程）
+
+**什么是守护线程？**
+
+
+
+
+
+
+
+
+
+## 7. 线程同步
+
+**什么是线程同步？**
+
+多个线程对同一个对象进行操作
+
+
+
+
+
+
+
+
+
+
+
+
 ## References
 
 - [Life Cycle of a Thread in Java](https://www.baeldung.com/java-thread-lifecycle)
@@ -545,3 +578,5 @@ public class App {
 - [How to Kill a Java Thread](https://www.baeldung.com/java-thread-stop)
 - [Killing threads in Java](https://www.geeksforgeeks.org/killing-threads-in-java/)
 - [Guide to the Volatile Keyword in Java](https://www.baeldung.com/java-volatile)
+- [Daemon Threads in Java](https://www.baeldung.com/java-daemon-thread)
+- [Daemon thread in Java](https://www.geeksforgeeks.org/daemon-thread-java/#:~:text=Daemon%20thread%20is%20a%20low,user%20threads%20finish%20their%20execution.&text=If%20JVM%20finds%20running%20daemon,and%20after%20that%20shutdown%20itself.)

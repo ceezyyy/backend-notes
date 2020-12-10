@@ -13,8 +13,8 @@ Table of Contents
 * [4. 如何优雅地停止线程?](#4-如何优雅地停止线程)
 * [5. Thread 常用方法](#5-thread-常用方法)
    * [5.1 Thread.sleep()](#51-threadsleep)
+   * [5.2 Thread.join()](#52-threadjoin)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -480,6 +480,62 @@ public class App {
 
 
 <div align="center"> <img src="image-20201210164003359.png" width="50%"/> </div><br>
+
+
+
+### 5.2 Thread.join()
+
+
+> Waits for this thread to die
+
+
+
+**JoinDemo.java**
+
+```java
+@Slf4j
+public class JoinDemo implements Runnable {
+    @Override
+    public void run() {
+        log.info(Thread.currentThread().getName() + " started");
+        for (int i = 0; i < 5; i++) {
+            log.info(Thread.currentThread().getName() + " " + i);
+        }
+        log.info(Thread.currentThread().getName() + " stopped");
+    }
+}
+```
+
+**App.java**
+
+```java
+@Slf4j
+public class App {
+
+    public static void main(String[] args) throws InterruptedException {
+
+        log.info(Thread.currentThread().getName() + " started");
+
+        Thread t1 = new Thread(new JoinDemo(), "t1");
+        t1.start();
+
+        for (int i = 0; i < 2; i++) {
+            log.info(Thread.currentThread().getName() + " " + i);
+            if (i == 0) t1.join();
+        }
+
+        log.info(Thread.currentThread().getName() + " stopped");
+
+    }
+
+}
+```
+
+
+
+<div align="center"> <img src="image-20201210172346173.png" width="45%"/> </div><br>
+
+
 
 
 ## References

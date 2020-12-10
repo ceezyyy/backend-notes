@@ -11,6 +11,7 @@
     <modules>
         <module>how-to-kill-a-thread</module>
         <module>thread-sleep</module>
+        <module>thread-join</module>
     </modules>
 
     <dependencies>

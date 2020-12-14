@@ -8,7 +8,41 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
+* [Table of Contents](#table-of-contents)
+* [1. 架构](#1-架构)
+* [2. 索引优化](#2-索引优化)
+* [3. 定位问题](#3-定位问题)
+* [4. 锁机制](#4-锁机制)
+* [5. 主从复制](#5-主从复制)
 * [References](#references)
+
+
+## 1. 架构
+
+
+
+## 2. 索引优化
+
+
+
+## 3. 定位问题
+
+
+
+
+
+## 4. 锁机制
+
+
+
+
+
+## 5. 主从复制
+
+
+
+
+
 
 
 ## References

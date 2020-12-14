@@ -29,6 +29,8 @@ Table of Contents
 
 ## 2. 索引优化
 
+  <div align="center"> <img src="sql-joins.png" width="80%"/> </div><br>
+
 
 
 ## 3. 定位问题

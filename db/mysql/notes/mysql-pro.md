@@ -19,7 +19,7 @@ Table of Contents
 
 ## 1. 架构
 
-  <div align="center"> <img src="mysql-architecture.png" width="100%"/> </div><br>
+  <div align="center"> <img src="mysql-architecture.png" width="90%"/> </div><br>
 
 
 

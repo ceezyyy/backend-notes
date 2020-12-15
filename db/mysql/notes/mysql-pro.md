@@ -5,14 +5,16 @@ Table of Contents
 
 * [Brainstorming](#brainstorming)
 * [1. 架构](#1-架构)
-* [2. SQL Joins](#2-sql-joins)
+* [2. Joins](#2-joins)
 * [3. 子查询](#3-子查询)
+* [4. Union](#4-union)
+* [5. Type in EXPLAIN](#5-type-in-explain)
 * [References](#references)
+
 
 ## Brainstorming
 
   <div align="center"> <img src="mysql-pro.svg" width="100%"/> </div><br>
-
 
 
 
@@ -47,6 +49,25 @@ Table of Contents
 `union` 用于连接两个以上的 `select` 语句的结果组合到一个结果集合中。多个 `select` 语句会删除重复的数据
 
 
+
+
+
+## 5. Type in EXPLAIN
+
+**system**
+
+最理想条件，现实中不存在
+
+**const**
+
+通过指定 `PK` 查找时，`mysql` 优化器将其默认为常量，速度非常快
+
+```mysql
+SELECT * FROM tbl_name WHERE primary_key=1;
+
+SELECT * FROM tbl_name
+  WHERE primary_key_part1=1 AND primary_key_part2=2;
+```
 
 
 

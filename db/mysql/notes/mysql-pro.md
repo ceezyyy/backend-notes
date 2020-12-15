@@ -20,7 +20,7 @@ Table of Contents
 
 ## 1. 架构
 
-  <div align="center"> <img src="mysql-architecture.png" width="90%"/> </div><br>
+  <div align="center"> <img src="mysql-architecture.png" width="80%"/> </div><br>
 
 
 
@@ -30,13 +30,13 @@ Table of Contents
 
 ## 2. Joins
 
-  <div align="center"> <img src="sql-joins.png" width="80%"/> </div><br>
+  <div align="center"> <img src="sql-joins.png" width="70%"/> </div><br>
 
 
 
 ## 3. 子查询
 
-  <div align="center"> <img src="image-20201215175720297.png" width="70%"/> </div><br>
+  <div align="center"> <img src="image-20201215175720297.png" width="60%"/> </div><br>
 
 
 

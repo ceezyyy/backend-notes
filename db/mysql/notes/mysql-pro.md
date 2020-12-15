@@ -12,6 +12,7 @@ Table of Contents
 * [References](#references)
 
 
+
 ## Brainstorming
 
   <div align="center"> <img src="mysql-pro.svg" width="100%"/> </div><br>
@@ -54,6 +55,17 @@ Table of Contents
 
 ## 5. Type in EXPLAIN
 
+**背景**
+
+两张表：
+
+- emp（员工信息表）
+- dept（部门信息表）
+
+
+
+
+
 **system**
 
 最理想条件，现实中不存在
@@ -68,6 +80,43 @@ SELECT * FROM tbl_name WHERE primary_key=1;
 SELECT * FROM tbl_name
   WHERE primary_key_part1=1 AND primary_key_part2=2;
 ```
+
+**eq_ref**
+
+```mysql
+SELECT * FROM ref_table,other_table
+  WHERE ref_table.key_column=other_table.column;
+
+SELECT * FROM ref_table,other_table
+  WHERE ref_table.key_column_part1=other_table.column
+  AND ref_table.key_column_part2=1;
+```
+
+
+
+**ref**
+
+
+
+
+
+**range**
+
+
+
+
+
+**index**
+
+
+
+
+
+
+
+**all**
+
+
 
 
 
@@ -93,3 +142,5 @@ SELECT * FROM tbl_name
 - [The Difference Between B-trees and B+trees](https://www.baeldung.com/cs/b-trees-vs-btrees)
 - [MySQL 索引](https://www.runoob.com/mysql/mysql-index.html)
 - [尚硅谷MySQL数据库高级，mysql优化，数据库优化](https://www.bilibili.com/video/BV1KW411u7vy?from=search&seid=11888146484032851728)
+- [8.8.2 EXPLAIN Output Format](https://dev.mysql.com/doc/refman/8.0/en/explain-output.html)
+- [MySQL UNION 操作符](https://www.runoob.com/mysql/mysql-union-operation.html)

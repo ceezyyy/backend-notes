@@ -44,7 +44,7 @@ Table of Contents
 
 ## 4. Union
 
-
+`union` 用于连接两个以上的 `select` 语句的结果组合到一个结果集合中。多个 `select` 语句会删除重复的数据
 
 
 

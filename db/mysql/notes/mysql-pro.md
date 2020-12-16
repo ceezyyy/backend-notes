@@ -90,6 +90,8 @@ SELECT * FROM tbl_name
 
 **eq_ref**
 
+唯一性索引扫描，对于每个索引键，表中只有一条数据与之对应
+
 ```mysql
 SELECT * FROM ref_table,other_table
   WHERE ref_table.key_column=other_table.column;

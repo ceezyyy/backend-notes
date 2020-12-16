@@ -11,10 +11,11 @@ Table of Contents
 * [5. 索引: B  树](#5-索引-b-树)
 * [6. 单表索引优化](#6-单表索引优化)
    * [6.1 表设计 &amp; 初始化](#61-表设计--初始化)
-   * [6.2 Demo](#62-demo)
+   * [6.2 联合索引：最左匹配原则](#62-联合索引最左匹配原则)
 * [7. 两表索引优化](#7-两表索引优化)
 * [8. 三表索引优化](#8-三表索引优化)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -124,7 +125,7 @@ SELECT * FROM table_name WHERE K = 5;
 
 
 
-### 6.2 Demo
+### 6.2 联合索引：最左匹配原则
 
 **查询 category_id 为 1 且 comments 大于 1 的情况下，views 最多的 id**
 
@@ -147,7 +148,7 @@ ORDER BY
 
 既然在 `WHERE` 和 `ORDER BY` 后跟了 `category_id`，`comments` 以及 `views` 这三列
 
-那我们就建一个复合索引：
+那我们就建一个联合索引：
 
 ```mysql
 CREATE INDEX idx_category_comments_views ON article ( category_id, comments, views );
@@ -155,9 +156,25 @@ CREATE INDEX idx_category_comments_views ON article ( category_id, comments, vie
 
 <div align="center"> <img src="image-20201216204202798.png" width="100%"/> </div><br>
 
+避免了全表扫，但出现了 `using filesort`
 
 
 
+**联合索引在执行的时候，遵循 “最左匹配原则”**
+
+
+
+举个例子，假设一张表的 `a`，`b`，`c` 列上有一个联合索引 `idx_a_b_c`
+
+相当于已经对 `(a)`，`(a, b)`，`(a, b, c)` 建立了索引
+
+
+
+
+
+
+
+**优化 2.0**
 
 
 
@@ -206,3 +223,4 @@ CREATE INDEX idx_category_comments_views ON article ( category_id, comments, vie
 - [MySQL UNION 操作符](https://www.runoob.com/mysql/mysql-union-operation.html)
 - [What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
 - [mysql联合索引](https://www.cnblogs.com/softidea/p/5977860.html)
+- [MySQL最左匹配原则，道儿上兄弟都得知道的原则](https://blog.csdn.net/qq_39390545/article/details/108540362)

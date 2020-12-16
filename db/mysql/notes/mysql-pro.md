@@ -13,9 +13,9 @@ Table of Contents
    * [6.1 表设计 &amp; 初始化](#61-表设计--初始化)
    * [6.2 联合索引：最左匹配原则](#62-联合索引最左匹配原则)
 * [7. 两表索引优化](#7-两表索引优化)
+   * [7.1 表设计 &amp; 初始化](#71-表设计--初始化)
 * [8. 三表索引优化](#8-三表索引优化)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -194,9 +194,19 @@ CREATE INDEX idx_category_views ON article ( category_id, views );
 
 ## 7. 两表索引优化
 
+### 7.1 表设计 & 初始化
 
+`class` 表：
 
+<div align="center"> <img src="image-20201216230148641.png" width="90%"/> </div><br>
 
+<div align="center"> <img src="image-20201216230731677.png" width="15%"/> </div><br>
+
+`book` 表：
+
+<div align="center"> <img src="image-20201216230150133.png" width="90%"/> </div><br>
+
+<div align="center"> <img src="image-20201216230600327.png" width="15%"/> </div><br>
 
 
 

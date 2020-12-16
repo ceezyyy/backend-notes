@@ -99,7 +99,7 @@ SELECT * FROM table_name WHERE ID = 500;
 SELECT * FROM table_name WHERE K = 5;
 ```
 
-则需要先搜索 `K` 索引树，获得 `ID` 为 500，再去搜 `ID` 索引树，这个称 "回表"
+则需要先搜索 `k` 索引树，获得 `ID` 为 500，再去搜 `ID` 索引树，这个称 "回表"
 
 
 
@@ -141,11 +141,19 @@ ORDER BY
 	LIMIT 1;
 ```
 
+<div align="center"> <img src="image-20201216203010470.png" width="100%"/> </div><br>
 
+**优化 1.0**
 
+既然在 `WHERE` 和 `ORDER BY` 后跟了 `category_id`，`comments` 以及 `views` 这三列
 
+那我们就建一个复合索引：
 
+```mysql
+CREATE INDEX idx_category_comments_views ON article ( category_id, comments, views );
+```
 
+<div align="center"> <img src="image-20201216204202798.png" width="100%"/> </div><br>
 
 
 

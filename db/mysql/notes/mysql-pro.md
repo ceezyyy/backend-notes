@@ -94,6 +94,19 @@ SELECT column_name(s) FROM table2;
 
 **需求 1：查询 category_id 为 1 且 comments 大于 1 的情况下，views 最多的 article_id**
 
+```mysql
+SELECT
+	id 
+FROM
+	article 
+WHERE
+	category_id = 1 
+	AND comments > 1 
+ORDER BY
+	views DESC 
+	LIMIT 1;
+```
+
 
 
 

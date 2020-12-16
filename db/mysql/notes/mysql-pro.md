@@ -69,7 +69,41 @@ SELECT column_name(s) FROM table2;
 
 ## 5. 索引: B+ 树
 
-  <div align="center"> <img src="b-plus-tree.png" width="100%"/> </div><br>
+**每一个索引在 InnoDB 里面对应一颗 B+ 树**
+
+
+
+举个例子，我们有一个主键列为 `ID` 的表，其中有个字段为 `k`，且 `k` 上有索引
+
+我们称 `ID` 为主键索引，`k` 为非主键索引
+
+
+
+
+
+<div align="center"> <img src="image-20201216201947037.png" width="70%"/> </div><br>
+
+
+
+在执行下列语句时：
+
+```mysql
+SELECT * FROM table_name WHERE ID = 500;
+```
+
+只需要搜索 `ID` 这颗 `B+` 树
+
+而当执行下列语句时：
+
+```mysql
+SELECT * FROM table_name WHERE K = 5;
+```
+
+则需要先搜索 `K` 索引树，获得 `ID` 为 500，再去搜 `ID` 索引树，这个称 "回表"
+
+
+
+
 
 ## 6. 单表索引优化
 
@@ -163,4 +197,4 @@ ORDER BY
 - [8.8.2 EXPLAIN Output Format](https://dev.mysql.com/doc/refman/8.0/en/explain-output.html)
 - [MySQL UNION 操作符](https://www.runoob.com/mysql/mysql-union-operation.html)
 - [What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
-
+- [mysql联合索引](https://www.cnblogs.com/softidea/p/5977860.html)

@@ -92,7 +92,7 @@ SELECT column_name(s) FROM table2;
 
 ### 6.2 Demo
 
-**需求 1：查询 category_id 为 1 且 comments 大于 1 的情况下，views 最多的 article_id**
+**查询 category_id 为 1 且 comments 大于 1 的情况下，views 最多的 id**
 
 ```mysql
 SELECT
@@ -106,6 +106,24 @@ ORDER BY
 	views DESC 
 	LIMIT 1;
 ```
+
+
+
+**优化 1.0**
+
+
+
+
+
+
+
+**优化 2.0**
+
+
+
+
+
+
 
 
 
@@ -154,4 +172,5 @@ ORDER BY
 - [尚硅谷MySQL数据库高级，mysql优化，数据库优化](https://www.bilibili.com/video/BV1KW411u7vy?from=search&seid=11888146484032851728)
 - [8.8.2 EXPLAIN Output Format](https://dev.mysql.com/doc/refman/8.0/en/explain-output.html)
 - [MySQL UNION 操作符](https://www.runoob.com/mysql/mysql-union-operation.html)
-- [[What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
+- [What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
+

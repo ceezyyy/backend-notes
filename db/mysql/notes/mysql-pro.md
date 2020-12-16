@@ -8,9 +8,9 @@ Table of Contents
 * [2. Joins](#2-joins)
 * [3. 子查询](#3-子查询)
 * [4. Union](#4-union)
-* [5. Type in EXPLAIN](#5-type-in-explain)
+* [5. 索引](#5-索引)
+* [6. Type in EXPLAIN](#6-type-in-explain)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -51,20 +51,27 @@ Table of Contents
 
 
 
-
-
-## 5. Type in EXPLAIN
-
-**背景**
-
-两张表：
-
-- emp（员工信息表）
-- dept（部门信息表）
+  <div align="center"> <img src="union.png" width="60%"/> </div><br>
 
 
 
+```mysql
+SELECT column_name(s) FROM table1
+UNION
+SELECT column_name(s) FROM table2;
+```
 
+
+
+## 5. 索引
+
+
+
+  <div align="center"> <img src="b-plus-tree.png" width="100%"/> </div><br>
+
+
+
+## 6. Type in EXPLAIN
 
 **system**
 
@@ -72,7 +79,7 @@ Table of Contents
 
 **const**
 
-通过指定 `PK` 查找时，`mysql` 优化器将其默认为常量，速度非常快
+通过指定 `PK` 查找时，`mysql` 优化器将其默认为常量（因为只有一行数据），速度非常快
 
 ```mysql
 SELECT * FROM tbl_name WHERE primary_key=1;
@@ -91,6 +98,14 @@ SELECT * FROM ref_table,other_table
   WHERE ref_table.key_column_part1=other_table.column
   AND ref_table.key_column_part2=1;
 ```
+
+
+
+举个例子，
+
+
+
+
 
 
 

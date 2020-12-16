@@ -164,17 +164,28 @@ CREATE INDEX idx_category_comments_views ON article ( category_id, comments, vie
 
 
 
-举个例子，假设一张表的 `a`，`b`，`c` 列上有一个联合索引 `idx_a_b_c`
+假设一张表的 `a`，`b`，`c` 列上有一个联合索引 `idx_a_b_c`
 
 相当于已经对 `(a)`，`(a, b)`，`(a, b, c)` 建立了索引
 
 
 
+举个例子，联合索引的结构和电话簿相类似，
 
+- 若知道姓，电话簿会很有用
+- 除了姓，还知道名，电话薄更有用
+- 若只知道名，不知道姓，电话簿还能发挥作用吗？
 
 
 
 **优化 2.0**
+
+```mysql
+CREATE INDEX idx_category_views ON article ( category_id, views );
+```
+
+<div align="center"> <img src="image-20201216224438990.png" width="100%"/> </div><br>
+
 
 
 
@@ -224,3 +235,4 @@ CREATE INDEX idx_category_comments_views ON article ( category_id, comments, vie
 - [What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
 - [mysql联合索引](https://www.cnblogs.com/softidea/p/5977860.html)
 - [MySQL最左匹配原则，道儿上兄弟都得知道的原则](https://blog.csdn.net/qq_39390545/article/details/108540362)
+- [mysql 联合索引详解](https://blog.csdn.net/lmh12506/article/details/8879916)

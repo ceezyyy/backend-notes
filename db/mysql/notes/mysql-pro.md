@@ -9,8 +9,11 @@ Table of Contents
 * [3. 子查询](#3-子查询)
 * [4. Union](#4-union)
 * [5. 索引: B  树](#5-索引-b-树)
-* [6. 索引优化](#6-索引优化)
+* [6. 单表索引优化](#6-单表索引优化)
+* [7. 两表索引优化](#7-两表索引优化)
+* [8. 三表索引优化](#8-三表索引优化)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -67,9 +70,26 @@ SELECT column_name(s) FROM table2;
 
   <div align="center"> <img src="b-plus-tree.png" width="100%"/> </div><br>
 
-## 6. 索引优化
+## 6. 单表索引优化
+
+  <div align="center"> <img src="image-20201216110449022.png" width="100%"/> </div><br>
+
+**踩坑记录**
+
+- 插入数据时：
+
+  `INSERT INTO TABLE_NAME (col1, col2, ...) VALUES (val1, val2, ...)` 若 `PK` 为自增，则不要写入 `(col1, col2, ...)` 的参数中（对表进行修改后记得手动保存）
 
 
+
+
+## 7. 两表索引优化
+
+
+
+
+
+## 8. 三表索引优化
 
 
 

@@ -8,8 +8,8 @@ Table of Contents
 * [2. Joins](#2-joins)
 * [3. 子查询](#3-子查询)
 * [4. Union](#4-union)
-* [5. 索引](#5-索引)
-* [6. Type in EXPLAIN](#6-type-in-explain)
+* [5. 索引: B  树](#5-索引-b-树)
+* [6. 索引优化](#6-索引优化)
 * [References](#references)
 
 
@@ -63,79 +63,11 @@ SELECT column_name(s) FROM table2;
 
 
 
-## 5. 索引
-
-
+## 5. 索引: B+ 树
 
   <div align="center"> <img src="b-plus-tree.png" width="100%"/> </div><br>
 
-
-
-## 6. Type in EXPLAIN
-
-**system**
-
-最理想条件，现实中不存在
-
-**const**
-
-通过指定 `PK` 查找时，`mysql` 优化器将其默认为常量（因为只有一行数据），速度非常快
-
-```mysql
-SELECT * FROM tbl_name WHERE primary_key=1;
-
-SELECT * FROM tbl_name
-  WHERE primary_key_part1=1 AND primary_key_part2=2;
-```
-
-**eq_ref**
-
-唯一性索引扫描，对于每个索引键，表中只有一条数据与之对应
-
-```mysql
-SELECT * FROM ref_table,other_table
-  WHERE ref_table.key_column=other_table.column;
-
-SELECT * FROM ref_table,other_table
-  WHERE ref_table.key_column_part1=other_table.column
-  AND ref_table.key_column_part2=1;
-```
-
-
-
-举个例子，
-
-
-
-
-
-
-
-**ref**
-
-
-
-
-
-**range**
-
-
-
-
-
-**index**
-
-
-
-
-
-
-
-**all**
-
-
-
-
+## 6. 索引优化
 
 
 
@@ -161,3 +93,4 @@ SELECT * FROM ref_table,other_table
 - [尚硅谷MySQL数据库高级，mysql优化，数据库优化](https://www.bilibili.com/video/BV1KW411u7vy?from=search&seid=11888146484032851728)
 - [8.8.2 EXPLAIN Output Format](https://dev.mysql.com/doc/refman/8.0/en/explain-output.html)
 - [MySQL UNION 操作符](https://www.runoob.com/mysql/mysql-union-operation.html)
+- [[What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)

@@ -10,10 +10,11 @@ Table of Contents
 * [4. Union](#4-union)
 * [5. 索引: B  树](#5-索引-b-树)
 * [6. 单表索引优化](#6-单表索引优化)
+   * [6.1 表设计 &amp; 初始化](#61-表设计--初始化)
+   * [6.2 Demo](#62-demo)
 * [7. 两表索引优化](#7-两表索引优化)
 * [8. 三表索引优化](#8-三表索引优化)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -72,13 +73,30 @@ SELECT column_name(s) FROM table2;
 
 ## 6. 单表索引优化
 
+### 6.1 表设计 & 初始化
+
   <div align="center"> <img src="image-20201216110449022.png" width="100%"/> </div><br>
+
+
+
+<div align="center"> <img src="image-20201216164123575.png" width="60%"/> </div><br>
+
 
 **踩坑记录**
 
 - 插入数据时：
 
   `INSERT INTO TABLE_NAME (col1, col2, ...) VALUES (val1, val2, ...)` 若 `PK` 为自增，则不要写入 `(col1, col2, ...)` 的参数中（对表进行修改后记得手动保存）
+
+
+
+### 6.2 Demo
+
+**需求 1：查询 category_id 为 1 且 comments 大于 1 的情况下，views 最多的 article_id**
+
+
+
+
 
 
 
@@ -89,7 +107,17 @@ SELECT column_name(s) FROM table2;
 
 
 
+
+
+
+
 ## 8. 三表索引优化
+
+
+
+
+
+
 
 
 

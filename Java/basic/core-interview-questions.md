@@ -207,9 +207,58 @@ public class App {
   <div align="center"> <img src="image-20201217141903920.png" width="30%"/> </div><br>
 
 
+
+
+
+  <div align="center"> <img src="image-20201217142437120.png" width="100%"/> </div><br>
+
+
+
+**延伸 1：ClassNotFoundException 和 NoClassDefFoundError 有何区别？**
+
+
+
+**ClassNotFoundException:**
+
+*ClassNotFoundException* is a checked exception which occurs when an application tries to load a class through its fully-qualified name and can not find its definition on the classpath
+
+```java
+@Test(expected = ClassNotFoundException.class)
+public void givenNoDrivers_whenLoadDriverClass_thenClassNotFoundException() 
+  throws ClassNotFoundException {
+      Class.forName("oracle.jdbc.driver.OracleDriver");
+}
+```
+
+
+
+**NoClassDeFoundError:**
+
+
+
+
+
+**延伸 2：在捕获特定异常而不是通用异常，方便定位问题**
+
+
+
+**延伸 3：不要生吞异常（在 catch 中以日志的方式输出）**
+
+
+
+
+
+
 ## References
 
 - [Java Interview Questions](https://www.baeldung.com/java-interview-questions)
+
 - [Cannot find symbol assertEquals](https://stackoverflow.com/questions/20631621/cannot-find-symbol-assertequals)
+
 - [A Guide to Java Enums](https://www.baeldung.com/a-guide-to-java-enums)
+
 - [Why String is Immutable in Java?](https://www.baeldung.com/java-string-immutable)
+
+- [ClassNotFoundException vs NoClassDefFoundError](https://www.baeldung.com/java-classnotfoundexception-and-noclassdeffounderror)
+
+  

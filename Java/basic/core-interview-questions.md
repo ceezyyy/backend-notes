@@ -3,12 +3,12 @@
 Table of Contents
 -----------------
 
-* [1. Is Data Passed by Reference or by Value in Java?](#1-is-data-passed-by-reference-or-by-value-in-java)
-* [2. Which Access Modifiers Are Available in Java and What Is Their Purpose?](#2-which-access-modifiers-are-available-in-java-and-what-is-their-purpose)
-* [3. What Is the Difference Between JDK, JRE, and JVM?](#3-what-is-the-difference-between-jdk-jre-and-jvm)
-* [4. What Are the Methods of the Object Class and What Do They Do?](#4-what-are-the-methods-of-the-object-class-and-what-do-they-do)
-* [5. Exception 和 Error 有何区别？](#5-exception-和-error-有何区别)
+* [1. Java 到底是值传递还是地址传递？](#1-java-到底是值传递还是地址传递)
+* [2. 说说 JDK, JRE, JVM 的区别？](#2-说说-jdk-jre-jvm-的区别)
+* [3. Exception 和 Error 有何区别？](#3-exception-和-error-有何区别)
+* [4. int 和 Integer 有什么区别？](#4-int-和-integer-有什么区别)
 * [References](#references)
+
 
 
 
@@ -186,12 +186,9 @@ public void givenNoDrivers_whenLoadDriverClass_thenClassNotFoundException()
 
 **延伸 3：不要生吞异常（在 catch 中以日志的方式输出）**
 
+
+
 ## 4. int 和 Integer 有什么区别？
-
-
-
-虽说 `Java` 是面向对象的语言，但原始数据类型（8 种）也是重要的组成部分
-
 
 
 **知识点：自动装箱 / 自动拆箱**

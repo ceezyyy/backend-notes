@@ -209,9 +209,33 @@ CREATE INDEX idx_category_views ON article ( category_id, views );
 
 
 
+没建索引之前：
+
+<div align="center"> <img src="image-20201217112927500.png" width="90%"/> </div><br>
 
 
 
+尝试在 `class` 表的 `card` 字段（左表）建立索引：
+
+```mysql
+CREATE INDEX idx_class_card ON class(card);
+```
+
+
+
+<div align="center"> <img src="image-20201217113426507.png" width="90%"/> </div><br>
+
+
+
+删除该索引，尝试在 `book` 表的 `card` 字段（右表）建立索引：
+
+```mysql
+CREATE INDEX idx_book_card ON book ( card );
+```
+
+<div align="center"> <img src="image-20201217113722486.png" width="90%"/> </div><br>
+
+对比分别在左右表建立的索引，我们可以发现：
 
 
 

@@ -209,33 +209,54 @@ CREATE INDEX idx_category_views ON article ( category_id, views );
 
 
 
+下面以 `left join` 为例，探究两表的索引该如何建立
+
+- 左表：`class`
+- 右表：`book`
+
+```mysql
+EXPLAIN SELECT
+	* 
+FROM
+	class
+	LEFT JOIN book ON class.card = book.card;
+```
+
+
+
 没建索引之前：
 
 <div align="center"> <img src="image-20201217112927500.png" width="90%"/> </div><br>
 
 
 
-尝试在 `class` 表的 `card` 字段（左表）建立索引：
+1. 只在左表 `card` 字段上建立索引：
 
 ```mysql
 CREATE INDEX idx_class_card ON class(card);
 ```
 
+使用 `explain` 分析结果：
+
+<div align="center"> <img src="image-20201217114636037.png" width="90%"/> </div><br>
 
 
-<div align="center"> <img src="image-20201217113426507.png" width="90%"/> </div><br>
 
-
-
-删除该索引，尝试在 `book` 表的 `card` 字段（右表）建立索引：
+2. 删除该索引，只在右表的 `card` 字段建立索引：
 
 ```mysql
 CREATE INDEX idx_book_card ON book ( card );
 ```
 
-<div align="center"> <img src="image-20201217113722486.png" width="90%"/> </div><br>
+使用 `explain` 分析结果：
 
-对比分别在左右表建立的索引，我们可以发现：
+<div align="center"> <img src="image-20201217115112303.png" width="90%"/> </div><br>
+
+
+
+
+
+对比上述两种情况，我们发现：
 
 
 

@@ -256,7 +256,7 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-对比上述两种情况，我们发现：
+**总结：左连接，索引加右表**
 
 
 

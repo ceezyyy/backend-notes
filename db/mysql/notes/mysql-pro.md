@@ -260,8 +260,16 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-
 ## 8. 三表索引优化
+
+### 8.1 表设计 & 初始化
+
+ `phone` 表
+
+<div align="center"> <img src="image-20201217192358584.png" width="90%"/> </div><br>
+
+
+
 
 
 

@@ -12,7 +12,7 @@ Table of Contents
 
 
 
-## 1. Is Data Passed by Reference or by Value in Java?
+## 1. Java 到底是值传递还是地址传递？
 
 首先理清楚两个概念：
 
@@ -116,71 +116,13 @@ public class App {
 
 
 
-
-
-
-
-## 2. Which Access Modifiers Are Available in Java and What Is Their Purpose?
-
-- private：只对当前类暴露
-
-- default：对当前 `package` 暴露
-
-- protected：在 `default` 的基础上，若子类不在当前 `package` 下也可以访问
-
-- public：对所有开放
-
-  
-
-
-
-## 3. What Is the Difference Between JDK, JRE, and JVM?
+## 2. 说说 JDK, JRE, JVM 的区别？
 
   <div align="center"> <img src="jdk-jre-jvm.png" width="50%"/> </div><br>
 
 
 
-
-
-## 4. What Are the Methods of the Object Class and What Do They Do?
-
-  <div align="center"> <img src="image-20201208163029796.png" width="30%"/> </div><br>
-
-- getClass: Returns the runtime class of this object
-- hashCode: The hashCode method does return distinct integers for distinct objects
-- equals: Indicates whether some other object is "equal to" this one
-- clone:
-- toString: Returns a string representation of the object
-- notify:
-- notifyAll:
-- wait:
-- finalize:
-
-
-
-**App.java**
-
-```java
-public class App {
-
-    public static void main(String[] args) {
-
-        String a = "aaa";
-        System.out.println(a.getClass());  // class java.lang.String
-
-        Integer b = 100;
-        System.out.println(b.getClass());  // class java.lang.Integer
-
-    }
-
-}
-```
-
-
-
-
-
-## 5. Exception 和 Error 有何区别？
+## 3. Exception 和 Error 有何区别？
 
 **相同：**
 
@@ -244,6 +186,37 @@ public void givenNoDrivers_whenLoadDriverClass_thenClassNotFoundException()
 
 **延伸 3：不要生吞异常（在 catch 中以日志的方式输出）**
 
+## 4. int 和 Integer 有什么区别？
+
+
+
+虽说 `Java` 是面向对象的语言，但原始数据类型（8 种）也是重要的组成部分
+
+
+
+**知识点：自动装箱 / 自动拆箱**
+
+自动拆箱 / 装箱指的是原始数据类型与其包装类型的相互转换
+
+**IntegerCache**
+
+```java
+private static class IntegerCache {
+    static final int low = -128;
+    static final int high;
+    static final Integer cache[];
+```
+
+**valueOf()**
+
+```java
+public static Integer valueOf(int i) {
+    if (i >= IntegerCache.low && i <= IntegerCache.high)
+        return IntegerCache.cache[i + (-IntegerCache.low)];
+    return new Integer(i);
+}
+```
+
 
 
 
@@ -252,13 +225,8 @@ public void givenNoDrivers_whenLoadDriverClass_thenClassNotFoundException()
 ## References
 
 - [Java Interview Questions](https://www.baeldung.com/java-interview-questions)
-
 - [Cannot find symbol assertEquals](https://stackoverflow.com/questions/20631621/cannot-find-symbol-assertequals)
-
 - [A Guide to Java Enums](https://www.baeldung.com/a-guide-to-java-enums)
-
 - [Why String is Immutable in Java?](https://www.baeldung.com/java-string-immutable)
-
 - [ClassNotFoundException vs NoClassDefFoundError](https://www.baeldung.com/java-classnotfoundexception-and-noclassdeffounderror)
 
-  

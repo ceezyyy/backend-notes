@@ -242,7 +242,7 @@ CREATE INDEX idx_class_card ON class(card);
 
 
 
-2. 删除该索引，只在右表的 `card` 字段建立索引：
+2. 只在右表的 `card` 字段建立索引：
 
 ```mysql
 CREATE INDEX idx_book_card ON book ( card );

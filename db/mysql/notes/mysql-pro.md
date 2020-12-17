@@ -200,13 +200,17 @@ CREATE INDEX idx_category_views ON article ( category_id, views );
 
 <div align="center"> <img src="image-20201216230148641.png" width="90%"/> </div><br>
 
-<div align="center"> <img src="image-20201216230731677.png" width="15%"/> </div><br>
 
 `book` 表：
 
 <div align="center"> <img src="image-20201216230150133.png" width="90%"/> </div><br>
 
-<div align="center"> <img src="image-20201216230600327.png" width="15%"/> </div><br>
+字段都相同，`card` 为主外键关系
+
+
+
+
+
 
 
 

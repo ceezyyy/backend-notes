@@ -256,7 +256,7 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-**总结：左连接，索引加右表**
+**总结：左连接，索引加右表（反之同理）**
 
 
 

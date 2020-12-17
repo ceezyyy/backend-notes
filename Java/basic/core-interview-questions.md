@@ -1,20 +1,18 @@
-# Core Interview Questions
+# Java Interview Questions
 
 Table of Contents
 -----------------
 
-* [Q1. Is Data Passed by Reference or by Value in Java?](#q1-is-data-passed-by-reference-or-by-value-in-java)
-* [Q2. What Is the Difference Between Import and Static Imports?](#q2-what-is-the-difference-between-import-and-static-imports)
-* [Q3. Which Access Modifiers Are Available in Java and What Is Their Purpose?](#q3-which-access-modifiers-are-available-in-java-and-what-is-their-purpose)
-* [Q4. What Is the Difference Between JDK, JRE, and JVM?](#q4-what-is-the-difference-between-jdk-jre-and-jvm)
-* [Q5. What Are the Methods of the Object Class and What Do They Do?](#q5-what-are-the-methods-of-the-object-class-and-what-do-they-do)
-* [Q6. What Is an Enum and How We Can Use It?](#q6-what-is-an-enum-and-how-we-can-use-it)
-* [Q7. What Are Two Types of Casting in Java? Which Exception May Be Thrown While Casting? How Can We Avoid It?](#q7-what-are-two-types-of-casting-in-java-which-exception-may-be-thrown-while-casting-how-can-we-avoid-it)
-* [Q8. Why Is String an Immutable Class?](#q8-why-is-string-an-immutable-class)
+* [1. Is Data Passed by Reference or by Value in Java?](#1-is-data-passed-by-reference-or-by-value-in-java)
+* [2. Which Access Modifiers Are Available in Java and What Is Their Purpose?](#2-which-access-modifiers-are-available-in-java-and-what-is-their-purpose)
+* [3. What Is the Difference Between JDK, JRE, and JVM?](#3-what-is-the-difference-between-jdk-jre-and-jvm)
+* [4. What Are the Methods of the Object Class and What Do They Do?](#4-what-are-the-methods-of-the-object-class-and-what-do-they-do)
+* [5. Exception 和 Error 有何区别？](#5-exception-和-error-有何区别)
 * [References](#references)
 
 
-### Q1. Is Data Passed by Reference or by Value in Java?
+
+## 1. Is Data Passed by Reference or by Value in Java?
 
 首先理清楚两个概念：
 
@@ -120,24 +118,9 @@ public class App {
 
 
 
-### Q2. What Is the Difference Between Import and Static Imports?
 
 
-
-```java
-import java.util.ArrayList; //specific class
-import java.util.*; //all classes in util package
-
-import static java.util.Collections.EMPTY_LIST;
-```
-
-
-
-**区别：** 调用方法 / 变量的时候可以直接写，而不用以  `className.function()` 的形式调用
-
-
-
-### Q3. Which Access Modifiers Are Available in Java and What Is Their Purpose?
+## 2. Which Access Modifiers Are Available in Java and What Is Their Purpose?
 
 - private：只对当前类暴露
 
@@ -151,7 +134,7 @@ import static java.util.Collections.EMPTY_LIST;
 
 
 
-### Q4. What Is the Difference Between JDK, JRE, and JVM?
+## 3. What Is the Difference Between JDK, JRE, and JVM?
 
   <div align="center"> <img src="jdk-jre-jvm.png" width="50%"/> </div><br>
 
@@ -159,7 +142,7 @@ import static java.util.Collections.EMPTY_LIST;
 
 
 
-### Q5. What Are the Methods of the Object Class and What Do They Do?
+## 4. What Are the Methods of the Object Class and What Do They Do?
 
   <div align="center"> <img src="image-20201208163029796.png" width="30%"/> </div><br>
 
@@ -197,41 +180,31 @@ public class App {
 
 
 
-### Q6. What Is an Enum and How We Can Use It?
+## 5. Exception 和 Error 有何区别？
 
-**优点：**
+**相同：**
 
-- 方便定义常量（更加 readable，尤其是当你需要使用 `public final static` 修饰的变量）
-- 提供编译时期检查
-
-
-
-### Q7. What Are Two Types of Casting in Java? Which Exception May Be Thrown While Casting? How Can We Avoid It?
-
-```java
-Object o = "string";
-String str = (String) o; // it's ok
-
-Object o2 = new Object();
-String str2 = (String) o2; // ClassCastException will be thrown
-
-if (o2 instanceof String) { // returns false
-    String str3 = (String) o2;
-}
-```
+继承了 `Throwable` 类，证明可以被抛出 `throw` 和捕获 `catch`
 
 
 
+**不同：**
+
+`Exception` 是程序运行中可以预料的意外情况，应该被 `catch` 到，并进行相应的处理；而 `Error` 是指正常情况下不太可能出现的异
+
+ 常（若出现，则会导致程序运行出错）
 
 
 
+**值得注意的是：**
 
-### Q8. Why Is String an Immutable Class?
+`Exception` 分为 `checked` 和 `unchecked` 两种，前者需要在 `coding` 时显示 `try-catch`，而后者不用
+
+后者需继承 `RuntimeException`（如空指针，数组越界，应该在 `coding` 的时候避免）
 
 
 
-
-
+  <div align="center"> <img src="image-20201217141903920.png" width="30%"/> </div><br>
 
 
 ## References

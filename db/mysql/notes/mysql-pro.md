@@ -268,25 +268,9 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
+## 8. 你的 like 语句为啥没索引？
 
-
-## 8. 索引优化技巧
-
-
-- 最左匹配原则
-- 不在索引列上做操作（计算，函数，类型转换）
-- 范围之后的索引会失效
-- 尽量使用覆盖索引（禁止 SELECT *）
-- 使用 `!=`, `<>`, `is null`, `is not null`，索引会失效
-- `like` 以通配符开头，索引会失效
-- 字符串不加单引号，索引会失效
-- 少用 `or`，用它连接时索引会失效
-
-
-
-## 9. 你的 like 语句为啥没索引？
-
-### 9.1 背景
+### 8.1 背景
 
 表 `staff`：
 
@@ -296,7 +280,7 @@ CREATE INDEX idx_book_card ON book ( card );
 
   <div align="center"> <img src="image-20201218160713434.png" width="90%"/> </div><br>
 
-### 9.2 三种 like 查询
+### 8.2 三种 like 查询
 
 ```mysql
 EXPLAIN SELECT
@@ -343,7 +327,7 @@ WHERE
 
 若不知道姓，只知道名（好比 `%xxx`），查找效率就变得异常低下（需要翻看整个电话簿）
 
-### 9.3 覆盖索引
+### 8.3 覆盖索引
 
 在实际的业务环境中，不可避免地会存在需要 `%xxx%` 匹配的场景，那么该如何更好地应对？
 
@@ -522,7 +506,7 @@ WHERE
 
 <div align="center"> <img src="image-20201218185837877.png" width="100%"/> </div><br>
 
-### 9.4 延伸：为什么不能 SELECT * ?
+
 
 
 
@@ -541,3 +525,4 @@ WHERE
 - [【原创】Mysql中select的正确姿势](https://www.cnblogs.com/rjzheng/p/9902911.html)
 - [MySQL 覆盖索引详解](https://juejin.cn/post/6844903967365791752)
 - [MySQL索引原理及慢查询优化](https://tech.meituan.com/2014/06/30/mysql-index.html)
+- [一文读懂MySQL的索引结构及查询优化](https://www.cnblogs.com/itwild/p/13703259.html)

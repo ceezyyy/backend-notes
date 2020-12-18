@@ -21,8 +21,8 @@ Table of Contents
    * [9.1 背景](#91-背景)
    * [9.2 三种 like 查询](#92-三种-like-查询)
    * [9.3 覆盖索引](#93-覆盖索引)
+   * [9.4 延伸：为什么不能 SELECT * ?](#94-延伸为什么不能-select--)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -521,6 +521,8 @@ WHERE
 ```
 
 <div align="center"> <img src="image-20201218185837877.png" width="100%"/> </div><br>
+
+### 9.4 延伸：为什么不能 SELECT * ?
 
 
 

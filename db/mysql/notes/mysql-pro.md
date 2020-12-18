@@ -293,4 +293,3 @@ CREATE INDEX idx_book_card ON book ( card );
 - [MySQL最左匹配原则，道儿上兄弟都得知道的原则](https://blog.csdn.net/qq_39390545/article/details/108540362)
 - [mysql 联合索引详解](https://blog.csdn.net/lmh12506/article/details/8879916)
 - [【原创】Mysql中select的正确姿势](https://www.cnblogs.com/rjzheng/p/9902911.html)
-- [你的like语句为啥没索引](https://juejin.cn/post/6844903688553627661)

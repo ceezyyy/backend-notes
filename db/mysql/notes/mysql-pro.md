@@ -315,9 +315,50 @@ CREATE INDEX idx_name_age_pos ON staff(name, age, position);
 
 ### 8.3 全值匹配 恭喜发财
 
+匹配第一列：
+
+```mysql
+EXPLAIN SELECT
+	* 
+FROM
+	staff 
+WHERE
+	`name` = 'LBJ';
+```
+
+<div align="center"> <img src="image-20201218122001752.png" width="100%"/> </div><br>
 
 
+匹配前两列：
 
+```mysql
+EXPLAIN SELECT
+	* 
+FROM
+	staff 
+WHERE
+	`name` = 'LBJ' 
+	AND `age` = 23;
+```
+
+
+<div align="center"> <img src="image-20201218121854235.png" width="100%"/> </div><br>
+
+同时匹配三列：
+
+```mysql
+EXPLAIN SELECT
+	* 
+FROM
+	staff 
+WHERE
+	`name` = 'LBJ' 
+	AND `age` = 23 
+	AND `position` = 'starting';
+```
+
+
+<div align="center"> <img src="image-20201218121658978.png" width="100%"/> </div><br>
 
 ### 8.4 最左匹配原则
 

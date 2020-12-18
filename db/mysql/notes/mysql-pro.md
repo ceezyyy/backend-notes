@@ -16,8 +16,9 @@ Table of Contents
    * [7.1 表设计](#71-表设计)
    * [7.2 Demo](#72-demo)
    * [7.3 总结](#73-总结)
+* [8. 索引优化实战](#8-索引优化实战)
+   * [8.1 创建 staff 表](#81-创建-staff-表)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -270,8 +271,9 @@ CREATE INDEX idx_book_card ON book ( card );
 
 ## 8. 索引优化实战
 
+### 8.1 创建 staff 表
 
-
+<div align="center"> <img src="image-20201218104833099.png" width="90%"/> </div><br>
 
 
 

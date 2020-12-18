@@ -17,8 +17,11 @@ Table of Contents
    * [7.2 Demo](#72-demo)
    * [7.3 总结](#73-总结)
 * [8. 索引优化实战](#8-索引优化实战)
-   * [8.1 创建 staff 表](#81-创建-staff-表)
+   * [8.1 索引优化技巧（重要）](#81-索引优化技巧重要)
+   * [8.2 创建 staff 表](#82-创建-staff-表)
+   * [8.3 Demo](#83-demo)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -289,6 +292,19 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
+### 8.3 Demo
+
+在表中 `name`，`age`，`position` 三列上建立联合索引：
+
+```mysql
+CREATE INDEX idx_name_age_pos ON staff(name, age, position);
+```
+
+
+
+查看索引：
+
+<div align="center"> <img src="image-20201218114115091.png" width="100%"/> </div><br>
 
 
 

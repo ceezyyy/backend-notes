@@ -13,9 +13,11 @@ Table of Contents
    * [6.1 表设计 &amp; 初始化](#61-表设计--初始化)
    * [6.2 联合索引：最左匹配原则](#62-联合索引最左匹配原则)
 * [7. 两表索引优化](#7-两表索引优化)
-   * [7.1 表设计 &amp; 初始化](#71-表设计--初始化)
-* [8. 三表索引优化](#8-三表索引优化)
+   * [7.1 表设计](#71-表设计)
+   * [7.2 Demo](#72-demo)
+   * [7.3 总结](#73-总结)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -194,7 +196,7 @@ CREATE INDEX idx_category_views ON article ( category_id, views );
 
 ## 7. 两表索引优化
 
-### 7.1 表设计 & 初始化
+### 7.1 表设计
 
 `class` 表：
 
@@ -208,6 +210,8 @@ CREATE INDEX idx_category_views ON article ( category_id, views );
 字段都相同，`card` 为主外键关系
 
 
+
+### 7.2 Demo
 
 下面以 `left join` 为例，探究两表的索引该如何建立
 
@@ -256,23 +260,15 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-**总结：左连接，索引加右表（反之同理）**
+### 7.3 总结
 
-
-
-## 8. 三表索引优化
-
-### 8.1 表设计 & 初始化
-
- `phone` 表
-
-<div align="center"> <img src="image-20201217192358584.png" width="90%"/> </div><br>
+**左连接，索引加右表（反之同理）**
 
 
 
 
 
-
+## 8. 索引优化实战
 
 
 

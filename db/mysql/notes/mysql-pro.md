@@ -351,21 +351,65 @@ WHERE
 
 
 
+下面通过一个 demo 来更好地理解覆盖索引的概念
+
+表 `staff`：
+
+  <div align="center"> <img src="image-20201218174400389.png" width="80%"/> </div><br>
+
+<div align="center"> <img src="image-20201218175042643.png" width="40%"/> </div><br>
 
 
 
+假设在某业务场景，`name` 和 `age` 为高频查询的条件
+
+**建索引前**
+
+```mysql
+EXPLAIN SELECT
+	`id` 
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+<div align="center"> <img src="image-20201218175154392.png" width="100%"/> </div><br>
+
+```mysql
+EXPLAIN SELECT
+	`name` 
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+<div align="center"> <img src="image-20201218175329541.png" width="100%"/> </div><br>
+
+```mysql
+EXPLAIN SELECT
+	`age` 
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+<div align="center"> <img src="image-20201218175422812.png" width="100%"/> </div><br>
+
+```mysql
+EXPLAIN SELECT
+	`name`,
+	`age` 
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
 
 
-
-
-
-
-
-
-
-
-
-
+<div align="center"> <img src="image-20201218175706140.png" width="100%"/> </div><br>
 
 ## References
 

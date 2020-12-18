@@ -537,3 +537,5 @@ WHERE
 - [MySQL最左匹配原则，道儿上兄弟都得知道的原则](https://blog.csdn.net/qq_39390545/article/details/108540362)
 - [mysql 联合索引详解](https://blog.csdn.net/lmh12506/article/details/8879916)
 - [【原创】Mysql中select的正确姿势](https://www.cnblogs.com/rjzheng/p/9902911.html)
+- [MySQL 覆盖索引详解](https://juejin.cn/post/6844903967365791752)
+- [MySQL索引原理及慢查询优化](https://tech.meituan.com/2014/06/30/mysql-index.html)

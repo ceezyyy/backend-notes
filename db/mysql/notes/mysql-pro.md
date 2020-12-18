@@ -17,8 +17,11 @@ Table of Contents
    * [7.2 Demo](#72-demo)
    * [7.3 总结](#73-总结)
 * [8. 索引优化技巧](#8-索引优化技巧)
+* [9. 你的 like 语句为啥没索引？](#9-你的-like-语句为啥没索引)
+   * [9.1 背景](#91-背景)
+   * [9.2 三种 like 查询](#92-三种-like-查询)
+   * [9.3 覆盖索引](#93-覆盖索引)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -278,6 +281,79 @@ CREATE INDEX idx_book_card ON book ( card );
 - `like` 以通配符开头，索引会失效
 - 字符串不加单引号，索引会失效
 - 少用 `or`，用它连接时索引会失效
+
+
+
+## 9. 你的 like 语句为啥没索引？
+
+### 9.1 背景
+
+表 `staff`：
+
+  <div align="center"> <img src="image-20201218160549763.png" width="90%"/> </div><br>
+
+在 `name`，`age`，`position` 字段上加了联合索引：
+
+  <div align="center"> <img src="image-20201218160713434.png" width="90%"/> </div><br>
+
+### 9.2 三种 like 查询
+
+```mysql
+EXPLAIN SELECT
+	* 
+FROM
+	staff 
+WHERE
+	`name` LIKE '%L%';
+```
+
+
+<div align="center"> <img src="image-20201218160942871.png" width="90%"/> </div><br>
+
+```mysql
+EXPLAIN SELECT
+	* 
+FROM
+	staff 
+WHERE
+	`name` LIKE '%L';
+```
+
+
+  <div align="center"> <img src="image-20201218161138676.png" width="90%"/> </div><br>
+
+
+
+```mysql
+EXPLAIN SELECT
+	* 
+FROM
+	staff 
+WHERE
+	`name` LIKE 'L%';
+```
+
+  <div align="center"> <img src="image-20201218161348098.png" width="90%"/> </div><br>
+
+
+
+可以发现：要想走索引，`%` 不能作为 `like` 条件的开头
+
+举个例子，若把索引比作电话簿，当你知道某人的姓（好比 `xxx%`），电话簿查找的效率会高很多
+
+若不知道姓，只知道名（好比 `%xxx`），查找效率就变得异常低下（需要翻看整个电话簿）
+
+### 9.3 覆盖索引
+
+
+
+
+
+
+
+
+
+
 
 
 

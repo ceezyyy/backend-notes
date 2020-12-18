@@ -361,7 +361,7 @@ WHERE
 
 
 
-假设在某业务场景，`name` 和 `age` 为高频查询的条件
+**假设在某业务场景 name 和 age 为高频查询的条件**
 
 **建索引前**
 
@@ -410,6 +410,120 @@ WHERE
 
 
 <div align="center"> <img src="image-20201218175706140.png" width="100%"/> </div><br>
+
+
+
+```mysql
+EXPLAIN SELECT
+	`id`,
+	`name`,
+	`age`,
+	`position`,
+	`add_time`
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+
+<div align="center"> <img src="image-20201218183100716.png" width="100%"/> </div><br>
+
+```mysql
+EXPLAIN SELECT
+	*
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+
+<div align="center"> <img src="image-20201218183310317.png" width="100%"/> </div><br>
+
+**在 name 和 age 列上建立索引：**
+
+<div align="center"> <img src="image-20201218184727831.png" width="70%"/> </div><br>
+
+```mysql
+EXPLAIN SELECT
+	id
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+<div align="center"> <img src="image-20201218185029961.png" width="100%"/> </div><br>
+
+```mysql
+EXPLAIN SELECT
+	`name`
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+<div align="center"> <img src="image-20201218185136787.png" width="100%"/> </div><br>
+
+
+
+```mysql
+EXPLAIN SELECT
+	`age`
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+<div align="center"> <img src="image-20201218185322359.png" width="100%"/> </div><br>
+
+
+
+```mysql
+EXPLAIN SELECT
+	`name`,
+	`age` 
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+<div align="center"> <img src="image-20201218185513385.png" width="100%"/> </div><br>
+
+```mysql
+EXPLAIN SELECT
+	`id`,
+	`name`,
+	`age` 
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+
+<div align="center"> <img src="image-20201218185717871.png" width="100%"/> </div><br>
+
+```mysql
+EXPLAIN SELECT
+	`id`,
+	`name`,
+	`age`,
+	`position`
+FROM
+	staff 
+WHERE
+	`name` LIKE '%xxx%';
+```
+
+<div align="center"> <img src="image-20201218185837877.png" width="100%"/> </div><br>
+
+
+
 
 ## References
 

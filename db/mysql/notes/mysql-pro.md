@@ -16,13 +16,12 @@ Table of Contents
    * [7.1 表设计](#71-表设计)
    * [7.2 Demo](#72-demo)
    * [7.3 总结](#73-总结)
-* [8. 索引优化技巧](#8-索引优化技巧)
-* [9. 你的 like 语句为啥没索引？](#9-你的-like-语句为啥没索引)
-   * [9.1 背景](#91-背景)
-   * [9.2 三种 like 查询](#92-三种-like-查询)
-   * [9.3 覆盖索引](#93-覆盖索引)
-   * [9.4 延伸：为什么不能 SELECT * ?](#94-延伸为什么不能-select--)
+* [8. 你的 like 语句为啥没索引？](#8-你的-like-语句为啥没索引)
+   * [8.1 背景](#81-背景)
+   * [8.2 三种 like 查询](#82-三种-like-查询)
+   * [8.3 覆盖索引](#83-覆盖索引)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -526,3 +525,5 @@ WHERE
 - [MySQL 覆盖索引详解](https://juejin.cn/post/6844903967365791752)
 - [MySQL索引原理及慢查询优化](https://tech.meituan.com/2014/06/30/mysql-index.html)
 - [一文读懂MySQL的索引结构及查询优化](https://www.cnblogs.com/itwild/p/13703259.html)
+- [mysql怎么让左模糊查询也能走索引？](https://blog.csdn.net/weixin_38106322/article/details/106583450)
+

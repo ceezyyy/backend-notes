@@ -19,16 +19,11 @@ Table of Contents
 * [8. 索引优化实战](#8-索引优化实战)
    * [8.1 索引优化技巧（重要）](#81-索引优化技巧重要)
    * [8.2 初始化](#82-初始化)
-   * [8.3 最左匹配原则](#83-最左匹配原则)
-   * [8.4 不在索引列上做操作（计算/函数/类型转换）](#84-不在索引列上做操作计算函数类型转换)
-   * [8.5 存储引擎不能使用索引中范围条件右边的列](#85-存储引擎不能使用索引中范围条件右边的列)
-   * [8.6 尽量使用覆盖索引](#86-尽量使用覆盖索引)
-   * [8.7 使用 !=, &lt;, &gt;, is null, is not null 索引会失效](#87-使用----is-null-is-not-null-索引会失效)
-   * [8.8 like 以通配符开头, 索引会失效](#88-like-以通配符开头-索引会失效)
-   * [8.9 字符串不加单引号, 索引会失效](#89-字符串不加单引号-索引会失效)
-   * [8.10 少用 or, 用其连接时索引会失效](#810-少用-or-用其连接时索引会失效)
+   * [8.3 使用 !=, &lt;&gt;, is null, is not null 索引会失效](#83-使用---is-null-is-not-null-索引会失效)
+   * [8.4 like 以通配符开头, 索引会失效](#84-like-以通配符开头-索引会失效)
+   * [8.5 字符串不加单引号, 索引会失效](#85-字符串不加单引号-索引会失效)
+   * [8.6 少用 or, 用其连接时索引会失效](#86-少用-or-用其连接时索引会失效)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -311,25 +306,9 @@ CREATE INDEX idx_name_age_pos ON staff(name, age, position);
 
 <div align="center"> <img src="image-20201218114115091.png" width="100%"/> </div><br>
 
-### 8.3 最左匹配原则
-
-“带头大哥不能死，中间兄弟不能断”
 
 
-
-### 8.4 不在索引列上做操作（计算/函数/类型转换）
-
-
-
-### 8.5 存储引擎不能使用索引中范围条件右边的列
-
-
-
-### 8.6 尽量使用覆盖索引
-
-
-
-### 8.7 使用 !=, <, >, is null, is not null 索引会失效
+### 8.3 使用 !=, <>, is null, is not null 索引会失效
 
 
 
@@ -337,17 +316,17 @@ CREATE INDEX idx_name_age_pos ON staff(name, age, position);
 
 
 
-### 8.8 like 以通配符开头, 索引会失效
+### 8.4 like 以通配符开头, 索引会失效
 
 
 
-### 8.9 字符串不加单引号, 索引会失效
+### 8.5 字符串不加单引号, 索引会失效
 
 
 
 
 
-### 8.10 少用 or, 用其连接时索引会失效
+### 8.6 少用 or, 用其连接时索引会失效
 
 
 
@@ -374,3 +353,5 @@ CREATE INDEX idx_name_age_pos ON staff(name, age, position);
 - [mysql联合索引](https://www.cnblogs.com/softidea/p/5977860.html)
 - [MySQL最左匹配原则，道儿上兄弟都得知道的原则](https://blog.csdn.net/qq_39390545/article/details/108540362)
 - [mysql 联合索引详解](https://blog.csdn.net/lmh12506/article/details/8879916)
+- [【原创】Mysql中select的正确姿势](https://www.cnblogs.com/rjzheng/p/9902911.html)
+- [What is the meaning of <> in mysql query?](https://stackoverflow.com/questions/39075213/what-is-the-meaning-of-in-mysql-query)

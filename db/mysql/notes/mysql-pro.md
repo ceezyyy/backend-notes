@@ -18,8 +18,11 @@ Table of Contents
    * [7.2 Demo](#72-demo)
    * [7.3 总结](#73-总结)
 * [8. 覆盖索引](#8-覆盖索引)
+* [9. 小表驱动大表（待补充）](#9-小表驱动大表待补充)
+   * [9.1 IN](#91-in)
+   * [9.2 EXISTS](#92-exists)
+* [10. InnoDB 锁](#10-innodb-锁)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -295,7 +298,7 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-## 9. 小表驱动大表
+## 9. 小表驱动大表（待补充）
 
 ### 9.1 IN
 
@@ -327,7 +330,15 @@ WHERE column_name IN (SELECT STATEMENT);
 
 
 
-## 10. 锁机制
+## 10. InnoDB 锁
+
+
+
+
+
+
+
+
 
 
 

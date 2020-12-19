@@ -289,7 +289,9 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-**例子：** 避免 `SELECT *` 的写法
+**注意：**
+
+当 ` SELECT *` 的时候，若是遍历整个索引树（比如 `LIKE %xxx%`），可以认为造成了全表扫描（因为在遍历索引树的过程每次都需要回表）
 
 
 

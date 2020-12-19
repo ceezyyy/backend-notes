@@ -9,6 +9,7 @@ Table of Contents
 * [3. 子查询](#3-子查询)
 * [4. Union](#4-union)
 * [5. 索引: B  树](#5-索引-b-树)
+   * [5.1 回表](#51-回表)
 * [6. 单表索引优化](#6-单表索引优化)
    * [6.1 表设计 &amp; 初始化](#61-表设计--初始化)
    * [6.2 联合索引：最左匹配原则](#62-联合索引最左匹配原则)
@@ -16,10 +17,7 @@ Table of Contents
    * [7.1 表设计](#71-表设计)
    * [7.2 Demo](#72-demo)
    * [7.3 总结](#73-总结)
-* [8. 你的 like 语句为啥没索引？](#8-你的-like-语句为啥没索引)
-   * [8.1 背景](#81-背景)
-   * [8.2 三种 like 查询](#82-三种-like-查询)
-   * [8.3 覆盖索引](#83-覆盖索引)
+* [8. 覆盖索引](#8-覆盖索引)
 * [References](#references)
 
 
@@ -79,6 +77,8 @@ SELECT column_name(s) FROM table2;
 
 
 
+### 5.1 回表
+
 举个例子，我们有一个主键列为 `ID` 的表，其中有个字段为 `k`，且 `k` 上有索引
 
 我们称 `ID` 为主键索引，`k` 为非主键索引
@@ -108,6 +108,20 @@ SELECT * FROM table_name WHERE K = 5;
 则需要先搜索 `k` 索引树，获得 `ID` 为 500，再去搜 `ID` 索引树，这个称 "回表"
 
 
+
+
+
+**执行流程（重要）：**
+
+1. 在 `k` 索引树上找到 `k = 3` 的记录，取得 `ID = 300`
+2. 再到 `ID`  索引树查到 `ID = 300` 对应的 `R3`
+3. 在 `k` 索引树取下一个值 `k = 5`，取得 `ID = 500`
+4. 再回到 `ID` 索引树查到 `ID = 500` 对应的 `R4`
+5. 在 `k` 索引树取下一个值 `k = 6`，不满足条件，循环结束
+
+
+
+在这个例子中，由于查询结果所需要的数据只在主键索引上有，所以不得不回表
 
 
 
@@ -267,245 +281,15 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-## 8. 你的 like 语句为啥没索引？
+## 8. 覆盖索引
 
-### 8.1 背景
+通过遍历索引树就可以满足查询的字段，不用回表，即索引被覆盖了
 
-表 `staff`：
+是一种高效的性能优化手段
 
-  <div align="center"> <img src="image-20201218160549763.png" width="90%"/> </div><br>
 
-在 `name`，`age`，`position` 字段上加了联合索引：
 
-  <div align="center"> <img src="image-20201218160713434.png" width="90%"/> </div><br>
-
-### 8.2 三种 like 查询
-
-```mysql
-EXPLAIN SELECT
-	* 
-FROM
-	staff 
-WHERE
-	`name` LIKE '%L%';
-```
-
-
-<div align="center"> <img src="image-20201218160942871.png" width="90%"/> </div><br>
-
-```mysql
-EXPLAIN SELECT
-	* 
-FROM
-	staff 
-WHERE
-	`name` LIKE '%L';
-```
-
-
-  <div align="center"> <img src="image-20201218161138676.png" width="90%"/> </div><br>
-
-
-
-```mysql
-EXPLAIN SELECT
-	* 
-FROM
-	staff 
-WHERE
-	`name` LIKE 'L%';
-```
-
-  <div align="center"> <img src="image-20201218161348098.png" width="90%"/> </div><br>
-
-
-
-可以发现：要想走索引，`%` 不能作为 `like` 条件的开头
-
-举个例子，若把索引比作电话簿，当你知道某人的姓（好比 `xxx%`），电话簿查找的效率会高很多
-
-若不知道姓，只知道名（好比 `%xxx`），查找效率就变得异常低下（需要翻看整个电话簿）
-
-### 8.3 覆盖索引
-
-在实际的业务环境中，不可避免地会存在需要 `%xxx%` 匹配的场景，那么该如何更好地应对？
-
-接下来需要引入**覆盖索引**的概念
-
-
-
-下面通过一个 demo 来更好地理解覆盖索引的概念
-
-表 `staff`：
-
-  <div align="center"> <img src="image-20201218174400389.png" width="80%"/> </div><br>
-
-<div align="center"> <img src="image-20201218175042643.png" width="40%"/> </div><br>
-
-
-
-**假设在某业务场景 name 和 age 为高频查询的条件**
-
-**建索引前**
-
-```mysql
-EXPLAIN SELECT
-	`id` 
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-<div align="center"> <img src="image-20201218175154392.png" width="100%"/> </div><br>
-
-```mysql
-EXPLAIN SELECT
-	`name` 
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-<div align="center"> <img src="image-20201218175329541.png" width="100%"/> </div><br>
-
-```mysql
-EXPLAIN SELECT
-	`age` 
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-<div align="center"> <img src="image-20201218175422812.png" width="100%"/> </div><br>
-
-```mysql
-EXPLAIN SELECT
-	`name`,
-	`age` 
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-
-<div align="center"> <img src="image-20201218175706140.png" width="100%"/> </div><br>
-
-
-
-```mysql
-EXPLAIN SELECT
-	`id`,
-	`name`,
-	`age`,
-	`position`,
-	`add_time`
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-
-<div align="center"> <img src="image-20201218183100716.png" width="100%"/> </div><br>
-
-```mysql
-EXPLAIN SELECT
-	*
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-
-<div align="center"> <img src="image-20201218183310317.png" width="100%"/> </div><br>
-
-**在 name 和 age 列上建立索引：**
-
-<div align="center"> <img src="image-20201218184727831.png" width="70%"/> </div><br>
-
-```mysql
-EXPLAIN SELECT
-	id
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-<div align="center"> <img src="image-20201218185029961.png" width="100%"/> </div><br>
-
-```mysql
-EXPLAIN SELECT
-	`name`
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-<div align="center"> <img src="image-20201218185136787.png" width="100%"/> </div><br>
-
-
-
-```mysql
-EXPLAIN SELECT
-	`age`
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-<div align="center"> <img src="image-20201218185322359.png" width="100%"/> </div><br>
-
-
-
-```mysql
-EXPLAIN SELECT
-	`name`,
-	`age` 
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-<div align="center"> <img src="image-20201218185513385.png" width="100%"/> </div><br>
-
-```mysql
-EXPLAIN SELECT
-	`id`,
-	`name`,
-	`age` 
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-
-<div align="center"> <img src="image-20201218185717871.png" width="100%"/> </div><br>
-
-```mysql
-EXPLAIN SELECT
-	`id`,
-	`name`,
-	`age`,
-	`position`
-FROM
-	staff 
-WHERE
-	`name` LIKE '%xxx%';
-```
-
-<div align="center"> <img src="image-20201218185837877.png" width="100%"/> </div><br>
-
-
+**例子：** 避免 `SELECT *` 的写法
 
 
 

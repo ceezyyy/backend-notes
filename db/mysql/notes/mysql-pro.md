@@ -289,9 +289,47 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-**注意：**
+**注意（重要）：**
 
 当 ` SELECT *` 的时候，若是遍历整个索引树（比如 `LIKE %xxx%`），可以认为造成了全表扫描（因为在遍历索引树的过程每次都需要回表）
+
+
+
+## 9. 小表驱动大表
+
+### 9.1 IN
+
+> OR 的简写形式
+
+```mysql
+SELECT column_name(s)
+FROM table_name
+WHERE column_name IN (value1, value2, ...);
+```
+
+或者
+
+```mysql
+SELECT column_name(s)
+FROM table_name
+WHERE column_name IN (SELECT STATEMENT);
+```
+
+
+
+### 9.2 EXISTS
+
+> The EXISTS operator is used to test for the existence of any record in a subquery.
+>
+> The EXISTS operator returns true if the subquery returns one or more records.
+
+
+
+
+
+## 10. 锁机制
+
+
 
 
 
@@ -312,4 +350,4 @@ CREATE INDEX idx_book_card ON book ( card );
 - [MySQL索引原理及慢查询优化](https://tech.meituan.com/2014/06/30/mysql-index.html)
 - [一文读懂MySQL的索引结构及查询优化](https://www.cnblogs.com/itwild/p/13703259.html)
 - [mysql怎么让左模糊查询也能走索引？](https://blog.csdn.net/weixin_38106322/article/details/106583450)
-
+- [MySQL - exists与in及any的用法](https://blog.csdn.net/J080624/article/details/72910548)

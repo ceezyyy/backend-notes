@@ -334,17 +334,17 @@ WHERE column_name IN (SELECT STATEMENT);
 
 ### 10.1 Dirty read
 
-<div align="center"> <img src="image-20201220115049237.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20201220115049237.png" width="45%"/> </div><br>
 
 ### 10.2 Lost to modify
 
-<div align="center"> <img src="image-20201220115421956.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20201220115421956.png" width="45%"/> </div><br>
 
 
 
 ### 10.3 Non-repeatable read & Phantom read
 
-<div align="center"> <img src="image-20201220120446481.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20201220120446481.png" width="45%"/> </div><br>
 
 
 

@@ -426,6 +426,18 @@ insert into T(c) values(1);
 
 
 
+## 12. 两阶段锁
+
+<div align="center"> <img src="image-20201221134532466.png" width="60%"/> </div><br>
+
+如图，事务 A 同时持有两个记录的行锁
+
+在 InnoDB 事务中，行锁是需要的时候才加上，但要等事务结束之后才释放
+
+
+
+
+
 
 
 

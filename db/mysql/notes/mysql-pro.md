@@ -48,9 +48,7 @@ Table of Contents
 
   <div align="center"> <img src="mysql-architecture.png" width="80%"/> </div><br>
 
-### 1.1 redo log
 
-### 1.2 binlog
 
 
 

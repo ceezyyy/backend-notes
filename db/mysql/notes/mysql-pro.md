@@ -396,6 +396,32 @@ WHERE column_name IN (SELECT STATEMENT);
 
 
 
+
+
+### 11.5 Demo
+
+```mysql
+mysql> create table T(c int) engine=InnoDB;
+insert into T(c) values(1);
+```
+
+
+
+<div align="center"> <img src="transaction-isolation.png" width="50%"/> </div><br>
+
+
+
+**Q: 事务 A 在不同的隔离级别下，读到的 V1 V2 V3 的值分别是多少？**
+
+| TRANSACTION ISOLATION | v1   | v2   | v3   |
+| --------------------- | ---- | ---- | ---- |
+| Read uncommited       |      |      |      |
+| Read commited         |      |      |      |
+| Repeatable read       |      |      |      |
+| Serialization         |      |      |      |
+
+
+
 ## References
 
 - [MySQL实战45讲-极客时间](https://time.geekbang.org/column/intro/100020801)

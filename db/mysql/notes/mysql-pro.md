@@ -21,8 +21,12 @@ Table of Contents
 * [9. 小表驱动大表（待补充）](#9-小表驱动大表待补充)
    * [9.1 IN](#91-in)
    * [9.2 EXISTS](#92-exists)
-* [10. InnoDB 锁](#10-innodb-锁)
+* [10. 并发事务带来什么问题？](#10-并发事务带来什么问题)
+   * [10.1 Dirty read](#101-dirty-read)
+   * [10.2 Lost to modify](#102-lost-to-modify)
+   * [10.3 Non-repeatable read &amp; Phantom read](#103-non-repeatable-read--phantom-read)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -280,7 +284,9 @@ CREATE INDEX idx_book_card ON book ( card );
 
 ### 7.3 总结
 
-**左连接，索引加右表（反之同理）**
+**Left join, 索引加右表**
+
+**Right join, 索引加左表**
 
 
 
@@ -334,9 +340,13 @@ WHERE column_name IN (SELECT STATEMENT);
 
 ### 10.1 Dirty read
 
+读到了别的事务未 commit 的数据
+
 <div align="center"> <img src="image-20201220115049237.png" width="45%"/> </div><br>
 
 ### 10.2 Lost to modify
+
+多个事务同时修改一个数据，造成修改丢失
 
 <div align="center"> <img src="image-20201220115421956.png" width="45%"/> </div><br>
 
@@ -344,7 +354,15 @@ WHERE column_name IN (SELECT STATEMENT);
 
 ### 10.3 Non-repeatable read & Phantom read
 
+多次读的数据不一致（别的事务修改了）/ 多次读的数据条数不一致（别的事务新增/删减了数据）
+
 <div align="center"> <img src="image-20201220120446481.png" width="45%"/> </div><br>
+
+
+
+
+
+
 
 
 

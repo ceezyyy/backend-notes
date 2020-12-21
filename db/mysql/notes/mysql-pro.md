@@ -25,7 +25,13 @@ Table of Contents
    * [10.1 Dirty read](#101-dirty-read)
    * [10.2 Lost to modify](#102-lost-to-modify)
    * [10.3 Non-repeatable read &amp; Phantom read](#103-non-repeatable-read--phantom-read)
+* [11. 事务隔离级别](#11-事务隔离级别)
+   * [11. 1 Read uncommited](#11-1-read-uncommited)
+   * [11.2 Read commited](#112-read-commited)
+   * [11.3 Repeatable read (InnoDB 默认)](#113-repeatable-read-innodb-默认)
+   * [11.4 Serializable](#114-serializable)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -362,7 +368,31 @@ WHERE column_name IN (SELECT STATEMENT);
 
 
 
+## 11. 事务隔离级别
 
+### 11. 1 Read uncommited
+
+一个事务仍未 commit 时，其更改能被其他事务所看见
+
+
+
+### 11.2 Read commited
+
+一个事务只有 commit 时，其更改才能被其他事务所见
+
+
+
+### 11.3 Repeatable read (InnoDB 默认)
+
+一个事务在执行过程中所见的数据，总是和该事务在启动时所见的一致
+
+
+
+### 11.4 Serializable
+
+顾名思义，串行，“写” 会加写锁，“读” 会加读锁
+
+当读写冲突时，另一个事务必须等到前一个事务执行完成之后才能执行 
 
 
 

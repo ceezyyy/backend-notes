@@ -13,6 +13,7 @@ Table of Contents
 * [6. 单表索引优化](#6-单表索引优化)
    * [6.1 表设计 &amp; 初始化](#61-表设计--初始化)
    * [6.2 联合索引：最左匹配原则](#62-联合索引最左匹配原则)
+   * [6.3 前缀索引（最左匹配原则应用）](#63-前缀索引最左匹配原则应用)
 * [7. 两表索引优化](#7-两表索引优化)
    * [7.1 表设计](#71-表设计)
    * [7.2 Demo](#72-demo)
@@ -30,8 +31,9 @@ Table of Contents
    * [11.2 Read commited](#112-read-commited)
    * [11.3 Repeatable read (InnoDB 默认)](#113-repeatable-read-innodb-默认)
    * [11.4 Serializable](#114-serializable)
+   * [11.5 Demo](#115-demo)
+* [12. 两阶段锁](#12-两阶段锁)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -217,6 +219,44 @@ CREATE INDEX idx_category_views ON article ( category_id, views );
 ```
 
 <div align="center"> <img src="image-20201216224438990.png" width="100%"/> </div><br>
+
+### 6.3 前缀索引（最左匹配原则应用）
+
+假设现在需要维护一个邮箱登录的系统，如何在邮箱这个字段高效地建立索引？
+
+两种方案：
+
+1. 记录整个字符串
+2. 记录字符串的前 n 个字节
+
+
+
+<div align="center"> <img src="image-20201221161039211.png" width="60%"/> </div><br>
+
+<div align="center"> <img src="image-20201221161115527.png" width="60%"/> </div><br>
+
+```mysql
+SELECT 
+	id,name,email 
+FROM 
+	SUser 
+WHERE 
+	email='zhangssxyz@xxx.com';
+```
+
+
+
+第一种方案的执行流程：
+
+
+
+
+
+第二种方案的执行流程：
+
+
+
+
 
 
 

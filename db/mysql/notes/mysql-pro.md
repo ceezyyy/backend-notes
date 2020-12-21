@@ -415,10 +415,18 @@ insert into T(c) values(1);
 
 | TRANSACTION ISOLATION | v1   | v2   | v3   |
 | --------------------- | ---- | ---- | ---- |
-| Read uncommited       |      |      |      |
-| Read commited         |      |      |      |
-| Repeatable read       |      |      |      |
-| Serialization         |      |      |      |
+| Read uncommited       | 2    | 2    | 2    |
+| Read commited         | 1    | 2    | 2    |
+| Repeatable read       | 1    | 1    | 2    |
+| Serialization         | 1    | 1    | 2    |
+
+
+
+
+
+
+
+
 
 
 

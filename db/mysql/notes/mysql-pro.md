@@ -19,22 +19,24 @@ Table of Contents
    * [7.2 Demo](#72-demo)
    * [7.3 总结](#73-总结)
 * [8. 覆盖索引](#8-覆盖索引)
-* [9. 小表驱动大表（待补充）](#9-小表驱动大表待补充)
-   * [9.1 IN](#91-in)
-   * [9.2 EXISTS](#92-exists)
-* [10. 并发事务带来什么问题？](#10-并发事务带来什么问题)
-   * [10.1 Dirty read](#101-dirty-read)
-   * [10.2 Lost to modify](#102-lost-to-modify)
-   * [10.3 Non-repeatable read &amp; Phantom read](#103-non-repeatable-read--phantom-read)
-* [11. 事务隔离级别](#11-事务隔离级别)
-   * [11. 1 Read uncommited](#11-1-read-uncommited)
-   * [11.2 Read commited](#112-read-commited)
-   * [11.3 Repeatable read (InnoDB 默认)](#113-repeatable-read-innodb-默认)
-   * [11.4 Serializable](#114-serializable)
-   * [11.5 Demo](#115-demo)
-* [12. 两阶段锁](#12-两阶段锁)
+* [9. COUNT(*) 优化](#9-count-优化)
+* [10. 小表驱动大表（待补充）](#10-小表驱动大表待补充)
+   * [10.1 IN](#101-in)
+   * [10.2 EXISTS](#102-exists)
+* [11. 并发事务带来什么问题？](#11-并发事务带来什么问题)
+   * [11.1 Dirty read](#111-dirty-read)
+   * [11.2 Lost to modify](#112-lost-to-modify)
+   * [11.3 Non-repeatable read &amp; Phantom read](#113-non-repeatable-read--phantom-read)
+* [12. 事务隔离级别](#12-事务隔离级别)
+   * [12. 1 Read uncommited](#12-1-read-uncommited)
+   * [12.2 Read commited](#122-read-commited)
+   * [12.3 Repeatable read (InnoDB 默认)](#123-repeatable-read-innodb-默认)
+   * [12.4 Serializable](#124-serializable)
+   * [12.5 Demo](#125-demo)
+* [13. 事务隔离的实现（待更新）](#13-事务隔离的实现待更新)
+* [14. 两阶段锁](#14-两阶段锁)
+* [15. 行锁 Demo](#15-行锁-demo)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -246,17 +248,15 @@ WHERE
 
 
 
-第一种方案的执行流程：
+第一种方案的执行顺序：
+
+1. 在 `email` 索引树上找到
 
 
 
+第二种方案的执行顺序：
 
-
-第二种方案的执行流程：
-
-
-
-
+1. 在 `email` 索引树上找到
 
 
 
@@ -350,9 +350,13 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-## 9. 小表驱动大表（待补充）
+## 9. COUNT(*) 优化
 
-### 9.1 IN
+
+
+## 10. 小表驱动大表（待补充）
+
+### 10.1 IN
 
 > OR 的简写形式
 
@@ -372,7 +376,7 @@ WHERE column_name IN (SELECT STATEMENT);
 
 
 
-### 9.2 EXISTS
+### 10.2 EXISTS
 
 > The EXISTS operator is used to test for the existence of any record in a subquery.
 >
@@ -382,15 +386,19 @@ WHERE column_name IN (SELECT STATEMENT);
 
 
 
-## 10. 并发事务带来什么问题？
 
-### 10.1 Dirty read
+
+
+
+## 11. 并发事务带来什么问题？
+
+### 11.1 Dirty read
 
 读到了别的事务未 commit 的数据
 
 <div align="center"> <img src="image-20201220115049237.png" width="45%"/> </div><br>
 
-### 10.2 Lost to modify
+### 11.2 Lost to modify
 
 多个事务同时修改一个数据，造成修改丢失
 
@@ -398,7 +406,7 @@ WHERE column_name IN (SELECT STATEMENT);
 
 
 
-### 10.3 Non-repeatable read & Phantom read
+### 11.3 Non-repeatable read & Phantom read
 
 多次读的数据不一致（别的事务修改了）/ 多次读的数据条数不一致（别的事务新增/删减了数据）
 
@@ -408,27 +416,27 @@ WHERE column_name IN (SELECT STATEMENT);
 
 
 
-## 11. 事务隔离级别
+## 12. 事务隔离级别
 
-### 11. 1 Read uncommited
+### 12. 1 Read uncommited
 
 一个事务仍未 commit 时，其更改能被其他事务所看见
 
 
 
-### 11.2 Read commited
+### 12.2 Read commited
 
 一个事务只有 commit 时，其更改才能被其他事务所见
 
 
 
-### 11.3 Repeatable read (InnoDB 默认)
+### 12.3 Repeatable read (InnoDB 默认)
 
 一个事务在执行过程中所见的数据，总是和该事务在启动时所见的一致
 
 
 
-### 11.4 Serializable
+### 12.4 Serializable
 
 顾名思义，串行，“写” 会加写锁，“读” 会加读锁
 
@@ -438,7 +446,7 @@ WHERE column_name IN (SELECT STATEMENT);
 
 
 
-### 11.5 Demo
+### 12.5 Demo
 
 ```mysql
 mysql> create table T(c int) engine=InnoDB;
@@ -462,11 +470,23 @@ insert into T(c) values(1);
 
 
 
+## 13. 事务隔离的实现（待更新）
+
+在 `mysql` 中，每条记录在更新的时候都会同时记录一条 `rollback` 操作，即记录上最新的值通过回滚操作都可以得到前一个状态的值
 
 
 
+举个例子，假设某个值的初始值为 1，现在按顺序改成了 2，3，4
 
-## 12. 两阶段锁
+在回滚日志就有以下记录：
+
+<div align="center"> <img src="image-20201221171924356.png" width="70%"/> </div><br>
+
+在查询这条记录的时候，不同时刻启动的事物就会有不同的 `read-view`，即同一条记录在系统中可以存在多个版本，这就是数据库的多版本并发控制，俗称 `MVCC`
+
+
+
+## 14. 两阶段锁
 
 <div align="center"> <img src="image-20201221134532466.png" width="60%"/> </div><br>
 
@@ -478,7 +498,41 @@ insert into T(c) values(1);
 
 
 
+## 15. 行锁 Demo
 
+`book` 表：
+
+<div align="center"> <img src="image-20201221173830339.png" width="80%"/> </div><br>
+
+`mysql` 默认以隐式方式提交事务，输入命令改为显式提交
+
+```mysql
+SET autocommit = 0;
+```
+
+首先，客户端 A 对 `book` 表第 8 行进行更新操作（未 `commit`）
+
+```mysql
+UPDATE book 
+SET card = 88 
+WHERE
+	id = 8;
+```
+
+
+
+同时，客户端 B 也对 `book` 表第八行进行更新操作
+
+```mysql
+UPDATE book 
+SET card = 88 
+WHERE
+	id = 8;
+```
+
+<div align="center"> <img src="image-20201221174726310.png" width="80%"/> </div><br>
+
+因为行锁，更新失败（超时）
 
 
 

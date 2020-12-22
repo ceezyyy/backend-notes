@@ -37,6 +37,12 @@ Table of Contents
 
 
 
+## Brainstorming
+
+<div align="center"> <img src="redis.svg" width="100%"/> </div><br>
+
+
+
 ## 1. NoSQL
 
 泛指非关系型数据库

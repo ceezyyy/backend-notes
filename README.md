@@ -41,6 +41,7 @@
 
 - Java Web
 - [Spring](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Framework/Spring/notes/Spring.md)
+- [Spring 核心思想]()
 - [SpringMVC](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringMVC/notes/Springmvc.md)
 - [SpringBoot](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringBoot/notes/SpringBoot.md)
 - [MyBatis](https://github.com/ceezyyy/backend-notes/blob/master/db/ORM/MyBatis/notes/MyBatis.md)

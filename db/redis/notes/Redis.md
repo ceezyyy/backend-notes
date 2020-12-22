@@ -8,9 +8,19 @@
 
 
 
+
+
 Table of Contents
 -----------------
 
+* [Brainstorming](#brainstorming)
+* [数据类型（针对 Value）](#数据类型针对-value)
+   * [Strings](#strings)
+   * [Hashes](#hashes)
+   * [Lists](#lists)
+   * [Sets](#sets)
+   * [Sorted sets](#sorted-sets)
+* [References](#references)
 
 
 ## Brainstorming
@@ -19,58 +29,7 @@ Table of Contents
 
 
 
-## 5. 基本操作
-
-**命令行模式工具使用思考**
-
-- 功能性命令
-- 清屏
-- 帮助信息
-- 如何退出
-
- 
-
-
-
-启动 `redis-server`
-
-<div align="center"> <img src="image-20200919174424027.png" width="80%"/> </div><br>
-
-启动 `redis-cli`
-
-
-
-<div align="center"> <img src="image-20200919175051343.png" width="60%"/> </div><br>
-
-
-
-清屏：
-
-```bash
-clear
-```
-
-获取帮助：
-
-```bash
-help
-```
-
-关闭服务器：
-
-```bash
-shutdown
-```
-
-退出：
-
-```bash
-exit
-```
-
-
-
-## 6. 数据类型（针对 Value）
+## 数据类型（针对 Value）
 
 ### Strings
 

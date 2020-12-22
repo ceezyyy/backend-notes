@@ -25,13 +25,17 @@ Table of Contents
 
 
 
-### 1.2 为什么要使用 IoC?
+### 1.2 IoC 解决了什么问题?
+
+
+
+### 1.3 如何恰当使用 IoC?
 
 
 
 
 
-### 1.3 IoC 在 Spring 中如何实现?
+### 1.4 IoC 在 Spring 中如何实现?
 
 
 

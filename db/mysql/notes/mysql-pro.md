@@ -1,4 +1,4 @@
-# MySQL 进阶
+# MySQL
 
 Table of Contents
 -----------------

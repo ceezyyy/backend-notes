@@ -32,7 +32,7 @@
 
 ## 📦 DB
 
-- [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/index.md)
+- [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/notes/mysql-pro.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/db/redis/notes/Redis.md)
 
 

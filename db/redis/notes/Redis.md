@@ -16,9 +16,12 @@ Table of Contents
 * [Brainstorming](#brainstorming)
 * [1. CAP Theorem](#1-cap-theorem)
 * [2. Key-value Database](#2-key-value-database)
-* [3. 数据类型常见命令](#3-数据类型常见命令)
+* [3. 基本命令](#3-基本命令)
    * [String](#string)
+   * [TTL (Time to Live)](#ttl-time-to-live)
+   * [List](#list)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -36,17 +39,7 @@ Table of Contents
 
 <div align="center"> <img src="image-20201223180144945.png" width="50%"/> </div><br>
 
-## 3. 数据类型常见命令
-
-Redis 中常见数据类型有：
-
-- String
-- List
-- Hash
-- Sorted Set
-- Set
-
-
+## 3. 基本命令
 
 通用操作无非就是 CRUD，在 Redis 中有（不同数据类型具体命令不同）：
 
@@ -96,9 +89,36 @@ OK
 (integer) 89
 ```
 
-**String 之 TTL**
+### TTL (Time to Live)
 
-`TTL` 即 time to live
+可以为 `key` 设置过期时间
+
+- -2：`key` 不存在
+- -1：永久存活
+- 其他：返回剩余存活秒数
+
+```shell
+127.0.0.1:6379> SET resources xxx
+OK
+127.0.0.1:6379> EXPIRE resources 20
+(integer) 1
+127.0.0.1:6379> TTL resources
+(integer) 17
+127.0.0.1:6379> TTL resources
+(integer) 14
+127.0.0.1:6379> TTL resources
+(integer) -2
+127.0.0.1:6379> SET persist_resources xxx
+OK
+127.0.0.1:6379> PERSIST persist_resources
+(integer) 0
+127.0.0.1:6379> TTL persist_resources
+(integer) -1
+```
+
+
+
+### List
 
 
 

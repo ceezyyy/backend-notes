@@ -21,11 +21,11 @@
 ## :coffee: Java 
 
 - [Core Interview Questions](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/core-interview-questions.md)
-- [集合源码](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
+- [Collections](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
 - [Concurrency](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrency/notes/concurrency.md)
 - IO / NIO
-- [Java 8 新特性](https://github.com/ceezyyy/backend-notes/blob/master/Java/Java8/index.md)
+- [Java 8](https://github.com/ceezyyy/backend-notes/blob/master/Java/Java8/index.md)
 
 
 
@@ -39,9 +39,7 @@
 
 ## :leaves: Framework
 
-- Java Web
 - [Spring](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Framework/Spring/notes/Spring.md)
-- [Spring 核心思想](https://github.com/ceezyyy/backend-notes/blob/master/Framework/Spring/notes/spring-core.md)
 - [SpringMVC](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringMVC/notes/Springmvc.md)
 - [SpringBoot](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringBoot/notes/SpringBoot.md)
 - [MyBatis](https://github.com/ceezyyy/backend-notes/blob/master/db/ORM/MyBatis/notes/MyBatis.md)
@@ -78,7 +76,3 @@
 - [Git](https://github.com/ceezyyy/backend-notes/blob/master/tools/git/notes/git.md)
 - [Nginx](https://github.com/ceezyyy/backend-notes/blob/master/tools/nginx/nginx.md)
 - [Log](https://github.com/cdk8s/cdk8s-team-style/blob/master/dev/backend/java/java-log-style.md)
-
-## :orange_book: ​Reading
-
-- [PRINCIPLES](https://github.com/ceezyyy/backend-notes/blob/master/reading/principles.md)

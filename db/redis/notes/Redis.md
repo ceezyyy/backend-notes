@@ -21,8 +21,9 @@ Table of Contents
    * [TTL (Time to Live)](#ttl-time-to-live)
    * [List](#list)
    * [Set](#set)
+   * [Sorted Set](#sorted-set)
+   * [Hash](#hash)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -203,15 +204,57 @@ OK
 
 
 
-
-
-
-
 ### Sorted Set
 
+```shell
+127.0.0.1:6379> ZADD 2008USA 6 lebronjames
+(integer) 1
+127.0.0.1:6379> ZADD 2008USA 9 dwade
+(integer) 1
+127.0.0.1:6379> ZADD 2008USA 10 kobebryant
+(integer) 1
+127.0.0.1:6379> ZADD 2008USA 11 dwighthoward
+(integer) 1
+127.0.0.1:6379> ZADD 2008USA 13 chrispaul
+(integer) 1
+127.0.0.1:6379> ZADD 2008USA 15 carmeloanthony
+(integer) 1
+127.0.0.1:6379> ZRANGE 2008USA 0 -1
+1) "lebronjames"
+2) "dwade"
+3) "kobebryant"
+4) "dwighthoward"
+5) "chrispaul"
+6) "carmeloanthony"
+```
 
 
 
+
+
+### Hash
+
+```shell
+127.0.0.1:6379> HSET lebronjames born 1984
+(integer) 1
+127.0.0.1:6379> HSET lebronjames nation USA height 206 weight 113
+(integer) 3
+127.0.0.1:6379> HGET lebronjame
+(error) ERR wrong number of arguments for 'hget' command
+127.0.0.1:6379> HGET lebronjames
+(error) ERR wrong number of arguments for 'hget' command
+127.0.0.1:6379> HGETALL lebronjames
+1) "born"
+2) "1984"
+3) "nation"
+4) "USA"
+5) "height"
+6) "206"
+7) "weight"
+8) "113"
+127.0.0.1:6379> HGET lebronjames height
+"206"
+```
 
 
 

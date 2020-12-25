@@ -13,8 +13,6 @@
 Table of Contents
 -----------------
 
-
-
 * [Brainstorming](#brainstorming)
 * [1. CAP Theorem](#1-cap-theorem)
 * [2. Key-value Database](#2-key-value-database)
@@ -23,7 +21,6 @@ Table of Contents
    * [TTL (Time to Live)](#ttl-time-to-live)
    * [List](#list)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -43,11 +40,11 @@ Table of Contents
 
 ## 3. 基本命令
 
-通用操作无非就是 CRUD，在 Redis 中有（不同数据类型具体命令不同）：
+所有对数据类型的 CRUD，都可以大致分为以下三块：
 
-- PUT（新增，修改）
-- GET（读，包括 SCAN）
-- DELETE（删除）
+- PUT（新增 / 修改）
+- GET（包括 SCAN）
+- DELETE
 
 
 
@@ -121,6 +118,33 @@ OK
 
 
 ### List
+
+```shell
+127.0.0.1:6379> RPUSH brands apple amazon facebook
+(integer) 3
+127.0.0.1:6379> LPUSH brands alibaba
+(integer) 4
+127.0.0.1:6379> LRANGE brands 0 1
+1) "alibaba"
+2) "apple"
+127.0.0.1:6379> LRANGE brands 2 -1
+1) "amazon"
+2) "facebook"
+127.0.0.1:6379> LPOP brands
+"alibaba"
+127.0.0.1:6379> RPOP brands
+"facebook"
+127.0.0.1:6379> LLEN brands
+(integer) 2
+127.0.0.1:6379> LPUSH brands didi dj sf
+(integer) 5
+127.0.0.1:6379> LRANGE brands 0 -1
+1) "sf"
+2) "dj"
+3) "didi"
+4) "apple"
+5) "amazon"
+```
 
 
 

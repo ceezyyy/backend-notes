@@ -9,8 +9,8 @@ Table of Contents
    * [2.1 什么是中断机制？](#21-什么是中断机制)
    * [2.2 中断机制有什么用？](#22-中断机制有什么用)
    * [2.3 工作流程](#23-工作流程)
+* [3. Process Life Cycle](#3-process-life-cycle)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -42,5 +42,19 @@ Table of Contents
 
 
 
+
+
+## 3. Process Life Cycle
+
+<div align="center"> <img src="process-life-cycle.png" width="100%"/> </div><br>
+
+- `new` -> `ready`：操作系统完成进程创建工作
+- `ready` -> `running`：进程准备就绪，等待 `CPU` 调度
+- `running` -> `ready`：`CPU` 时间片到 / 有优先级很高的进程抢占调度
+- `running` -> `blocked`：等待系统调度 / 等待某事件（**主动**）
+- `blocked` -> `ready`：资源分配已到位 / 等待的时间已发生（**被动**）
+- `running` -> `terminated`：进程运行结束 / 运行过程中遇到不可修复错误
+
 ## References
 
+- [Process Life Cycle](https://zitoc.com/process-life-cycle/#:~:text=The%20process%20life%20cycle%20can,process%20control%20block%20(PCB).)

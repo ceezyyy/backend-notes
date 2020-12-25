@@ -20,7 +20,9 @@ Table of Contents
    * [String](#string)
    * [TTL (Time to Live)](#ttl-time-to-live)
    * [List](#list)
+   * [Set](#set)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -148,10 +150,59 @@ OK
 
 
 
+### Set
 
+```shell
+127.0.0.1:6379> SADD artists drake migos
+(integer) 2
+127.0.0.1:6379> SREM artists drake
+(integer) 1
+127.0.0.1:6379> SREM artists taylor
+(integer) 0
+127.0.0.1:6379> SISMEMBER artists migos
+(integer) 1
+127.0.0.1:6379> SISMEMBER artists jcole
+(integer) 0
+127.0.0.1:6379> SADD artists jcole
+(integer) 1
+127.0.0.1:6379> SISMEMBER artists jcole
+(integer) 1
+127.0.0.1:6379> SMEMBERS artists
+1) "migos"
+2) "jcole"
+127.0.0.1:6379> SADD NBA lebronjames cp3 ad kd kyrie
+(integer) 5
+127.0.0.1:6379> SUNION NBA artists
+1) "kd"
+2) "ad"
+3) "lebronjames"
+4) "migos"
+5) "jcole"
+6) "cp3"
+7) "kyrie"
+127.0.0.1:6379> SADD artists jcole
+(integer) 0
+127.0.0.1:6379> SADD letters a b c d e f g
+(integer) 7
+127.0.0.1:6379> SPOP letters 3
+1) "a"
+2) "b"
+3) "g"
+127.0.0.1:6379> SMEMBERS letters
+1) "f"
+2) "e"
+3) "d"
+4) "c"
+```
+
+
+
+**注意：**
+
+- 删除操作时，`SREM` 指定某个元素进行删除，而 `SPOP` 删除一定个数的元素（随机）
 
 ## References
 
-- [Redis核心技术与实战](https://time.geekbang.org/column/intro/100056701)
+- [Redis 核心技术与实战](https://time.geekbang.org/column/intro/100056701)
 - [CAP 定理的含义](https://www.ruanyifeng.com/blog/2018/07/cap.html)
 - [Data types - Redis](https://redis.io/topics/data-types)

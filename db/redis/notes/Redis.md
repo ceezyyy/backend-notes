@@ -201,6 +201,22 @@ OK
 
 - 删除操作时，`SREM` 指定某个元素进行删除，而 `SPOP` 删除一定个数的元素（随机）
 
+
+
+
+
+
+
+### Sorted Set
+
+
+
+
+
+
+
+
+
 ## References
 
 - [Redis 核心技术与实战](https://time.geekbang.org/column/intro/100056701)

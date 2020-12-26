@@ -55,6 +55,14 @@ Table of Contents
 - `blocked` -> `ready`：资源分配已到位 / 等待的时间已发生（**被动**）
 - `running` -> `terminated`：进程运行结束 / 运行过程中遇到不可修复错误
 
+
+
+## 4. 进程通信
+
+
+
 ## References
 
+- [趣谈Linux操作系统](https://time.geekbang.org/column/intro/164)
 - [Process Life Cycle](https://zitoc.com/process-life-cycle/#:~:text=The%20process%20life%20cycle%20can,process%20control%20block%20(PCB).)
+

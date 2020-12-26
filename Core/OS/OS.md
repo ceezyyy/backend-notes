@@ -4,7 +4,7 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
-* [1. 计算机工作模式](#1-计算机工作模式)
+* [1. 操作系统四大特征](#1-操作系统四大特征)
 * [2. 中断机制](#2-中断机制)
    * [2.1 什么是中断机制？](#21-什么是中断机制)
    * [2.2 中断机制有什么用？](#22-中断机制有什么用)
@@ -12,18 +12,17 @@ Table of Contents
 * [3. Process Life Cycle](#3-process-life-cycle)
 * [References](#references)
 
+
 ## Brainstorming
 
 <div align="center"> <img src="os.svg" width="100%"/> </div><br>
 
-## 1. 计算机工作模式
+## 1. 操作系统四大特征
 
-<div align="center"> <img src="image-20201225194825402.png" width="80%"/> </div><br>
-
-- CPU: 计算机的大脑
-- 内存: 暂时存放 `CPU` 运算的数据，与 `CPU` 协同工作
-
-
+- 并发：计算机系统同时存在着多个运行的程序
+- 共享：系统资源可供内存中多个并发的进程共同使用
+- 虚拟：将物理实体映射成多个逻辑实体
+- 异步：并发下，进程的执行不是一步到底，而是走走停停
 
 ## 2. 中断机制
 
@@ -42,8 +41,6 @@ Table of Contents
 
 
 
-
-
 ## 3. Process Life Cycle
 
 <div align="center"> <img src="process-life-cycle.png" width="100%"/> </div><br>
@@ -57,7 +54,7 @@ Table of Contents
 
 
 
-## 4. 进程通信
+
 
 
 

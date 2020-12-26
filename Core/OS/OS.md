@@ -4,13 +4,13 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
-* [1. 操作系统四大特征](#1-操作系统四大特征)
-* [2. 中断机制](#2-中断机制)
-   * [2.1 什么是中断机制？](#21-什么是中断机制)
-   * [2.2 中断机制有什么用？](#22-中断机制有什么用)
-   * [2.3 工作流程](#23-工作流程)
+* [1. 操作系统内核图](#1-操作系统内核图)
+* [2. 操作系统四大特征](#2-操作系统四大特征)
 * [3. Process Life Cycle](#3-process-life-cycle)
+* [4. 算法调度评价指标](#4-算法调度评价指标)
+* [5. 交互式系统：时间片轮转调度算法](#5-交互式系统时间片轮转调度算法)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -32,7 +32,7 @@ Table of Contents
 
 ## 3. Process Life Cycle
 
-<div align="center"> <img src="process-life-cycle.png" width="100%"/> </div><br>
+<div align="center"> <img src="process-life-cycle.png" width="80%"/> </div><br>
 
 - `new` -> `ready`：操作系统完成进程创建工作
 - `ready` -> `running`：进程准备就绪，等待 `CPU` 调度
@@ -52,6 +52,26 @@ Table of Contents
 - 响应时间：首次相应与提交请求时间差
 
 
+
+## 5. 交互式系统：时间片轮转调度算法
+
+<div align="center"> <img src="image-20201226192757466.png" width="40%"/> </div><br>
+
+当时间片为 2 时：
+
+<div align="center"> <img src="image-20201226193253039.png" width="60%"/> </div><br>
+
+
+
+当时间片为 5 时：
+
+
+
+
+
+**注意：**
+
+- 在时间片内，若进程执行完毕，会主动放弃 `CPU`（进行下一次调度）
 
 
 

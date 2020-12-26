@@ -1,3 +1,5 @@
+
+
 # 操作系统
 
 Table of Contents
@@ -9,8 +11,10 @@ Table of Contents
 * [3. Process Life Cycle](#3-process-life-cycle)
 * [4. 算法调度评价指标](#4-算法调度评价指标)
 * [5. 交互式系统：时间片轮转调度算法](#5-交互式系统时间片轮转调度算法)
+* [6. 交互式系统：优先级调度算法](#6-交互式系统优先级调度算法)
+   * [6.1 非抢占式](#61-非抢占式)
+   * [6.2 抢占式](#62-抢占式)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -65,13 +69,37 @@ Table of Contents
 
 当时间片为 5 时：
 
-
-
-
+<div align="center"> <img src="image-20201226200320011.png" width="60%"/> </div><br>
 
 **注意：**
 
 - 在时间片内，若进程执行完毕，会主动放弃 `CPU`（进行下一次调度）
+- 时间片过大：退化成 `first come first serve`；时间片过小：进程切换太频繁
+
+
+
+
+
+## 6. 交互式系统：优先级调度算法
+
+
+<div align="center"> <img src="image-20201226202248271.png" width="50%"/> </div><br>
+
+### 6.1 非抢占式
+
+每次调度已到达队列且优先级最高的进程，当进程主动放弃 `CPU` 时发生调度
+
+<div align="center"> <img src="image-20201226221547720.png" width="60%"/> </div><br>
+
+
+### 6.2 抢占式
+
+与非抢占式相比，抢占式在**就绪队列发生改变时**也会判断是否需要抢占
+
+<div align="center"> <img src="image-20201226222621070.png" width="60%"/> </div><br>
+
+
+
 
 
 

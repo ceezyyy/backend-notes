@@ -254,7 +254,7 @@ P2() {
 
 <div align="center"> <img src="producer-consumer.png" width="60%"/> </div><br>
 
-**背景：**
+### Constraints
 
 - 只有缓冲区没满时，`producer` 才能把产品放入缓冲区，否则必须等待
 - 只有缓冲区不空时，`consumer` 才能从中取出产品，否则必须等待
@@ -262,8 +262,21 @@ P2() {
 
 
 
+### Explained
+
+**Q1: 为什么缓冲区是临界资源？**
+
+**A1:** 并发条件下，若两个进程同时将各自的产品放入缓冲区**同一个位置**，会出现 “数据覆盖” 的现象，所以缓冲区需视为临界资源
+
+
+
+**Q2: 如何利用信号量机制实现 producer / consumer 进程的功能？**
+
+**A2: **
+
 ## References
 
 - [趣谈Linux操作系统](https://time.geekbang.org/column/intro/164)
 - [Process Life Cycle](https://zitoc.com/process-life-cycle/#:~:text=The%20process%20life%20cycle%20can,process%20control%20block%20(PCB).)
 - [CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E7%9B%AE%E5%BD%95.md)
+

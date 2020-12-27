@@ -19,8 +19,9 @@ Table of Contents
 * [6. 进程同步](#6-进程同步)
 * [7. 进程互斥](#7-进程互斥)
 * [8. 信号量机制：记录型信号量](#8-信号量机制记录型信号量)
+* [9. 信号量机制实现进程互斥](#9-信号量机制实现进程互斥)
+* [10. 信号量机制实现进程同步](#10-信号量机制实现进程同步)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -140,9 +141,11 @@ typedef struct {
 
 ```cpp
 void wait (semaphore S) {
+  // 请求一个单位的资源
   S.value--;
   if (S.value < 0) {
-    // 如果剩余资源数不够, 使用 block 原语使进程从运行态进入阻塞态, 并将其挂到阻塞队列中
+    // running -> blocked
+    // 主动加入等待队列, 实现"让权等待"
     block (S.L);  
   }
 }
@@ -152,13 +155,59 @@ void wait (semaphore S) {
 
 ```cpp
 void signal (semaphore S) {
+  // 释放一个单位的资源
   S.value++;
   if (S.value <= 0) {
-    // 释放资源后, 若还有别的进程在等待这种资源, 则使用 wakeup 原语唤醒等待队列中的一个进程
+    // blocked -> ready
+    // 使用 wakeup 原语唤醒等待队列中的一个进程
     wakeup(S.L);
   }
 }
 ```
+
+**注意：**
+
+- `wait(S)` 和 `signal(S)` 也称 `PV` 操作，需成对出现
+
+
+
+
+
+## 9. 信号量机制实现进程互斥
+
+```cpp
+// 初始化信号量
+// 因为临界资源区最多只能一个进程访问, 所以该值为 1
+semaphore mutex = 1;
+
+P1() {
+  ...;
+  // 加锁
+  P(mutex);
+  // 临界区代码段 
+  Do something;
+  // 释放锁
+  V(mutex);
+  ...;
+}
+
+P2() {
+  ...;
+  // 加锁
+  P(mutex);
+  // 临界区代码段 
+  Do something;
+  // 释放锁
+  V(mutex);
+  ...;
+}
+```
+
+
+
+## 10. 信号量机制实现进程同步
+
+
 
 
 

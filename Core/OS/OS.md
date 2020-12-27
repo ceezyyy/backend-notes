@@ -18,8 +18,8 @@ Table of Contents
    * [5.3 交互式系统：多级反馈队列调度算法](#53-交互式系统多级反馈队列调度算法)
 * [6. 进程同步](#6-进程同步)
 * [7. 进程互斥](#7-进程互斥)
+* [8. 信号量机制：记录型信号量](#8-信号量机制记录型信号量)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -117,11 +117,49 @@ Table of Contents
 
 ## 6. 进程同步
 
-
+多个进程因合作产生一定的制约关系，需要一定执行顺序
 
 ## 7. 进程互斥
 
+每次只有一个进程才能访问资源临界区
+
 <div align="center"> <img src="image-20201226231428173.png" width="80%"/> </div><br>
+
+## 8. 信号量机制：记录型信号量
+
+**struct.cpp**
+
+```cpp
+typedef struct {
+  int value;  // 剩余资源数
+  struct process *L;  // 等待队列
+} semaphore;
+```
+
+**wait(S)**
+
+```cpp
+void wait (semaphore S) {
+  S.value--;
+  if (S.value < 0) {
+    // 如果剩余资源数不够, 使用 block 原语使进程从运行态进入阻塞态, 并将其挂到阻塞队列中
+    block (S.L);  
+  }
+}
+```
+
+**signal(S)**
+
+```cpp
+void signal (semaphore S) {
+  S.value++;
+  if (S.value <= 0) {
+    // 释放资源后, 若还有别的进程在等待这种资源, 则使用 wakeup 原语唤醒等待队列中的一个进程
+    wakeup(S.L);
+  }
+}
+```
+
 
 
 

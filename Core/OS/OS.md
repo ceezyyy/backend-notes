@@ -22,8 +22,9 @@ Table of Contents
 * [9. 信号量机制实现进程互斥](#9-信号量机制实现进程互斥)
 * [10. 信号量机制实现进程同步](#10-信号量机制实现进程同步)
 * [11. Producer–consumer problem](#11-producerconsumer-problem)
+   * [Constraints](#constraints)
+   * [Explained](#explained)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -260,25 +261,70 @@ P2() {
 
 - 只有缓冲区没满时，`producer` 才能把产品放入缓冲区，否则必须等待
 - 只有缓冲区不空时，`consumer` 才能从中取出产品，否则必须等待
-- 缓冲区是临界资源，各进程必须互斥地访问
+- 缓冲区是临界资源，各进程必须互斥地访问（因为并发条件下，若两个进程同时将各自的产品放入缓冲区同一个位置，会出现 “数据覆盖” 的现象）
 
 
 
 ### Explained
 
-**Q1: 为什么缓冲区是临界资源？**
+- Semaphore Q：用来保证缓冲区进程互斥，初始值为 1（Q 代表 queue）
+- Semaphore E：初始值为 n（E 代表 empty，缓冲区空闲的位置）⬇️
+- Semaphore F：初始值为 0（F 代表 filled，缓冲区已占用的位置）⬆️
 
-**A1:** 并发条件下，若两个进程同时将各自的产品放入缓冲区**同一个位置**，会出现 “数据覆盖” 的现象，所以缓冲区需视为临界资源
+
+
+伪代码如下：
+
+**Producer**
+
+```java
+void producer() {
+  while (T) {
+    // 生产数据
+    produce();
+    // 是否有空闲的位置可以投放
+    wait(E);
+    // 当前缓冲区是否被占用
+    wait(Q);
+    // 投放产品
+    append();
+    // 释放缓冲区
+    signal(Q);
+    // 更新缓冲区已占用的数量
+    signal(F);
+  }
+}
+```
 
 
 
-**Q2: 如何利用信号量机制实现 producer / consumer 进程的功能？**
+**Consumer**
 
-**A2: ** 
+```java
+void consumer() {
+  while (T) {
+    // 缓冲区是否有数据可以被消费
+    wait(F);
+    // 缓冲区是否被占用
+    wait(Q);
+    // 从缓冲区拿数据
+    take();
+    // 释放缓冲区的资源
+    signal(Q);
+    // 缓冲区空闲位置增加
+    signal(E);
+    // 消费数据
+    consume();
+  }
+}
+```
+
+
+
 
 ## References
 
 - [趣谈Linux操作系统](https://time.geekbang.org/column/intro/164)
 - [Process Life Cycle](https://zitoc.com/process-life-cycle/#:~:text=The%20process%20life%20cycle%20can,process%20control%20block%20(PCB).)
 - [CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E7%9B%AE%E5%BD%95.md)
-
+- [The producer-consumer problem in Operating System](https://afteracademy.com/blog/the-producer-consumer-problem-in-operating-system#:~:text=The%20Producer%2DConsumer%20problem%20is,products%20produced%20by%20the%20Producer.)

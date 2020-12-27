@@ -21,7 +21,9 @@ Table of Contents
 * [8. 信号量机制：记录型信号量](#8-信号量机制记录型信号量)
 * [9. 信号量机制实现进程互斥](#9-信号量机制实现进程互斥)
 * [10. 信号量机制实现进程同步](#10-信号量机制实现进程同步)
+* [11. Producer–consumer problem](#11-producerconsumer-problem)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -128,6 +130,10 @@ Table of Contents
 
 ## 8. 信号量机制：记录型信号量
 
+
+
+<div align="center"> <img src="image-20201227183752235.png" width="30%"/> </div><br>
+
 **struct.cpp**
 
 ```cpp
@@ -214,7 +220,7 @@ P2() {
 
 **核心思想：**
 
-1. 同步信号量初始化为 0
+1. 初始化同步信号量为 0
 2. "前操作"
 3. `V` 操作（原语）
 4. `P` 操作（原语）
@@ -242,6 +248,17 @@ P2() {
 
 保证了 `Code block 3` 一定在 `Code block 1` 之后执行
 
+
+
+## 11. Producer–consumer problem
+
+<div align="center"> <img src="producer-consumer.png" width="60%"/> </div><br>
+
+**背景：**
+
+- 只有缓冲区没满时，`producer` 才能把产品放入缓冲区，否则必须等待
+- 只有缓冲区不空时，`consumer` 才能从中取出产品，否则必须等待
+- 缓冲区是临界资源，各进程必须互斥地访问
 
 
 

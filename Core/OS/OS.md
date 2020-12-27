@@ -268,8 +268,8 @@ P2() {
 ### Explained
 
 - Semaphore Q：用来保证缓冲区进程互斥，初始值为 1（Q 代表 queue）
-- Semaphore E：初始值为 n（E 代表 empty，缓冲区空闲的位置）⬇️
-- Semaphore F：初始值为 0（F 代表 filled，缓冲区已占用的位置）⬆️
+- Semaphore E：初始值为 n（E 代表 empty，缓冲区空闲的位置）
+- Semaphore F：初始值为 0（F 代表 filled，缓冲区已占用的位置）
 
 
 
@@ -286,7 +286,7 @@ void producer() {
     wait(E);
     // 当前缓冲区是否被占用
     wait(Q);
-    // 投放产品
+    // 投放数据
     append();
     // 释放缓冲区
     signal(Q);

@@ -149,6 +149,7 @@ typedef struct {
 void wait (semaphore S) {
   // 请求一个单位的资源
   S.value--;
+  // 当前没有资源可用
   if (S.value < 0) {
     // running -> blocked
     // 主动加入等待队列, 实现"让权等待"
@@ -163,6 +164,7 @@ void wait (semaphore S) {
 void signal (semaphore S) {
   // 释放一个单位的资源
   S.value++;
+  // 仍有进程在等待队列等待
   if (S.value <= 0) {
     // blocked -> ready
     // 使用 wakeup 原语唤醒等待队列中的一个进程
@@ -272,7 +274,7 @@ P2() {
 
 **Q2: 如何利用信号量机制实现 producer / consumer 进程的功能？**
 
-**A2: **
+**A2: ** 
 
 ## References
 

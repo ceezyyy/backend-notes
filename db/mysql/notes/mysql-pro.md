@@ -46,13 +46,17 @@ Table of Contents
 
 ## 2. SQL 语句
 
+**P.S:**
+
+以下 `SQL` 语句仅挑选了重点（非系统性）
+
 ### 2.1 Join
 
   <div align="center"> <img src="sql-joins.png" width="70%"/> </div><br>
 
 
 
-### 2.2 Sub Query
+### 2.2 SubQuery
 
   <div align="center"> <img src="image-20201215175720297.png" width="60%"/> </div><br>
 

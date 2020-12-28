@@ -7,13 +7,13 @@ Table of Contents
 * [1. 架构](#1-架构)
 * [2. SQL 语句](#2-sql-语句)
    * [2.1 Join](#21-join)
-   * [2.2 Sub Query](#22-sub-query)
+   * [2.2 SubQuery](#22-subquery)
    * [2.3 Union](#23-union)
 * [3. 索引](#3-索引)
    * [3.1 回表](#31-回表)
    * [3.2 联合索引：最左匹配原则](#32-联合索引最左匹配原则)
    * [3.3 前缀索引（最左匹配原则应用）](#33-前缀索引最左匹配原则应用)
-   * [3.4 Left Join &amp; Right Join索引优化](#34-left-join--right-join索引优化)
+   * [3.4 Left Join &amp; Right Join 索引优化](#34-left-join--right-join-索引优化)
    * [3.5 覆盖索引](#35-覆盖索引)
    * [3.6 COUNT(*) 优化（待补充）](#36-count-优化待补充)
    * [3.7 小表驱动大表（待补充）](#37-小表驱动大表待补充)
@@ -24,7 +24,6 @@ Table of Contents
    * [4.4 事务隔离的实现（待补充）](#44-事务隔离的实现待补充)
    * [4.5 两阶段锁](#45-两阶段锁)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -256,7 +255,7 @@ WHERE
 
 
 
-### 3.4 Left Join & Right Join索引优化
+### 3.4 Left Join & Right Join 索引优化
 
 **表设计**
 

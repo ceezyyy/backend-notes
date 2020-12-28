@@ -401,9 +401,19 @@ void read() {
 
 
 
-### 2.9 Dining Philosophers Problem
+### 2.9 Dining Philosophers Problem（待补充）
 
 <div align="center"> <img src="dining_phil.png" width="40%"/> </div><br>
+
+
+
+**Background**
+
+At any instant, a philosopher is either eating or thinking. When a philosopher wants to eat, he uses two chopsticks - one from their left and one from their right. When a philosopher wants to think, he keeps down both chopsticks at their original place
+
+
+
+
 
 ### 2.10 Deadlocks
 
@@ -426,3 +436,4 @@ void read() {
 - [The Reader-Writer Problem in Operating System](https://afteracademy.com/blog/the-reader-writer-problem-in-operating-system)
 - [Operating System Tutorial for Beginners](https://www.studytonight.com/operating-system/#)
 - [Operating System Tests](https://www.studytonight.com/tests/?subject=operating-system)
+- [Dining Philosophers Problem (DPP)](https://www.tutorialspoint.com/dining-philosophers-problem-dpp#:~:text=The%20dining%20philosophers%20problem%20states,and%20left%20chopstick%20to%20eat.)

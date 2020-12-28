@@ -329,7 +329,7 @@ void consumer() {
 
 ### 2.7 Readers-Writers Problem
 
-<div align="center"> <img src="the-readers-writers-problem.jpg" width="80%"/> </div><br>
+<div align="center"> <img src="the-readers-writers-problem.jpg" width="60%"/> </div><br>
 
 
 

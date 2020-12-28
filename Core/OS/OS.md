@@ -24,8 +24,8 @@ Table of Contents
       * [2.5.3 信号量机制实现进程同步](#253-信号量机制实现进程同步)
    * [2.6 Producer–Consumer Problem](#26-producerconsumer-problem)
    * [2.7 Readers-Writers Problem](#27-readers-writers-problem)
+   * [2.8 Dining Philosophers Problem](#28-dining-philosophers-problem)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -271,13 +271,11 @@ P2() {
 
 **Explained**
 
-- Semaphore Q：用来保证缓冲区进程互斥，初始值为 1（Q 代表 queue）
-- Semaphore E：初始值为 n（E 代表 empty，缓冲区空闲的位置）
-- Semaphore F：初始值为 0（F 代表 filled，缓冲区已占用的位置）
+- Semaphore Q: 用来保证缓冲区进程互斥，初始值为 1（Q 代表 queue）
+- Semaphore E: 初始值为 n（E 代表 empty，缓冲区空闲的位置）
+- Semaphore F: 初始值为 0（F 代表 filled，缓冲区已占用的位置）
 
 
-
-伪代码如下：
 
 **Producer**
 
@@ -331,6 +329,48 @@ void consumer() {
 
 <div align="center"> <img src="the-readers-writers-problem.jpg" width="60%"/> </div><br>
 
+**Contraints**
+
+- 允许多个 `reader` 同时读数据，而 `writer` 无法进入
+- 当一个 `writer` 在写数据的时候，其他 `writer` 无法进入（会覆盖数据），`reader` 也无法进入（会脏读）
+
+
+
+**Explained**
+
+- Semaphore W: 写操作是互斥的，初始值为 1（W 代表 write）
+- Semaphore
+
+
+
+**Writer**
+
+```java
+void write() {
+  // 是否有其他进程在写数据
+  wait(W);
+  // 写入数据
+  writing();
+  // 释放资源
+  signal(W);
+}
+```
+
+
+
+**Reader**
+
+```java
+void read() {
+  
+}
+```
+
+
+
+### 2.8 Dining Philosophers Problem
+
+<div align="center"> <img src="dining_phil.png" width="40%"/> </div><br>
 
 
 

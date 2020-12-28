@@ -20,12 +20,11 @@
 
 ## :coffee: Java 
 
-- [Core Interview Questions](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/core-interview-questions.md)
+- [Basic](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/core-interview-questions.md)
 - [Collections](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
 - [Concurrency](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrency/notes/concurrency.md)
-- IO / NIO
-- [Java 8](https://github.com/ceezyyy/backend-notes/blob/master/Java/Java8/index.md)
+- IO
 
 
 

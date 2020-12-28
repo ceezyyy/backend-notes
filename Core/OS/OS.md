@@ -331,15 +331,18 @@ void consumer() {
 
 **Contraints**
 
-- 允许多个 `reader` 同时读数据，而 `writer` 无法进入
-- 当一个 `writer` 在写数据的时候，其他 `writer` 无法进入（会覆盖数据），`reader` 也无法进入（会脏读）
+两种场景：
+
+1. 仅有一个 `writer`
+2. 多个 `reader`
 
 
 
 **Explained**
 
 - Semaphore W: 写操作是互斥的，初始值为 1（W 代表 write）
-- Semaphore
+- readCount: 当前 `reader` 的数量（普通变量），初始值为 0
+- Semaphore mutex: 用来互斥地增减 `readCount` 的值，初始值为 1
 
 
 
@@ -363,6 +366,27 @@ void write() {
 ```java
 void read() {
   
+  // 互斥地增加 readCount 数量
+  wait(mutex);
+  readCount++;
+  //当第一个 reader 进来时, 给 writer 上锁
+  if (readCount == 1) {
+    wait(W);
+  }
+  signal(mutex);
+  
+  // 进行读操作
+  reading();
+  
+  // 互斥地减少 readCount 数量
+  wait(mutex);
+  readCount--;
+  // 当没有 reader 进程时, 释放 writer 锁
+  if (readCount == 0) {
+    signal(W);
+  }
+  signal(mutex);
+  
 }
 ```
 
@@ -380,3 +404,4 @@ void read() {
 - [Process Life Cycle](https://zitoc.com/process-life-cycle/#:~:text=The%20process%20life%20cycle%20can,process%20control%20block%20(PCB).)
 - [CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%20-%20%E7%9B%AE%E5%BD%95.md)
 - [The producer-consumer problem in Operating System](https://afteracademy.com/blog/the-producer-consumer-problem-in-operating-system#:~:text=The%20Producer%2DConsumer%20problem%20is,products%20produced%20by%20the%20Producer.)
+- [The Reader-Writer Problem in Operating System](https://afteracademy.com/blog/the-reader-writer-problem-in-operating-system)

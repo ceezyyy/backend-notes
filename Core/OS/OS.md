@@ -9,23 +9,25 @@ Table of Contents
 * [1. Blueprint](#1-blueprint)
    * [1.1 操作系统内核图](#11-操作系统内核图)
    * [1.2 四大特征](#12-四大特征)
-* [2. 进程/线程](#2-进程线程)
+* [2. 进程](#2-进程)
    * [2.1 Process Life Cycle](#21-process-life-cycle)
-   * [2.2 进程调度](#22-进程调度)
-      * [2.2.1 算法调度评价指标](#221-算法调度评价指标)
-      * [2.2.2 交互式系统：时间片轮转调度算法](#222-交互式系统时间片轮转调度算法)
-      * [2.2.3 交互式系统：优先级调度算法](#223-交互式系统优先级调度算法)
-      * [2.2.4 交互式系统：多级反馈队列调度算法](#224-交互式系统多级反馈队列调度算法)
-   * [2.3 进程同步](#23-进程同步)
-   * [2.4 进程互斥](#24-进程互斥)
-   * [2.5 信号量机制](#25-信号量机制)
-      * [2.5.1 记录型信号量](#251-记录型信号量)
-      * [2.5.2 信号量机制实现进程互斥](#252-信号量机制实现进程互斥)
-      * [2.5.3 信号量机制实现进程同步](#253-信号量机制实现进程同步)
-   * [2.6 Producer–Consumer Problem](#26-producerconsumer-problem)
-   * [2.7 Readers-Writers Problem](#27-readers-writers-problem)
-   * [2.8 Dining Philosophers Problem](#28-dining-philosophers-problem)
+   * [2.2 PCB (Process Control Block)](#22-pcb-process-control-block)
+   * [2.3 进程创建](#23-进程创建)
+   * [2.4 进程调度](#24-进程调度)
+      * [2.4.1 交互式系统：时间片轮转调度算法](#241-交互式系统时间片轮转调度算法)
+      * [2.4.2 交互式系统：优先级调度算法](#242-交互式系统优先级调度算法)
+      * [2.4.3 交互式系统：多级反馈队列调度算法](#243-交互式系统多级反馈队列调度算法)
+   * [2.5 Process Synchronization](#25-process-synchronization)
+   * [2.6 信号量机制](#26-信号量机制)
+      * [2.6.1 记录型信号量](#261-记录型信号量)
+      * [2.6.2 信号量机制实现进程互斥](#262-信号量机制实现进程互斥)
+      * [2.6.3 信号量机制实现进程同步](#263-信号量机制实现进程同步)
+   * [2.7 Producer–Consumer Problem](#27-producerconsumer-problem)
+   * [2.8 Readers-Writers Problem](#28-readers-writers-problem)
+   * [2.9 Dining Philosophers Problem](#29-dining-philosophers-problem)
+   * [2.10 Deadlocks](#210-deadlocks)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -44,7 +46,7 @@ Table of Contents
 - 虚拟：将物理实体映射成多个逻辑实体
 - 异步：并发下，进程的执行不是一步到底，而是走走停停
 
-## 2. 进程/线程
+## 2. 进程
 
 ### 2.1 Process Life Cycle
 
@@ -59,19 +61,17 @@ Table of Contents
 
 
 
-### 2.2 进程调度
+### 2.2 PCB (Process Control Block)
 
-#### 2.2.1 算法调度评价指标
+<div align="center"> <img src="image-20201228180000394.png" width="30%"/> </div><br>
 
-- `CPU` 利用率：忙碌的时间 / 总时间
-- 系统吞吐量：完成的总作业数 / 总时间
-- 周转时间：作业完成时间 - 作业提交时间
-- 等待时间：作业等待调度时间总和
-- 响应时间：首次相应与提交请求时间差
+### 2.3 进程创建
 
+<div align="center"> <img src="process-scheduling.png" width="70%"/> </div><br>
 
+### 2.4 进程调度
 
-#### 2.2.2 交互式系统：时间片轮转调度算法
+#### 2.4.1 交互式系统：时间片轮转调度算法
 
 <div align="center"> <img src="image-20201226192757466.png" width="40%"/> </div><br>
 
@@ -94,7 +94,7 @@ Table of Contents
 
 
 
-#### 2.2.3 交互式系统：优先级调度算法
+#### 2.4.2 交互式系统：优先级调度算法
 
 
 <div align="center"> <img src="image-20201226202248271.png" width="50%"/> </div><br>
@@ -113,7 +113,7 @@ Table of Contents
 
 
 
-#### 2.2.4 交互式系统：多级反馈队列调度算法
+#### 2.4.3 交互式系统：多级反馈队列调度算法
 
 <div align="center"> <img src="image-20201226225925784.png" width="40%"/> </div><br>
 
@@ -121,19 +121,28 @@ Table of Contents
 
 <div align="center"> <img src="image-20201226230030071.png" width="70%"/> </div><br>
 
-### 2.3 进程同步
+### 2.5 Process Synchronization
 
-多个进程因合作产生一定的制约关系，需要一定执行顺序
+> Process Synchronization means sharing system resources by processes in a such a way that, Concurrent access to shared data is handled thereby minimizing the chance of inconsistent data
 
-### 2.4 进程互斥
+```cpp
+do {
+  // 对请求的资源上锁
+  entry section;
+  critical section;
+  // 释放该资源的锁
+  exit section;
+  remainder section;
+} while (true);
+```
 
-每次只有一个进程才能访问资源临界区
 
-<div align="center"> <img src="image-20201226231428173.png" width="80%"/> </div><br>
 
-### 2.5 信号量机制
 
-#### 2.5.1 记录型信号量
+
+### 2.6 信号量机制
+
+#### 2.6.1 记录型信号量
 
 
 
@@ -185,7 +194,7 @@ void signal (semaphore S) {
 
 
 
-#### 2.5.2 信号量机制实现进程互斥
+#### 2.6.2 信号量机制实现进程互斥
 
 **核心思想：**
 
@@ -223,7 +232,7 @@ P2() {
 
 
 
-#### 2.5.3 信号量机制实现进程同步
+#### 2.6.3 信号量机制实现进程同步
 
 **核心思想：**
 
@@ -257,7 +266,7 @@ P2() {
 
 
 
-### 2.6 Producer–Consumer Problem
+### 2.7 Producer–Consumer Problem
 
 <div align="center"> <img src="producer-consumer.png" width="60%"/> </div><br>
 
@@ -325,7 +334,7 @@ void consumer() {
 
 
 
-### 2.7 Readers-Writers Problem
+### 2.8 Readers-Writers Problem
 
 <div align="center"> <img src="the-readers-writers-problem.jpg" width="60%"/> </div><br>
 
@@ -392,9 +401,19 @@ void read() {
 
 
 
-### 2.8 Dining Philosophers Problem
+### 2.9 Dining Philosophers Problem
 
 <div align="center"> <img src="dining_phil.png" width="40%"/> </div><br>
+
+### 2.10 Deadlocks
+
+
+
+
+
+
+
+
 
 
 

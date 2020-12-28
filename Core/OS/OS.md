@@ -331,9 +331,9 @@ void consumer() {
 
 **Contraints**
 
-两种场景：
+两种场景（针对同一时刻）：
 
-1. 仅有一个 `writer`
+1. 一个 `writer`
 2. 多个 `reader`
 
 

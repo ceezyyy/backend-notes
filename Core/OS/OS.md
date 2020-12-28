@@ -24,9 +24,11 @@ Table of Contents
       * [2.6.3 信号量机制实现进程同步](#263-信号量机制实现进程同步)
    * [2.7 Producer–Consumer Problem](#27-producerconsumer-problem)
    * [2.8 Readers-Writers Problem](#28-readers-writers-problem)
-   * [2.9 Dining Philosophers Problem](#29-dining-philosophers-problem)
+   * [2.9 Dining Philosophers Problem（待补充）](#29-dining-philosophers-problem待补充)
    * [2.10 Deadlocks](#210-deadlocks)
+      * [2.10.1 死锁产生的必要条件](#2101-死锁产生的必要条件)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -417,9 +419,11 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 ### 2.10 Deadlocks
 
+<div align="center"> <img src="image-20201228212139674.png" width="70%"/> </div><br>
 
+#### 2.10.1 死锁产生的必要条件
 
-
+**产生死锁必须同时满足以下四个条件（联想哲学家进餐例子）**
 
 
 

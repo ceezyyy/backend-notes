@@ -6,44 +6,47 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
-* [1. 操作系统内核图](#1-操作系统内核图)
-* [2. 操作系统四大特征](#2-操作系统四大特征)
-* [3. Process Life Cycle](#3-process-life-cycle)
-* [4. 算法调度评价指标](#4-算法调度评价指标)
-* [5. 进程调度算法](#5-进程调度算法)
-   * [5.1 交互式系统：时间片轮转调度算法](#51-交互式系统时间片轮转调度算法)
-   * [5.2 交互式系统：优先级调度算法](#52-交互式系统优先级调度算法)
-      * [5.2.1 非抢占式](#521-非抢占式)
-      * [5.2.2 抢占式](#522-抢占式)
-   * [5.3 交互式系统：多级反馈队列调度算法](#53-交互式系统多级反馈队列调度算法)
-* [6. 进程同步](#6-进程同步)
-* [7. 进程互斥](#7-进程互斥)
-* [8. 信号量机制：记录型信号量](#8-信号量机制记录型信号量)
-* [9. 信号量机制实现进程互斥](#9-信号量机制实现进程互斥)
-* [10. 信号量机制实现进程同步](#10-信号量机制实现进程同步)
-* [11. Producer–consumer problem](#11-producerconsumer-problem)
-   * [Constraints](#constraints)
-   * [Explained](#explained)
+* [1. Blueprint](#1-blueprint)
+   * [1.1 操作系统内核图](#11-操作系统内核图)
+   * [1.2 四大特征](#12-四大特征)
+* [2. 进程/线程](#2-进程线程)
+   * [2.1 Process Life Cycle](#21-process-life-cycle)
+   * [2.2 进程调度](#22-进程调度)
+      * [2.2.1 算法调度评价指标](#221-算法调度评价指标)
+      * [2.2.2 交互式系统：时间片轮转调度算法](#222-交互式系统时间片轮转调度算法)
+      * [2.2.3 交互式系统：优先级调度算法](#223-交互式系统优先级调度算法)
+      * [2.2.4 交互式系统：多级反馈队列调度算法](#224-交互式系统多级反馈队列调度算法)
+   * [2.3 进程同步](#23-进程同步)
+   * [2.4 进程互斥](#24-进程互斥)
+   * [2.5 信号量机制](#25-信号量机制)
+      * [2.5.1 记录型信号量](#251-记录型信号量)
+      * [2.5.2 信号量机制实现进程互斥](#252-信号量机制实现进程互斥)
+      * [2.5.3 信号量机制实现进程同步](#253-信号量机制实现进程同步)
+   * [2.6 Producer–Consumer Problem](#26-producerconsumer-problem)
+   * [2.7 Readers-Writers Problem](#27-readers-writers-problem)
 * [References](#references)
+
 
 ## Brainstorming
 
 <div align="center"> <img src="os.svg" width="100%"/> </div><br>
 
-## 1. 操作系统内核图
+## 1. Blueprint
+
+### 1.1 操作系统内核图
 
 <div align="center"> <img src="image-20201226132040321.png" width="80%"/> </div><br>
 
-## 2. 操作系统四大特征
+### 1.2 四大特征
 
 - 并发：计算机系统同时存在着多个运行的程序
 - 共享：系统资源可供内存中多个并发的进程共同使用
 - 虚拟：将物理实体映射成多个逻辑实体
 - 异步：并发下，进程的执行不是一步到底，而是走走停停
 
+## 2. 进程/线程
 
-
-## 3. Process Life Cycle
+### 2.1 Process Life Cycle
 
 <div align="center"> <img src="process-life-cycle.png" width="80%"/> </div><br>
 
@@ -56,7 +59,9 @@ Table of Contents
 
 
 
-## 4. 算法调度评价指标
+### 2.2 进程调度
+
+#### 2.2.1 算法调度评价指标
 
 - `CPU` 利用率：忙碌的时间 / 总时间
 - 系统吞吐量：完成的总作业数 / 总时间
@@ -66,9 +71,7 @@ Table of Contents
 
 
 
-## 5. 进程调度算法
-
-### 5.1 交互式系统：时间片轮转调度算法
+#### 2.2.2 交互式系统：时间片轮转调度算法
 
 <div align="center"> <img src="image-20201226192757466.png" width="40%"/> </div><br>
 
@@ -91,19 +94,18 @@ Table of Contents
 
 
 
-### 5.2 交互式系统：优先级调度算法
+#### 2.2.3 交互式系统：优先级调度算法
 
 
 <div align="center"> <img src="image-20201226202248271.png" width="50%"/> </div><br>
 
-#### 5.2.1 非抢占式
+**非抢占式**
 
 每次调度已到达队列且优先级最高的进程，当进程主动放弃 `CPU` 时发生调度
 
 <div align="center"> <img src="image-20201226221547720.png" width="60%"/> </div><br>
 
-
-#### 5.2.2 抢占式
+**抢占式**
 
 与非抢占式相比，抢占式在**就绪队列发生改变时**也会判断是否需要抢占
 
@@ -111,7 +113,7 @@ Table of Contents
 
 
 
-### 5.3 交互式系统：多级反馈队列调度算法
+#### 2.2.4 交互式系统：多级反馈队列调度算法
 
 <div align="center"> <img src="image-20201226225925784.png" width="40%"/> </div><br>
 
@@ -119,17 +121,19 @@ Table of Contents
 
 <div align="center"> <img src="image-20201226230030071.png" width="70%"/> </div><br>
 
-## 6. 进程同步
+### 2.3 进程同步
 
 多个进程因合作产生一定的制约关系，需要一定执行顺序
 
-## 7. 进程互斥
+### 2.4 进程互斥
 
 每次只有一个进程才能访问资源临界区
 
 <div align="center"> <img src="image-20201226231428173.png" width="80%"/> </div><br>
 
-## 8. 信号量机制：记录型信号量
+### 2.5 信号量机制
+
+#### 2.5.1 记录型信号量
 
 
 
@@ -181,7 +185,7 @@ void signal (semaphore S) {
 
 
 
-## 9. 信号量机制实现进程互斥
+#### 2.5.2 信号量机制实现进程互斥
 
 **核心思想：**
 
@@ -219,7 +223,7 @@ P2() {
 
 
 
-## 10. 信号量机制实现进程同步
+#### 2.5.3 信号量机制实现进程同步
 
 **核心思想：**
 
@@ -253,11 +257,11 @@ P2() {
 
 
 
-## 11. Producer–consumer problem
+### 2.6 Producer–Consumer Problem
 
 <div align="center"> <img src="producer-consumer.png" width="60%"/> </div><br>
 
-### Constraints
+**Constraints**
 
 - 只有缓冲区没满时，`producer` 才能把产品放入缓冲区，否则必须等待
 - 只有缓冲区不空时，`consumer` 才能从中取出产品，否则必须等待
@@ -265,7 +269,7 @@ P2() {
 
 
 
-### Explained
+**Explained**
 
 - Semaphore Q：用来保证缓冲区进程互斥，初始值为 1（Q 代表 queue）
 - Semaphore E：初始值为 n（E 代表 empty，缓冲区空闲的位置）
@@ -318,6 +322,14 @@ void consumer() {
   }
 }
 ```
+
+
+
+
+
+### 2.7 Readers-Writers Problem
+
+<div align="center"> <img src="the-readers-writers-problem.jpg" width="80%"/> </div><br>
 
 
 

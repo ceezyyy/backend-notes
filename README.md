@@ -20,7 +20,7 @@
 
 ## :coffee: Java 
 
-- [Basic](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/basic.md)
+- [Basic](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/notes/basic.md)
 - [Collections](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
 - [Concurrency](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrency/notes/concurrency.md)
@@ -46,25 +46,18 @@
 
 
 
+## :bulb: System Design
+
+- [Spring Cloud](https://github.com/ceezyyy/backend-notes/blob/master/Microservice/SpringCloud/notes/SpringCloud.md)
+- [RabbitMQ](https://github.com/ceezyyy/backend-notes/blob/master/MQ/rabbitMQ/notes/rabbitMQ.md)
+
+
+
 ## :shield: Security 
 
 - [Spring Security](https://github.com/ceezyyy/backend-notes/blob/master/Security/SpringSecurity/notes/SpringSecurity.md)
 
-
-
-
-
-## :cityscape: Microservice 
-
-- [Spring Cloud](https://github.com/ceezyyy/backend-notes/blob/master/Microservice/SpringCloud/notes/SpringCloud.md)
-
-
-
-
-
-## 📩 MQ
-
-- [RabbitMQ](https://github.com/ceezyyy/backend-notes/blob/master/MQ/rabbitMQ/notes/rabbitMQ.md)
+  
 
 
 

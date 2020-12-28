@@ -5,38 +5,26 @@ Table of Contents
 
 * [Brainstorming](#brainstorming)
 * [1. 架构](#1-架构)
-* [2. Joins](#2-joins)
-* [3. 子查询](#3-子查询)
-* [4. Union](#4-union)
-* [5. 索引: B  树](#5-索引-b-树)
-   * [5.1 回表](#51-回表)
-* [6. 单表索引优化](#6-单表索引优化)
-   * [6.1 表设计 &amp; 初始化](#61-表设计--初始化)
-   * [6.2 联合索引：最左匹配原则](#62-联合索引最左匹配原则)
-   * [6.3 前缀索引（最左匹配原则应用）](#63-前缀索引最左匹配原则应用)
-* [7. 两表索引优化](#7-两表索引优化)
-   * [7.1 表设计](#71-表设计)
-   * [7.2 Demo](#72-demo)
-   * [7.3 总结](#73-总结)
-* [8. 覆盖索引](#8-覆盖索引)
-* [9. COUNT(*) 优化](#9-count-优化)
-* [10. 小表驱动大表（待补充）](#10-小表驱动大表待补充)
-   * [10.1 IN](#101-in)
-   * [10.2 EXISTS](#102-exists)
-* [11. 并发事务带来什么问题？](#11-并发事务带来什么问题)
-   * [11.1 Dirty read](#111-dirty-read)
-   * [11.2 Lost to modify](#112-lost-to-modify)
-   * [11.3 Non-repeatable read &amp; Phantom read](#113-non-repeatable-read--phantom-read)
-* [12. 事务隔离级别](#12-事务隔离级别)
-   * [12. 1 Read uncommited](#12-1-read-uncommited)
-   * [12.2 Read commited](#122-read-commited)
-   * [12.3 Repeatable read (InnoDB 默认)](#123-repeatable-read-innodb-默认)
-   * [12.4 Serializable](#124-serializable)
-   * [12.5 Demo](#125-demo)
-* [13. 事务隔离的实现（待更新）](#13-事务隔离的实现待更新)
-* [14. 两阶段锁](#14-两阶段锁)
-* [15. 行锁 Demo](#15-行锁-demo)
+* [2. SQL 语句](#2-sql-语句)
+   * [2.1 Join](#21-join)
+   * [2.2 Sub Query](#22-sub-query)
+   * [2.3 Union](#23-union)
+* [3. 索引](#3-索引)
+   * [3.1 回表](#31-回表)
+   * [3.2 联合索引：最左匹配原则](#32-联合索引最左匹配原则)
+   * [3.3 前缀索引（最左匹配原则应用）](#33-前缀索引最左匹配原则应用)
+   * [3.4 Left Join &amp; Right Join索引优化](#34-left-join--right-join索引优化)
+   * [3.5 覆盖索引](#35-覆盖索引)
+   * [3.6 COUNT(*) 优化（待补充）](#36-count-优化待补充)
+   * [3.7 小表驱动大表（待补充）](#37-小表驱动大表待补充)
+* [4. 事务](#4-事务)
+   * [4.1 并发事务带来什么问题？](#41-并发事务带来什么问题)
+   * [4.2 事务隔离级别](#42-事务隔离级别)
+   * [4.3 Demo](#43-demo)
+   * [4.4 事务隔离的实现（待补充）](#44-事务隔离的实现待补充)
+   * [4.5 两阶段锁](#45-两阶段锁)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -56,13 +44,15 @@ Table of Contents
 
 
 
-## 2. Joins
+## 2. SQL 语句
+
+### 2.1 Join
 
   <div align="center"> <img src="sql-joins.png" width="70%"/> </div><br>
 
 
 
-## 3. 子查询
+### 2.2 Sub Query
 
   <div align="center"> <img src="image-20201215175720297.png" width="60%"/> </div><br>
 
@@ -72,7 +62,7 @@ Table of Contents
 
 
 
-## 4. Union
+### 2.3 Union
 
 `union` 用于连接两个以上的 `select` 语句的结果组合到一个结果集合中。多个 `select` 语句会删除重复的数据
 
@@ -90,13 +80,13 @@ SELECT column_name(s) FROM table2;
 
 
 
-## 5. 索引: B+ 树
+## 3. 索引
 
 **每一个索引在 InnoDB 里面对应一颗 B+ 树**
 
 
 
-### 5.1 回表
+### 3.1 回表
 
 举个例子，我们有一个主键列为 `ID` 的表，其中有个字段为 `k`，且 `k` 上有索引
 
@@ -144,9 +134,9 @@ SELECT * FROM table_name WHERE K = 5;
 
 
 
-## 6. 单表索引优化
+### 3.2 联合索引：最左匹配原则
 
-### 6.1 表设计 & 初始化
+**表设计 & 初始化 **
 
   <div align="center"> <img src="image-20201216110449022.png" width="100%"/> </div><br>
 
@@ -163,9 +153,7 @@ SELECT * FROM table_name WHERE K = 5;
 
 
 
-### 6.2 联合索引：最左匹配原则
-
-**查询 category_id 为 1 且 comments 大于 1 的情况下，views 最多的 id**
+**需求：查询 category_id 为 1 且 comments 大于 1 的情况下，views 最多的 id**
 
 ```mysql
 SELECT
@@ -224,7 +212,7 @@ CREATE INDEX idx_category_views ON article ( category_id, views );
 
 <div align="center"> <img src="image-20201216224438990.png" width="100%"/> </div><br>
 
-### 6.3 前缀索引（最左匹配原则应用）
+### 3.3 前缀索引（最左匹配原则应用）
 
 假设现在需要维护一个邮箱登录的系统，如何在邮箱这个字段高效地建立索引？
 
@@ -264,9 +252,9 @@ WHERE
 
 
 
-## 7. 两表索引优化
+### 3.4 Left Join & Right Join索引优化
 
-### 7.1 表设计
+**表设计**
 
 `class` 表：
 
@@ -280,8 +268,6 @@ WHERE
 字段都相同，`card` 为主外键关系
 
 
-
-### 7.2 Demo
 
 下面以 `left join` 为例，探究两表的索引该如何建立
 
@@ -330,15 +316,14 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-### 7.3 总结
+**总结：**
 
-**Left join, 索引加右表**
-
-**Right join, 索引加左表**
-
+- Left join, 索引加右表
+- Right join, 索引加左表
 
 
-## 8. 覆盖索引
+
+### 3.5 覆盖索引
 
 通过遍历索引树就可以满足查询的字段，不用回表，即索引被覆盖了
 
@@ -352,63 +337,33 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-## 9. COUNT(*) 优化
+### 3.6 COUNT(*) 优化（待补充）
 
 
 
-## 10. 小表驱动大表（待补充）
-
-### 10.1 IN
-
-> OR 的简写形式
-
-```mysql
-SELECT column_name(s)
-FROM table_name
-WHERE column_name IN (value1, value2, ...);
-```
-
-或者
-
-```mysql
-SELECT column_name(s)
-FROM table_name
-WHERE column_name IN (SELECT STATEMENT);
-```
-
-
-
-### 10.2 EXISTS
-
-> The EXISTS operator is used to test for the existence of any record in a subquery.
->
-> The EXISTS operator returns true if the subquery returns one or more records.
+### 3.7 小表驱动大表（待补充）
 
 
 
 
 
+## 4. 事务
 
+### 4.1 并发事务带来什么问题？
 
-
-
-## 11. 并发事务带来什么问题？
-
-### 11.1 Dirty read
+**Dirty read**
 
 读到了别的事务未 commit 的数据
 
 <div align="center"> <img src="image-20201220115049237.png" width="45%"/> </div><br>
 
-### 11.2 Lost to modify
+**Lost to modify**
 
 多个事务同时修改一个数据，造成修改丢失
 
 <div align="center"> <img src="image-20201220115421956.png" width="45%"/> </div><br>
 
-
-
-### 11.3 Non-repeatable read & Phantom read
+**Non-repeatable read & Phantom read**
 
 多次读的数据不一致（别的事务修改了）/ 多次读的数据条数不一致（别的事务新增/删减了数据）
 
@@ -418,27 +373,21 @@ WHERE column_name IN (SELECT STATEMENT);
 
 
 
-## 12. 事务隔离级别
+### 4.2 事务隔离级别
 
-### 12. 1 Read uncommited
+**Read uncommited**
 
 一个事务仍未 commit 时，其更改能被其他事务所看见
 
-
-
-### 12.2 Read commited
+**Read commited**
 
 一个事务只有 commit 时，其更改才能被其他事务所见
 
-
-
-### 12.3 Repeatable read (InnoDB 默认)
+**Repeatable read (InnoDB 默认)**
 
 一个事务在执行过程中所见的数据，总是和该事务在启动时所见的一致
 
-
-
-### 12.4 Serializable
+**Serializable**
 
 顾名思义，串行，“写” 会加写锁，“读” 会加读锁
 
@@ -446,9 +395,7 @@ WHERE column_name IN (SELECT STATEMENT);
 
 
 
-
-
-### 12.5 Demo
+### 4.3 Demo
 
 ```mysql
 mysql> create table T(c int) engine=InnoDB;
@@ -472,7 +419,7 @@ insert into T(c) values(1);
 
 
 
-## 13. 事务隔离的实现（待更新）
+### 4.4 事务隔离的实现（待补充）
 
 在 `mysql` 中，每条记录在更新的时候都会同时记录一条 `rollback` 操作，即记录上最新的值通过回滚操作都可以得到前一个状态的值
 
@@ -488,7 +435,7 @@ insert into T(c) values(1);
 
 
 
-## 14. 两阶段锁
+### 4.5 两阶段锁
 
 <div align="center"> <img src="image-20201221134532466.png" width="60%"/> </div><br>
 
@@ -500,47 +447,10 @@ insert into T(c) values(1);
 
 
 
-## 15. 行锁 Demo
-
-`book` 表：
-
-<div align="center"> <img src="image-20201221173830339.png" width="80%"/> </div><br>
-
-`mysql` 默认以隐式方式提交事务，输入命令改为显式提交
-
-```mysql
-SET autocommit = 0;
-```
-
-首先，客户端 A 对 `book` 表第 8 行进行更新操作（未 `commit`）
-
-```mysql
-UPDATE book 
-SET card = 88 
-WHERE
-	id = 8;
-```
-
-
-
-同时，客户端 B 也对 `book` 表第八行进行更新操作
-
-```mysql
-UPDATE book 
-SET card = 88 
-WHERE
-	id = 8;
-```
-
-<div align="center"> <img src="image-20201221174726310.png" width="80%"/> </div><br>
-
-因为行锁，更新失败（超时）
-
-
-
 ## References
 
 - [MySQL实战45讲-极客时间](https://time.geekbang.org/column/intro/100020801)
+- [SQLZOO](https://sqlzoo.net/)
 - [MySQL 的 crash-safe 原理解析](https://juejin.im/post/6844904167782236167)
 - [事务隔离级别(图文详解)](https://github.com/Snailclimb/JavaGuide/blob/master/docs/database/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB(%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3).md)
 - [尚硅谷MySQL数据库高级，mysql优化，数据库优化](https://www.bilibili.com/video/BV1KW411u7vy?from=search&seid=11888146484032851728)

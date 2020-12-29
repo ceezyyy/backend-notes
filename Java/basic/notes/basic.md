@@ -12,15 +12,17 @@ Table of Contents
       * [1.4.1 Immutable](#141-immutable)
       * [1.4.2 String Pool](#142-string-pool)
       * [1.4.3 为什么 String 设计成不可变?](#143-为什么-string-设计成不可变)
-* [2. 运算](#2-运算)
-* [3. Keyword](#3-keyword)
-* [4. Object](#4-object)
-* [5. 继承](#5-继承)
+* [2. keyword](#2-keyword)
+   * [2.1 final](#21-final)
+   * [2.2 static](#22-static)
+* [3. Object](#3-object)
+* [5. 继承（待补充）](#5-继承待补充)
 * [6. 反射](#6-反射)
 * [7. 异常](#7-异常)
 * [8. 泛型](#8-泛型)
 * [9. 注解](#9-注解)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -186,22 +188,24 @@ public class Main {
 
 
 
+## 2. keyword
+
+### 2.1 final
+
+详见 brainstorming
+
+### 2.2 static
+
+<div align="center"> <img src="Static_variables_shared_in_Java.jpg" width="80%"/> </div><br>
 
 
 
-## 2. 运算
+
+## 3. Object
 
 
 
-## 3. Keyword
-
-
-
-## 4. Object
-
-
-
-## 5. 继承
+## 5. 继承（待补充）
 
 
 
@@ -209,7 +213,11 @@ public class Main {
 
 
 
+
+
 ## 7. 异常
+
+
 
 
 
@@ -231,3 +239,4 @@ public class Main {
 - [Guide to Java String Pool](https://www.baeldung.com/java-string-pool)
 - [Why String is Immutable in Java?](https://www.baeldung.com/java-string-immutable)
 - [Why String is immutable in Java?](https://www.programcreek.com/2013/04/why-string-is-immutable-in-java/)
+- [A Guide to the Static Keyword in Java](https://www.baeldung.com/java-static)

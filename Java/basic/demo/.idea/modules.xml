@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/integer-cache/integer-cache.iml" filepath="$PROJECT_DIR$/integer-cache/integer-cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/keyword-final/keyword-final.iml" filepath="$PROJECT_DIR$/keyword-final/keyword-final.iml" />
+      <module fileurl="file://$PROJECT_DIR$/string-immutable/string-immutable.iml" filepath="$PROJECT_DIR$/string-immutable/string-immutable.iml" />
+    </modules>
+  </component>
+</project>

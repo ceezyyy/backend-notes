@@ -85,6 +85,29 @@ public final class String
 
 
 
+**如何理解不可变?**
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        String a = "abc";
+        System.out.println(a.hashCode());  // 96354
+
+        a = "efg";
+        System.out.println(a.hashCode());  // 100326
+
+    }
+}
+```
+
+<div align="center"> <img src="46c03ae5abf6111879423f38375207cc_r.jpg" width="90%"/> </div><br>
+
+
+
+
+
 #### 1.4.2 String Pool
 
 Java String Pool is the special memory region where Strings are stored by the JVM
@@ -128,33 +151,14 @@ public class Main {
 
 
 
+#### 1.4.3 为什么 String 设计成不可变?
+
+- String pool 的需要
+
+  
 
 
-#### 1.4.3 String intern()
 
-The method *intern()* creates an exact copy of a *String* object in the heap memory and stores it in the *String* constant pool.
-
-```java
-public class Main {
-
-    public static void main(String[] args) {
-
-        String a = "abc";
-        String b = new String("abc");
-        String c = new String("efg");
-
-        // intern() creates an exact copy of a String object in the heap memory
-        // and stores it in the String constant pool
-        String d = a.intern();
-        String e = b.intern();
-
-        System.out.println(a == d);  // true
-        System.out.println(a == e);  // true
-        System.out.println(d == e);  // true
-
-    }
-}
-```
 
 
 

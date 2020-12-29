@@ -4,11 +4,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String a = "abc";
-        System.out.println(a.hashCode());  // 96354
+        String a = new String("abc");
+        String b = new String("abc");
 
-        a = "efg";
-        System.out.println(a.hashCode());  // 100326
+        System.out.println(a == b);
 
     }
 }

@@ -11,7 +11,7 @@ Table of Contents
    * [1.4 String](#14-string)
       * [1.4.1 Immutable](#141-immutable)
       * [1.4.2 String Pool](#142-string-pool)
-      * [1.4.3 String intern()](#143-string-intern)
+      * [1.4.3 为什么 String 设计成不可变?](#143-为什么-string-设计成不可变)
 * [2. 运算](#2-运算)
 * [3. Keyword](#3-keyword)
 * [4. Object](#4-object)
@@ -21,7 +21,6 @@ Table of Contents
 * [8. 泛型](#8-泛型)
 * [9. 注解](#9-注解)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -153,9 +152,37 @@ public class Main {
 
 #### 1.4.3 为什么 String 设计成不可变?
 
-- String pool 的需要
+1. Caching hashcode
 
-  
+   `String` 经常作为 `key` 使用（例如 `hashmap`）
+
+   好处：可以缓存其 `hash` 值，避免重复计算
+
+   ```java
+   public final class String
+       implements java.io.Serializable, Comparable<String>, CharSequence {
+   
+       /** Cache the hash code for the string */
+       private int hash; // Default to 0
+   ```
+
+2. Security
+
+   `String` 另一个应用场景是作为类的传递参数（例如网络传输，文件等）
+
+   好处：避免安全问题
+
+   ```java
+   boolean connect(string s){
+       if (!isSecure(s)) { 
+   throw new SecurityException(); 
+   }
+       //here will cause problem, if s is changed before this by using other references.    
+       causeProblem(s);
+   }
+   ```
+
+3. Thread-safe
 
 
 
@@ -203,3 +230,4 @@ public class Main {
 - [CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/Java%20%E5%9F%BA%E7%A1%80.md)
 - [Guide to Java String Pool](https://www.baeldung.com/java-string-pool)
 - [Why String is Immutable in Java?](https://www.baeldung.com/java-string-immutable)
+- [Why String is immutable in Java?](https://www.programcreek.com/2013/04/why-string-is-immutable-in-java/)

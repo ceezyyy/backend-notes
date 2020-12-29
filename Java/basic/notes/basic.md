@@ -12,16 +12,13 @@ Table of Contents
       * [1.4.1 Immutable](#141-immutable)
       * [1.4.2 String Pool](#142-string-pool)
       * [1.4.3 为什么 String 设计成不可变?](#143-为什么-string-设计成不可变)
-* [2. keyword](#2-keyword)
-   * [2.1 final](#21-final)
-   * [2.2 static](#22-static)
-* [3. Object](#3-object)
-* [5. 继承（待补充）](#5-继承待补充)
-* [6. 反射](#6-反射)
-* [7. 异常](#7-异常)
-* [8. 泛型](#8-泛型)
-* [9. 注解](#9-注解)
+* [2. Object 通用方法](#2-object-通用方法)
+* [3. 反射](#3-反射)
+* [4. 异常](#4-异常)
+* [5. 泛型](#5-泛型)
+* [6. 注解](#6-注解)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -188,46 +185,35 @@ public class Main {
 
 
 
-## 2. keyword
-
-### 2.1 final
-
-详见 brainstorming
-
-### 2.2 static
-
-<div align="center"> <img src="Static_variables_shared_in_Java.jpg" width="80%"/> </div><br>
 
 
-
-
-## 3. Object
-
-
-
-## 5. 继承（待补充）
-
-
-
-## 6. 反射
+## 2. Object 通用方法
 
 
 
 
 
-## 7. 异常
+
+
+## 3. 反射
 
 
 
 
 
-## 8. 泛型
+## 4. 异常
 
 
 
 
 
-## 9. 注解
+## 5. 泛型
+
+
+
+
+
+## 6. 注解
 
 
 

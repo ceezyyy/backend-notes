@@ -189,6 +189,8 @@ public class Main {
 
 ## 2. Object 通用方法
 
+### 2.1 equals() 和 hashCode() 的关系
+
 
 
 
@@ -226,3 +228,4 @@ public class Main {
 - [Why String is Immutable in Java?](https://www.baeldung.com/java-string-immutable)
 - [Why String is immutable in Java?](https://www.programcreek.com/2013/04/why-string-is-immutable-in-java/)
 - [A Guide to the Static Keyword in Java](https://www.baeldung.com/java-static)
+- [Java equals() and hashCode() Contracts](https://www.baeldung.com/java-equals-hashcode-contracts)

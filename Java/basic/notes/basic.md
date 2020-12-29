@@ -13,12 +13,12 @@ Table of Contents
       * [1.4.2 String Pool](#142-string-pool)
       * [1.4.3 为什么 String 设计成不可变?](#143-为什么-string-设计成不可变)
 * [2. Object 通用方法](#2-object-通用方法)
+   * [2.1 equals()](#21-equals)
 * [3. 反射](#3-反射)
 * [4. 异常](#4-异常)
 * [5. 泛型](#5-泛型)
 * [6. 注解](#6-注解)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -189,11 +189,42 @@ public class Main {
 
 ## 2. Object 通用方法
 
-### 2.1 equals() 和 hashCode() 的关系
+### 2.1 equals()
 
+`Object` 中的 `equals()`，判断的是内存地址是否相等（被 `override` 之前）
 
+```java
+public boolean equals(Object obj) {
+    return (this == obj);
+}
+```
 
+**Money.java**
 
+```java
+public class Money {
+
+    private int amount;
+    private String currencyCode;
+
+    public Money(int amount, String currencyCode) {
+        this.amount = amount;
+        this.currencyCode = currencyCode;
+    }
+}
+```
+
+**App.java**
+
+```java
+public class App {
+    public static void main(String[] args) {
+        Money m1 = new Money(88, "USD");
+        Money m2 = new Money(88, "USD");
+        System.out.println(m1.equals(m2));  // false
+    }
+}
+```
 
 
 

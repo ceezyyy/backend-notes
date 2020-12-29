@@ -8,8 +8,12 @@ Table of Contents
    * [1.1 基本类型](#11-基本类型)
    * [1.2 Autoboxing &amp; Unboxing](#12-autoboxing--unboxing)
    * [1.3 IntegerCache](#13-integercache)
+   * [1.4 String](#14-string)
+      * [1.4.1 Immutable](#141-immutable)
+      * [1.4.2 String Pool](#142-string-pool)
+      * [1.4.3 String intern()](#143-string-intern)
 * [2. 运算](#2-运算)
-* [3. keyword](#3-keyword)
+* [3. Keyword](#3-keyword)
 * [4. Object](#4-object)
 * [5. 继承](#5-继承)
 * [6. 反射](#6-反射)
@@ -17,7 +21,6 @@ Table of Contents
 * [8. 泛型](#8-泛型)
 * [9. 注解](#9-注解)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -67,11 +70,99 @@ static final int high;
 
 
 
+### 1.4 String
+
+#### 1.4.1 Immutable
+
+在 Java 8，`String` 内部使用 `char[]` 存储数据，
+
+```java
+public final class String
+    implements java.io.Serializable, Comparable<String>, CharSequence {
+    /** The value is used for character storage. */
+    private final char value[];
+```
+
+
+
+#### 1.4.2 String Pool
+
+Java String Pool is the special memory region where Strings are stored by the JVM
+
+
+
+
+Thanks to the immutability of *Strings* in Java, the JVM can optimize the amount of memory allocated for them by **storing only one copy of each literal String in the pool**. This process is called *interning*.
+
+
+
+<div align="center"> <img src="Why_String_Is_Immutable_In_Java.jpg" width="80%"/> </div><br>
+
+
+
+**不使用 new 关键字创建 String**
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+        String a = "abc";
+        String b = "abc";
+        System.out.println(a == b);  // true
+    }
+}
+```
+
+**使用 new 关键字创建 String**
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+        String a = "abc";
+        String b = new String("abc");
+        System.out.println(a == b);  // false
+    }
+}
+```
+
+
+
+
+
+#### 1.4.3 String intern()
+
+The method *intern()* creates an exact copy of a *String* object in the heap memory and stores it in the *String* constant pool.
+
+```java
+public class Main {
+
+    public static void main(String[] args) {
+
+        String a = "abc";
+        String b = new String("abc");
+        String c = new String("efg");
+
+        // intern() creates an exact copy of a String object in the heap memory
+        // and stores it in the String constant pool
+        String d = a.intern();
+        String e = b.intern();
+
+        System.out.println(a == d);  // true
+        System.out.println(a == e);  // true
+        System.out.println(d == e);  // true
+
+    }
+}
+```
+
+
+
 ## 2. 运算
 
 
 
-## 3. keyword
+## 3. Keyword
 
 
 
@@ -106,3 +197,5 @@ static final int high;
 ## References
 
 - [CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/Java%20%E5%9F%BA%E7%A1%80.md)
+- [Guide to Java String Pool](https://www.baeldung.com/java-string-pool)
+- [Why String is Immutable in Java?](https://www.baeldung.com/java-string-immutable)

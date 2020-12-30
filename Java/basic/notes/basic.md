@@ -228,7 +228,49 @@ public class App {
 
 
 
+### 2.2 Override equals()
+
+**Money.java**
+
+```java
+public class Money {
+
+    private int amount;
+    private String currencyCode;
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (this == obj) return true;
+        if (!(obj instanceof Money)) return false;
+
+        Money that = (Money) obj;
+
+        boolean currencyEquals =
+                (this.currencyCode == null && that.currencyCode == null) ||
+                        (this.currencyCode != null && this.currencyCode.equals(that.currencyCode));
+
+        return currencyEquals && (this.amount == that.amount);
+
+    }
+}
+```
+
+**App.java**
+
+```java
+public class App {
+    public static void main(String[] args) {
+        Money m1 = new Money(88, "USD");
+        Money m2 = new Money(88, "USD");
+        System.out.println(m1.equals(m2));  // true
+    }
+}
+```
+
 ## 3. 反射
+
+
 
 
 

@@ -193,13 +193,14 @@ public class Main {
 
 **equals() 用来判断两个对象是否相等**
 
-`Object` 类中的 `equals()`，判断的是内存地址是否相等
+`Object` 类 `equals()` 源码
 
 ```java
 public boolean equals(Object obj) {
     return (this == obj);
 }
 ```
+
 
 #### 2.1.1 equals() 等价关系
 
@@ -235,6 +236,13 @@ public boolean equals(Object obj) {
 
 **hashCode() 用来计算对象的哈希值**
 
+`Object` 类 `hashCode()` 源码
+
+```java
+public native int hashCode();
+```
+
+
 > When using a hash table, **these collections calculate the hash value for a given key using the *hashCode()* method** and use this value internally to store the data – so that access operations are much more efficient
 
 <div align="center"> <img src="hashcode.svg" width="70%"/> </div><br>
@@ -243,7 +251,7 @@ public boolean equals(Object obj) {
 
 
 
-### 2.3 equals() 和 hashCode() 的联系
+### 2.3 equals() 和 hashCode() 的关系
 
 **Conclusion**
 
@@ -256,7 +264,13 @@ public boolean equals(Object obj) {
 
 
 
-## 3. 反射
+### 2.4 clone()
+
+<div align="center"> <img src="shallow-deep.png" width="60%"/> </div><br>
+
+
+
+## 3. 反射（待补充）
 
 
 

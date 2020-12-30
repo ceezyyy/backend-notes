@@ -201,72 +201,33 @@ public boolean equals(Object obj) {
 }
 ```
 
-**Money.java**
+#### 2.1.1 equals() 等价关系
 
-```java
-public class Money {
+1. 自反性
 
-    private int amount;
-    private String currencyCode;
+   ```java
+   x.equals(x);  // true
+   ```
 
-    public Money(int amount, String currencyCode) {
-        this.amount = amount;
-        this.currencyCode = currencyCode;
-    }
-}
-```
+2. 对称性
 
-**App.java**
+   ```java
+   x.equals(y) == y.equals(x);  // true
+   ```
 
-```java
-public class App {
-    public static void main(String[] args) {
-        Money m1 = new Money(88, "USD");
-        Money m2 = new Money(88, "USD");
-        System.out.println(m1.equals(m2));  // false
-    }
-}
-```
+3. 传递性
 
-当我们自定义的类重写了 `equals()` 后：
+   ```java
+   if (x.equals(y) && y.equals(z)) {
+     x.equals(z);  // true
+   }
+   ```
 
-**Money.java**
+4. 一致性
 
-```java
-public class Money {
+   多次调用 `equals()` 结果不变
 
-    private int amount;
-    private String currencyCode;
-
-    @Override
-    public boolean equals(Object obj) {
-
-        if (this == obj) return true;
-        if (!(obj instanceof Money)) return false;
-
-        Money that = (Money) obj;
-
-        boolean currencyEquals =
-                (this.currencyCode == null && that.currencyCode == null) ||
-                        (this.currencyCode != null && this.currencyCode.equals(that.currencyCode));
-
-        return currencyEquals && (this.amount == that.amount);
-
-    }
-}
-```
-
-**App.java**
-
-```java
-public class App {
-    public static void main(String[] args) {
-        Money m1 = new Money(88, "USD");
-        Money m2 = new Money(88, "USD");
-        System.out.println(m1.equals(m2));  // true
-    }
-}
-```
+5. 与 `null` 比较
 
 
 
@@ -282,7 +243,13 @@ public class App {
 
 
 
-**hashCode() 和 equals() 有何联系?（重要！！！）**
+### 2.3 equals() 和 hashCode() 的联系
+
+**Conclusion**
+
+重写了 `equals()` 后，必须重写 `hashCode()` ！！！
+
+**Explained**
 
 - 若两个对象相等 -> 两个对象的哈希值必须相等
 - 若两个对象哈希值相等，并不能推断两个对象相等（不同的对象也可能有相同的哈希值）

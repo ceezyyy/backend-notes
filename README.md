@@ -12,7 +12,7 @@
 ## :key: ​CS Core
 
 - [Data Structures & Algorithms](https://github.com/ceezyyy/LeetCode-daily)
-- [TCP / IP](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/index.md)
+- [Computer Networking](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/networking.md)
 - [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/OS.md)
 - [Design Patterns](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/index.md)
 

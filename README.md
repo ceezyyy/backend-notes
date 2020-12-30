@@ -48,14 +48,14 @@
 
 ## :bulb: System Design
 
-- [Spring Cloud](https://github.com/ceezyyy/backend-notes/blob/master/Microservice/SpringCloud/notes/SpringCloud.md)
+- [SpringCloud](https://github.com/ceezyyy/backend-notes/blob/master/Microservice/SpringCloud/notes/SpringCloud.md)
 - [RabbitMQ](https://github.com/ceezyyy/backend-notes/blob/master/MQ/rabbitMQ/notes/rabbitMQ.md)
 
 
 
 ## :shield: Security 
 
-- [Spring Security](https://github.com/ceezyyy/backend-notes/blob/master/Security/SpringSecurity/notes/SpringSecurity.md)
+- [SpringSecurity](https://github.com/ceezyyy/backend-notes/blob/master/Security/SpringSecurity/notes/SpringSecurity.md)
 
   
 

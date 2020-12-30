@@ -4,8 +4,10 @@ Table of Contents
 -----------------
 
 * [595. Big Countries](#595-big-countries)
+* [596. Classes More Than 5 Students](#596-classes-more-than-5-students)
 * [620. Not Boring Movies](#620-not-boring-movies)
 * [627. Swap Salary](#627-swap-salary)
+
 
 
 ## 595. Big Countries
@@ -52,6 +54,71 @@ WHERE
      area > 3000000
      OR population > 25000000;
 ```
+
+
+
+## 596. Classes More Than 5 Students
+
+**Description**
+
+There is a table `courses` with columns: **student** and **class**
+
+Please list out all classes which have more than or equal to 5 students.
+
+For example, the table:
+
+```
++---------+------------+
+| student | class      |
++---------+------------+
+| A       | Math       |
+| B       | English    |
+| C       | Math       |
+| D       | Biology    |
+| E       | Math       |
+| F       | Computer   |
+| G       | Math       |
+| H       | Math       |
+| I       | Math       |
++---------+------------+
+```
+
+Should output:
+
+```
++---------+
+| class   |
++---------+
+| Math    |
++---------+
+```
+
+
+The students should not be counted duplicate in each course.
+
+
+
+**Explained**
+
+<div align="center"> <img src="image-20201230234652696.png" width="80%"/> </div><br>
+
+
+
+
+**Solution**
+
+```mysql
+SELECT 
+    class
+FROM
+    courses
+GROUP BY
+    class
+HAVING
+    COUNT(DISTINCT student) >= 5;
+```
+
+
 
 
 

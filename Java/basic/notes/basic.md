@@ -14,12 +14,12 @@ Table of Contents
       * [1.4.3 为什么 String 设计成不可变?](#143-为什么-string-设计成不可变)
 * [2. Object 通用方法](#2-object-通用方法)
    * [2.1 equals()](#21-equals)
+   * [2.2 hashCode()](#22-hashcode)
 * [3. 反射](#3-反射)
 * [4. 异常](#4-异常)
 * [5. 泛型](#5-泛型)
 * [6. 注解](#6-注解)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -191,7 +191,9 @@ public class Main {
 
 ### 2.1 equals()
 
-`Object` 中的 `equals()`，判断的是内存地址是否相等（被 `override` 之前）
+**equals() 用来判断两个对象是否相等**
+
+`Object` 类中的 `equals()`，判断的是内存地址是否相等
 
 ```java
 public boolean equals(Object obj) {
@@ -226,9 +228,7 @@ public class App {
 }
 ```
 
-
-
-### 2.2 Override equals()
+当我们自定义的类重写了 `equals()` 后：
 
 **Money.java**
 
@@ -268,6 +268,27 @@ public class App {
 }
 ```
 
+
+
+### 2.2 hashCode()
+
+**hashCode() 用来计算对象的哈希值**
+
+> When using a hash table, **these collections calculate the hash value for a given key using the *hashCode()* method** and use this value internally to store the data – so that access operations are much more efficient
+
+<div align="center"> <img src="hashcode.svg" width="70%"/> </div><br>
+
+
+
+
+
+**hashCode() 和 equals() 有何联系?（重要！！！）**
+
+- 若两个对象相等 -> 两个对象的哈希值必须相等
+- 若两个对象哈希值相等，并不能推断两个对象相等（不同的对象也可能有相同的哈希值）
+
+
+
 ## 3. 反射
 
 
@@ -302,3 +323,4 @@ public class App {
 - [Why String is immutable in Java?](https://www.programcreek.com/2013/04/why-string-is-immutable-in-java/)
 - [A Guide to the Static Keyword in Java](https://www.baeldung.com/java-static)
 - [Java equals() and hashCode() Contracts](https://www.baeldung.com/java-equals-hashcode-contracts)
+- [Guide to hashCode() in Java](https://www.baeldung.com/java-hashcode)

@@ -14,12 +14,16 @@ Table of Contents
       * [1.4.3 为什么 String 设计成不可变?](#143-为什么-string-设计成不可变)
 * [2. Object 通用方法](#2-object-通用方法)
    * [2.1 equals()](#21-equals)
+      * [2.1.1 equals() 等价关系](#211-equals-等价关系)
    * [2.2 hashCode()](#22-hashcode)
+   * [2.3 equals() 和 hashCode() 的关系](#23-equals-和-hashcode-的关系)
+   * [2.4 clone()](#24-clone)
 * [3. 反射](#3-反射)
 * [4. 异常](#4-异常)
 * [5. 泛型](#5-泛型)
 * [6. 注解](#6-注解)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -270,7 +274,7 @@ public native int hashCode();
 
 
 
-## 3. 反射（待补充）
+## 3. 反射
 
 
 
@@ -280,9 +284,7 @@ public native int hashCode();
 
 ## 4. 异常
 
-
-
-
+<div align="center"> <img src="exception-in-java.png" width="80%"/> </div><br>
 
 ## 5. 泛型
 

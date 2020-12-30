@@ -2,7 +2,7 @@
 
 ## 前言
 
-- [设计原则]()
+- [设计原则](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/notes/solid.md)
 
 
 ## 创建型

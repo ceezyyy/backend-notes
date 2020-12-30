@@ -28,9 +28,10 @@
 
 
 
-
 ## 📦 DB
 
+
+- [SQL 练习]()
 - [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/notes/mysql-pro.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/db/redis/notes/Redis.md)
 

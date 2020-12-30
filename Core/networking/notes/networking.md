@@ -134,15 +134,13 @@ Table of Contents
 
 ## 3. 网络层
 
-### 3.1 什么是 IP 协议?
+### 3.1 网络层概述
+
+### 3.2 IP 协议
 
 `IP` 协议是网络层的协议，主要负责将数据包发送给最终目标计算机，即 “端对端” 的传输
 
-
-
-![img](file:///Users/ceezyyy/backend-notes/core/networking/notes/image-20201008155021544.png)
-
-
+<div align="center"> <img src="image-20201008155021544.png" width="60%"/> </div><br>
 
 
 
@@ -160,10 +158,7 @@ Table of Contents
 
 
 
-![img](file:///Users/ceezyyy/backend-notes/core/networking/notes/image-20201008165921254.png)
-
-
-
+<div align="center"> <img src="image-20201008165921254.png" width="60%"/> </div><br>
 
 
 

@@ -3,176 +3,100 @@
 Table of Contents
 -----------------
 
-* [Brainstorming](#brainstorming)
-* [1. Blueprint](#1-blueprint)
-* [物理层](#物理层)
-* [数据链路层](#数据链路层)
-* [网络层](#网络层)
-* [传输层](#传输层)
-* [应用层](#应用层)
+* [1. 概述](#1-概述)
+   * [1.1 网络的网络](#11-网络的网络)
+   * [1.2 分组交换](#12-分组交换)
+   * [1.3 TCP/IP 分层模型](#13-tcpip-分层模型)
+* [2. 数据链路层](#2-数据链路层)
+   * [2.1 MAC 地址](#21-mac-地址)
+   * [2.2 以太网](#22-以太网)
+      * [2.2.1 以太网帧 (体) 的格式是什么?](#221-以太网帧-体-的格式是什么)
+   * [2.3 MTU](#23-mtu)
+* [3. 网络层](#3-网络层)
+   * [3.1 什么是 IP 协议?](#31-什么是-ip-协议)
+   * [2. 什么是 IP 地址?](#2-什么是-ip-地址)
+   * [3. 如何定义 IP 地址?](#3-如何定义-ip-地址)
+   * [4. IP 作用之寻址](#4-ip-作用之寻址)
+   * [5. IP 作用之分包 / 组包](#5-ip-作用之分包--组包)
+   * [6. 路径 MTU 发现是什么?](#6-路径-mtu-发现是什么)
+   * [7. IPv4 首部是怎样的?](#7-ipv4-首部是怎样的)
+* [4. 传输层](#4-传输层)
+   * [1. 什么是 UDP?](#1-什么是-udp)
+   * [2. 既然 UDP 面向无连接, 那有何应用场景?](#2-既然-udp-面向无连接-那有何应用场景)
+   * [3. 什么是 TCP?](#3-什么是-tcp)
+   * [4. TCP 可靠传输机制（序号, 确认号, 重传）](#4-tcp-可靠传输机制序号-确认号-重传)
+   * [5. TCP 首部](#5-tcp-首部)
+   * [6. TCP 连接管理之三次握手（Three-way handshake）?](#6-tcp-连接管理之三次握手three-way-handshake)
+   * [7. TCP 建立为什么是三次握手?](#7-tcp-建立为什么是三次握手)
+   * [8. 什么是四次挥手?](#8-什么是四次挥手)
+   * [9. 为什么是四次（挥手）?](#9-为什么是四次挥手)
+   * [10. 什么是 TCP 流量控制?](#10-什么是-tcp-流量控制)
+   * [11. TCP 如何进行流量控制?](#11-tcp-如何进行流量控制)
+   * [12. 什么是 TCP 拥塞控制?](#12-什么是-tcp-拥塞控制)
+   * [13. TCP 拥塞控制之慢开始 &amp; 拥塞避免](#13-tcp-拥塞控制之慢开始--拥塞避免)
+   * [14. TCP 拥塞控制之快重传 &amp; 快恢复](#14-tcp-拥塞控制之快重传--快恢复)
+   * [15. 拥塞控制和流量控制有什么区别?](#15-拥塞控制和流量控制有什么区别)
+* [5. 应用层](#5-应用层)
+   * [1. 什么是 DNS?](#1-什么是-dns)
+   * [2. DNS 是如何进行查询的?](#2-dns-是如何进行查询的)
+   * [3. 什么是 ARP?](#3-什么是-arp)
+   * [4. ARP 工作流程是怎样的?](#4-arp-工作流程是怎样的)
+   * [5. 为什么 MAC 地址与 IP 地址缺一不可?](#5-为什么-mac-地址与-ip-地址缺一不可)
+   * [6. ARP 缓存原理是怎样的?](#6-arp-缓存原理是怎样的)
+   * [7. 什么是 ICMP?](#7-什么是-icmp)
+   * [1. 什么是 HTTP?](#1-什么是-http)
+   * [2. 什么是 URI 和 URL?](#2-什么是-uri-和-url)
+   * [3. URI 格式](#3-uri-格式)
+   * [5. 如何理解 Stateless?](#5-如何理解-stateless)
+   * [6. HTTP 有哪些常见方法?](#6-http-有哪些常见方法)
+   * [6.1 GET](#61-get)
+   * [6.2 POST](#62-post)
+   * [6.3 PUT](#63-put)
+   * [6.4 DELETE](#64-delete)
+   * [7. 什么是状态码? HTTP 有哪些状态码?](#7-什么是状态码-http-有哪些状态码)
+   * [8. HTTP 首部（了解，供查阅）](#8-http-首部了解供查阅)
+   * [9. 经常挂在嘴边的代理究竟是什么?](#9-经常挂在嘴边的代理究竟是什么)
+   * [9.1 什么是代理?](#91-什么是代理)
+   * [9.2 为什么要使用代理?](#92-为什么要使用代理)
+   * [9.3 如何代理?](#93-如何代理)
+   * [9.4 什么是正向代理? 反向代理又是什么?](#94-什么是正向代理-反向代理又是什么)
+   * [10. HTTP 的缺点](#10-http-的缺点)
+   * [11. 什么是 SSL / TLS?](#11-什么是-ssl--tls)
+   * [12. SSL / TLS 是如何运作的?](#12-ssl--tls-是如何运作的)
+   * [13. HTTPS 的出现](#13-https-的出现)
 * [References](#references)
 
 
-## Brainstorming
+## 1. 概述
 
-<div align="center"> <img src="network.svg" width="100%"/> </div><br>
+### 1.1 网络的网络
 
-## 1. Blueprint
-
-### 1.1 TCP / IP 分层模型
-
-<div align="center"> <img src="image-20200928165559124.png" width="60%"/> </div><br>
+<div align="center"> <img src="68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f6e6574776f726b2d6f662d6e6574776f726b732e676966.gif" width="50%"/> </div><br>
 
 
 
-- **物理层**：将上层的比特流（01 二进制流）转换为电压的高低，灯光的闪灭等物理信号，将数据传输出去
+### 1.2 分组交换
+
+两台计算机之间交换的是独立的数据分组，因为这种机制我们实施存储转发的交换功能
+
+<div align="center"> <img src="image-20201230191249590.png" width="60%"/> </div><br>
+
+
+
+
+### 1.3 TCP/IP 分层模型
+
+- **物理层**：将上层的比特流（01 二进制流）转换为电压的高低，灯光的闪灭等物理信号
 - **数据链路层**：通过通信媒介（双绞线电缆，同轴电缆，光纤等）互联的设备之间传输的规范
-- **网络层**：基于 `IP` 地址转发分包数据（`IP` 协议在此层）
-- **传输层**：让应用程序之间实现通信（`TCP` 协议在此层）
+- **网络层**：基于 `IP` 地址转发分包数据
+- **传输层**：让应用程序之间实现通信（`TCP`, `UDP`）
 - **应用层**：为应用进程提供服务
 
 
 
-### 1.2 TCP / IP 是如何工作的?
 
-<div align="center"> <img src="image-20200928211040697.png" width="60%"/> </div><br>
 
-
-
-
-下面以邮件收发的例子来简单解释 `TCP / IP` 通信的过程
-
-
-
-
-
-**第一步：应用程序处理**
-
-新建邮件，将收件人邮箱填好，输入邮件内容：“早上好！”，鼠标点击 ”发送“ 按钮
-
-应用在发送邮件那一刻建立 `TCP` 连接，从而利用这个 `TCP` 连接发送数据。它的过程首先是将应用的数据发送给下一层的 `TCP`，再做实际的转发处理
-
-
-
-**第二步：TCP 模块处理**
-
-`TCP` 根据应用的指示，负责建立连接，发送数据，断开连接
-
-
-
-为了实现可靠传输的功能，需要在应用层传来的数据附加一个 `TCP` 首部，其中包括：
-
-1. 源端口号和目标端口号（识别发送主机和接收主机上的应用）
-2. 序号（判断发送的包哪部分是数据）
-3. 校验和（判断数据是否被损坏）
-
-
-
-最后将附加了 `TCP` 首部的包再发给 `IP`
-
-
-
-**第三步：IP 模块处理**
-
-`IP` 将 `TCP` 传过来的 `TCP` 首部和 `TCP` 数据结合起来当作自己的数据，并附上 `IP` 首部
-
-其中，`IP` 首部包含着接收端 `IP` 地址以及发送端 `IP` 地址
-
-
-
-`IP` 包生成后，参考路由控制表决定接受此 `IP` 包的路由 / 主机，将被发送给连接这些路由 / 主机的驱动程序，以实现真正发送数据
-
-
-
-
-
-
-
-**第四步：网络接口处理**
-
-给传过来的 `IP` 包加上以太网首部并进行发送处理，通过物理层传输给接收端
-
-其中，以太网首部包括接收端 `MAC` 地址和发送端 `MAC` 地址
-
-
-
-
-
-**第五步：网络接口处理（逆向）**
-
-主机收到以太网包之后，首先从以太网的包首部找到 `MAC` 地址判断是否为发给自己的包。如果不是自己的包则丢弃数据
-
-若恰好是发给自己的包，就查找以太网首部中的类型域从而确定以太网协议所传过来的数据类型，将数据传给相应类型的子程序处理（这里是 `IP` 协议）
-
-
-
-
-
-
-
-**第六步：IP 模块处理（逆向）**
-
-`IP` 模块收到 `IP` 包之后，判断包首部的 `IP` 地址是否与自己的 `IP` 地址匹配，并查找上一层协议
-
-若上一层的协议是 `TCP`，则将 `IP` 包首部**之后**的部分传给 `TCP` 处理（若是上一层的协议是 `UDP`，则传给 `UDP` 处理 ） 
-
-
-
-
-
-**第七步：TCP 模块处理（逆向）**
-
-1. 计算校验和，判断数据是否损坏
-
-2. 按照序号接受数据
-
-3. 检查端口号，确定具体的应用程序
-
-
-
-当数据被完整地接受后，会传给由端口号识别的应用程序
-
-
-
-
-
-
-
-**第八步：应用程序处理（逆向）**
-
-邮件保存到本机的硬盘上
-
-“早上好！“
-
-
-
-
-
-
-
-<div align="center"> <img src="image-20200928175308491.png" width="80%"/> </div><br>
-
-
-
-
-
-
-
-<div align="center"> <img src="image-20200928211701192.png" width="80%"/> </div><br>
-
-
-
-## 物理层
-
-## 数据链路层
-
-## 网络层
-
-## 传输层
-
-## 应用层
-
-
+## 2. 数据链路层
 
 数据链路层的协议定义了通过通信媒介（例如双绞线电缆, 同轴电缆, 光纤等介质）互连的设备之间传输的规范
 
@@ -217,7 +141,7 @@ Table of Contents
 
 最大传输单元（Maximum Transmission Unit）是指数据链路层上面所能通过的最大数据包大小（以字节为单位）
 
-## 3. IP 协议
+## 3. 网络层
 
 ### 3.1 什么是 IP 协议?
 
@@ -255,7 +179,7 @@ Table of Contents
 
 
 
-## 2. 什么是 IP 地址?
+### 2. 什么是 IP 地址?
 
 
 
@@ -277,7 +201,7 @@ Table of Contents
 
 
 
-## 3. 如何定义 IP 地址?
+### 3. 如何定义 IP 地址?
 
 
 
@@ -346,7 +270,7 @@ Table of Contents
 
 
 
-## 4. IP 作用之寻址
+### 4. IP 作用之寻址
 
 打个比喻，将数据链路比作高速公路，数据比作高速公路上的车，那么路由转发表 / 路由控制表就是高速路分叉口（表中已记录该往哪个口走）
 
@@ -366,7 +290,7 @@ Table of Contents
 
 
 
-## 5. IP 作用之分包 / 组包
+### 5. IP 作用之分包 / 组包
 
 **为什么要分包？**
 
@@ -384,7 +308,7 @@ Table of Contents
 
 
 
-## 6. 路径 MTU 发现是什么?
+### 6. 路径 MTU 发现是什么?
 
 
 
@@ -400,7 +324,7 @@ Table of Contents
 
 
 
-## 7. IPv4 首部是怎样的?
+### 7. IPv4 首部是怎样的?
 
 通过 `IP` 进行通信时，需要在数据的前面加入 `IP` 首部信息。`IP` 首部包含着用于 `IP` 协议进行发包控制时所有的必要信息
 
@@ -428,7 +352,244 @@ Table of Contents
 
 
 
-## 1. 什么是 DNS?
+## 4. 传输层
+
+### 1. 什么是 UDP?
+
+`UDP` 全称：User Datagram Protocol
+
+`UDP` 不提供复杂的控制机制，利用 `IP` 提供面向无连接的通信服务。且它是将应用程序发来的数据在收到的那一刻，立即按照原样发送到网络上的一种机制（确保发送信息大小，但不确保信息一定到达）
+
+
+
+### 2. 既然 UDP 面向无连接, 那有何应用场景?
+
+1. 包总量较小的通信（`DNS`）
+2. 即时通信（视频 / 音频）
+3. 广播通信（广播, 多播）
+
+
+
+### 3. 什么是 TCP?
+
+`TCP` 全称：Transmission Control Protocol
+
+`TCP` 功能十分强悍，充分实现了数据传输时各种控制功能
+
+丢包怎么办？（数据传输过程丢失），`TCP` 有重发机制
+
+分包次序错乱怎么办？`TCP` 可以进行顺序控制
+
+除此之外，`TCP` 面向有连接，只有在确认通信对端存在时才会发送数据，从而可以控制通信流量的浪费
+
+
+
+### 4. TCP 可靠传输机制（序号, 确认号, 重传）
+
+- **序号**：指的是一个报文段第一个字节的序号
+- **确认应答（ACK）**：当发送端的数据到达接收主机时，接收端主机会返回一个已收到消息的通知
+- **重传**：`TCP` 的发送方在规定时间没有收到确认就要重传已发送的报文段（`TCP` 采用自适应算法，动态改变重传时间）
+
+<div align="center"> <img src="image-20201014100900834.png" width="50%"/> </div><br>
+
+- **快速重传**：
+
+  每当比期望序号大的失序报文段到达时，发送一个**冗余 ACK**，指明下一个期待字节的序号
+
+  举个例子：
+
+  发送方已发送 1, 2, 3, 4, 5 报文段
+
+  接收方收到 1，返回给 1 的确认（`ack` 为 2 的第一个字节）
+
+  接收方收到 3，仍返回给 1 的确认（`ack` 为 2 的第一个字节）
+
+  接收方收到 4，仍返回给 1 的确认（`ack` 为 2 的第一个字节）
+
+  接收方收到 5，仍返回给 1 的确认（`ack` 为 2 的第一个字节）
+
+  发送方收到 3 个对于报文段 1 的冗余 `ACK` 则表明：认为 2 报文段丢失，重传 2 号报文段（快速重传机制）
+
+
+
+<div align="center"> <img src="image-20201014141212694.png" width="60%"/> </div><br>
+
+
+
+
+### 5. TCP 首部
+
+<div align="center"> <img src="image-20201013095218020.png" width="60%"/> </div><br>
+
+
+
+- 序列号 （Sequence Number）：发送数据的位置，每发送一次数据，就累加一次该数据字节数的大小
+
+  序列号不会从 0 或 1 开始，而是在建立连接时由计算机生成的随机数作为其初始值，通过 `SYN` 包传给接收端主机。
+
+  **然后再将每转发过去的字节数累加到初始值上表示数据的位置**。此外，**在建立连接和断开连接时发送的 SYN 包和 FIN 包虽然不携带数据，但是也会作为一个字节增加对应的序列号**
+
+- 确认应答号 （Acknowledgement Number）：**指下一次应该收到的数据的序列号**。实际上，它是指已收到确认应答号 - 1 为止的数据。发送端收到这个确认应答后可以认为在这个序号以前的数据都已经被正常接收
+
+- 控制位：
+
+  - ACK（Acknowledgement Flag）：该位为 1 时，确认应答的字段变为有效。**TCP 规定除了最初建立连接时的 SYN 包之外该位必须设置为 1**
+  - SYN（Synchronize Flag）：用于建立连接。**SYN 为 1 时表示希望建立连接，并在其序列号的字段进行序列号初始值的设定**
+  - FIN（Fin Flag）：该位为 1 时，**表示今后不会再有数据发送，希望断开连接**。当通信结束希望断开连接时，通信双方的主机之间就可以相互交换 `FIN` 位置为 1 的 `TCP` 段。每个主机又对对方的 `FIN` 包进行确认应答以后就可以断开连接（不过，主机收到 `FIN` 设置为 1 的 `TCP` 段以后不必马上回复一个 `FIN` 包，而是可以等到缓冲区中的所有数据都已成功发送而被自动删除之后再发）
+
+  <div align="center"> <img src="image-20201013102928356.png" width="50%"/> </div><br>
+
+- 窗口大小：用于通知从相同 `TCP` 首部的确认应答号所指位置开始能够接受的数据大小。**TCP 不允许发送超过此处所示大小的数据**
+
+
+
+### 6. TCP 连接管理之三次握手（Three-way handshake）? 
+
+`TCP` 是面向连接的协议，所以使用 `TCP` 前必须先建立连接，而建立连接时通过三次握手来进行的
+
+- 最初，客户端和服务器都处于 `CLOSED` 状态，先是服务端主动监听某个端口，处于 `LISTEN` 状态
+
+- **第一个报文：SYN 报文**
+
+  客户端初始化随机序号 `x` ，将 `SYN` 置为 1，表示 “ 我想建立请求 ”
+
+- **第二个报文： SYN + ACK 报文**
+
+  服务器端收到报文后，初随机初始化自己的序号 `y`，将 `SYN` 置为 1，表示 “我也想和你建立请求”，将 `ACK` 置为 1，`ack` 为 `x` + 1 
+
+- **第三个报文： ACK 报文**
+
+  客户端收到服务器端报文后，将 `ACK` 置为 1，`ack` 为 `y` + 1，序号为 `x` + 1
+
+
+
+
+
+值得注意：
+
+1. 三次握手前两次不可以携带数据，最后一次可以 
+2. 一旦完成三次握手，双方都处于 `ESTABLISHED`，表示可以进行通信
+
+<div align="center"> <img src="three-way-handshake.png" width="70%"/> </div><br> 
+
+
+
+
+
+
+
+<div align="center"> <img src="image-20201013154202307.png" width="70%"/> </div><br> 
+
+
+### 7. TCP 建立为什么是三次握手? 
+
+暂略
+
+
+
+
+
+
+
+### 8. 什么是四次挥手?
+
+天下没有不散的宴席
+
+当连接结束后，主机中的 “资源” （缓存和变量）将被释放
+
+<div align="center"> <img src="4.jpg" width="40%"/> </div><br> 
+
+- 客户端打算关闭连接，发送 `FIN` 报文（`FIN` 的值为 1），进入 `FIN_WAIT_1` 状态
+- 服务端接收到该报文后，向客户端发送 `ACK` 应答报文（`ACK` 为 1），接着服务端进入 `CLOSED_WAIT` 状态
+- 客户端收到 `ACK` 报文后，进入 `FIN_WAIT_2` 状态
+- 等待服务端处理完数据后，也向客户端发送 `FIN` 报文，之后进入 `LAST_ACK` 状态
+- 客户端收到服务端的 `FIN` 报文后，回一个 `ACK` 报文，进入 `TIME_WAIT` 状态
+- 服务器收到了 `ACK` 报文后，进入 `CLOSED` 状态，至此服务端已经完成连接的关闭
+- 客户端经过 `2MSL` 一段时间后，自动进入 `CLOSED` 状态，至此客户端也完成连接的关闭
+
+
+
+**每个方向都需要一个 FIN 和一个 ACK，因此通常被称为四次挥手**
+
+
+
+### 9. 为什么是四次（挥手）?
+
+<div align="center"> <img src="image-20201014140116612.png" width="40%"/> </div><br> 
+
+
+- 关闭连接时，客户端向服务端发送 `FIN` 时，仅仅表示客户端不再发送数据了但还能接受数据
+- 服务器收到客户端 `FIN` 报文时，先回一个 `ACK` 应答报文，而服务端可能还有数据需要处理和发送，等服务端不再发送数据时，才发送 `FIN` 报文给客户端来表示同意现在关闭连接
+
+
+
+### 10. 什么是 TCP 流量控制?
+
+`TCP` 以 1 个段为单位，每发一个段进行一次确认应答的处理，那这样传输有什么缺点？
+
+包的往返时间越长通信性能越低（每次都要等）
+
+
+
+为了解决这个问题，`TCP` 引入了窗口的概念：确认应答不再是以每个分段，而是以更大的单位进行确认
+
+
+
+
+
+### 11. TCP 如何进行流量控制?
+
+`TCP` 利用滑动窗口进行流量控制，窗口大小就是指无须等待确认应答而可以继续发送数据的最大值
+
+<div align="center"> <img src="image-20201014140804467.png" width="60%"/> </div><br> 
+
+<div align="center"> <img src="image-20201014141031381.png" width="60%"/> </div><br> 
+
+
+
+
+
+
+
+### 12. 什么是 TCP 拥塞控制?
+
+当网络中许多资源同时呈现供应不足时，`TCP` 提供了 4 种拥塞控制的算法：
+
+- 慢开始和拥塞避免
+- 快重传和快恢复
+
+ 
+
+
+
+### 13. TCP 拥塞控制之慢开始 & 拥塞避免
+
+<div align="center"> <img src="image-20201014134534322.png" width="70%"/> </div><br> 
+
+
+
+### 14. TCP 拥塞控制之快重传 & 快恢复
+
+<div align="center"> <img src="image-20201014134925339.png" width="70%"/> </div><br> 
+
+
+
+
+
+
+### 15. 拥塞控制和流量控制有什么区别?
+
+拥塞控制：全局性
+
+流量控制：端对端
+
+
+
+
+
+## 5. 应用层
+
+### 1. 什么是 DNS?
 
 维基百科
 
@@ -446,7 +607,7 @@ Table of Contents
 
 <div align="center"> <img src="image-20201009160554864.png" width="60%"/> </div><br>
 
-## 2. DNS 是如何进行查询的?
+### 2. DNS 是如何进行查询的?
 
 <div align="center"> <img src="image-20201009161225037.png" width="65%"/> </div><br>
 
@@ -454,7 +615,7 @@ Table of Contents
 
 
 
-## 3. 什么是 ARP?
+### 3. 什么是 ARP?
 
 发送主机和目标主机有着各自的 `IP` 地址，但底层数据链路层中，实际通信需要知道每个 `IP` 地址对应的 `MAC` 地址，`ARP` 协议就是为解决此问题而生的
 
@@ -462,7 +623,7 @@ Table of Contents
 
 
 
-## 4. ARP 工作流程是怎样的?
+### 4. ARP 工作流程是怎样的?
 
 <div align="center"> <img src="image-20201010095809297.png" width="60%"/> </div><br>
 
@@ -479,7 +640,7 @@ Table of Contents
 
 
 
-## 5. 为什么 MAC 地址与 IP 地址缺一不可?
+### 5. 为什么 MAC 地址与 IP 地址缺一不可?
 
 待补充
 
@@ -491,7 +652,7 @@ Table of Contents
 
 
 
-## 6. ARP 缓存原理是怎样的?
+### 6. ARP 缓存原理是怎样的?
 
 广播是一件较浪费网络流量的行为，因此，我们将获取到的 `MAC` 地址缓存一段时间，即把第一次通过 `ARP` 获取到的 `MAC` 地址作为 `IP` 对 `MAC` 的映射关系记忆到一个 `ARP` 缓存表中
 
@@ -501,7 +662,7 @@ Table of Contents
 
 
 
-## 7. 什么是 ICMP?
+### 7. 什么是 ICMP?
 
 `ICMP` 的主要功能包括确认 `IP` 包是否成功送达目标地址，通知在发送过程当中 `IP` 包被废弃的具体原因，改善网络设置等
 
@@ -514,469 +675,11 @@ Table of Contents
 
 
 
-## 1. 什么是 UDP?
 
-`UDP` 全称：User Datagram Protocol
 
-`UDP` 不提供复杂的控制机制，利用 `IP` 提供面向无连接的通信服务。且它是将应用程序发来的数据在收到的那一刻，立即按照原样发送到网络上的一种机制（确保发送信息大小，但不确保信息一定到达）
 
 
-
-## 2. 既然 UDP 面向无连接, 那有何应用场景?
-
-1. 包总量较小的通信（`DNS`）
-2. 即时通信（视频 / 音频）
-3. 广播通信（广播, 多播）
-
-
-
-## 3. 什么是 TCP?
-
-`TCP` 全称：Transmission Control Protocol
-
-`TCP` 功能十分强悍，充分实现了数据传输时各种控制功能
-
-丢包怎么办？（数据传输过程丢失），`TCP` 有重发机制
-
-分包次序错乱怎么办？`TCP` 可以进行顺序控制
-
-除此之外，`TCP` 面向有连接，只有在确认通信对端存在时才会发送数据，从而可以控制通信流量的浪费
-
-
-
-## 4. TCP 可靠传输机制（序号, 确认号, 重传）
-
-- **序号**：指的是一个报文段第一个字节的序号
-- **确认应答（ACK）**：当发送端的数据到达接收主机时，接收端主机会返回一个已收到消息的通知
-- **重传**：`TCP` 的发送方在规定时间没有收到确认就要重传已发送的报文段（`TCP` 采用自适应算法，动态改变重传时间）
-
-<div align="center"> <img src="image-20201014100900834.png" width="50%"/> </div><br>
-
-- **快速重传**：
-
-  每当比期望序号大的失序报文段到达时，发送一个**冗余 ACK**，指明下一个期待字节的序号
-
-  举个例子：
-
-  发送方已发送 1, 2, 3, 4, 5 报文段
-
-  接收方收到 1，返回给 1 的确认（`ack` 为 2 的第一个字节）
-
-  接收方收到 3，仍返回给 1 的确认（`ack` 为 2 的第一个字节）
-
-  接收方收到 4，仍返回给 1 的确认（`ack` 为 2 的第一个字节）
-
-  接收方收到 5，仍返回给 1 的确认（`ack` 为 2 的第一个字节）
-
-  发送方收到 3 个对于报文段 1 的冗余 `ACK` 则表明：认为 2 报文段丢失，重传 2 号报文段（快速重传机制）
-
-
-
-<div align="center"> <img src="image-20201014141212694.png" width="60%"/> </div><br>
-
-
-
-
-## 5. TCP 首部
-
-<div align="center"> <img src="image-20201013095218020.png" width="60%"/> </div><br>
-
-
-
-- 序列号 （Sequence Number）：发送数据的位置，每发送一次数据，就累加一次该数据字节数的大小
-
-  序列号不会从 0 或 1 开始，而是在建立连接时由计算机生成的随机数作为其初始值，通过 `SYN` 包传给接收端主机。
-
-  **然后再将每转发过去的字节数累加到初始值上表示数据的位置**。此外，**在建立连接和断开连接时发送的 SYN 包和 FIN 包虽然不携带数据，但是也会作为一个字节增加对应的序列号**
-
-- 确认应答号 （Acknowledgement Number）：**指下一次应该收到的数据的序列号**。实际上，它是指已收到确认应答号 - 1 为止的数据。发送端收到这个确认应答后可以认为在这个序号以前的数据都已经被正常接收
-
-- 控制位：
-
-  - ACK（Acknowledgement Flag）：该位为 1 时，确认应答的字段变为有效。**TCP 规定除了最初建立连接时的 SYN 包之外该位必须设置为 1**
-  - SYN（Synchronize Flag）：用于建立连接。**SYN 为 1 时表示希望建立连接，并在其序列号的字段进行序列号初始值的设定**
-  - FIN（Fin Flag）：该位为 1 时，**表示今后不会再有数据发送，希望断开连接**。当通信结束希望断开连接时，通信双方的主机之间就可以相互交换 `FIN` 位置为 1 的 `TCP` 段。每个主机又对对方的 `FIN` 包进行确认应答以后就可以断开连接（不过，主机收到 `FIN` 设置为 1 的 `TCP` 段以后不必马上回复一个 `FIN` 包，而是可以等到缓冲区中的所有数据都已成功发送而被自动删除之后再发）
-
-  <div align="center"> <img src="image-20201013102928356.png" width="50%"/> </div><br>
-
-- 窗口大小：用于通知从相同 `TCP` 首部的确认应答号所指位置开始能够接受的数据大小。**TCP 不允许发送超过此处所示大小的数据**
-
-
-
-## 6. TCP 连接管理之三次握手（Three-way handshake）? 
-
-`TCP` 是面向连接的协议，所以使用 `TCP` 前必须先建立连接，而建立连接时通过三次握手来进行的
-
-- 最初，客户端和服务器都处于 `CLOSED` 状态，先是服务端主动监听某个端口，处于 `LISTEN` 状态
-
-- **第一个报文：SYN 报文**
-
-  客户端初始化随机序号 `x` ，将 `SYN` 置为 1，表示 “ 我想建立请求 ”
-
-- **第二个报文： SYN + ACK 报文**
-
-  服务器端收到报文后，初随机初始化自己的序号 `y`，将 `SYN` 置为 1，表示 “我也想和你建立请求”，将 `ACK` 置为 1，`ack` 为 `x` + 1 
-
-- **第三个报文： ACK 报文**
-
-  客户端收到服务器端报文后，将 `ACK` 置为 1，`ack` 为 `y` + 1，序号为 `x` + 1
-
-
-
-
-
-值得注意：
-
-1. 三次握手前两次不可以携带数据，最后一次可以 
-2. 一旦完成三次握手，双方都处于 `ESTABLISHED`，表示可以进行通信
-
-<div align="center"> <img src="three-way-handshake.png" width="70%"/> </div><br> 
-
-
-
-
-
-
-
-<div align="center"> <img src="image-20201013154202307.png" width="70%"/> </div><br> 
-
-
-## 7. TCP 建立为什么是三次握手? 
-
-暂略
-
-
-
-
-
-
-
-## 8. 什么是四次挥手?
-
-天下没有不散的宴席
-
-当连接结束后，主机中的 “资源” （缓存和变量）将被释放
-
-<div align="center"> <img src="4.jpg" width="40%"/> </div><br> 
-
-- 客户端打算关闭连接，发送 `FIN` 报文（`FIN` 的值为 1），进入 `FIN_WAIT_1` 状态
-- 服务端接收到该报文后，向客户端发送 `ACK` 应答报文（`ACK` 为 1），接着服务端进入 `CLOSED_WAIT` 状态
-- 客户端收到 `ACK` 报文后，进入 `FIN_WAIT_2` 状态
-- 等待服务端处理完数据后，也向客户端发送 `FIN` 报文，之后进入 `LAST_ACK` 状态
-- 客户端收到服务端的 `FIN` 报文后，回一个 `ACK` 报文，进入 `TIME_WAIT` 状态
-- 服务器收到了 `ACK` 报文后，进入 `CLOSED` 状态，至此服务端已经完成连接的关闭
-- 客户端经过 `2MSL` 一段时间后，自动进入 `CLOSED` 状态，至此客户端也完成连接的关闭
-
-
-
-**每个方向都需要一个 FIN 和一个 ACK，因此通常被称为四次挥手**
-
-
-
-## 9. 为什么是四次（挥手）?
-
-<div align="center"> <img src="image-20201014140116612.png" width="40%"/> </div><br> 
-
-
-- 关闭连接时，客户端向服务端发送 `FIN` 时，仅仅表示客户端不再发送数据了但还能接受数据
-- 服务器收到客户端 `FIN` 报文时，先回一个 `ACK` 应答报文，而服务端可能还有数据需要处理和发送，等服务端不再发送数据时，才发送 `FIN` 报文给客户端来表示同意现在关闭连接
-
-
-
-## 10. 什么是 TCP 流量控制?
-
-`TCP` 以 1 个段为单位，每发一个段进行一次确认应答的处理，那这样传输有什么缺点？
-
-包的往返时间越长通信性能越低（每次都要等）
-
-
-
-为了解决这个问题，`TCP` 引入了窗口的概念：确认应答不再是以每个分段，而是以更大的单位进行确认
-
-
-
-
-
-## 11. TCP 如何进行流量控制?
-
-`TCP` 利用滑动窗口进行流量控制，窗口大小就是指无须等待确认应答而可以继续发送数据的最大值
-
-<div align="center"> <img src="image-20201014140804467.png" width="60%"/> </div><br> 
-
-<div align="center"> <img src="image-20201014141031381.png" width="60%"/> </div><br> 
-
-
-
-
-
-
-
-## 12. 什么是 TCP 拥塞控制?
-
-当网络中许多资源同时呈现供应不足时，`TCP` 提供了 4 种拥塞控制的算法：
-
-- 慢开始和拥塞避免
-- 快重传和快恢复
-
- 
-
-
-
-## 13. TCP 拥塞控制之慢开始 & 拥塞避免
-
-<div align="center"> <img src="image-20201014134534322.png" width="70%"/> </div><br> 
-
-
-
-## 14. TCP 拥塞控制之快重传 & 快恢复
-
-<div align="center"> <img src="image-20201014134925339.png" width="70%"/> </div><br> 
-
-
-
-
-
-
-## 15. 拥塞控制和流量控制有什么区别?
-
-拥塞控制：全局性
-
-流量控制：端对端
-
-
-
-## 1. 什么是 UDP?
-
-`UDP` 全称：User Datagram Protocol
-
-`UDP` 不提供复杂的控制机制，利用 `IP` 提供面向无连接的通信服务。且它是将应用程序发来的数据在收到的那一刻，立即按照原样发送到网络上的一种机制（确保发送信息大小，但不确保信息一定到达）
-
-
-
-## 2. 既然 UDP 面向无连接, 那有何应用场景?
-
-1. 包总量较小的通信（`DNS`）
-2. 即时通信（视频 / 音频）
-3. 广播通信（广播, 多播）
-
-
-
-## 3. 什么是 TCP?
-
-`TCP` 全称：Transmission Control Protocol
-
-`TCP` 功能十分强悍，充分实现了数据传输时各种控制功能
-
-丢包怎么办？（数据传输过程丢失），`TCP` 有重发机制
-
-分包次序错乱怎么办？`TCP` 可以进行顺序控制
-
-除此之外，`TCP` 面向有连接，只有在确认通信对端存在时才会发送数据，从而可以控制通信流量的浪费
-
-
-
-## 4. TCP 可靠传输机制（序号, 确认号, 重传）
-
-- **序号**：指的是一个报文段第一个字节的序号
-- **确认应答（ACK）**：当发送端的数据到达接收主机时，接收端主机会返回一个已收到消息的通知
-- **重传**：`TCP` 的发送方在规定时间没有收到确认就要重传已发送的报文段（`TCP` 采用自适应算法，动态改变重传时间）
-
-<div align="center"> <img src="image-20201014100900834.png" width="50%"/> </div><br>
-
-- **快速重传**：
-
-  每当比期望序号大的失序报文段到达时，发送一个**冗余 ACK**，指明下一个期待字节的序号
-
-  举个例子：
-
-  发送方已发送 1, 2, 3, 4, 5 报文段
-
-  接收方收到 1，返回给 1 的确认（`ack` 为 2 的第一个字节）
-
-  接收方收到 3，仍返回给 1 的确认（`ack` 为 2 的第一个字节）
-
-  接收方收到 4，仍返回给 1 的确认（`ack` 为 2 的第一个字节）
-
-  接收方收到 5，仍返回给 1 的确认（`ack` 为 2 的第一个字节）
-
-  发送方收到 3 个对于报文段 1 的冗余 `ACK` 则表明：认为 2 报文段丢失，重传 2 号报文段（快速重传机制）
-
-
-
-<div align="center"> <img src="image-20201014141212694.png" width="60%"/> </div><br>
-
-
-
-
-## 5. TCP 首部
-
-<div align="center"> <img src="image-20201013095218020.png" width="60%"/> </div><br>
-
-
-
-- 序列号 （Sequence Number）：发送数据的位置，每发送一次数据，就累加一次该数据字节数的大小
-
-  序列号不会从 0 或 1 开始，而是在建立连接时由计算机生成的随机数作为其初始值，通过 `SYN` 包传给接收端主机。
-
-  **然后再将每转发过去的字节数累加到初始值上表示数据的位置**。此外，**在建立连接和断开连接时发送的 SYN 包和 FIN 包虽然不携带数据，但是也会作为一个字节增加对应的序列号**
-
-- 确认应答号 （Acknowledgement Number）：**指下一次应该收到的数据的序列号**。实际上，它是指已收到确认应答号 - 1 为止的数据。发送端收到这个确认应答后可以认为在这个序号以前的数据都已经被正常接收
-
-- 控制位：
-
-  - ACK（Acknowledgement Flag）：该位为 1 时，确认应答的字段变为有效。**TCP 规定除了最初建立连接时的 SYN 包之外该位必须设置为 1**
-  - SYN（Synchronize Flag）：用于建立连接。**SYN 为 1 时表示希望建立连接，并在其序列号的字段进行序列号初始值的设定**
-  - FIN（Fin Flag）：该位为 1 时，**表示今后不会再有数据发送，希望断开连接**。当通信结束希望断开连接时，通信双方的主机之间就可以相互交换 `FIN` 位置为 1 的 `TCP` 段。每个主机又对对方的 `FIN` 包进行确认应答以后就可以断开连接（不过，主机收到 `FIN` 设置为 1 的 `TCP` 段以后不必马上回复一个 `FIN` 包，而是可以等到缓冲区中的所有数据都已成功发送而被自动删除之后再发）
-
-  <div align="center"> <img src="image-20201013102928356.png" width="50%"/> </div><br>
-
-- 窗口大小：用于通知从相同 `TCP` 首部的确认应答号所指位置开始能够接受的数据大小。**TCP 不允许发送超过此处所示大小的数据**
-
-
-
-## 6. TCP 连接管理之三次握手（Three-way handshake）? 
-
-`TCP` 是面向连接的协议，所以使用 `TCP` 前必须先建立连接，而建立连接时通过三次握手来进行的
-
-- 最初，客户端和服务器都处于 `CLOSED` 状态，先是服务端主动监听某个端口，处于 `LISTEN` 状态
-
-- **第一个报文：SYN 报文**
-
-  客户端初始化随机序号 `x` ，将 `SYN` 置为 1，表示 “ 我想建立请求 ”
-
-- **第二个报文： SYN + ACK 报文**
-
-  服务器端收到报文后，初随机初始化自己的序号 `y`，将 `SYN` 置为 1，表示 “我也想和你建立请求”，将 `ACK` 置为 1，`ack` 为 `x` + 1 
-
-- **第三个报文： ACK 报文**
-
-  客户端收到服务器端报文后，将 `ACK` 置为 1，`ack` 为 `y` + 1，序号为 `x` + 1
-
-
-
-
-
-值得注意：
-
-1. 三次握手前两次不可以携带数据，最后一次可以 
-2. 一旦完成三次握手，双方都处于 `ESTABLISHED`，表示可以进行通信
-
-<div align="center"> <img src="three-way-handshake.png" width="70%"/> </div><br> 
-
-
-
-
-
-
-
-<div align="center"> <img src="image-20201013154202307.png" width="70%"/> </div><br> 
-
-
-## 7. TCP 建立为什么是三次握手? 
-
-暂略
-
-
-
-
-
-
-
-## 8. 什么是四次挥手?
-
-天下没有不散的宴席
-
-当连接结束后，主机中的 “资源” （缓存和变量）将被释放
-
-<div align="center"> <img src="4.jpg" width="40%"/> </div><br> 
-
-- 客户端打算关闭连接，发送 `FIN` 报文（`FIN` 的值为 1），进入 `FIN_WAIT_1` 状态
-- 服务端接收到该报文后，向客户端发送 `ACK` 应答报文（`ACK` 为 1），接着服务端进入 `CLOSED_WAIT` 状态
-- 客户端收到 `ACK` 报文后，进入 `FIN_WAIT_2` 状态
-- 等待服务端处理完数据后，也向客户端发送 `FIN` 报文，之后进入 `LAST_ACK` 状态
-- 客户端收到服务端的 `FIN` 报文后，回一个 `ACK` 报文，进入 `TIME_WAIT` 状态
-- 服务器收到了 `ACK` 报文后，进入 `CLOSED` 状态，至此服务端已经完成连接的关闭
-- 客户端经过 `2MSL` 一段时间后，自动进入 `CLOSED` 状态，至此客户端也完成连接的关闭
-
-
-
-**每个方向都需要一个 FIN 和一个 ACK，因此通常被称为四次挥手**
-
-
-
-## 9. 为什么是四次（挥手）?
-
-<div align="center"> <img src="image-20201014140116612.png" width="40%"/> </div><br> 
-
-
-- 关闭连接时，客户端向服务端发送 `FIN` 时，仅仅表示客户端不再发送数据了但还能接受数据
-- 服务器收到客户端 `FIN` 报文时，先回一个 `ACK` 应答报文，而服务端可能还有数据需要处理和发送，等服务端不再发送数据时，才发送 `FIN` 报文给客户端来表示同意现在关闭连接
-
-
-
-## 10. 什么是 TCP 流量控制?
-
-`TCP` 以 1 个段为单位，每发一个段进行一次确认应答的处理，那这样传输有什么缺点？
-
-包的往返时间越长通信性能越低（每次都要等）
-
-
-
-为了解决这个问题，`TCP` 引入了窗口的概念：确认应答不再是以每个分段，而是以更大的单位进行确认
-
-
-
-
-
-## 11. TCP 如何进行流量控制?
-
-`TCP` 利用滑动窗口进行流量控制，窗口大小就是指无须等待确认应答而可以继续发送数据的最大值
-
-<div align="center"> <img src="image-20201014140804467.png" width="60%"/> </div><br> 
-
-<div align="center"> <img src="image-20201014141031381.png" width="60%"/> </div><br> 
-
-
-
-
-
-
-
-## 12. 什么是 TCP 拥塞控制?
-
-当网络中许多资源同时呈现供应不足时，`TCP` 提供了 4 种拥塞控制的算法：
-
-- 慢开始和拥塞避免
-- 快重传和快恢复
-
- 
-
-
-
-## 13. TCP 拥塞控制之慢开始 & 拥塞避免
-
-<div align="center"> <img src="image-20201014134534322.png" width="70%"/> </div><br> 
-
-
-
-## 14. TCP 拥塞控制之快重传 & 快恢复
-
-<div align="center"> <img src="image-20201014134925339.png" width="70%"/> </div><br> 
-
-
-
-
-
-
-## 15. 拥塞控制和流量控制有什么区别?
-
-拥塞控制：全局性
-
-流量控制：端对端
-
-## 应用层
-
-## 1. 什么是 HTTP?
+### 1. 什么是 HTTP?
 
 
 <div align="center"> <img src="pre.jpg" width="70%"/> </div><br>
@@ -999,7 +702,7 @@ Table of Contents
 
 
 
-## 2. 什么是 URI 和 URL?
+### 2. 什么是 URI 和 URL?
 
 `HTTP` 请求的内容统称为资源，它可以是一份文档，一张图片，一段视频。那如何标识每一份资源呢？
 
@@ -1027,7 +730,7 @@ Table of Contents
 
 
 
-## 3. URI 格式
+### 3. URI 格式
 
 ```http
 http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereInTheDocument
@@ -1044,44 +747,16 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-## 4. 什么是 HTTP 报文?
-
-> HTTP messages are how data is exchanged between a server and a client. There are two types of messages: *requests* sent by the client to trigger an action on the server, and *responses*, the answer from the server
-
-`HTTP Message` ，直接从字面理解，客户端及服务器端在 `HTTP` 协议下交换的消息称为 `HTTP` 报文
 
 
 
-`HTTP Message` 又分为请求报文和响应报文
-
-
-
-### 4.1 Request Message
-
-<div align="center"> <img src="request_message.png" width="80%"/> </div><br>
-
-
-
-
-
-### 4.2 Response Message
-
-<div align="center"> <img src="response_message.png" width="80%"/> </div><br>
-
-其中，`Message Header` 存储着客户端和服务器处理时至关重要的信息
-
-而 `Message Body` 存储着用户 / 资源信息
-
-
-
-
-## 5. 如何理解 Stateless?
+### 5. 如何理解 Stateless?
 
 `HTTP` 是一种无状态协议，即协议对于发送过的请求 / 响应都不做持久化处理
 
 
 
-## 6. HTTP 有哪些常见方法?
+### 6. HTTP 有哪些常见方法?
 
 ### 6.1 GET
 
@@ -1105,7 +780,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-## 7. 什么是状态码? HTTP 有哪些状态码?
+### 7. 什么是状态码? HTTP 有哪些状态码?
 
 状态码的作用是当客户端向服务器发送了请求，描述响应结果
 
@@ -1123,268 +798,14 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-## 8. HTTP 首部（了解，供查阅）
+### 8. HTTP 首部（了解，供查阅）
 
 <div align="center"> <img src="msg_structure.png" width="80%"/> </div><br>
 
-### 8.1 通用首部字段
-
-通用首部字段是指请求报文 / 响应报文双方都会使用的首部
-
-<table>
-<thead>
-<tr>
-<th align="center">首部字段名</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">Cache-Control</td>
-<td align="center">控制缓存的行为</td>
-</tr>
-<tr>
-<td align="center">Connection</td>
-<td align="center">控制不再转发给代理的首部字段、管理持久连接</td>
-</tr>
-<tr>
-<td align="center">Date</td>
-<td align="center">创建报文的日期时间</td>
-</tr>
-<tr>
-<td align="center">Pragma</td>
-<td align="center">报文指令</td>
-</tr>
-<tr>
-<td align="center">Trailer</td>
-<td align="center">报文末端的首部一览</td>
-</tr>
-<tr>
-<td align="center">Transfer-Encoding</td>
-<td align="center">指定报文主体的传输编码方式</td>
-</tr>
-<tr>
-<td align="center">Upgrade</td>
-<td align="center">升级为其他协议</td>
-</tr>
-<tr>
-<td align="center">Via</td>
-<td align="center">代理服务器的相关信息</td>
-</tr>
-<tr>
-<td align="center">Warning</td>
-<td align="center">错误通知</td>
-</tr>
-</tbody>
-</table>
 
 
 
-### 8.2 请求首部字段
-
-<table>
-<thead>
-<tr>
-<th align="center">首部字段名</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">Accept</td>
-<td align="center">用户代理可处理的媒体类型</td>
-</tr>
-<tr>
-<td align="center">Accept-Charset</td>
-<td align="center">优先的字符集</td>
-</tr>
-<tr>
-<td align="center">Accept-Encoding</td>
-<td align="center">优先的内容编码</td>
-</tr>
-<tr>
-<td align="center">Accept-Language</td>
-<td align="center">优先的语言（自然语言）</td>
-</tr>
-<tr>
-<td align="center">Authorization</td>
-<td align="center">Web 认证信息</td>
-</tr>
-<tr>
-<td align="center">Expect</td>
-<td align="center">期待服务器的特定行为</td>
-</tr>
-<tr>
-<td align="center">From</td>
-<td align="center">用户的电子邮箱地址</td>
-</tr>
-<tr>
-<td align="center">Host</td>
-<td align="center">请求资源所在服务器</td>
-</tr>
-<tr>
-<td align="center">If-Match</td>
-<td align="center">比较实体标记（ETag）</td>
-</tr>
-<tr>
-<td align="center">If-Modified-Since</td>
-<td align="center">比较资源的更新时间</td>
-</tr>
-<tr>
-<td align="center">If-None-Match</td>
-<td align="center">比较实体标记（与 If-Match 相反）</td>
-</tr>
-<tr>
-<td align="center">If-Range</td>
-<td align="center">资源未更新时发送实体 Byte 的范围请求</td>
-</tr>
-<tr>
-<td align="center">If-Unmodified-Since</td>
-<td align="center">比较资源的更新时间（与 If-Modified-Since 相反）</td>
-</tr>
-<tr>
-<td align="center">Max-Forwards</td>
-<td align="center">最大传输逐跳数</td>
-</tr>
-<tr>
-<td align="center">Proxy-Authorization</td>
-<td align="center">代理服务器要求客户端的认证信息</td>
-</tr>
-<tr>
-<td align="center">Range</td>
-<td align="center">实体的字节范围请求</td>
-</tr>
-<tr>
-<td align="center">Referer</td>
-<td align="center">对请求中 URI 的原始获取方</td>
-</tr>
-<tr>
-<td align="center">TE</td>
-<td align="center">传输编码的优先级</td>
-</tr>
-<tr>
-<td align="center">User-Agent</td>
-<td align="center">HTTP 客户端程序的信息</td>
-</tr>
-</tbody>
-</table>
-
-
-
-
-
-### 8.3 响应首部字段
-
-<table>
-<thead>
-<tr>
-<th align="center">首部字段名</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">Accept-Ranges</td>
-<td align="center">是否接受字节范围请求</td>
-</tr>
-<tr>
-<td align="center">Age</td>
-<td align="center">推算资源创建经过时间</td>
-</tr>
-<tr>
-<td align="center">ETag</td>
-<td align="center">资源的匹配信息</td>
-</tr>
-<tr>
-<td align="center">Location</td>
-<td align="center">令客户端重定向至指定 URI</td>
-</tr>
-<tr>
-<td align="center">Proxy-Authenticate</td>
-<td align="center">代理服务器对客户端的认证信息</td>
-</tr>
-<tr>
-<td align="center">Retry-After</td>
-<td align="center">对再次发起请求的时机要求</td>
-</tr>
-<tr>
-<td align="center">Server</td>
-<td align="center">HTTP 服务器的安装信息</td>
-</tr>
-<tr>
-<td align="center">Vary</td>
-<td align="center">代理服务器缓存的管理信息</td>
-</tr>
-<tr>
-<td align="center">WWW-Authenticate</td>
-<td align="center">服务器对客户端的认证信息</td>
-</tr>
-</tbody>
-</table>
-
-
-
-
-### 8.4 实体首部字段
-
-<table>
-<thead>
-<tr>
-<th align="center">首部字段名</th>
-<th align="center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">Allow</td>
-<td align="center">资源可支持的 HTTP 方法</td>
-</tr>
-<tr>
-<td align="center">Content-Encoding</td>
-<td align="center">实体主体适用的编码方式</td>
-</tr>
-<tr>
-<td align="center">Content-Language</td>
-<td align="center">实体主体的自然语言</td>
-</tr>
-<tr>
-<td align="center">Content-Length</td>
-<td align="center">实体主体的大小</td>
-</tr>
-<tr>
-<td align="center">Content-Location</td>
-<td align="center">替代对应资源的 URI</td>
-</tr>
-<tr>
-<td align="center">Content-MD5</td>
-<td align="center">实体主体的报文摘要</td>
-</tr>
-<tr>
-<td align="center">Content-Range</td>
-<td align="center">实体主体的位置范围</td>
-</tr>
-<tr>
-<td align="center">Content-Type</td>
-<td align="center">实体主体的媒体类型</td>
-</tr>
-<tr>
-<td align="center">Expires</td>
-<td align="center">实体主体过期的日期时间</td>
-</tr>
-<tr>
-<td align="center">Last-Modified</td>
-<td align="center">资源的最后修改日期时间</td>
-</tr>
-</tbody>
-</table>
-
-
-
-
-
-
-
-## 9. 经常挂在嘴边的代理究竟是什么? 
+### 9. 经常挂在嘴边的代理究竟是什么? 
 
 ### 9.1 什么是代理? 
 
@@ -1439,7 +860,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-## 10. HTTP 的缺点
+### 10. HTTP 的缺点
 
 任何事物都有两面性，`HTTP` 的不足主要体现在以下几个方面：
 
@@ -1471,7 +892,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 <div align="center"> <img src="mitm.png" width="60%"/> </div><br>
 
-## 11. 什么是 SSL / TLS?
+### 11. 什么是 SSL / TLS?
 
 在引入 `HTTPS` 之前，先介绍一下 `SSL / TLS`
 
@@ -1483,7 +904,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-## 12. SSL / TLS 是如何运作的?
+### 12. SSL / TLS 是如何运作的?
 
 `SSL / TLS` 协议的基本思路是采用公钥加密法（公钥加密法具体内容暂不赘述，可以查阅文末参考资料）
 
@@ -1519,7 +940,7 @@ http://www.example.com:80/path/to/myfile.html?key1=value1&key2=value2#SomewhereI
 
 
 
-## 13. HTTPS 的出现
+### 13. HTTPS 的出现
 
 **HTTP + 加密 + 认证 + 完整性保护 = HTTPS**
 

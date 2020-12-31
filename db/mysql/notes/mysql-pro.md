@@ -5,25 +5,22 @@ Table of Contents
 
 * [Brainstorming](#brainstorming)
 * [1. 架构](#1-架构)
-* [2. SQL 语句](#2-sql-语句)
-   * [2.1 Join](#21-join)
-   * [2.2 SubQuery](#22-subquery)
-   * [2.3 Union](#23-union)
-* [3. 索引](#3-索引)
-   * [3.1 回表](#31-回表)
-   * [3.2 联合索引：最左匹配原则](#32-联合索引最左匹配原则)
-   * [3.3 前缀索引（最左匹配原则应用）](#33-前缀索引最左匹配原则应用)
-   * [3.4 Left Join &amp; Right Join 索引优化](#34-left-join--right-join-索引优化)
-   * [3.5 覆盖索引](#35-覆盖索引)
-   * [3.6 COUNT(*) 优化（待补充）](#36-count-优化待补充)
-   * [3.7 小表驱动大表（待补充）](#37-小表驱动大表待补充)
-* [4. 事务](#4-事务)
-   * [4.1 并发事务带来什么问题？](#41-并发事务带来什么问题)
-   * [4.2 事务隔离级别](#42-事务隔离级别)
-   * [4.3 Demo](#43-demo)
-   * [4.4 事务隔离的实现（待补充）](#44-事务隔离的实现待补充)
-   * [4.5 两阶段锁](#45-两阶段锁)
+* [2. 索引](#2-索引)
+   * [2.1 回表](#21-回表)
+   * [2.2 联合索引：最左匹配原则](#22-联合索引最左匹配原则)
+   * [2.3 前缀索引（最左匹配原则应用）](#23-前缀索引最左匹配原则应用)
+   * [2.4 Left Join &amp; Right Join 索引优化](#24-left-join--right-join-索引优化)
+   * [2.5 覆盖索引](#25-覆盖索引)
+   * [2.6 COUNT(*) 优化（待补充）](#26-count-优化待补充)
+   * [2.7 小表驱动大表（待补充）](#27-小表驱动大表待补充)
+* [3. 事务](#3-事务)
+   * [3.1 并发事务带来什么问题？](#31-并发事务带来什么问题)
+   * [3.2 事务隔离级别](#32-事务隔离级别)
+   * [3.3 Demo](#33-demo)
+   * [3.4 事务隔离的实现（待补充）](#34-事务隔离的实现待补充)
+   * [3.5 两阶段锁](#35-两阶段锁)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -43,53 +40,13 @@ Table of Contents
 
 
 
-## 2. SQL 语句
-
-**P.S:**
-
-以下 `SQL` 语句仅挑选了重点（非系统性）
-
-### 2.1 Join
-
-  <div align="center"> <img src="sql-joins.png" width="70%"/> </div><br>
-
-
-
-### 2.2 SubQuery
-
-  <div align="center"> <img src="image-20201215175720297.png" width="60%"/> </div><br>
-
-
-
-
-
-
-
-### 2.3 Union
-
-`union` 用于连接两个以上的 `select` 语句的结果组合到一个结果集合中。多个 `select` 语句会删除重复的数据
-
-
-
-  <div align="center"> <img src="union.png" width="60%"/> </div><br>
-
-
-
-```mysql
-SELECT column_name(s) FROM table1
-UNION
-SELECT column_name(s) FROM table2;
-```
-
-
-
-## 3. 索引
+## 2. 索引
 
 **每一个索引在 InnoDB 里面对应一颗 B+ 树**
 
 
 
-### 3.1 回表
+### 2.1 回表
 
 举个例子，我们有一个主键列为 `ID` 的表，其中有个字段为 `k`，且 `k` 上有索引
 
@@ -137,7 +94,7 @@ SELECT * FROM table_name WHERE K = 5;
 
 
 
-### 3.2 联合索引：最左匹配原则
+### 2.2 联合索引：最左匹配原则
 
 **表设计 & 初始化 **
 
@@ -215,7 +172,7 @@ CREATE INDEX idx_category_views ON article ( category_id, views );
 
 <div align="center"> <img src="image-20201216224438990.png" width="100%"/> </div><br>
 
-### 3.3 前缀索引（最左匹配原则应用）
+### 2.3 前缀索引（最左匹配原则应用）
 
 假设现在需要维护一个邮箱登录的系统，如何在邮箱这个字段高效地建立索引？
 
@@ -255,7 +212,7 @@ WHERE
 
 
 
-### 3.4 Left Join & Right Join 索引优化
+### 2.4 Left Join & Right Join 索引优化
 
 **表设计**
 
@@ -326,7 +283,7 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-### 3.5 覆盖索引
+### 2.5 覆盖索引
 
 通过遍历索引树就可以满足查询的字段，不用回表，即索引被覆盖了
 
@@ -340,19 +297,19 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-### 3.6 COUNT(*) 优化（待补充）
+### 2.6 COUNT(*) 优化（待补充）
 
 
 
-### 3.7 小表驱动大表（待补充）
+### 2.7 小表驱动大表（待补充）
 
 
 
 
 
-## 4. 事务
+## 3. 事务
 
-### 4.1 并发事务带来什么问题？
+### 3.1 并发事务带来什么问题？
 
 **Dirty read**
 
@@ -376,7 +333,7 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-### 4.2 事务隔离级别
+### 3.2 事务隔离级别
 
 **Read uncommited**
 
@@ -398,7 +355,7 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-### 4.3 Demo
+### 3.3 Demo
 
 ```mysql
 mysql> create table T(c int) engine=InnoDB;
@@ -422,7 +379,7 @@ insert into T(c) values(1);
 
 
 
-### 4.4 事务隔离的实现（待补充）
+### 3.4 事务隔离的实现（待补充）
 
 在 `mysql` 中，每条记录在更新的时候都会同时记录一条 `rollback` 操作，即记录上最新的值通过回滚操作都可以得到前一个状态的值
 
@@ -438,7 +395,7 @@ insert into T(c) values(1);
 
 
 
-### 4.5 两阶段锁
+### 3.5 两阶段锁
 
 <div align="center"> <img src="image-20201221134532466.png" width="60%"/> </div><br>
 

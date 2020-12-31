@@ -70,6 +70,36 @@ FROM
     ON P.PersonId = A.PersonId;
 ```
 
+## 176. Second Highest Salary
+
+**Description**
+
+Write a SQL query to get the second highest salary from the `Employee` table.
+
+```
++----+--------+
+| Id | Salary |
++----+--------+
+| 1  | 100    |
+| 2  | 200    |
+| 3  | 300    |
++----+--------+
+```
+
+For example, given the above Employee table, the query should return `200` as the second highest salary. If there is no second highest salary, then the query should return `null`.
+
+```
++---------------------+
+| SecondHighestSalary |
++---------------------+
+| 200                 |
++---------------------+
+```
+
+
+
+
+
 
 
 ## 181. Employees Earning More Than Their Managers
@@ -91,17 +121,20 @@ The `Employee` table holds all employees including their managers. Every employe
 
 Given the `Employee` table, write a SQL query that finds out employees who earn more than their managers. For the above table, Joe is the only employee who earns more than his manager.
 
-```
-+----------+
-| Employee |
-+----------+
-| Joe      |
-+----------+
-```
-
 
 
 **Solution**
+
+```mysql
+SELECT
+    E1.Name AS Employee
+FROM
+    Employee E1
+    INNER JOIN Employee E2
+    ON E1.ManagerId = E2.Id
+WHERE
+    E1.Salary > E2.Salary;
+```
 
 
 
@@ -254,6 +287,60 @@ Write a SQL query to find employees who have the highest salary in each of the d
 ```
 
 Max and Jim both have the highest salary in the IT department and Henry has the highest salary in the Sales department.
+
+
+
+**Solution**
+
+
+
+## 197. Rising Temperature
+
+**Description**
+
+Table: `Weather`
+
+```
++---------------+---------+
+| Column Name   | Type    |
++---------------+---------+
+| id            | int     |
+| recordDate    | date    |
+| temperature   | int     |
++---------------+---------+
+id is the primary key for this table.
+This table contains information about the temperature in a certain day.
+```
+
+ 
+
+Write an SQL query to find all dates' `id` with higher temperature compared to its previous dates (yesterday).
+
+Return the result table in **any order**.
+
+The query result format is in the following example:
+
+```
+Weather
++----+------------+-------------+
+| id | recordDate | Temperature |
++----+------------+-------------+
+| 1  | 2015-01-01 | 10          |
+| 2  | 2015-01-02 | 25          |
+| 3  | 2015-01-03 | 20          |
+| 4  | 2015-01-04 | 30          |
++----+------------+-------------+
+
+Result table:
++----+
+| id |
++----+
+| 2  |
+| 4  |
++----+
+In 2015-01-02, temperature was higher than the previous day (10 -> 25).
+In 2015-01-04, temperature was higher than the previous day (20 -> 30).
+```
 
 
 

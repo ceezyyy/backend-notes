@@ -29,7 +29,10 @@ Table of Contents
       * [2.4.2 死锁避免](#242-死锁避免)
       * [2.4.3 死锁检测 &amp; 恢复](#243-死锁检测--恢复)
 * [3. 内存管理](#3-内存管理)
+   * [3.1 概述](#31-概述)
+      * [3.1.1 容量单位](#311-容量单位)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -562,8 +565,15 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 ## 3. 内存管理
 
+### 3.1 概述
 
+#### 3.1.1 容量单位
 
+- 2^10^ = 1K
+- 2^20^ = 1M
+- 2^30^ = 1G
+
+<div align="center"> <img src="image-20210101235911428.png" width="50%"/> </div><br>
 
 
 ## References

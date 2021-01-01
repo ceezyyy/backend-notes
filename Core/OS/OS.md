@@ -30,6 +30,7 @@ Table of Contents
 * [References](#references)
 
 
+
 ## Brainstorming
 
 <div align="center"> <img src="os.svg" width="100%"/> </div><br>
@@ -438,6 +439,36 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 #### 2.4.2 安全序列
+
+**什么是安全序列？**
+
+指如果系统按照这种序列分配资源，则每个进程都能顺利完成。只能找出一个安全序列，系统就是安全状态（安全序列可能有多个）
+
+
+
+**Description**
+
+假如你手里掌握着 100 亿资金，有三个 `A`，`B`，`C` 企业想找你贷款
+
+规定：如果你借给企业的钱的总数达不到企业提出的最大要求，那么之前借给企业的钱无法拿回来
+
+| 企业 | 最大需求 | 已分配 | 待分配 |
+| ---- | -------- | ------ | ------ |
+| A    | 70       | 20     | 50     |
+| B    | 40       | 10     | 30     |
+| C    | 50       | 30     | 20     |
+
+有两个问题：
+
+1. `A` 企业还想借 30 亿，敢借吗？
+2. `B` 企业还想借 20 亿，敢借吗？
+
+
+
+**Explained**
+
+1. 针对问题一，
+2. 针对问题二 
 
 
 

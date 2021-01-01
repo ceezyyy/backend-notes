@@ -13,7 +13,7 @@ Table of Contents
    * [2.1 概述](#21-概述)
       * [2.1.1 进程组成](#211-进程组成)
       * [2.1.2 进程状态](#212-进程状态)
-   * [2.4 进程调度](#24-进程调度)
+   * [2.2 进程调度](#22-进程调度)
       * [2.2.1 交互式系统：时间片轮转调度算法](#221-交互式系统时间片轮转调度算法)
       * [2.2.2 交互式系统：优先级调度算法](#222-交互式系统优先级调度算法)
       * [2.2.3 交互式系统：多级反馈队列调度算法](#223-交互式系统多级反馈队列调度算法)
@@ -24,9 +24,11 @@ Table of Contents
       * [2.3.4 Producer–Consumer Problem](#234-producerconsumer-problem)
       * [2.3.5 Readers-Writers Problem](#235-readers-writers-problem)
       * [2.3.6 Dining Philosophers Problem（待补充）](#236-dining-philosophers-problem待补充)
-   * [2.4 Deadlocks](#24-deadlocks)
+   * [2.4 死锁](#24-死锁)
       * [2.4.1 死锁产生的必要条件](#241-死锁产生的必要条件)
+      * [2.4.2 安全序列](#242-安全序列)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -74,7 +76,7 @@ Table of Contents
 
 
 
-### 2.4 进程调度
+### 2.2 进程调度
 
 #### 2.2.1 交互式系统：时间片轮转调度算法
 
@@ -416,7 +418,7 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 
-### 2.4 Deadlocks
+### 2.4 死锁
 
 <div align="center"> <img src="image-20201228212139674.png" width="70%"/> </div><br>
 
@@ -432,6 +434,12 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 2. Hold and wait：若放弃手里的 / 不去等待其他资源，则可避免死锁
 3. 非抢占式：若其他进程可以抢夺，则可避免死锁
 4. 循环等待
+
+
+
+#### 2.4.2 安全序列
+
+
 
 
 

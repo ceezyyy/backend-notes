@@ -515,6 +515,34 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 #### 2.4.3 死锁检测 & 恢复
 
+**单个资源**
+
+<div align="center"> <img src="deadlocks-handling.png" width="70%"/> </div><br>
+
+图示说明：
+
+- 正方形代表资源，圆形代表进程
+- 正方形指向圆形代表资源分配给该进程，圆形指向正方形代表进程请求该资源
+
+
+
+若有向图存在环，则证明有死锁的存在
+
+
+
+**多个资源**
+
+<div align="center"> <img src="deadlocks-handling-2.png" width="70%"/> </div><br>
+
+
+
+图示说明：
+
+- E 向量：资源总量
+- A 向量：资源剩余量
+- C 矩阵：进程所占有资源数量
+- R 矩阵：进程所请求资源数量
+
 
 
 

@@ -30,7 +30,6 @@
 
 ## 📦 DB
 
-- 数据库系统原理
 - [SQL Practice](https://github.com/ceezyyy/backend-notes/blob/master/db/sql/sql-prac.md)
 - [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/notes/mysql-pro.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/db/redis/notes/Redis.md)

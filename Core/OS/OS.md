@@ -422,15 +422,15 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 #### 2.10.1 死锁产生的必要条件
 
-产生死锁必须同时满足以下四个条件（联想哲学家进餐问题）
+产生死锁**必须同时满足以下四个条件**（联想哲学家进餐问题）
 
 
 
 <div align="center"> <img src="dining-philosophers-problem-2.png" width="50%"/> </div><br>
 
-1. 互斥：若一个资源是可共享的，则不会出现死锁现象
-2. Hold and wait：手中拿着一个资源不放，同时又请求其他资源
-3. 非抢占式（只能主动释放）：其他进程无法抢占
+1. 互斥：若资源是共享的，则可避免死锁
+2. Hold and wait：若放弃手里的 / 不去等待其他资源，则可避免死锁
+3. 非抢占式：若其他进程可以抢夺，则可避免死锁
 4. 循环等待
 
 

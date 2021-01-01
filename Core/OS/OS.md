@@ -456,21 +456,40 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 **安全状态**
 
+若没有发生死锁，并且即使所有进程突然请求对资源的最大需求，也仍然存在**某种调度次序能够使得每一个进程运行完毕**，则称该状态是安全的
+
+
+
 <div align="center"> <img src="bank-algo-1.png" width="70%"/> </div><br>
+
+- `Has`：表示已分配的资源
+- `Max`：表示所需的最大资源
+
+
+
+分配流程：从图 a 开始出发，先让 B 拥有所需的资源（如图 b），等 B 运行结束后释放所有资源（如图 C）；再依次分配给 C（如图 d） 和 A（如图 e）
 
 
 
 **单个资源的银行家算法**
 
+<div align="center"> <img src="bank-algo-2.png" width="70%"/> </div><br>
+
+第一次请求后：“银行家” 仅剩 2 个单位的资源
+
+第二次请求后：”银行家“（操作系统）仅剩 1 个单位资源，无法满足任一 “客户” （进程）的最大需求
 
 
 
+**因此，算法会拒绝之前的请求，避免进入图 c 的状态**
 
 
 
 **多个资源的银行家算法**
 
+在操作系统中，是存在多个进程以及资源
 
+<div align="center"> <img src="bank-algo-3.png" width="70%"/> </div><br>
 
 
 
@@ -500,3 +519,4 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 - [Operating System Tutorial for Beginners](https://www.studytonight.com/operating-system/#)
 - [Operating System Tests](https://www.studytonight.com/tests/?subject=operating-system)
 - [Dining Philosophers Problem (DPP)](https://www.tutorialspoint.com/dining-philosophers-problem-dpp#:~:text=The%20dining%20philosophers%20problem%20states,and%20left%20chopstick%20to%20eat.)
+- [一句话+一张图说清楚——银行家算法](https://blog.csdn.net/qq_33414271/article/details/80245715)

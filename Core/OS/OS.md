@@ -10,25 +10,23 @@ Table of Contents
    * [1.1 操作系统内核图](#11-操作系统内核图)
    * [1.2 四大特征](#12-四大特征)
 * [2. 进程](#2-进程)
-   * [2.1 Process Life Cycle](#21-process-life-cycle)
-   * [2.2 PCB (Process Control Block)](#22-pcb-process-control-block)
-   * [2.3 进程创建](#23-进程创建)
+   * [2.1 概述](#21-概述)
+      * [2.1.1 进程组成](#211-进程组成)
+      * [2.1.2 进程状态](#212-进程状态)
    * [2.4 进程调度](#24-进程调度)
-      * [2.4.1 交互式系统：时间片轮转调度算法](#241-交互式系统时间片轮转调度算法)
-      * [2.4.2 交互式系统：优先级调度算法](#242-交互式系统优先级调度算法)
-      * [2.4.3 交互式系统：多级反馈队列调度算法](#243-交互式系统多级反馈队列调度算法)
-   * [2.5 Process Synchronization](#25-process-synchronization)
-   * [2.6 信号量机制](#26-信号量机制)
-      * [2.6.1 记录型信号量](#261-记录型信号量)
-      * [2.6.2 信号量机制实现进程互斥](#262-信号量机制实现进程互斥)
-      * [2.6.3 信号量机制实现进程同步](#263-信号量机制实现进程同步)
-   * [2.7 Producer–Consumer Problem](#27-producerconsumer-problem)
-   * [2.8 Readers-Writers Problem](#28-readers-writers-problem)
-   * [2.9 Dining Philosophers Problem（待补充）](#29-dining-philosophers-problem待补充)
-   * [2.10 Deadlocks](#210-deadlocks)
-      * [2.10.1 死锁产生的必要条件](#2101-死锁产生的必要条件)
+      * [2.2.1 交互式系统：时间片轮转调度算法](#221-交互式系统时间片轮转调度算法)
+      * [2.2.2 交互式系统：优先级调度算法](#222-交互式系统优先级调度算法)
+      * [2.2.3 交互式系统：多级反馈队列调度算法](#223-交互式系统多级反馈队列调度算法)
+   * [2.3 信号量](#23-信号量)
+      * [2.3.1 记录型信号量](#231-记录型信号量)
+      * [2.3.2 信号量机制实现进程互斥](#232-信号量机制实现进程互斥)
+      * [2.3.3 信号量机制实现进程同步](#233-信号量机制实现进程同步)
+      * [2.3.4 Producer–Consumer Problem](#234-producerconsumer-problem)
+      * [2.3.5 Readers-Writers Problem](#235-readers-writers-problem)
+      * [2.3.6 Dining Philosophers Problem（待补充）](#236-dining-philosophers-problem待补充)
+   * [2.4 Deadlocks](#24-deadlocks)
+      * [2.4.1 死锁产生的必要条件](#241-死锁产生的必要条件)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -49,9 +47,21 @@ Table of Contents
 
 ## 2. 进程
 
-### 2.1 Process Life Cycle
+### 2.1 概述
 
-<div align="center"> <img src="process-life-cycle.png" width="80%"/> </div><br>
+#### 2.1.1 进程组成
+
+- PCB
+- 代码块
+- 数据块
+
+<div align="center"> <img src="image-20201228180000394.png" width="30%"/> </div><br>
+
+
+
+#### 2.1.2 进程状态
+
+<div align="center"> <img src="process-life-cycle.png" width="60%"/> </div><br>
 
 - `new` -> `ready`：操作系统完成进程创建工作
 - `ready` -> `running`：进程准备就绪，等待 `CPU` 调度
@@ -62,17 +72,11 @@ Table of Contents
 
 
 
-### 2.2 PCB (Process Control Block)
 
-<div align="center"> <img src="image-20201228180000394.png" width="30%"/> </div><br>
-
-### 2.3 进程创建
-
-<div align="center"> <img src="process-scheduling.png" width="70%"/> </div><br>
 
 ### 2.4 进程调度
 
-#### 2.4.1 交互式系统：时间片轮转调度算法
+#### 2.2.1 交互式系统：时间片轮转调度算法
 
 <div align="center"> <img src="image-20201226192757466.png" width="40%"/> </div><br>
 
@@ -95,7 +99,7 @@ Table of Contents
 
 
 
-#### 2.4.2 交互式系统：优先级调度算法
+#### 2.2.2 交互式系统：优先级调度算法
 
 
 <div align="center"> <img src="image-20201226202248271.png" width="50%"/> </div><br>
@@ -114,7 +118,7 @@ Table of Contents
 
 
 
-#### 2.4.3 交互式系统：多级反馈队列调度算法
+#### 2.2.3 交互式系统：多级反馈队列调度算法
 
 <div align="center"> <img src="image-20201226225925784.png" width="40%"/> </div><br>
 
@@ -122,7 +126,7 @@ Table of Contents
 
 <div align="center"> <img src="image-20201226230030071.png" width="70%"/> </div><br>
 
-### 2.5 Process Synchronization
+### 2.3 信号量
 
 > Process Synchronization means sharing system resources by processes in a such a way that, Concurrent access to shared data is handled thereby minimizing the chance of inconsistent data
 
@@ -139,11 +143,7 @@ do {
 
 
 
-
-
-### 2.6 信号量机制
-
-#### 2.6.1 记录型信号量
+#### 2.3.1 记录型信号量
 
 
 
@@ -195,7 +195,7 @@ void signal (semaphore S) {
 
 
 
-#### 2.6.2 信号量机制实现进程互斥
+#### 2.3.2 信号量机制实现进程互斥
 
 **核心思想：**
 
@@ -233,7 +233,7 @@ P2() {
 
 
 
-#### 2.6.3 信号量机制实现进程同步
+#### 2.3.3 信号量机制实现进程同步
 
 **核心思想：**
 
@@ -267,7 +267,7 @@ P2() {
 
 
 
-### 2.7 Producer–Consumer Problem
+#### 2.3.4 Producer–Consumer Problem
 
 <div align="center"> <img src="producer-consumer.png" width="60%"/> </div><br>
 
@@ -335,7 +335,7 @@ void consumer() {
 
 
 
-### 2.8 Readers-Writers Problem
+#### 2.3.5 Readers-Writers Problem
 
 <div align="center"> <img src="the-readers-writers-problem.jpg" width="60%"/> </div><br>
 
@@ -402,7 +402,7 @@ void read() {
 
 
 
-### 2.9 Dining Philosophers Problem（待补充）
+#### 2.3.6 Dining Philosophers Problem（待补充）
 
 <div align="center"> <img src="dining_phil.png" width="40%"/> </div><br>
 
@@ -416,11 +416,11 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 
-### 2.10 Deadlocks
+### 2.4 Deadlocks
 
 <div align="center"> <img src="image-20201228212139674.png" width="70%"/> </div><br>
 
-#### 2.10.1 死锁产生的必要条件
+#### 2.4.1 死锁产生的必要条件
 
 产生死锁**必须同时满足以下四个条件**（联想哲学家进餐问题）
 

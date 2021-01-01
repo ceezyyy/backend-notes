@@ -569,9 +569,9 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 #### 3.1.1 容量单位
 
-- 2^10^ = 1K
-- 2^20^ = 1M
-- 2^30^ = 1G
+- 2^10 bytes = 1K
+- 2^20 bytes = 1M
+- 2^30 bytes = 1G
 
 <div align="center"> <img src="image-20210101235911428.png" width="50%"/> </div><br>
 

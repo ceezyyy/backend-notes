@@ -576,6 +576,15 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 <div align="center"> <img src="image-20210101235911428.png" width="50%"/> </div><br>
 
 
+
+
+
+### 
+
+
+
+
+
 ## References
 
 - [趣谈Linux操作系统](https://time.geekbang.org/column/intro/164)
@@ -586,4 +595,4 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 - [Operating System Tutorial for Beginners](https://www.studytonight.com/operating-system/#)
 - [Operating System Tests](https://www.studytonight.com/tests/?subject=operating-system)
 - [Dining Philosophers Problem (DPP)](https://www.tutorialspoint.com/dining-philosophers-problem-dpp#:~:text=The%20dining%20philosophers%20problem%20states,and%20left%20chopstick%20to%20eat.)
-- [一句话+一张图说清楚——银行家算法](https://blog.csdn.net/qq_33414271/article/details/80245715)
+- [How computer memory works - Kanawat Senanan](https://www.youtube.com/watch?v=p3q5zWCw8J4&t=79s)

@@ -585,23 +585,6 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 ### 3.2 空间分配与回收
 
-#### 3.2.1 动态分配算法
-
-**First fit**
-
-空间分区表/链按照地址递增方式排序，每次分配内存时按顺序查找，找到第一个满足的（分区）则停止
-
-
-
-<div align="center"> <img src="image-20210103171618218.png" width="80%"/> </div><br>
-
-
-
-**Best fit**
-
-
-
-
 
 
 

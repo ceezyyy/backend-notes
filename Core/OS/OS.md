@@ -31,7 +31,11 @@ Table of Contents
 * [3. 内存管理](#3-内存管理)
    * [3.1 概述](#31-概述)
       * [3.1.1 容量单位](#311-容量单位)
+   * [3.2 空间分配与回收](#32-空间分配与回收)
+      * [3.2.1 动态分配算法](#321-动态分配算法)
+   * [3.3 空间扩充（虚拟性）](#33-空间扩充虚拟性)
 * [References](#references)
+
 
 
 
@@ -579,7 +583,32 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 
-### 
+### 3.2 空间分配与回收
+
+#### 3.2.1 动态分配算法
+
+**First fit**
+
+空间分区表/链按照地址递增方式排序，每次分配内存时按顺序查找，找到第一个满足的（分区）则停止
+
+
+
+<div align="center"> <img src="image-20210103171618218.png" width="80%"/> </div><br>
+
+
+
+**Best fit**
+
+
+
+
+
+
+
+### 3.3 空间扩充（虚拟性）
+
+
+
 
 
 

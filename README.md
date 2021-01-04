@@ -23,7 +23,7 @@
 - [Basic](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/notes/basic.md)
 - [Collections](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
-- [Concurrency](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrency/notes/concurrency.md)
+- Concurrency
 - IO
 
 
@@ -48,8 +48,7 @@
 
 ## :bulb: System Design
 
-- [SpringCloud](https://github.com/ceezyyy/backend-notes/blob/master/Microservice/SpringCloud/notes/SpringCloud.md)
-- [RabbitMQ](https://github.com/ceezyyy/backend-notes/blob/master/MQ/rabbitMQ/notes/rabbitMQ.md)
+
 
 
 

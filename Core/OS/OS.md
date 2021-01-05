@@ -32,8 +32,12 @@ Table of Contents
    * [3.1 概述](#31-概述)
       * [3.1.1 容量单位](#311-容量单位)
    * [3.2 空间分配与回收](#32-空间分配与回收)
+      * [3.2.1 基本分页存储](#321-基本分页存储)
+      * [3.2.2 基本分段存储](#322-基本分段存储)
+      * [3.2.3 段页式存储](#323-段页式存储)
    * [3.3 空间扩充（虚拟性）](#33-空间扩充虚拟性)
 * [References](#references)
+
 
 
 
@@ -87,7 +91,7 @@ Table of Contents
 
 #### 2.2.1 时间片轮转调度算法
 
-<div align="center"> <img src="image-20201226192757466.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20201226192757466.png" width="30%"/> </div><br>
 
 当时间片为 2 时：
 
@@ -110,8 +114,7 @@ Table of Contents
 
 #### 2.2.2 交互式系优先级调度算法
 
-
-<div align="center"> <img src="image-20201226202248271.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20201226202248271.png" width="35%"/> </div><br>
 
 **非抢占式**
 
@@ -129,7 +132,7 @@ Table of Contents
 
 #### 2.2.3 多级反馈队列调度算法
 
-<div align="center"> <img src="image-20201226225925784.png" width="40%"/> </div><br>
+<div align="center"> <img src="image-20201226225925784.png" width="35%"/> </div><br>
 
 设置**多级就绪队列**，优先级从高到低，时间片从小到大
 
@@ -153,10 +156,6 @@ do {
 
 
 #### 2.3.1 记录型信号量
-
-
-
-<div align="center"> <img src="image-20201227183752235.png" width="30%"/> </div><br>
 
 **struct.cpp**
 
@@ -582,6 +581,33 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 ### 3.2 空间分配与回收
+
+#### 3.2.1 基本分页存储
+
+<div align="center"> <img src="paging.jpeg" width="50%"/> </div><br>
+
+**Example**
+
+若页面大小 L 为 1K 字节，页号 2 对应的内存块号 b = 8，请将逻辑地址 A = 2500 转换为物理地址 E（E = 8644）
+
+
+
+**TLB（快表）**
+
+
+
+
+
+<div align="center"> <img src="tlb.png" width="65%"/> </div><br>
+
+
+
+#### 3.2.2 基本分段存储
+
+
+
+#### 3.2.3 段页式存储
+
 
 
 

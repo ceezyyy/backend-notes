@@ -31,7 +31,7 @@
 ## 📦 DB
 
 - [SQL Practice](https://github.com/ceezyyy/backend-notes/blob/master/db/sql/sql-prac.md)
-- [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/notes/mysql-pro.md)
+- [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/notes/mysql.md)
 - [Redis](https://github.com/ceezyyy/backend-notes/blob/master/db/redis/notes/Redis.md)
 
 

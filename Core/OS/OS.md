@@ -25,3 +25,4 @@ Table of Contents
 - [Operating System Tests](https://www.studytonight.com/tests/?subject=operating-system)
 - [Dining Philosophers Problem (DPP)](https://www.tutorialspoint.com/dining-philosophers-problem-dpp#:~:text=The%20dining%20philosophers%20problem%20states,and%20left%20chopstick%20to%20eat.)
 - [How computer memory works - Kanawat Senanan](https://www.youtube.com/watch?v=p3q5zWCw8J4&t=79s)
+- [Page replacement algorithm](https://en.wikipedia.org/wiki/Page_replacement_algorithm)

@@ -7,7 +7,6 @@ Table of Contents
 
 * [进程管理](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/process.md)
 * [内存管理](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/memory.md)
-* [IO](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/IO.md)
 
 
 ## Brainstorming

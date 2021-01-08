@@ -4,17 +4,8 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
-* [1. 数据库原理](#1-数据库原理)
-   * [1.1 事务](#11-事务)
-      * [1.1.1 ACID](#111-acid)
-      * [1.1.2 Mysql 中的事务](#112-mysql-中的事务)
-   * [1.2 并发一致性问题](#12-并发一致性问题)
-   * [1.3 封锁](#13-封锁)
-   * [1.4 隔离级别](#14-隔离级别)
-   * [1.5 多版本并发控制](#15-多版本并发控制)
-   * [1.6 Next-Key Locks](#16-next-key-locks)
-   * [1.7 关系数据库设计理论](#17-关系数据库设计理论)
-   * [1.8 ER 图](#18-er-图)
+* [1. 事务](#1-事务)
+   * [1.1 Mysql 隔离级别](#11-mysql-隔离级别)
 * [2. Mysql 架构](#2-mysql-架构)
 * [3. 索引](#3-索引)
    * [3.1 回表](#31-回表)
@@ -22,13 +13,9 @@ Table of Contents
    * [3.3 前缀索引（最左匹配原则应用）](#33-前缀索引最左匹配原则应用)
    * [3.4 Left Join &amp; Right Join 索引优化](#34-left-join--right-join-索引优化)
    * [3.5 覆盖索引](#35-覆盖索引)
-   * [3.6 COUNT(*) 优化](#36-count-优化)
-   * [3.7 小表驱动大表](#37-小表驱动大表)
-* [4. 存储引擎比较](#4-存储引擎比较)
-* [5. 数据类型](#5-数据类型)
-* [6. 复制](#6-复制)
+* [4. InnoDB 锁机制](#4-innodb-锁机制)
+   * [4.1 意向锁](#41-意向锁)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -36,38 +23,16 @@ Table of Contents
 
 
 
-## 1. 数据库原理
+## 1. 事务
 
-### 1.1 事务
+### 1.1 Mysql 隔离级别
 
-> 事务就是一组原子性的 SQL 语句，要么全部执行成功，要么全部执行失败
-
-#### 1.1.1 ACID
-
-一个运行良好的事务，必须具备 `ACID` 四个特性
-
-- Atomicity: 一个事务必须视为不可分割的最小工作单元（不能只执行事务的其中一部分）
-- Consistency: 数据库总是从一个一致性的状态转移到另一个一致性的状态（可理解为 C 是目的，AID 是手段）
-- Isolation: **通常来说**（后面会谈论事务的隔离级别），一个事务在未提交之前对其他事务是不可见的
-- Durability: 一旦事务提交，其所做的修改就会永久保存到数据库中
-
-#### 1.1.2 Mysql 中的事务
-
-
-
-### 1.2 并发一致性问题
-
-### 1.3 封锁
-
-### 1.4 隔离级别
-
-### 1.5 多版本并发控制
-
-### 1.6 Next-Key Locks
-
-### 1.7 关系数据库设计理论
-
-### 1.8 ER 图
+| 隔离级别         | 脏读可能性 | 不可重复读可能性 | 幻读可能性 | 加锁读 |
+| ---------------- | ---------- | ---------------- | ---------- | ------ |
+| read uncommitted | yes        | yes              | yes        | no     |
+| read committed   | no         | yes              | yes        | no     |
+| repeatable read  | no         | no               | yes        | no     |
+| serializable     | no         | no               | no         | yes    |
 
 
 
@@ -334,88 +299,20 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-### 3.6 COUNT(*) 优化
+## 4. InnoDB 锁机制
 
+### 4.1 意向锁
 
-
-### 3.7 小表驱动大表
-
-
-
-
-
-
-
-**Dirty read**
-
-读到了别的事务未 commit 的数据
-
-<div align="center"> <img src="image-20201220115049237.png" width="45%"/> </div><br>
-
-**Lost to modify**
-
-多个事务同时修改一个数据，造成修改丢失
-
-<div align="center"> <img src="image-20201220115421956.png" width="45%"/> </div><br>
-
-**Non-repeatable read & Phantom read**
-
-多次读的数据不一致（别的事务修改了）/ 多次读的数据条数不一致（别的事务新增/删减了数据）
-
-<div align="center"> <img src="image-20201220120446481.png" width="45%"/> </div><br>
-
-
-
-
-
-
-
-
-
-
-
-## 4. 存储引擎比较
-
-
-
-
-
-## 5. 数据类型
-
-
-
-
-
-
-
-## 6. 复制
-
-
-
-
-
-
-
-
-
-
+<div align="center"> <img src="is-ix-lock.png" width="60%"/> </div><br>
 
 
 
 ## References
 
 - 施瓦茨. 高性能 MYSQL(第3版)[M]. 电子工业出版社, 2013.
+- 姜承尧. MySQL技术内幕：InnoDB存储引擎(第2版)[M]. 机械工业出版社, 2018.
+- [15.7.1 InnoDB Locking](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
 - [MySQL实战45讲-极客时间](https://time.geekbang.org/column/intro/100020801)
-- [事务隔离级别(图文详解)](https://github.com/Snailclimb/JavaGuide/blob/master/docs/database/%E4%BA%8B%E5%8A%A1%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB(%E5%9B%BE%E6%96%87%E8%AF%A6%E8%A7%A3).md)
 - [尚硅谷MySQL数据库高级，mysql优化，数据库优化](https://www.bilibili.com/video/BV1KW411u7vy?from=search&seid=11888146484032851728)
-- [8.8.2 EXPLAIN Output Format](https://dev.mysql.com/doc/refman/8.0/en/explain-output.html)
 - [What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
-- [mysql联合索引](https://www.cnblogs.com/softidea/p/5977860.html)
-- [MySQL最左匹配原则，道儿上兄弟都得知道的原则](https://blog.csdn.net/qq_39390545/article/details/108540362)
-- [mysql 联合索引详解](https://blog.csdn.net/lmh12506/article/details/8879916)
-- [【原创】Mysql中select的正确姿势](https://www.cnblogs.com/rjzheng/p/9902911.html)
-- [MySQL 覆盖索引详解](https://juejin.cn/post/6844903967365791752)
-- [MySQL索引原理及慢查询优化](https://tech.meituan.com/2014/06/30/mysql-index.html)
-- [一文读懂MySQL的索引结构及查询优化](https://www.cnblogs.com/itwild/p/13703259.html)
-- [mysql怎么让左模糊查询也能走索引？](https://blog.csdn.net/weixin_38106322/article/details/106583450)
-- [MySQL - exists与in及any的用法](https://blog.csdn.net/J080624/article/details/72910548)
+

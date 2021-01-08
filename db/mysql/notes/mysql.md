@@ -36,8 +36,6 @@ Table of Contents
 
 
 
-
-
 ## 2. Mysql 架构
 
   <div align="center"> <img src="mysql-architecture.png" width="75%"/> </div><br>
@@ -304,6 +302,40 @@ CREATE INDEX idx_book_card ON book ( card );
 ### 4.1 意向锁
 
 <div align="center"> <img src="is-ix-lock.png" width="60%"/> </div><br>
+
+在存在行锁和表锁的情况下，事务 T 想要对表 A 加 X 锁，就需要检测是否有其他事务对表 A 或者表 A 中任一一行加了锁，即需要对表 A 每一行都检测一次，无疑是非常耗时的
+
+
+
+**意向锁有两个规定：**
+
+- 一个事务在获得某个数据行对象的  S 锁之前，必须先获得表的 IS 锁或者更强的锁
+- 一个事务在获得某个数据行对象的  X 锁之前，必须先获得表的 IX 锁
+
+
+
+### 4.2 MVCC
+
+#### 4.2.1 Undo log（重做日志）
+
+```mysql
+INSERT INTO t(id, a) VALUES (1, "A");
+UPDATE t SET a="B" WHERE id = 1;
+UPDATE t SET a="C" WHERE id = 1;
+```
+
+
+
+<div align="center"> <img src="undo-log.png" width="60%"/> </div><br>
+
+**注意⚠️**
+
+- 根据 `mysql` 的 `AUTOCOMMIT` 机制，每个语句都当作一个事务执行
+- 写操作（`INSERT`, `UPDATE`, `DELETE`）都会创建一个日志，并将当前的事务号 `TRX_ID` 写入
+
+
+
+
 
 
 

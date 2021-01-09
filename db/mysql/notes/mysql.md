@@ -4,18 +4,22 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
-* [1. 事务](#1-事务)
-   * [1.1 Mysql 隔离级别](#11-mysql-隔离级别)
-* [2. Mysql 架构](#2-mysql-架构)
-* [3. 索引](#3-索引)
-   * [3.1 回表](#31-回表)
-   * [3.2 联合索引：最左匹配原则](#32-联合索引最左匹配原则)
-   * [3.3 前缀索引（最左匹配原则应用）](#33-前缀索引最左匹配原则应用)
-   * [3.4 Left Join &amp; Right Join 索引优化](#34-left-join--right-join-索引优化)
-   * [3.5 覆盖索引](#35-覆盖索引)
-* [4. InnoDB 锁机制](#4-innodb-锁机制)
+* [1. Mysq基本架构](#1-mysq基本架构)
+* [2. 索引](#2-索引)
+   * [2.1 回表](#21-回表)
+   * [2.2 联合索引](#22-联合索引)
+   * [2.3 前缀索引](#23-前缀索引)
+   * [2.4 Left Join &amp; Right Join 索引优化](#24-left-join--right-join-索引优化)
+   * [2.5 覆盖索引](#25-覆盖索引)
+* [3. 事务](#3-事务)
+   * [3.1 redo log](#31-redo-log)
+   * [3.2 undo log](#32-undo-log)
+* [4. 锁（InnoDB）](#4-锁innodb)
    * [4.1 意向锁](#41-意向锁)
+   * [4.2 MVCC](#42-mvcc)
+      * [4.2.1 ReadView](#421-readview)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -23,30 +27,19 @@ Table of Contents
 
 
 
-## 1. 事务
-
-### 1.1 Mysql 隔离级别
-
-| 隔离级别         | 脏读可能性 | 不可重复读可能性 | 幻读可能性 | 加锁读 |
-| ---------------- | ---------- | ---------------- | ---------- | ------ |
-| read uncommitted | yes        | yes              | yes        | no     |
-| read committed   | no         | yes              | yes        | no     |
-| repeatable read  | no         | no               | yes        | no     |
-| serializable     | no         | no               | no         | yes    |
 
 
+## 1. Mysq基本架构
 
-## 2. Mysql 架构
+  <div align="center"> <img src="image-20210109111740739.png" width="70%"/> </div><br>
 
-  <div align="center"> <img src="mysql-architecture.png" width="75%"/> </div><br>
-
-## 3. 索引
+## 2. 索引
 
 **每一个索引在 InnoDB 里面对应一颗 B+ 树**
 
 
 
-### 3.1 回表
+### 2.1 回表
 
 举个例子，我们有一个主键列为 `ID` 的表，其中有个字段为 `k`，且 `k` 上有索引
 
@@ -94,7 +87,7 @@ SELECT * FROM table_name WHERE K = 5;
 
 
 
-### 3.2 联合索引：最左匹配原则
+### 2.2 联合索引
 
 **表设计 & 初始化 **
 
@@ -172,7 +165,7 @@ CREATE INDEX idx_category_views ON article ( category_id, views );
 
 <div align="center"> <img src="image-20201216224438990.png" width="100%"/> </div><br>
 
-### 3.3 前缀索引（最左匹配原则应用）
+### 2.3 前缀索引
 
 假设现在需要维护一个邮箱登录的系统，如何在邮箱这个字段高效地建立索引？
 
@@ -212,7 +205,7 @@ WHERE
 
 
 
-### 3.4 Left Join & Right Join 索引优化
+### 2.4 Left Join & Right Join 索引优化
 
 **表设计**
 
@@ -283,7 +276,7 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-### 3.5 覆盖索引
+### 2.5 覆盖索引
 
 通过遍历索引树就可以满足查询的字段，不用回表，即索引被覆盖了
 
@@ -295,9 +288,52 @@ CREATE INDEX idx_book_card ON book ( card );
 
 当 ` SELECT *` 的时候，若是遍历整个索引树（比如 `LIKE %xxx%`），可以认为造成了全表扫描（因为在遍历索引树的过程每次都需要回表）
 
+## 3. 事务
+
+### 3.1 redo log
+
+> redo log 用来保证事务的持久性，InnoDB 特有
+
+当有一条记录需要更新的时候，`InnoDB` 会将该记录写到 `redo log` 中，并更新内存。在系统较空闲的时候，再将此条记录更新到磁盘中
 
 
-## 4. InnoDB 锁机制
+
+<div align="center"> <img src="image-20210109113050644.png" width="50%"/> </div><br>
+
+
+
+**Example**
+
+```mysql
+CREATE TABLE t (
+	id int PRIMARY KEY,
+	c int
+);
+
+UPDATE T
+SET c = c + 1
+WHERE id = 2;
+```
+
+
+
+执行流程：
+
+1. 执行器找 `InnoDB` 查找 `id` = 2 的这一行数据，`InnoDB` 查找完成后返回给执行器
+2. 执行器将当前值置为 `N = N + 1`，找 `InnoDB` 更新数据
+3. `InnoDB` 将记录更新到内存中，写入 `redo log`（此时 `redo log` 处于 `prepare` 状态），告知执行器准备完毕，等待提交
+4. 执行器生成这个操作的 `binlog`，并写入磁盘
+5. 执行器调用 `InnoDB` 的事务提交接口，此时 `InnoDB` 将 `redo log` 的状态改为 `commit`，更新完成
+
+ 
+
+
+
+### 3.2 undo log
+
+
+
+## 4. 锁（InnoDB）
 
 ### 4.1 意向锁
 
@@ -316,24 +352,67 @@ CREATE INDEX idx_book_card ON book ( card );
 
 ### 4.2 MVCC
 
-#### 4.2.1 Undo log（重做日志）
+> 行锁的变种，在大多情况下实现了非阻塞读，写操作也只锁定部分行
+
+**Example**
+
+建表
 
 ```mysql
-INSERT INTO t(id, a) VALUES (1, "A");
-UPDATE t SET a="B" WHERE id = 1;
-UPDATE t SET a="C" WHERE id = 1;
+CREATE TABLE t (
+	id int PRIMARY KEY,
+	k int DEFAULT NULL
+) ENGINE = InnoDB;
 ```
 
+插入数据
+
+```mysql
+INSERT INTO t (id, k)
+VALUES (1, 1);
+
+INSERT INTO t (id, k)
+VALUES (2, 2);
+```
+
+事务 `T1`，`T2`，`T3` 执行流程：
+
+| T1                                          | T2                                                           | T3                                   |
+| ------------------------------------------- | ------------------------------------------------------------ | ------------------------------------ |
+| start transaction with consistent snapshot; |                                                              |                                      |
+|                                             | start transaction with consistent snapshot;                  |                                      |
+|                                             |                                                              | update t set k = k + 1 where id = 1; |
+|                                             | update t set k = k + 1 where id = 1;<br />select k from t where id = 1; |                                      |
+| select k from t where id = 1;<br />commit;  |                                                              |                                      |
+|                                             | commit;                                                      |                                      |
 
 
-<div align="center"> <img src="undo-log.png" width="60%"/> </div><br>
 
-**注意⚠️**
+**P.S**
 
-- 根据 `mysql` 的 `AUTOCOMMIT` 机制，每个语句都当作一个事务执行
-- 写操作（`INSERT`, `UPDATE`, `DELETE`）都会创建一个日志，并将当前的事务号 `TRX_ID` 写入
+- 使用 `start/begin transaction` 方式启动事务，一致性视图是在执行第一个快照读语句时创建的
+- 使用 `start transaction with consistent snapshot`，一致性视图立马创建
 
 
+
+**结果**
+
+- `T1` 查到的 K 值是 1
+- `T2` 查到的 K 值是 3
+
+#### 4.2.1 ReadView
+
+> ReadView 中有一个列表存储系统活跃（事务开始但未 commit）的读写事务，通过该列表来判断记录的某个版本是否对当前事务可见
+
+
+
+<div align="center"> <img src="image-20210109145443490.png" width="70%"/> </div><br>
+
+**说明**
+
+- 虚线框代表着某一行的数据，即一行数据可存在多个 row（版本），每个 row 都有自己的 `row trx_id`（row 的英文解释是 a number of people or things in a more or less straight line）
+- 虚线箭头就是 `undo log`
+- V1，V2，V3 不是物理上存在的，需计算
 
 
 
@@ -347,4 +426,3 @@ UPDATE t SET a="C" WHERE id = 1;
 - [MySQL实战45讲-极客时间](https://time.geekbang.org/column/intro/100020801)
 - [尚硅谷MySQL数据库高级，mysql优化，数据库优化](https://www.bilibili.com/video/BV1KW411u7vy?from=search&seid=11888146484032851728)
 - [What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
-

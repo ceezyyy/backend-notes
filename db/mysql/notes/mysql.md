@@ -4,7 +4,7 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
-* [1. Mysq基本架构](#1-mysq基本架构)
+* [1. 基本架构](#1-基本架构)
 * [2. 索引](#2-索引)
    * [2.1 回表](#21-回表)
    * [2.2 联合索引](#22-联合索引)
@@ -18,6 +18,7 @@ Table of Contents
    * [4.1 意向锁](#41-意向锁)
    * [4.2 MVCC](#42-mvcc)
       * [4.2.1 ReadView](#421-readview)
+      * [4.2.2 Example](#422-example)
 * [References](#references)
 
 
@@ -29,7 +30,7 @@ Table of Contents
 
 
 
-## 1. Mysq基本架构
+## 1. 基本架构
 
   <div align="center"> <img src="image-20210109111740739.png" width="70%"/> </div><br>
 
@@ -402,19 +403,32 @@ VALUES (2, 2);
 
 #### 4.2.1 ReadView
 
-> ReadView 中有一个列表存储系统活跃（事务开始但未 commit）的读写事务，通过该列表来判断记录的某个版本是否对当前事务可见
+> InnoDB 为每个事务构造了一个数组，用来保存该事务启动瞬间当前 “活跃” 的事务 ID 集合
 
 
+
+<div align="center"> <img src="image-20210109154530693.png" width="60%"/> </div><br>
+
+**Explained**
+
+- 低水位：当前活跃事务 ID 最小值；高水位：当前活跃事务 ID 最大值 + 1
+- 对于当前事务的启动瞬间，一个数据版本的 `row trx_id`：
+  - 若在绿色部分：可见；若在红色部分：不可见
+  - 若在黄色部分：
+    - 若 `row trx_id` 在数组中：不可见（这个版本是由还未提交的事务生成的）
+    - 若 `row trx_id` 不在在数组中：可见（这个版本是已经提交的事务生成的）
+
+
+
+#### 4.2.2 Example
 
 <div align="center"> <img src="image-20210109145443490.png" width="70%"/> </div><br>
 
-**说明**
+**P.S**
 
 - 虚线框代表着某一行的数据，即一行数据可存在多个 row（版本），每个 row 都有自己的 `row trx_id`（row 的英文解释是 a number of people or things in a more or less straight line）
 - 虚线箭头就是 `undo log`
-- V1，V2，V3 不是物理上存在的，需计算
-
-
+- V1，V2，V3 不是物理上存在的，需计算得出
 
 
 
@@ -422,7 +436,7 @@ VALUES (2, 2);
 
 - 施瓦茨. 高性能 MYSQL(第3版)[M]. 电子工业出版社, 2013.
 - 姜承尧. MySQL技术内幕：InnoDB存储引擎(第2版)[M]. 机械工业出版社, 2018.
-- [15.7.1 InnoDB Locking](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
 - [MySQL实战45讲-极客时间](https://time.geekbang.org/column/intro/100020801)
 - [尚硅谷MySQL数据库高级，mysql优化，数据库优化](https://www.bilibili.com/video/BV1KW411u7vy?from=search&seid=11888146484032851728)
 - [What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
+- [CyC2018/CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86.md)

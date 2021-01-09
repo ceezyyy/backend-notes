@@ -21,7 +21,6 @@ Table of Contents
       * [4.2.2 Example](#422-example)
 * [References](#references)
 
-
 ## Brainstorming
 
   <div align="center"> <img src="mysql.svg" width="100%"/> </div><br>
@@ -355,7 +354,22 @@ WHERE id = 2;
 
 > 行锁的变种，在大多情况下实现了非阻塞读，写操作也只锁定部分行
 
-**Example**
+#### 4.2.1 ReadView
+
+> MVCC 维护了一个 ReadView 结构，主要包含了当前系统活跃的事务列表 TRX_IDs
+
+<div align="center"> <img src="image-20210109154530693.png" width="60%"/> </div><br>
+
+**Explained**
+
+- 低水位：当前活跃事务 ID 最小值；高水位：当前活跃事务 ID 最大值 + 1
+- 对于当前事务的启动瞬间，一个数据版本的 `row trx_id`：
+  - 若在绿色部分：可见；若在红色部分：不可见
+  - 若在黄色部分：**是否可见需要看具体隔离级别**
+    - 若 `row trx_id` 在 `TRX_IDs` 中：表示这个版本是由未 commit 的事务生成的
+    - 若 `row trx_id` 不在 `TRX_IDs` 中：表示这个版本是已 commit 的事务生成的
+
+#### 4.2.2 Example
 
 建表
 
@@ -401,34 +415,9 @@ VALUES (2, 2);
 - `T1` 查到的 K 值是 1
 - `T2` 查到的 K 值是 3
 
-#### 4.2.1 ReadView
-
-> InnoDB 为每个事务构造了一个数组，用来保存该事务启动瞬间当前 “活跃” 的事务 ID 集合
 
 
 
-<div align="center"> <img src="image-20210109154530693.png" width="60%"/> </div><br>
-
-**Explained**
-
-- 低水位：当前活跃事务 ID 最小值；高水位：当前活跃事务 ID 最大值 + 1
-- 对于当前事务的启动瞬间，一个数据版本的 `row trx_id`：
-  - 若在绿色部分：可见；若在红色部分：不可见
-  - 若在黄色部分：
-    - 若 `row trx_id` 在数组中：不可见（这个版本是由还未提交的事务生成的）
-    - 若 `row trx_id` 不在在数组中：可见（这个版本是已经提交的事务生成的）
-
-
-
-#### 4.2.2 Example
-
-<div align="center"> <img src="image-20210109145443490.png" width="70%"/> </div><br>
-
-**P.S**
-
-- 虚线框代表着某一行的数据，即一行数据可存在多个 row（版本），每个 row 都有自己的 `row trx_id`（row 的英文解释是 a number of people or things in a more or less straight line）
-- 虚线箭头就是 `undo log`
-- V1，V2，V3 不是物理上存在的，需计算得出
 
 
 

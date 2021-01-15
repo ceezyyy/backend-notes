@@ -4,7 +4,7 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
-* [1. 基本架构](#1-基本架构)
+* [1. Mysql 基本架构](#1-mysql-基本架构)
 * [2. 索引](#2-索引)
    * [2.1 回表](#21-回表)
    * [2.2 联合索引](#22-联合索引)
@@ -13,13 +13,17 @@ Table of Contents
    * [2.5 覆盖索引](#25-覆盖索引)
 * [3. 事务](#3-事务)
    * [3.1 redo log](#31-redo-log)
+      * [3.1.1 实现 crash-safe](#311-实现-crash-safe)
+      * [3.1.2 两阶段提交](#312-两阶段提交)
    * [3.2 undo log](#32-undo-log)
+   * [3.3 redo log 和 undo log 实现 ACID](#33-redo-log-和-undo-log-实现-acid)
 * [4. 锁（InnoDB）](#4-锁innodb)
    * [4.1 意向锁](#41-意向锁)
    * [4.2 MVCC](#42-mvcc)
       * [4.2.1 ReadView](#421-readview)
       * [4.2.2 Example](#422-example)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -29,7 +33,7 @@ Table of Contents
 
 
 
-## 1. 基本架构
+## 1. Mysql 基本架构
 
   <div align="center"> <img src="image-20210109111740739.png" width="70%"/> </div><br>
 
@@ -290,44 +294,67 @@ CREATE INDEX idx_book_card ON book ( card );
 
 ## 3. 事务
 
-### 3.1 如何实现事务 ACID?
+### 3.1 redo log
 
-#### 3.1.1 redo log
-
-> redo log 用来保证事务的持久性，InnoDB 特有
+> redo log 用来保证事务的持久性（InnoDB 特有）
 
 当有一条记录需要更新的时候，`InnoDB` 会将该记录写到 `redo log` 中，并更新内存。在系统较空闲的时候，再将此条记录更新到磁盘中
 
 
 
-<div align="center"> <img src="image-20210109113050644.png" width="50%"/> </div><br>
+<div align="center"> <img src="InnoDB_REDO.png" width="60%"/> </div><br>
+
+#### 3.1.1 实现 crash-safe
+
+<div align="center"> <img src="redo_log.png" width="70%"/> </div><br>
 
 
 
-**Example**
+#### 3.1.2 两阶段提交
 
-```mysql
-CREATE TABLE t (
-	id int PRIMARY KEY,
-	c int
-);
-
-UPDATE T
-SET c = c + 1
-WHERE id = 2;
-```
+<div align="center"> <img src="group-commit.png" width="60%"/> </div><br>
 
 
 
-执行流程：
 
-1. 执行器找 `InnoDB` 查找 `id` = 2 的这一行数据，`InnoDB` 查找完成后返回给执行器
-2. 执行器将当前值置为 `N = N + 1`，找 `InnoDB` 更新数据
-3. `InnoDB` 将记录更新到内存中，写入 `redo log`（此时 `redo log` 处于 `prepare` 状态），告知执行器准备完毕，等待提交
-4. 执行器生成这个操作的 `binlog`，并写入磁盘
-5. 执行器调用 `InnoDB` 的事务提交接口，此时 `InnoDB` 将 `redo log` 的状态改为 `commit`，更新完成
 
- 
+### 3.2 undo log
+
+> 事务的 rollback 通过 undo log 实现
+
+`undo log` 是逻辑日志
+
+举个例子，用户执行了一个 `INSERT 10w` 条数据的事务，这个事务会导致表空间增大。在用户 `rollback` 的时候，实际上做的是与之前（逻辑）相反的操作，即表空间并没有因此收缩：
+
+- 对于每个 `INSERT`，`InnoDB` 会完成一个 `DELETE`（反之亦然）
+- 对于每个 `UPDATE`，`InnoDB` 会完成一个相反的 `UPDATE`
+
+
+
+### 3.3 redo log 和 undo log 实现 ACID
+
+> redo log: 记录事务的行为以实现持久化
+>
+> undo log: 支撑事务的 rollback 操作
+
+举个例子，现在需要将 a 字段的值由 1 改为 3，b 字段的值由 2 改为 4
+
+| column | value |
+| ------ | ----- |
+| a      | 1     |
+| b      | 2     |
+
+**执行流程**
+
+1. start transaction
+2. a = 1 -> 写入 `undo log`
+3. 写入/更新 a = 3
+4. a = 3 -> 写入 `redo log`
+5. b = 2 -> 写入 `undo log`
+6. 写入/更新 b = 4
+7. b = 4 -> 写入 `redo log`
+8. 将 `redo log` 刷入磁盘实现持久化
+9. commit
 
 
 
@@ -427,4 +454,7 @@ VALUES (2, 2);
 - [尚硅谷MySQL数据库高级，mysql优化，数据库优化](https://www.bilibili.com/video/BV1KW411u7vy?from=search&seid=11888146484032851728)
 - [What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
 - [CyC2018/CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86.md)
-
+- [说说MySQL中的Redo log Undo log都在干啥](https://www.cnblogs.com/xinysu/p/6555082.html)
+- [Innodb中的事务隔离级别和锁的关系](https://tech.meituan.com/2014/08/20/innodb-lock.html)
+- [Mysql锁：灵魂七拷问](https://tech.youzan.com/seven-questions-about-the-lock-of-mysql/)
+- [How is a query executed in MySQL](https://qxf2.com/blog/mysql-query-execution/)

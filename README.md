@@ -14,9 +14,8 @@
 - [Data Structures & Algorithms](https://github.com/ceezyyy/LeetCode-daily)
 - [Computer Networking](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/networking.md)
 - [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/OS.md)
-- [Design Patterns](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/index.md)
 
-
+  
 
 ## :coffee: Java 
 
@@ -48,15 +47,13 @@
 
 ## :bulb: System Design
 
-
+- [Design Patterns](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/index.md)
 
 
 
 ## :shield: Security 
 
 - [SpringSecurity](https://github.com/ceezyyy/backend-notes/blob/master/Security/SpringSecurity/notes/SpringSecurity.md)
-
-  
 
 
 

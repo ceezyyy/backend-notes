@@ -290,7 +290,9 @@ CREATE INDEX idx_book_card ON book ( card );
 
 ## 3. 事务
 
-### 3.1 redo log
+### 3.1 如何实现事务 ACID?
+
+#### 3.1.1 redo log
 
 > redo log 用来保证事务的持久性，InnoDB 特有
 
@@ -326,10 +328,6 @@ WHERE id = 2;
 5. 执行器调用 `InnoDB` 的事务提交接口，此时 `InnoDB` 将 `redo log` 的状态改为 `commit`，更新完成
 
  
-
-
-
-### 3.2 undo log
 
 
 
@@ -429,3 +427,4 @@ VALUES (2, 2);
 - [尚硅谷MySQL数据库高级，mysql优化，数据库优化](https://www.bilibili.com/video/BV1KW411u7vy?from=search&seid=11888146484032851728)
 - [What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
 - [CyC2018/CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86.md)
+

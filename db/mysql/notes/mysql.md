@@ -381,6 +381,10 @@ S Lock 和 X Lock 兼容性矩阵
 
 <div align="center"> <img src="intention-lock.png" width="60%"/> </div><br>
 
+**Table-level lock** type compatibility is summarized in the following matrix
+
+// TODO
+
 
 
 ### 4.2 MVCC
@@ -467,4 +471,4 @@ VALUES (2, 2);
 - [Mysql锁：灵魂七拷问](https://tech.youzan.com/seven-questions-about-the-lock-of-mysql/)
 - [How is a query executed in MySQL](https://qxf2.com/blog/mysql-query-execution/)
 - [octachrome/innodb-locks](https://github.com/octachrome/innodb-locks)
-
+- [15.7.1 InnoDB Locking](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)

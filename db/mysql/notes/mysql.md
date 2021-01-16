@@ -1,7 +1,7 @@
 # MySQL
 
 Table of Contents
-=================
+-----------------
 
 * [Brainstorming](#brainstorming)
 * [1. Mysql 基本架构](#1-mysql-基本架构)
@@ -20,11 +20,9 @@ Table of Contents
 * [4. 锁](#4-锁)
    * [4.1 S Lock &amp; X Lock](#41-s-lock--x-lock)
    * [4.2 Intention Lock](#42-intention-lock)
-   * [4.2 MVCC](#42-mvcc)
+   * [4.2 一致性非锁定读](#42-一致性非锁定读)
       * [4.2.1 ReadView](#421-readview)
-      * [4.2.2 Example](#422-example)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -304,7 +302,7 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-<div align="center"> <img src="InnoDB_REDO.png" width="60%"/> </div><br>
+<div align="center"> <img src="InnoDB_REDO.png" width="55%"/> </div><br>
 
 #### 3.1.1 实现 crash-safe
 
@@ -315,10 +313,6 @@ CREATE INDEX idx_book_card ON book ( card );
 #### 3.1.2 两阶段提交
 
 <div align="center"> <img src="group-commit.png" width="60%"/> </div><br>
-
-
-
-
 
 ### 3.2 undo log
 
@@ -377,19 +371,74 @@ S Lock 和 X Lock 兼容性矩阵
 > 1. Before a transaction can acquire an S lock on a row in table t, it must first acquire an IS or stronger lock on table t.
 > 2. Before a transaction can acquire an X lock on a row, it must first acquire an IX lock on table t.
 
-
-
 <div align="center"> <img src="intention-lock.png" width="60%"/> </div><br>
 
-**Table-level lock** type compatibility is summarized in the following matrix
+不同**表锁**的兼容性矩阵
 
-// TODO
+| Lock held | Lock wanted | Granted? |
+| --------- | ----------- | -------- |
+| S         | S           | Yes      |
+| S         | X           | No       |
+| S         | IS          | Yes      |
+| S         | IX          | No       |
+| X         | S           | No       |
+| X         | X           | No       |
+| X         | IS          | No       |
+| X         | IX          | No       |
+| IS        | S           | Yes      |
+| IS        | X           | No       |
+| IS        | IS          | Yes      |
+| IS        | IX          | Yes      |
+| IX        | S           | No       |
+| IX        | X           | No       |
+| IX        | IS          | Yes      |
+| IX        | IX          | Yes      |
+
+**P.S**
+
+- `IS` 锁与 `IX` 锁两两并不互斥，因为锁的不一定是同一行记录
+- 该兼容矩阵针对表锁
 
 
 
-### 4.2 MVCC
+**Example**
 
-> 行锁的变种，在大多情况下实现了非阻塞读，写操作也只锁定部分行
+**事务 t1**
+
+```mysql
+SELECT * FROM mytable WHERE id = 6 FOR UPDATE;
+```
+
+1. t1 申请 `mytable` 表的 IX 锁，申请成功
+2. t1 获得 `mytable` 表 id 为 6 一行的 X 锁（仍未 commit）
+
+**事务 t2**
+
+```mysql
+LOCK TABLES mytable READ;
+```
+
+1. t2 想申请 `mytable` 表的 S 锁（表锁），但 `mytable` 表上已有 IX 锁，请求阻塞
+
+**事务 t3**
+
+```mysql
+SELECT * FROM mytable WHERE id = 5 FOR UPDATE;
+```
+
+1. t3 申请 `mytable` 表的 IX 锁
+2. 此时 `mytable` 表已有 t1 的  IX 锁，但由于 IX 锁互相兼容，故 t3 申请 IX 锁成功
+3. t3 获得 `mytable` 表 id 为 5 一行的 X 锁
+
+
+
+### 4.2 一致性非锁定读
+
+> 写：更新最新版本数据；读：读旧版本的 snapshot
+
+
+
+<div align="center"> <img src="consistent-nonlocking-read.jpg" width="55%"/> </div><br>
 
 #### 4.2.1 ReadView
 
@@ -405,56 +454,6 @@ S Lock 和 X Lock 兼容性矩阵
   - 若在黄色部分：**是否可见需要看具体隔离级别**
     - 若 `row trx_id` 在 `TRX_IDs` 中：表示这个版本是由未 commit 的事务生成的
     - 若 `row trx_id` 不在 `TRX_IDs` 中：表示这个版本是已 commit 的事务生成的
-
-#### 4.2.2 Example
-
-建表
-
-```mysql
-CREATE TABLE t (
-	id int PRIMARY KEY,
-	k int DEFAULT NULL
-) ENGINE = InnoDB;
-```
-
-插入数据
-
-```mysql
-INSERT INTO t (id, k)
-VALUES (1, 1);
-
-INSERT INTO t (id, k)
-VALUES (2, 2);
-```
-
-事务 `T1`，`T2`，`T3` 执行流程：
-
-| T1                                          | T2                                                           | T3                                   |
-| ------------------------------------------- | ------------------------------------------------------------ | ------------------------------------ |
-| start transaction with consistent snapshot; |                                                              |                                      |
-|                                             | start transaction with consistent snapshot;                  |                                      |
-|                                             |                                                              | update t set k = k + 1 where id = 1; |
-|                                             | update t set k = k + 1 where id = 1;<br />select k from t where id = 1; |                                      |
-| select k from t where id = 1;<br />commit;  |                                                              |                                      |
-|                                             | commit;                                                      |                                      |
-
-
-
-**P.S**
-
-- 使用 `start/begin transaction` 方式启动事务，一致性视图是在执行第一个快照读语句时创建的
-- 使用 `start transaction with consistent snapshot`，一致性视图立马创建
-
-
-
-**结果**
-
-- `T1` 查到的 K 值是 1
-- `T2` 查到的 K 值是 3
-
-
-
-
 
 
 

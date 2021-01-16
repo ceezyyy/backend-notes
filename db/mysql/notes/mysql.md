@@ -1,7 +1,7 @@
 # MySQL
 
 Table of Contents
------------------
+=================
 
 * [Brainstorming](#brainstorming)
 * [1. Mysql 基本架构](#1-mysql-基本架构)
@@ -17,12 +17,14 @@ Table of Contents
       * [3.1.2 两阶段提交](#312-两阶段提交)
    * [3.2 undo log](#32-undo-log)
    * [3.3 redo log 和 undo log 实现 ACID](#33-redo-log-和-undo-log-实现-acid)
-* [4. 锁（InnoDB）](#4-锁innodb)
-   * [4.1 意向锁](#41-意向锁)
+* [4. 锁](#4-锁)
+   * [4.1 S Lock &amp; X Lock](#41-s-lock--x-lock)
+   * [4.2 Intention Lock](#42-intention-lock)
    * [4.2 MVCC](#42-mvcc)
       * [4.2.1 ReadView](#421-readview)
       * [4.2.2 Example](#422-example)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -296,7 +298,7 @@ CREATE INDEX idx_book_card ON book ( card );
 
 ### 3.1 redo log
 
-> redo log 用来保证事务的持久性（InnoDB 特有）
+> redo log 用来保证事务的持久性
 
 当有一条记录需要更新的时候，`InnoDB` 会将该记录写到 `redo log` 中，并更新内存。在系统较空闲的时候，再将此条记录更新到磁盘中
 
@@ -333,9 +335,8 @@ CREATE INDEX idx_book_card ON book ( card );
 
 ### 3.3 redo log 和 undo log 实现 ACID
 
-> redo log: 记录事务的行为以实现持久化
+> redo log: 记录事务的行为以实现持久化 | undo log: 支撑事务的 rollback 操作
 >
-> undo log: 支撑事务的 rollback 操作
 
 举个例子，现在需要将 a 字段的值由 1 改为 3，b 字段的值由 2 改为 4
 
@@ -358,20 +359,27 @@ CREATE INDEX idx_book_card ON book ( card );
 
 
 
-## 4. 锁（InnoDB）
+## 4. 锁
 
-### 4.1 意向锁
+### 4.1 S Lock & X Lock
 
-<div align="center"> <img src="is-ix-lock.png" width="60%"/> </div><br>
+S Lock 和 X Lock 兼容性矩阵
 
-在存在行锁和表锁的情况下，事务 T 想要对表 A 加 X 锁，就需要检测是否有其他事务对表 A 或者表 A 中任一一行加了锁，即需要对表 A 每一行都检测一次，无疑是非常耗时的
+| Lock held | Lock wanted | Granted? |
+| --------- | ----------- | -------- |
+| S         | S           | Yes      |
+| S         | X           | No       |
+| X         | S           | No       |
+| X         | X           | No       |
+
+### 4.2 Intention Lock
+
+> 1. Before a transaction can acquire an S lock on a row in table t, it must first acquire an IS or stronger lock on table t.
+> 2. Before a transaction can acquire an X lock on a row, it must first acquire an IX lock on table t.
 
 
 
-**意向锁有两个规定：**
-
-- 一个事务在获得某个数据行对象的  S 锁之前，必须先获得表的 IS 锁或者更强的锁
-- 一个事务在获得某个数据行对象的  X 锁之前，必须先获得表的 IX 锁
+<div align="center"> <img src="intention-lock.png" width="60%"/> </div><br>
 
 
 
@@ -458,3 +466,5 @@ VALUES (2, 2);
 - [Innodb中的事务隔离级别和锁的关系](https://tech.meituan.com/2014/08/20/innodb-lock.html)
 - [Mysql锁：灵魂七拷问](https://tech.youzan.com/seven-questions-about-the-lock-of-mysql/)
 - [How is a query executed in MySQL](https://qxf2.com/blog/mysql-query-execution/)
+- [octachrome/innodb-locks](https://github.com/octachrome/innodb-locks)
+

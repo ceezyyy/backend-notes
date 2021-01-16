@@ -12,7 +12,7 @@
 ## :key: ​CS Core
 
 - [Data Structures & Algorithms](https://github.com/ceezyyy/LeetCode-daily)
-- [Computer Networking](https://github.com/ceezyyy/backend-notes/blob/master/Core/networking/notes/networking.md)
+- Computer Networking
 - [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/OS.md)
 
   
@@ -20,7 +20,7 @@
 ## :coffee: Java 
 
 - [Basic](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/notes/basic.md)
-- [Collections](https://github.com/ceezyyy/backend-notes/blob/master/Java/collections/notes/index.md)
+- Collections
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
 - Concurrency
 - IO
@@ -31,7 +31,7 @@
 
 - [SQL Practice](https://github.com/ceezyyy/backend-notes/blob/master/db/sql/sql-prac.md)
 - [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/notes/mysql.md)
-- [Redis](https://github.com/ceezyyy/backend-notes/blob/master/db/redis/notes/Redis.md)
+- Redis
 
 
 
@@ -47,7 +47,7 @@
 
 ## :bulb: System Design
 
-- [Design Patterns](https://github.com/ceezyyy/backend-notes/blob/master/Core/DesignPatterns/index.md)
+- Design Patterns
 
 
 
@@ -62,3 +62,4 @@
 - [Maven](https://github.com/ceezyyy/backend-notes/blob/master/tools/Maven/Maven.md)
 - [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/tools/Swagger/notes/Swagger.md)
 - [Git](https://github.com/ceezyyy/backend-notes/blob/master/tools/git/notes/git.md)
+

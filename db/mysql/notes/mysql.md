@@ -24,7 +24,6 @@ Table of Contents
       * [4.2.1 ReadView](#421-readview)
 * [References](#references)
 
-
 ## Brainstorming
 
   <div align="center"> <img src="mysql.svg" width="100%"/> </div><br>
@@ -409,8 +408,8 @@ S Lock 和 X Lock 兼容性矩阵
 SELECT * FROM mytable WHERE id = 6 FOR UPDATE;
 ```
 
-1. t1 申请 `mytable` 表的 IX 锁，申请成功
-2. t1 获得 `mytable` 表 id 为 6 一行的 X 锁（仍未 commit）
+1. t1 申请 `mytable` 表的 `IX` 锁，申请成功
+2. t1 获得 `mytable` 表 id 为 6 一行的 `X` 锁（仍未 commit）
 
 **事务 t2**
 
@@ -418,7 +417,7 @@ SELECT * FROM mytable WHERE id = 6 FOR UPDATE;
 LOCK TABLES mytable READ;
 ```
 
-1. t2 想申请 `mytable` 表的 S 锁（表锁），但 `mytable` 表上已有 IX 锁，请求阻塞
+1. t2 想申请 `mytable` 表的 `S` 锁（表锁），但 `mytable` 表上已有 `IX` 锁，请求阻塞
 
 **事务 t3**
 
@@ -426,9 +425,9 @@ LOCK TABLES mytable READ;
 SELECT * FROM mytable WHERE id = 5 FOR UPDATE;
 ```
 
-1. t3 申请 `mytable` 表的 IX 锁
-2. 此时 `mytable` 表已有 t1 的  IX 锁，但由于 IX 锁互相兼容，故 t3 申请 IX 锁成功
-3. t3 获得 `mytable` 表 id 为 5 一行的 X 锁
+1. t3 申请 `mytable` 表的 `IX` 锁
+2. 此时 `mytable` 表已有 t1 的  `IX` 锁，但由于 `IX` 锁互相兼容，故 t3 申请 `IX` 锁成功
+3. t3 获得 `mytable` 表 id 为 5 一行的 `X` 锁
 
 
 
@@ -448,12 +447,50 @@ SELECT * FROM mytable WHERE id = 5 FOR UPDATE;
 
 **Explained**
 
-- 低水位：当前活跃事务 ID 最小值；高水位：当前活跃事务 ID 最大值 + 1
-- 对于当前事务的启动瞬间，一个数据版本的 `row trx_id`：
-  - 若在绿色部分：可见；若在红色部分：不可见
-  - 若在黄色部分：**是否可见需要看具体隔离级别**
-    - 若 `row trx_id` 在 `TRX_IDs` 中：表示这个版本是由未 commit 的事务生成的
-    - 若 `row trx_id` 不在 `TRX_IDs` 中：表示这个版本是已 commit 的事务生成的
+对于事务 t1 启动的瞬间，`ReadView` 保存了当前活跃事务集合（begin 但仍未 commit 的事务）
+
+- 若在绿色部分：**可见**
+- 若在黄色部分：**不可见**
+- 若在红色部分：**不可见**
+
+
+
+**Example**
+
+```mysql
+# Session A
+BEGIN;
+	SELECT
+		age 
+	FROM
+		staff 
+	WHERE
+	id = 3;
+COMMIT;
+```
+
+```mysql
+# Session B
+BEGIN;
+	UPDATE staff 
+	SET age = 7 
+	WHERE
+	id = 3;
+COMMIT;
+```
+
+**执行流程（模拟并发操作）**
+
+| Timeline | Session A                                       | Session B                              |
+| -------- | ----------------------------------------------- | -------------------------------------- |
+| 1        | BEGIN;                                          |                                        |
+| 2        | SELECT age FROM staff WHERE id = 3;（age 为 3） |                                        |
+| 3        |                                                 | BEGIN;                                 |
+| 4        |                                                 | UPDATE staff SET age = 7 WHERE id = 3; |
+| 5        | SELECT age FROM staff WHERE id = 3;（age 为 3） |                                        |
+| 6        |                                                 | COMMIT:                                |
+| 7        | SELECT age FROM staff WHERE id = 3;（age 为 3） |                                        |
+| 8        | COMMIT;                                         |                                        |
 
 
 

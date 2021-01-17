@@ -431,15 +431,15 @@ SELECT * FROM mytable WHERE id = 5 FOR UPDATE;
 
 
 
-### 4.2 一致性非锁定读
+### 4.3 一致性非锁定读
 
-> 写：更新最新版本数据；读：读旧版本的 snapshot
+> 写：新增 snapshot 数据；读：旧 snapshot 数据
 
 
 
 <div align="center"> <img src="consistent-nonlocking-read.jpg" width="55%"/> </div><br>
 
-#### 4.2.1 ReadView
+#### 4.3.1 ReadView
 
 > MVCC 维护了一个 ReadView 结构，主要包含了当前系统活跃的事务列表 TRX_IDs
 
@@ -492,6 +492,18 @@ COMMIT;
 
 
 
+
+
+### 4.4 锁的算法
+
+#### 4.4.1 两阶段锁协议
+
+<div align="center"> <img src="2-phase-locking.png" width="70%"/> </div><br>
+
+
+
+
+
 ## References
 
 - 施瓦茨. 高性能 MYSQL(第3版)[M]. 电子工业出版社, 2013.
@@ -506,3 +518,4 @@ COMMIT;
 - [How is a query executed in MySQL](https://qxf2.com/blog/mysql-query-execution/)
 - [octachrome/innodb-locks](https://github.com/octachrome/innodb-locks)
 - [15.7.1 InnoDB Locking](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
+- [MySql-两阶段加锁协议](https://blog.csdn.net/qq4165498/article/details/76855139)

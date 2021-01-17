@@ -4,7 +4,7 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
-* [1. Mysql 基本架构](#1-mysql-基本架构)
+* [1. 基本架构](#1-mysql-基本架构)
 * [2. 索引](#2-索引)
    * [2.1 回表](#21-回表)
    * [2.2 联合索引](#22-联合索引)
@@ -36,9 +36,9 @@ Table of Contents
 
 
 
-## 1. Mysql 基本架构
+## 1. 基本架构
 
-  <div align="center"> <img src="image-20210109111740739.png" width="70%"/> </div><br>
+  <div align="center"> <img src="image-20210109111740739.png" width="60%"/> </div><br>
 
 ## 2. 索引
 
@@ -442,10 +442,6 @@ SELECT * FROM mytable WHERE id = 5 FOR UPDATE;
 ### 4.4 一致性非锁定读
 
 > 写：新增 snapshot 数据；读：旧 snapshot 数据
-
-
-
-<div align="center"> <img src="consistent-nonlocking-read.jpg" width="55%"/> </div><br>
 
 #### 4.4.1 ReadView
 

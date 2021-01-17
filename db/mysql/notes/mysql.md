@@ -20,9 +20,13 @@ Table of Contents
 * [4. 锁](#4-锁)
    * [4.1 S Lock &amp; X Lock](#41-s-lock--x-lock)
    * [4.2 Intention Lock](#42-intention-lock)
-   * [4.2 一致性非锁定读](#42-一致性非锁定读)
-      * [4.2.1 ReadView](#421-readview)
+   * [4.3 两阶段锁协议](#43-两阶段锁协议)
+   * [4.4 一致性非锁定读](#44-一致性非锁定读)
+      * [4.4.1 ReadView](#441-readview)
+   * [4.5 锁的算法](#45-锁的算法)
+      * [4.5.1 Next-Key Lock](#451-next-key-lock)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -431,7 +435,11 @@ SELECT * FROM mytable WHERE id = 5 FOR UPDATE;
 
 
 
-### 4.3 一致性非锁定读
+### 4.3 两阶段锁协议
+
+<div align="center"> <img src="2-phase-locking.png" width="70%"/> </div><br>
+
+### 4.4 一致性非锁定读
 
 > 写：新增 snapshot 数据；读：旧 snapshot 数据
 
@@ -439,7 +447,7 @@ SELECT * FROM mytable WHERE id = 5 FOR UPDATE;
 
 <div align="center"> <img src="consistent-nonlocking-read.jpg" width="55%"/> </div><br>
 
-#### 4.3.1 ReadView
+#### 4.4.1 ReadView
 
 > MVCC 维护了一个 ReadView 结构，主要包含了当前系统活跃的事务列表 TRX_IDs
 
@@ -479,26 +487,37 @@ COMMIT;
 
 **执行流程（模拟并发操作）**
 
-| Timeline | Session A                                       | Session B                              |
-| -------- | ----------------------------------------------- | -------------------------------------- |
-| 1        | BEGIN;                                          |                                        |
-| 2        | SELECT age FROM staff WHERE id = 3;（age 为 3） |                                        |
-| 3        |                                                 | BEGIN;                                 |
-| 4        |                                                 | UPDATE staff SET age = 7 WHERE id = 3; |
-| 5        | SELECT age FROM staff WHERE id = 3;（age 为 3） |                                        |
-| 6        |                                                 | COMMIT:                                |
-| 7        | SELECT age FROM staff WHERE id = 3;（age 为 3） |                                        |
-| 8        | COMMIT;                                         |                                        |
+| Timeline | Session A                                          | Session B                              |
+| -------- | -------------------------------------------------- | -------------------------------------- |
+| 1        | BEGIN;                                             |                                        |
+| 2        | SELECT age FROM staff WHERE id = 3;<br />result: 3 |                                        |
+| 3        |                                                    | BEGIN;                                 |
+| 4        |                                                    | UPDATE staff SET age = 7 WHERE id = 3; |
+| 5        | SELECT age FROM staff WHERE id = 3;<br />result: 3 |                                        |
+| 6        |                                                    | COMMIT:                                |
+| 7        | SELECT age FROM staff WHERE id = 3;<br />result: 3 |                                        |
+| 8        | COMMIT;                                            |                                        |
 
 
 
+### 4.5 锁的算法
 
+#### 4.5.1 Next-Key Lock
 
-### 4.4 锁的算法
+> Next-Key Lock 的引入是为了解决幻读问题
 
-#### 4.4.1 两阶段锁协议
+表 `t`：字段 `id` 为 PK，字段 `c` 为普通索引
 
-<div align="center"> <img src="2-phase-locking.png" width="70%"/> </div><br>
+| id   | c    | d    |
+| ---- | ---- | ---- |
+| 0    | 0    | 0    |
+| 5    | 5    | 5    |
+| 10   | 10   | 10   |
+| 15   | 15   | 15   |
+| 20   | 20   | 20   |
+| 25   | 25   | 25   |
+
+**Example 1**
 
 
 

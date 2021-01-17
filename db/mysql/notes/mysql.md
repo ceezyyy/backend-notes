@@ -460,10 +460,8 @@ SELECT * FROM mytable WHERE id = 5 FOR UPDATE;
 ```mysql
 # Session A
 BEGIN;
-	SELECT
-		age 
-	FROM
-		staff 
+	SELECT age 
+	FROM staff 
 	WHERE
 	id = 3;
 COMMIT;

@@ -9,7 +9,7 @@
 
 
 
-## :key: ​CS Core
+## :key: ​Core CS
 
 - [Data Structures & Algorithms](https://github.com/ceezyyy/LeetCode-daily)
 - Computer Networking

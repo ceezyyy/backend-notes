@@ -4,7 +4,7 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
-* [1. 基本架构](#1-mysql-基本架构)
+* [1. 基本架构](#1-基本架构)
 * [2. 索引](#2-索引)
    * [2.1 回表](#21-回表)
    * [2.2 联合索引](#22-联合索引)
@@ -23,10 +23,9 @@ Table of Contents
    * [4.3 两阶段锁协议](#43-两阶段锁协议)
    * [4.4 一致性非锁定读](#44-一致性非锁定读)
       * [4.4.1 ReadView](#441-readview)
-   * [4.5 锁的算法](#45-锁的算法)
+   * [4.5 锁算法](#45-锁算法)
       * [4.5.1 Next-Key Lock](#451-next-key-lock)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -496,24 +495,52 @@ COMMIT;
 
 
 
-### 4.5 锁的算法
+### 4.5 锁算法
 
 #### 4.5.1 Next-Key Lock
 
-> Next-Key Lock 的引入是为了解决幻读问题
+> 行锁的一种算法，对于 SELECT，锁定的是一个范围而非一个值
 
-表 `t`：字段 `id` 为 PK，字段 `c` 为普通索引
+表 `t`
 
-| id   | c    | d    |
-| ---- | ---- | ---- |
-| 0    | 0    | 0    |
-| 5    | 5    | 5    |
-| 10   | 10   | 10   |
-| 15   | 15   | 15   |
-| 20   | 20   | 20   |
-| 25   | 25   | 25   |
+```mysql
+CREATE TABLE t ( id INT PRIMARY KEY NOT NULL, c INT DEFAULT NULL, d INT DEFAULT NULL, KEY idx_c ( c ) ) ENGINE = INNODB;
+INSERT INTO t
+VALUES
+	( 0, 0, 0 ),
+	( 5, 5, 5 ),
+	( 10, 10, 10 ),
+	( 15, 15, 15 ),
+	( 20, 20, 20 ),
+	( 25, 25, 25 );
+```
+
+
 
 **Example 1**
+
+| Timeline | Session A                                                    | Session B                                                    | Session C                                                    |
+| -------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1        | BEGIN;<br/>	UPDATE t <br/>	SET d = d + 1 <br/>	WHERE<br/>	id = 7; |                                                              |                                                              |
+| 2        |                                                              | INSERT INTO t<br/>VALUES<br/>	( 8, 8, 8 );<br /># Blocked |                                                              |
+| 3        |                                                              |                                                              | UPDATE t <br/>SET d = d + 1 <br/>WHERE<br/>	id = 10;<br /># Affected rows: 1 |
+
+1. `next-key lock` 范围: (5, 10]
+2. 索引上的等值查询 & id = 7 没有这条记录，降为 `gap lock`: (5, 10)
+
+
+
+**Example 2**
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -542,3 +569,4 @@ COMMIT;
 - [octachrome/innodb-locks](https://github.com/octachrome/innodb-locks)
 - [15.7.1 InnoDB Locking](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
 - [MySql-两阶段加锁协议](https://blog.csdn.net/qq4165498/article/details/76855139)
+- [Innodb锁机制：Next-Key Lock 浅谈](https://www.cnblogs.com/zhoujinyi/p/3435982.html)

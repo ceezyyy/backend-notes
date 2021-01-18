@@ -525,24 +525,28 @@ VALUES
 | 2        |                                                              | INSERT INTO t<br/>VALUES<br/>	( 8, 8, 8 );<br /># Blocked |                                                              |
 | 3        |                                                              |                                                              | UPDATE t <br/>SET d = d + 1 <br/>WHERE<br/>	id = 10;<br /># Affected rows: 1 |
 
-1. `next-key lock` 范围: (5, 10]
-2. 索引上的等值查询 & id = 7 没有这条记录，降为 `gap lock`: (5, 10)
+1. `next-key lock` (5, 10]
+2. `gap lock` (5, 10)
 
 
 
 **Example 2**
 
+| Timeline | Session A                                                    | Session B                                                    | Session C                                                    |
+| -------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 1        | BEGIN;<br/>	SELECT<br/>		id <br/>	FROM<br/>		t <br/>	WHERE<br/>	c = 5 LOCK IN SHARE MODE; |                                                              |                                                              |
+| 2        |                                                              | UPDATE t <br/>SET d = d + 1 <br/>WHERE<br/>	id = 5;<br /># Affected rows: 1 |                                                              |
+| 3        |                                                              |                                                              | INSERT INTO t<br/>VALUES<br/>	( 7, 7, 7 );<br /># Blocked |
 
 
 
+1. `next-key lock` (0, 5]
+2. `gap lock` (0, 5], (5, 10)
+3. Session B 的更新只查找了 `PK` 索引树，**不阻塞**（因为 `LOCK IN SHARE MODE` 不会回表访问）
 
 
 
-
-
-
-
-
+**Example 3**
 
 
 

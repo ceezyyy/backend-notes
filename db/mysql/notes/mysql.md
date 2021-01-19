@@ -27,6 +27,7 @@ Table of Contents
       * [4.5.1 Next-Key Lock](#451-next-key-lock)
 * [References](#references)
 
+
 ## Brainstorming
 
   <div align="center"> <img src="mysql.svg" width="100%"/> </div><br>
@@ -501,6 +502,11 @@ COMMIT;
 
 > 行锁的一种算法，对于 SELECT，锁定的是一个范围而非一个值
 
+
+`mysql` 版本（不同版本的优化原则可能不同）
+
+<div align="center"> <img src="image-20210119115415783.png" width="60%"/> </div><br>
+
 表 `t`
 
 ```mysql
@@ -517,6 +523,7 @@ VALUES
 
 
 
+
 **Example 1**
 
 | Timeline | Session A                                                    | Session B                                                    | Session C                                                    |
@@ -526,7 +533,7 @@ VALUES
 | 3        |                                                              |                                                              | UPDATE t <br/>SET d = d + 1 <br/>WHERE<br/>	id = 10;<br /># Affected rows: 1 |
 
 1. `next-key lock` (5, 10]
-2. `gap lock` (5, 10)
+2. 退化成 `gap lock` (5, 10)
 
 
 
@@ -543,17 +550,6 @@ VALUES
 1. `next-key lock` (0, 5]
 2. `gap lock` (0, 5], (5, 10)
 3. Session B 的更新只查找了 `PK` 索引树，**不阻塞**（因为 `LOCK IN SHARE MODE` 不会回表访问）
-
-
-
-**Example 3**
-
-
-
-
-
-
-
 
 
 

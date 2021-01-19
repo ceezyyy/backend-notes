@@ -6,11 +6,13 @@ Table of Contents
 * [Brainstorming](#brainstorming)
 * [1. 基本架构](#1-基本架构)
 * [2. 索引](#2-索引)
-   * [2.1 回表](#21-回表)
-   * [2.2 联合索引](#22-联合索引)
-   * [2.3 前缀索引](#23-前缀索引)
-   * [2.4 Left Join &amp; Right Join 索引优化](#24-left-join--right-join-索引优化)
-   * [2.5 覆盖索引](#25-覆盖索引)
+   * [2.1 B  tree](#21-b-tree)
+   * [2.2 类型](#22-类型)
+      * [2.2.1 Clustered index](#221-clustered-index)
+      * [2.2.2 Secondary index](#222-secondary-index)
+   * [2.3 应用](#23-应用)
+      * [2.3.1 联合索引](#231-联合索引)
+      * [2.3.2 覆盖索引](#232-覆盖索引)
 * [3. 事务](#3-事务)
    * [3.1 redo log](#31-redo-log)
       * [3.1.1 实现 crash-safe](#311-实现-crash-safe)
@@ -27,7 +29,6 @@ Table of Contents
       * [4.5.1 Next-Key Lock](#451-next-key-lock)
 * [References](#references)
 
-
 ## Brainstorming
 
   <div align="center"> <img src="mysql.svg" width="100%"/> </div><br>
@@ -42,258 +43,69 @@ Table of Contents
 
 ## 2. 索引
 
-**每一个索引在 InnoDB 里面对应一颗 B+ 树**
+> B+ 树在数据库中的实现
 
+### 2.1 B+ tree
 
+<div align="center"> <img src="b+tree.jpg" width="70%"/> </div><br>
 
-### 2.1 回表
+**insertion**
 
-举个例子，我们有一个主键列为 `ID` 的表，其中有个字段为 `k`，且 `k` 上有索引
+| leaf page 满 | index page 满 | 操作                                                         |
+| ------------ | ------------- | ------------------------------------------------------------ |
+| No           | No            | 将记录插到叶子结点                                           |
+| Yes          | No            | 1. 拆分 leaf page<br />2. 将中间节点放到 index page<br />3. 小于中间节点数据放左，大于或等于中间节点放右 |
+| Yes          | Yes           | 1. 拆分 leaf page<br />2. 小于中间节点数据放左，大于或等于中间节点放右<br /><br />3. 拆分 index page<br />4. 小于中间节点数据放左，大于中间节点放右<br />5. 中间节点放上一层 index page |
 
-我们称 `ID` 为主键索引，`k` 为非主键索引
 
 
+**deletion**
 
+// TODO
 
+### 2.2 类型
 
-<div align="center"> <img src="image-20201216201947037.png" width="70%"/> </div><br>
+#### 2.2.1 Clustered index
 
+> 以 (id, row) 方式存储数据
 
+<div align="center"> <img src="clustered-index.png" width="90%"/> </div><br>
 
-在执行下列语句时：
+#### 2.2.2 Secondary index
 
-```mysql
-SELECT * FROM table_name WHERE ID = 500;
-```
+> 以 (key, id) 方式存储数据
 
-只需要搜索 `ID` 这颗 `B+` 树
+<div align="center"> <img src="secondary-index.png" width="80%"/> </div><br>
 
-而当执行下列语句时：
+### 2.3 应用
 
-```mysql
-SELECT * FROM table_name WHERE K = 5;
-```
+#### 2.3.1 联合索引
 
-则需要先搜索 `k` 索引树，获得 `ID` 为 500，再去搜 `ID` 索引树，这个称 "回表"
+<div align="center"> <img src="image-20210119164843015.png" width="60%"/> </div><br>
 
+**Explained**
 
+- 按照 (key1, key2, ..., keyn) 顺序排序
+- 遵循 “最左匹配原则”
+- 假设一张表字段 `a`，`b`，`c` 有联合索引 `idx_a_b_c` -> 对 `(a)`，`(a, b)`，`(a, b, c)` 建立了索引
 
 
 
-**执行流程（重要）：**
+**Example**
 
-1. 在 `k` 索引树上找到 `k = 3` 的记录，取得 `ID = 300`
-2. 再到 `ID`  索引树查到 `ID = 300` 对应的 `R3`
-3. 在 `k` 索引树取下一个值 `k = 5`，取得 `ID = 500`
-4. 再回到 `ID` 索引树查到 `ID = 500` 对应的 `R4`
-5. 在 `k` 索引树取下一个值 `k = 6`，不满足条件，循环结束
+通过电话簿查找某人电话的时候，若只知道名而不知道姓，还能快速查找吗？
 
 
 
-在这个例子中，由于查询结果所需要的数据只在主键索引上有，所以不得不回表
+#### 2.3.2 覆盖索引
 
+> 通过遍历索引树就可以满足查询的字段，不用回表，即索引被覆盖了
 
+当 ` SELECT *` 的时候，若遍历整个索引树（比如 `LIKE %xxx%`），可以认为造成了全表扫描（因为在遍历索引树的过程每次都需要回表）
 
-### 2.2 联合索引
 
-**表设计 & 初始化 **
 
-  <div align="center"> <img src="image-20201216110449022.png" width="100%"/> </div><br>
 
-
-
-<div align="center"> <img src="image-20201216164123575.png" width="60%"/> </div><br>
-
-
-**踩坑记录**
-
-- 插入数据时：
-
-  `INSERT INTO TABLE_NAME (col1, col2, ...) VALUES (val1, val2, ...)` 若 `PK` 为自增，则不要写入 `(col1, col2, ...)` 的参数中（对表进行修改后记得手动保存）
-
-
-
-**需求：查询 category_id 为 1 且 comments 大于 1 的情况下，views 最多的 id**
-
-```mysql
-SELECT
-	id 
-FROM
-	article 
-WHERE
-	category_id = 1 
-	AND comments > 1 
-ORDER BY
-	views DESC 
-	LIMIT 1;
-```
-
-<div align="center"> <img src="image-20201216203010470.png" width="100%"/> </div><br>
-
-**优化 1.0**
-
-既然在 `WHERE` 和 `ORDER BY` 后跟了 `category_id`，`comments` 以及 `views` 这三列
-
-那我们就建一个联合索引：
-
-```mysql
-CREATE INDEX idx_category_comments_views ON article ( category_id, comments, views );
-```
-
-<div align="center"> <img src="image-20201216204202798.png" width="100%"/> </div><br>
-
-避免了全表扫，但出现了 `using filesort`
-
-
-
-**联合索引在执行的时候，遵循 “最左匹配原则”**
-
-
-
-假设一张表的 `a`，`b`，`c` 列上有一个联合索引 `idx_a_b_c`
-
-相当于已经对 `(a)`，`(a, b)`，`(a, b, c)` 建立了索引
-
-
-
-举个例子，联合索引的结构和电话簿相类似，
-
-- 若知道姓，电话簿会很有用
-- 除了姓，还知道名，电话薄更有用
-- 若只知道名，不知道姓，电话簿还能发挥作用吗？
-
-
-
-**优化 2.0**
-
-```mysql
-CREATE INDEX idx_category_views ON article ( category_id, views );
-```
-
-<div align="center"> <img src="image-20201216224438990.png" width="100%"/> </div><br>
-
-### 2.3 前缀索引
-
-假设现在需要维护一个邮箱登录的系统，如何在邮箱这个字段高效地建立索引？
-
-两种方案：
-
-1. 记录整个字符串
-2. 记录字符串的前 n 个字节
-
-
-
-<div align="center"> <img src="image-20201221161039211.png" width="60%"/> </div><br>
-
-<div align="center"> <img src="image-20201221161115527.png" width="60%"/> </div><br>
-
-```mysql
-SELECT 
-	id,name,email 
-FROM 
-	SUser 
-WHERE 
-	email='zhangssxyz@xxx.com';
-```
-
-
-
-第一种方案的执行顺序：
-
-1. 在 `email` 索引树上找到
-
-
-
-第二种方案的执行顺序：
-
-1. 在 `email` 索引树上找到
-
-
-
-
-
-### 2.4 Left Join & Right Join 索引优化
-
-**表设计**
-
-`class` 表：
-
-<div align="center"> <img src="image-20201216230148641.png" width="90%"/> </div><br>
-
-
-`book` 表：
-
-<div align="center"> <img src="image-20201216230150133.png" width="90%"/> </div><br>
-
-字段都相同，`card` 为主外键关系
-
-
-
-下面以 `left join` 为例，探究两表的索引该如何建立
-
-- 左表：`class`
-- 右表：`book`
-
-```mysql
-EXPLAIN SELECT
-	* 
-FROM
-	class
-	LEFT JOIN book ON class.card = book.card;
-```
-
-
-
-没建索引之前：
-
-<div align="center"> <img src="image-20201217112927500.png" width="90%"/> </div><br>
-
-
-
-1. 只在左表 `card` 字段上建立索引：
-
-```mysql
-CREATE INDEX idx_class_card ON class(card);
-```
-
-使用 `explain` 分析结果：
-
-<div align="center"> <img src="image-20201217114636037.png" width="90%"/> </div><br>
-
-
-
-2. 只在右表的 `card` 字段建立索引：
-
-```mysql
-CREATE INDEX idx_book_card ON book ( card );
-```
-
-使用 `explain` 分析结果：
-
-<div align="center"> <img src="image-20201217115112303.png" width="90%"/> </div><br>
-
-
-
-
-
-**总结：**
-
-- Left join, 索引加右表
-- Right join, 索引加左表
-
-
-
-### 2.5 覆盖索引
-
-通过遍历索引树就可以满足查询的字段，不用回表，即索引被覆盖了
-
-是一种高效的性能优化手段
-
-
-
-**注意（重要）：**
-
-当 ` SELECT *` 的时候，若是遍历整个索引树（比如 `LIKE %xxx%`），可以认为造成了全表扫描（因为在遍历索引树的过程每次都需要回表）
 
 ## 3. 事务
 
@@ -560,13 +372,11 @@ VALUES
 - 姜承尧. MySQL技术内幕：InnoDB存储引擎(第2版)[M]. 机械工业出版社, 2018.
 - [MySQL实战45讲-极客时间](https://time.geekbang.org/column/intro/100020801)
 - [尚硅谷MySQL数据库高级，mysql优化，数据库优化](https://www.bilibili.com/video/BV1KW411u7vy?from=search&seid=11888146484032851728)
-- [What does eq_ref and ref types mean in MySQL explain](https://stackoverflow.com/questions/4508055/what-does-eq-ref-and-ref-types-mean-in-mysql-explain)
+- [B+ Trees Visualization](https://www.cs.usfca.edu/~galles/visualization/BPlusTree.html)
 - [CyC2018/CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B3%BB%E7%BB%9F%E5%8E%9F%E7%90%86.md)
 - [说说MySQL中的Redo log Undo log都在干啥](https://www.cnblogs.com/xinysu/p/6555082.html)
 - [Innodb中的事务隔离级别和锁的关系](https://tech.meituan.com/2014/08/20/innodb-lock.html)
 - [Mysql锁：灵魂七拷问](https://tech.youzan.com/seven-questions-about-the-lock-of-mysql/)
 - [How is a query executed in MySQL](https://qxf2.com/blog/mysql-query-execution/)
 - [octachrome/innodb-locks](https://github.com/octachrome/innodb-locks)
-- [15.7.1 InnoDB Locking](https://dev.mysql.com/doc/refman/8.0/en/innodb-locking.html)
-- [MySql-两阶段加锁协议](https://blog.csdn.net/qq4165498/article/details/76855139)
-- [Innodb锁机制：Next-Key Lock 浅谈](https://www.cnblogs.com/zhoujinyi/p/3435982.html)
+- [为什么 MySQL 使用 B+ 树](https://draveness.me/whys-the-design-mysql-b-plus-tree/)

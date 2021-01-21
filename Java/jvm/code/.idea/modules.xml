@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/class-loader/class-loader.iml" filepath="$PROJECT_DIR$/class-loader/class-loader.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/code.iml" filepath="$PROJECT_DIR$/.idea/code.iml" />
-      <module fileurl="file://$PROJECT_DIR$/string-pool/string-pool.iml" filepath="$PROJECT_DIR$/string-pool/string-pool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/reachability-analysis/reachability-analysis.iml" filepath="$PROJECT_DIR$/reachability-analysis/reachability-analysis.iml" />
     </modules>
   </component>
 </project>

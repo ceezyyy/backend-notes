@@ -292,11 +292,13 @@ public class Example
 
 <div align="center"> <img src="g1-heap.png" width="70%"/> </div><br>
 
+**Explained**
+
+- 每个 region 中存在着一个 `remembered set`，记录着别的 region 指向自己的指针，并标记着这些指针分别在哪些卡页中 -> 避免在寻找 `GC roots` 时全堆扫描
 
 
 
-
-<div align="center"> <img src="g1.jpeg" width="80%"/> </div><br>
+<div align="center"> <img src="G1.jpeg" width="80%"/> </div><br>
 
 
 
@@ -310,6 +312,7 @@ public class Example
 ## References
 
 - 周志明. 深入理解 Java 虚拟机 [M]. 机械工业出版社, 2011.
+- [CyC2018 / CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA.md)
 - [大白话理解可达性分析算法](https://blog.csdn.net/qq_32099833/article/details/109253339)
 - [Types of References in Java](https://www.geeksforgeeks.org/types-references-java/)
 - [JVM之GC算法、垃圾收集算法——标记-清除算法、复制算法、标记-整理算法、分代收集算法](https://www.cnblogs.com/java-spring/p/9923423.html)

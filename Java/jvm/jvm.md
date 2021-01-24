@@ -1,7 +1,3 @@
-
-
-
-
 # JVM
 
 Table of Contents
@@ -15,10 +11,10 @@ Table of Contents
    * [2.1 哪些内存需要回收?](#21-哪些内存需要回收)
       * [2.1.1 可达性分析](#211-可达性分析)
       * [2.1.2 引用](#212-引用)
-   * [2.2 什么时候回收?](#22-什么时候回收)
-   * [2.3 如何回收?](#23-如何回收)
+   * [2.2 如何回收?](#22-如何回收)
+      * [2.2.1 算法](#221-算法)
+      * [2.2.2 Garbage Collector](#222-garbage-collector)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -50,7 +46,7 @@ Table of Contents
 
 
 ```java
-public class MyObj {
+qpublic class MyObj {
 
     private String name;
     private MyObj reference;
@@ -81,9 +77,7 @@ public class MyObj {
 
 若将对象 a 当作 `GC roots` 的话：对象 d 和 e 属于不可达对象 -> 需被回收
 
-<div align="center"> <img src="image-20210121155317876.png" width="40%"/> </div><br>
-
-
+<div align="center"> <img src="image-20210121201920650.png" width="40%"/> </div><br>
 
 #### 2.1.2 引用
 
@@ -252,13 +246,59 @@ public class Example
 
 
 
-### 2.2 什么时候回收?
+### 2.2 如何回收?
+
+#### 2.2.1 算法
+
+**Mark-Sweep**
+
+<div align="center"> <img src="mark-sweep.png" width="50%"/> </div><br>
+
+**Mark-Copy**
+
+<div align="center"> <img src="mark-copy.png" width="50%"/> </div><br>
+
+**Mark-Compact**
+
+<div align="center"> <img src="mark-compact.png" width="50%"/> </div><br>
+
+#### 2.2.2 Garbage Collector
+
+**概述**
+
+<div align="center"> <img src="garbage-collector.jpeg" width="70%"/> </div><br>
+
+7 种适用于不同场景的垃圾收集器，连线代表可两两可搭配使用
 
 
 
-### 2.3 如何回收?
 
- 
+
+**Serial**
+
+<div align="center"> <img src="serial-gc.jpeg" width="80%"/> </div><br>
+
+
+
+**CMS**
+
+<div align="center"> <img src="CMS.jpeg" width="80%"/> </div><br>
+
+
+
+**G1**
+
+`G1` 开创的基于 region 的堆内存布局
+
+<div align="center"> <img src="g1-heap.png" width="70%"/> </div><br>
+
+
+
+
+
+<div align="center"> <img src="g1.jpeg" width="80%"/> </div><br>
+
+
 
 
 
@@ -272,3 +312,5 @@ public class Example
 - 周志明. 深入理解 Java 虚拟机 [M]. 机械工业出版社, 2011.
 - [大白话理解可达性分析算法](https://blog.csdn.net/qq_32099833/article/details/109253339)
 - [Types of References in Java](https://www.geeksforgeeks.org/types-references-java/)
+- [JVM之GC算法、垃圾收集算法——标记-清除算法、复制算法、标记-整理算法、分代收集算法](https://www.cnblogs.com/java-spring/p/9923423.html)
+- [深入理解JVM(3)——7种垃圾收集器](https://crowhawk.github.io/2017/08/15/jvm_3/)

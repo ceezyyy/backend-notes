@@ -7,20 +7,23 @@ Table of Contents
 * [1. 运行时数据区](#1-运行时数据区)
    * [1.1 概述](#11-概述)
    * [1.2 VM Stack](#12-vm-stack)
-* [2. GC](#2-gc)
-   * [2.1 可达性分析](#21-可达性分析)
-      * [2.1.1 Rembered Set](#211-rembered-set)
-      * [2.1.2 引用](#212-引用)
-   * [2.2 GC 算法](#22-gc-算法)
-      * [2.2.1 Mark-Sweep](#221-mark-sweep)
-      * [2.2.2 Mark-Copy](#222-mark-copy)
-      * [2.2.3 Mark-Compact](#223-mark-compact)
-   * [2.3 垃圾收集器](#23-垃圾收集器)
-      * [2.3.1 概述](#231-概述)
-      * [2.3.2 Serial](#232-serial)
-      * [2.3.3 CMS](#233-cms)
-      * [2.3.4 G1](#234-g1)
+* [2. 内存分配](#2-内存分配)
+* [3. GC](#3-gc)
+   * [3.1 可达性分析](#31-可达性分析)
+      * [3.1.1 Rembered Set](#311-rembered-set)
+      * [3.1.2 引用](#312-引用)
+      * [3.1.3 三色标记法](#313-三色标记法)
+   * [3.2 GC 算法](#32-gc-算法)
+      * [3.2.1 Mark-Sweep](#321-mark-sweep)
+      * [3.2.2 Mark-Copy](#322-mark-copy)
+      * [3.2.3 Mark-Compact](#323-mark-compact)
+   * [3.3 垃圾收集器](#33-垃圾收集器)
+      * [3.3.1 概述](#331-概述)
+      * [3.3.2 Serial](#332-serial)
+      * [3.3.3 CMS](#333-cms)
+      * [3.3.4 G1](#334-g1)
 * [References](#references)
+
 
 
 ## Brainstorming
@@ -47,9 +50,15 @@ Table of Contents
 
 <div align="center"> <img src="vm-stack.png" width="50%"/> </div><br>
 
-## 2. GC
+## 2. 内存分配
 
-### 2.1 可达性分析
+<div align="center"> <img src="heap-struc.png" width="70%"/> </div><br>
+
+
+
+## 3. GC
+
+### 3.1 可达性分析
 
 **MyObj.java**
 
@@ -88,7 +97,7 @@ qpublic class MyObj {
 
 <div align="center"> <img src="image-20210121201920650.png" width="40%"/> </div><br>
 
-#### 2.1.1 Rembered Set
+#### 3.1.1 Rembered Set
 
 <div align="center"> <img src="remembered-set.png" width="60%"/> </div><br>
 
@@ -100,7 +109,7 @@ CARD_TABLE[this address >> 9] = 0;
 
 
 
-#### 2.1.2 引用
+#### 3.1.2 引用
 
 **Strongly reference**
 
@@ -267,25 +276,77 @@ public class Example
 
 
 
+#### 3.1.3 三色标记法
+
+> 黑, 白, 灰
+
+<div align="center"> <img src="tri-color-marking-1.png" width="50%"/> </div><br>
+
+表示 A, D, E, F, G 可达
+
+**多标：浮动垃圾**
+
+当遍历到 D 时（灰色），执行了语句
+
+```java
+objD.fieldE = null;
+```
+
+E 应该是垃圾了，但还是继续追踪 E -> 不影响程序正确性，需等到下一轮 `GC` 进行回收
+
+<div align="center"> <img src="tri-color-marking-2.png" width="60%"/> </div><br>
+
+**漏标：读写屏障**
+
+当遍历到 E 时（灰色），执行了语句
+
+```java
+var G = objE.fieldG;  // 1. read
+objE.fieldG = null;  // 2. write 
+objD.fieldG = G;  // 3. write
+```
 
 
-### 2.2 GC 算法
 
-#### 2.2.1 Mark-Sweep
+<div align="center"> <img src="tri-color-marking-3.png" width="60%"/> </div><br>
+
+**读屏障**
+
+
+
+
+
+**写屏障**
+
+`aop` 思想		
+
+```java
+void oop_field_store(oop* field, oop new_value) {  
+    pre_write_barrier(field); // 写屏障-写前操作
+    *field = new_value; 
+    post_write_barrier(field, value);  // 写屏障-写后操作
+}
+```
+
+
+
+### 3.2 GC 算法
+
+#### 3.2.1 Mark-Sweep
 
 <div align="center"> <img src="mark-sweep.png" width="50%"/> </div><br>
 
-#### 2.2.2 Mark-Copy
+#### 3.2.2 Mark-Copy
 
 <div align="center"> <img src="mark-copy.png" width="50%"/> </div><br>
 
-#### 2.2.3 Mark-Compact
+#### 3.2.3 Mark-Compact
 
 <div align="center"> <img src="mark-compact.png" width="50%"/> </div><br>
 
-### 2.3 垃圾收集器
+### 3.3 垃圾收集器
 
-#### 2.3.1 概述
+#### 3.3.1 概述
 
 <div align="center"> <img src="garbage-collector.jpeg" width="70%"/> </div><br>
 
@@ -295,19 +356,19 @@ public class Example
 
 
 
-#### 2.3.2 Serial
+#### 3.3.2 Serial
 
 <div align="center"> <img src="serial-gc.jpeg" width="80%"/> </div><br>
 
 
 
-#### 2.3.3 CMS
+#### 3.3.3 CMS
 
 <div align="center"> <img src="CMS.jpeg" width="80%"/> </div><br>
 
 
 
-#### 2.3.4 G1
+#### 3.3.4 G1
 
 `G1` 开创的基于 region 的堆内存布局
 
@@ -339,3 +400,4 @@ public class Example
 - [JVM之GC算法、垃圾收集算法——标记-清除算法、复制算法、标记-整理算法、分代收集算法](https://www.cnblogs.com/java-spring/p/9923423.html)
 - [深入理解JVM(3)——7种垃圾收集器](https://crowhawk.github.io/2017/08/15/jvm_3/)
 - [Interview - 垃圾回收](https://hadyang.github.io/interview/docs/java/jvm/gc/)
+- [三色标记法与读写屏障](https://www.jianshu.com/p/12544c0ad5c1)

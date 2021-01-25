@@ -22,8 +22,11 @@ Table of Contents
       * [3.3.2 Serial](#332-serial)
       * [3.3.3 CMS](#333-cms)
       * [3.3.4 G1](#334-g1)
+* [4. 类加载机制](#4-类加载机制)
+   * [4.1 类的生命周期](#41-类的生命周期)
+      * [4.1.1 初始化](#411-初始化)
+   * [4.2 双亲委派](#42-双亲委派)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -306,6 +309,8 @@ objE.fieldG = null;  // 2. write
 objD.fieldG = G;  // 3. write
 ```
 
+若 `GC` 会影响到程序的正确性 -> 读写屏障的出现
+
 
 
 <div align="center"> <img src="tri-color-marking-3.png" width="60%"/> </div><br>
@@ -318,7 +323,7 @@ objD.fieldG = G;  // 3. write
 
 **写屏障**
 
-`aop` 思想		
+`AOP` 思想		
 
 ```java
 void oop_field_store(oop* field, oop new_value) {  
@@ -380,8 +385,54 @@ void oop_field_store(oop* field, oop new_value) {
 
 
 
+## 4. 类加载机制
+
+### 4.1 类的生命周期
+
+<div align="center"> <img src="lifecycle-of-class-in-java.jpeg" width="70%"/> </div><br>
 
 
+
+#### 4.1.1 初始化
+
+定义在 `static{}` 之后的变量，`static{}` 里可以赋值但无法访问
+
+```java
+public class Test {
+    static {
+        i = 0;                // 给变量赋值可以正常编译通过
+        System.out.print(i);  // 这句编译器会提示“非法向前引用”
+    }
+    static int i = 1;
+}
+```
+
+
+
+B 的值为 2
+
+```java
+static class Parent {
+    public static int A = 1;
+    static {
+        A = 2;
+    }
+}
+
+static class Sub extends Parent {
+    public static int B = A;
+}
+
+public static void main(String[] args) {
+     System.out.println(Sub.B);  // 2
+}
+```
+
+
+
+### 4.2 双亲委派
+
+<div align="center"> <img src="parent-delegation-model.jpg" width="60%"/> </div><br>
 
 
 

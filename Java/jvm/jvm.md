@@ -8,13 +8,20 @@ Table of Contents
    * [1.1 概述](#11-概述)
    * [1.2 VM Stack](#12-vm-stack)
 * [2. GC](#2-gc)
-   * [2.1 哪些内存需要回收?](#21-哪些内存需要回收)
-      * [2.1.1 可达性分析](#211-可达性分析)
+   * [2.1 可达性分析](#21-可达性分析)
+      * [2.1.1 Rembered Set](#211-rembered-set)
       * [2.1.2 引用](#212-引用)
-   * [2.2 如何回收?](#22-如何回收)
-      * [2.2.1 算法](#221-算法)
-      * [2.2.2 Garbage Collector](#222-garbage-collector)
+   * [2.2 GC 算法](#22-gc-算法)
+      * [2.2.1 Mark-Sweep](#221-mark-sweep)
+      * [2.2.2 Mark-Copy](#222-mark-copy)
+      * [2.2.3 Mark-Compact](#223-mark-compact)
+   * [2.3 垃圾收集器](#23-垃圾收集器)
+      * [2.3.1 概述](#231-概述)
+      * [2.3.2 Serial](#232-serial)
+      * [2.3.3 CMS](#233-cms)
+      * [2.3.4 G1](#234-g1)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -28,6 +35,10 @@ Table of Contents
 
 ### 1.1 概述
 
+下图帮助理解记忆 `JVM` 运行时数据区
+
+
+
 <div align="center"> <img src="JVM-runtime-data-area.jpg" width="60%"/> </div><br>
 
 ### 1.2 VM Stack
@@ -38,9 +49,7 @@ Table of Contents
 
 ## 2. GC
 
-### 2.1 哪些内存需要回收?
-
-#### 2.1.1 可达性分析
+### 2.1 可达性分析
 
 **MyObj.java**
 
@@ -79,9 +88,21 @@ qpublic class MyObj {
 
 <div align="center"> <img src="image-20210121201920650.png" width="40%"/> </div><br>
 
+#### 2.1.1 Rembered Set
+
+<div align="center"> <img src="remembered-set.png" width="60%"/> </div><br>
+
+
+
+```java
+CARD_TABLE[this address >> 9] = 0;
+```
+
+
+
 #### 2.1.2 引用
 
-**strongly reference**
+**Strongly reference**
 
 ```java
 // Java program to illustrate Strong reference 
@@ -105,7 +126,7 @@ public class Example
 
 <div align="center"> <img src="Strong-References-in-java.png" width="50%"/> </div><br>
 
-**soft reference**
+**Soft reference**
 
 ```java
 //Code to illustrate Soft reference 
@@ -145,13 +166,13 @@ public class Example
 } 
 ```
 
-<div align="center"> <img src="Soft-references-in-Java.png" width="60%"/> </div><br>
+<div align="center"> <img src="Soft-references-in-Java.png" width="70%"/> </div><br>
 
 
 
 
 
-**weak reference**
+**Weak reference**
 
 ```java
 //Java Code to illustrate Weak reference 
@@ -192,13 +213,13 @@ public class Example
 } 
 ```
 
-<div align="center"> <img src="Weak-references-in-Java.png" width="60%"/> </div><br>
+<div align="center"> <img src="Weak-references-in-Java.png" width="70%"/> </div><br>
 
 
 
 
 
-**phantom reference**
+**Phantom reference**
 
 ```java
 //Code to illustrate Phantom reference 
@@ -246,25 +267,25 @@ public class Example
 
 
 
-### 2.2 如何回收?
 
-#### 2.2.1 算法
 
-**Mark-Sweep**
+### 2.2 GC 算法
+
+#### 2.2.1 Mark-Sweep
 
 <div align="center"> <img src="mark-sweep.png" width="50%"/> </div><br>
 
-**Mark-Copy**
+#### 2.2.2 Mark-Copy
 
 <div align="center"> <img src="mark-copy.png" width="50%"/> </div><br>
 
-**Mark-Compact**
+#### 2.2.3 Mark-Compact
 
 <div align="center"> <img src="mark-compact.png" width="50%"/> </div><br>
 
-#### 2.2.2 Garbage Collector
+### 2.3 垃圾收集器
 
-**概述**
+#### 2.3.1 概述
 
 <div align="center"> <img src="garbage-collector.jpeg" width="70%"/> </div><br>
 
@@ -274,31 +295,31 @@ public class Example
 
 
 
-**Serial**
+#### 2.3.2 Serial
 
 <div align="center"> <img src="serial-gc.jpeg" width="80%"/> </div><br>
 
 
 
-**CMS**
+#### 2.3.3 CMS
 
 <div align="center"> <img src="CMS.jpeg" width="80%"/> </div><br>
 
 
 
-**G1**
+#### 2.3.4 G1
 
 `G1` 开创的基于 region 的堆内存布局
 
 <div align="center"> <img src="g1-heap.png" width="70%"/> </div><br>
 
-**Explained**
-
-- 每个 region 中存在着一个 `remembered set`，记录着别的 region 指向自己的指针，并标记着这些指针分别在哪些卡页中 -> 避免在寻找 `GC roots` 时全堆扫描
-
 
 
 <div align="center"> <img src="G1.jpeg" width="80%"/> </div><br>
+
+
+
+
 
 
 
@@ -317,3 +338,4 @@ public class Example
 - [Types of References in Java](https://www.geeksforgeeks.org/types-references-java/)
 - [JVM之GC算法、垃圾收集算法——标记-清除算法、复制算法、标记-整理算法、分代收集算法](https://www.cnblogs.com/java-spring/p/9923423.html)
 - [深入理解JVM(3)——7种垃圾收集器](https://crowhawk.github.io/2017/08/15/jvm_3/)
+- [Interview - 垃圾回收](https://hadyang.github.io/interview/docs/java/jvm/gc/)

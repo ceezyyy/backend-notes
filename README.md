@@ -11,7 +11,7 @@
 
 ## :key: ​Core CS
 
-- [Data Structures & Algorithms](https://github.com/ceezyyy/LeetCode-daily)
+- Data Structures & Algorithms
 - Computer Networking
 - [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/OS.md)
 

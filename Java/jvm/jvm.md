@@ -26,8 +26,13 @@ Table of Contents
    * [4.1 类的生命周期](#41-类的生命周期)
       * [4.1.1 初始化](#411-初始化)
    * [4.2 双亲委派](#42-双亲委派)
+* [5. JMM](#5-jmm)
+   * [5.1 源代码到指令序列的重排序](#51-源代码到指令序列的重排序)
+   * [5.2 原子性](#52-原子性)
+   * [5.3 可见性](#53-可见性)
+      * [5.3.1 volatile](#531-volatile)
+   * [5.4 有序性](#54-有序性)
 * [References](#references)
-
 
 ## Brainstorming
 
@@ -433,6 +438,145 @@ public static void main(String[] args) {
 ### 4.2 双亲委派
 
 <div align="center"> <img src="parent-delegation-model.jpg" width="60%"/> </div><br>
+
+
+
+
+
+## 5. JMM
+
+> 并发处理的广泛应用是 Amdahl 定律代替摩尔定律成为计算机性能发展源动力的根本原因，也是人类压榨计算机运算能力的最有力武器
+
+`JMM` 基于共享内存模型
+
+<div align="center"> <img src="jmm.png" width="55%"/> </div><br>
+
+
+
+### 5.1 源代码到指令序列的重排序
+
+
+
+<div align="center"> <img src="reorder.png" width="80%"/> </div><br>
+
+**为什么有重排序？**
+
+为了提高性能，编译器和处理器会对指令进行重排序
+
+**但是**
+
+`JMM` 确保在不同的编译器和处理器平台上通过某些手段为程序员提供一致的内存可见性保证
+
+
+
+### 5.2 原子性
+
+8 种**原子**操作：
+
+- lock / unlock: 作用于主内存的变量，将一个变量标识为线程独占 / 将变量从锁定状态释放
+- read: 作用于主内存的变量，主内存 -> 工作内存，以便随后的 load
+- load: 作用于工作内存的变量，将 read 得到的变量 -> 工作内存（的变量副本中）
+- use: 作用于工作内存的变量，工作内存 -> 执行引擎
+- assign: 作用于工作内存的变量，执行引擎 -> 工作内存
+- store: 作用于工作内存的变量，工作内存 -> 主内存，以便随后的 write
+- write: 作用于主内存的变量，将 store 得到的变量 -> 主内存
+
+
+
+<div align="center"> <img src="java-memory-model.png" width="80%"/> </div><br>
+
+
+
+
+
+
+
+### 5.3 可见性
+
+#### 5.3.1 volatile
+
+**结论**
+
+Java 下的运算符操作并非原子操作 -> `volatile` 变量的运算在并发下不安全
+
+**volatileDemo.java**
+
+```java
+/**
+ * Java 下的运算符操作并非原子操作 -> volatile 变量的运算
+ * 在并发下不安全
+ */
+public class App {
+
+    public static volatile int race = 0;
+    private static final int THREAD_COUNTS = 20;
+
+    public static void increase() {
+        race++;
+    }
+
+    public static void main(String[] args) {
+
+        Thread[] threads = new Thread[THREAD_COUNTS];
+
+        for (int i = 0; i < THREAD_COUNTS; i++) {
+            threads[i] = new Thread(() -> {
+                for (int j = 0; j < 1000; j++) {
+                    increase();
+                }
+            });
+            threads[i].start();
+        }
+
+        // The number of active threads in the current thread's thread group and its subgroups
+        // 一条是 main 线程, 另一条是 IDEA 自动创建的线程
+        while (Thread.activeCount() > 2) {
+            // The current thread is willing to yield its current use of a processor
+            Thread.yield();
+        }
+
+        // 结果小于 20000
+        System.out.println(race);
+
+    }
+
+}
+```
+
+
+
+**适用场景**
+
+```java
+/**
+ * volatile 适用场景
+ */
+public class App {
+
+    volatile boolean shutdownRequested;
+
+    public void shutdown() {
+        shutdownRequested = true;
+    }
+
+    public void doWork() {
+        while (!shutdownRequested) {
+            // do your work here
+        }
+    }
+
+}
+```
+
+
+
+
+
+
+
+### 5.4 有序性
+
+
 
 
 

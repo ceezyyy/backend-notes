@@ -2,9 +2,6 @@ package searching.linearSearch;
 
 import util.generator.ArrayGenerator;
 
-/**
- * Entry of main function
- */
 public class App {
     public static void main(String[] args) {
         Integer[] data = ArrayGenerator.autogenerate(100);

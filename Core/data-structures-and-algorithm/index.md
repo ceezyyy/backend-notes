@@ -39,7 +39,7 @@
 
 ### Searching
 
-- Linear Search
+- [Linear Search](https://github.com/ceezyyy/backend-notes/blob/master/Core/data-structures-and-algorithm/code/data-structures-and-algorithms/algorithms/src/searching/linearSearch/LinearSearch.java)
 - Binary Search
 
 ### Union-Find

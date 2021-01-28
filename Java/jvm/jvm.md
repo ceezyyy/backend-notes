@@ -27,12 +27,21 @@ Table of Contents
       * [4.1.1 初始化](#411-初始化)
    * [4.2 双亲委派](#42-双亲委派)
 * [5. JMM](#5-jmm)
-   * [5.1 源代码到指令序列的重排序](#51-源代码到指令序列的重排序)
-   * [5.2 原子性](#52-原子性)
-   * [5.3 可见性](#53-可见性)
-      * [5.3.1 volatile](#531-volatile)
-   * [5.4 有序性](#54-有序性)
+   * [5.1 重排序](#51-重排序)
+      * [5.1.1 数据依赖性](#511-数据依赖性)
+   * [5.2 happens-before](#52-happens-before)
+      * [5.2.1 Single thread rule](#521-single-thread-rule)
+      * [5.2.2 Monitor lock rule](#522-monitor-lock-rule)
+      * [5.2.3 Volatile variable rule](#523-volatile-variable-rule)
+      * [5.2.4 Thread start rule](#524-thread-start-rule)
+      * [5.2.5 Thread join rule](#525-thread-join-rule)
+      * [5.2.6 Transitivity](#526-transitivity)
+   * [5.3 特性](#53-特性)
+      * [5.3.1 原子性](#531-原子性)
+      * [5.3.2 可见性](#532-可见性)
+      * [5.3.3 有序性](#533-有序性)
 * [References](#references)
+
 
 ## Brainstorming
 
@@ -288,7 +297,7 @@ public class Example
 
 > 黑, 白, 灰
 
-<div align="center"> <img src="tri-color-marking-1.png" width="50%"/> </div><br>
+<div align="center"> <img src="tri-color-marking-1.png" width="40%"/> </div><br>
 
 表示 A, D, E, F, G 可达
 
@@ -302,7 +311,7 @@ objD.fieldE = null;
 
 E 应该是垃圾了，但还是继续追踪 E -> 不影响程序正确性，需等到下一轮 `GC` 进行回收
 
-<div align="center"> <img src="tri-color-marking-2.png" width="60%"/> </div><br>
+<div align="center"> <img src="tri-color-marking-2.png" width="50%"/> </div><br>
 
 **漏标：读写屏障**
 
@@ -318,7 +327,7 @@ objD.fieldG = G;  // 3. write
 
 
 
-<div align="center"> <img src="tri-color-marking-3.png" width="60%"/> </div><br>
+<div align="center"> <img src="tri-color-marking-3.png" width="50%"/> </div><br>
 
 **读屏障**
 
@@ -453,49 +462,90 @@ public static void main(String[] args) {
 
 
 
-### 5.1 源代码到指令序列的重排序
+### 5.1 重排序
+
+> 重排序：对不存在数据依赖性的执行语句并行执行 -> 提高程序性能
 
 
 
 <div align="center"> <img src="reorder.png" width="80%"/> </div><br>
 
-**为什么有重排序？**
-
-为了提高性能，编译器和处理器会对指令进行重排序
-
-**但是**
-
-`JMM` 确保在不同的编译器和处理器平台上通过某些手段为程序员提供一致的内存可见性保证
 
 
+#### 5.1.1 数据依赖性
 
-### 5.2 原子性
-
-8 种**原子**操作：
-
-- lock / unlock: 作用于主内存的变量，将一个变量标识为线程独占 / 将变量从锁定状态释放
-- read: 作用于主内存的变量，主内存 -> 工作内存，以便随后的 load
-- load: 作用于工作内存的变量，将 read 得到的变量 -> 工作内存（的变量副本中）
-- use: 作用于工作内存的变量，工作内存 -> 执行引擎
-- assign: 作用于工作内存的变量，执行引擎 -> 工作内存
-- store: 作用于工作内存的变量，工作内存 -> 主内存，以便随后的 write
-- write: 作用于主内存的变量，将 store 得到的变量 -> 主内存
+| 名称   | example            |
+| ------ | ------------------ |
+| 写后读 | a = 1;<br />b = a; |
+| 写后写 | a = 1;<br />a = 2; |
+| 读后写 | a = b;<br />b = 1  |
 
 
 
-<div align="center"> <img src="java-memory-model.png" width="80%"/> </div><br>
+**Example**
+
+<div align="center"> <img src="image-20210128161341901.png" width="85%"/> </div><br>
 
 
 
 
 
+### 5.2 happens-before
+
+> JMM 最核心的概念，没有之一
+
+#### 5.2.1 Single thread rule
+
+<div align="center"> <img src="single-thread-rule.png" width="25%"/> </div><br>
+
+#### 5.2.2 Monitor lock rule
+
+<div align="center"> <img src="monitor-lock-rule.png" width="40%"/> </div><br>
 
 
-### 5.3 可见性
 
-#### 5.3.1 volatile
+#### 5.2.3 Volatile variable rule
 
-**结论**
+> 先写后读
+
+<div align="center"> <img src="volatile-variable-rule.png" width="45%"/> </div><br>
+
+#### 5.2.4 Thread start rule
+
+<div align="center"> <img src="thread-start-rule.png" width="50%"/> </div><br>
+
+#### 5.2.5 Thread join rule
+
+
+
+<div align="center"> <img src="thread-join-rule.png" width="50%"/> </div><br>
+
+
+
+#### 5.2.6 Transitivity
+
+```
+A happens before B
+B happens before C
+-> A happens before C
+```
+
+
+
+
+
+
+### 5.3 特性
+
+#### 5.3.1 原子性
+
+<div align="center"> <img src="java-memory-model.png" width="70%"/> </div><br>
+
+#### 5.3.2 可见性
+
+
+
+// TODO
 
 Java 下的运算符操作并非原子操作 -> `volatile` 变量的运算在并发下不安全
 
@@ -574,7 +624,9 @@ public class App {
 
 
 
-### 5.4 有序性
+#### 5.3.3 有序性
+
+// TODO
 
 
 
@@ -589,6 +641,8 @@ public class App {
 ## References
 
 - 周志明. 深入理解 Java 虚拟机 [M]. 机械工业出版社, 2011.
+- Java 并发编程的艺术
+- [深入浅出 Java 多线程](http://concurrent.redspider.group/RedSpider.html)
 - [CyC2018 / CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA.md)
 - [大白话理解可达性分析算法](https://blog.csdn.net/qq_32099833/article/details/109253339)
 - [Types of References in Java](https://www.geeksforgeeks.org/types-references-java/)
@@ -596,3 +650,4 @@ public class App {
 - [深入理解JVM(3)——7种垃圾收集器](https://crowhawk.github.io/2017/08/15/jvm_3/)
 - [Interview - 垃圾回收](https://hadyang.github.io/interview/docs/java/jvm/gc/)
 - [三色标记法与读写屏障](https://www.jianshu.com/p/12544c0ad5c1)
+- [Java Happens Before Guarantee - Java Memory Model - Part 2](https://www.youtube.com/watch?v=oY14UyP61F8)

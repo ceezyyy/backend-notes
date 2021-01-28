@@ -1,7 +1,7 @@
 package searching.linearSearch;
 
 /**
- * Linear Search
+ * Linear search
  */
 public class LinearSearch {
 

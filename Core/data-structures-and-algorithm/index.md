@@ -26,16 +26,16 @@
 
 ### Sorting
 
-- Insertion Sort
-- Bubble Sort
-- Selection Sort
+- Insertion sort
+- Bubble sort
+- [Selection sort](https://github.com/ceezyyy/backend-notes/blob/master/Core/data-structures-and-algorithm/code/data-structures-and-algorithms/algorithms/src/sorting/selectionSort/SelectionSort.java)
 - Shellsort
 - Quicksort
-- Merge Sort
+- Merge sort
 - Heapsort
-- Counting Sort
-- Bucket Sort
-- Radix Sort
+- Counting sort
+- Bucket sort
+- Radix sort
 
 ### Searching
 

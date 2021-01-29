@@ -14,7 +14,7 @@ public class ArrayGenerator {
         Integer[] res = new Integer[n];
         Random random = new Random();
         for (int i = 0; i < n; i++) {
-            res[i] = random.nextInt(100);
+            res[i] = random.nextInt(1000);
         }
         return res;
     }

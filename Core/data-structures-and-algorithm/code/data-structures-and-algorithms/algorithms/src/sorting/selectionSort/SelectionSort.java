@@ -13,9 +13,11 @@ public class SelectionSort {
         int minIndex;
         int n = data.length;
 
-        // Select what? -> the minimum element from the unsorted collection
-        // data[0, i) -> sorted
-        // data[i, n) -> not sorted
+        /**
+         * Select what? -> the minimum element from the unsorted collection
+         * data[0, i) -> sorted
+         * data[i, n) -> not sorted
+         */
         for (int i = 0; i < n; i++) {
             for (int j = i; j < n; j++) {
                 minIndex = i;
@@ -34,3 +36,7 @@ public class SelectionSort {
     }
 
 }
+
+
+// Time: O(n^2)
+// Space: O(1)

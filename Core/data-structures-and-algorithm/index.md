@@ -26,7 +26,7 @@
 
 ### Sorting
 
-- Insertion sort
+- [Insertion sort](https://github.com/ceezyyy/backend-notes/blob/master/Core/data-structures-and-algorithm/code/data-structures-and-algorithms/algorithms/src/sorting/insertionSort/InsertionSort.java)
 - Bubble sort
 - [Selection sort](https://github.com/ceezyyy/backend-notes/blob/master/Core/data-structures-and-algorithm/code/data-structures-and-algorithms/algorithms/src/sorting/selectionSort/SelectionSort.java)
 - Shellsort

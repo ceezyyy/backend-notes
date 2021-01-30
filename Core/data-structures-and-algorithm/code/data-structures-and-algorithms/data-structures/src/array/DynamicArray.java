@@ -1,7 +1,5 @@
 package array;
 
-import java.util.Arrays;
-
 /**
  * Array
  */
@@ -232,7 +230,7 @@ public class DynamicArray<E> {
                 sb.append(", ");
         }
         sb.append(" ]");
-        
+
         return sb.toString();
 
     }

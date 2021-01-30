@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/thread-states/thread-states.iml" filepath="$PROJECT_DIR$/thread-states/thread-states.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tickets-selling/tickets-selling.iml" filepath="$PROJECT_DIR$/tickets-selling/tickets-selling.iml" />
+    </modules>
+  </component>
+</project>

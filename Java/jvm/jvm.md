@@ -466,27 +466,11 @@ public static void main(String[] args) {
 
 > 重排序：对不存在数据依赖性的执行语句并行执行 -> 提高程序性能
 
-
-
 <div align="center"> <img src="reorder.png" width="80%"/> </div><br>
-
-
-
-#### 5.1.1 数据依赖性
-
-| 名称   | example            |
-| ------ | ------------------ |
-| 写后读 | a = 1;<br />b = a; |
-| 写后写 | a = 1;<br />a = 2; |
-| 读后写 | a = b;<br />b = 1  |
-
-
 
 **Example**
 
 <div align="center"> <img src="image-20210128161341901.png" width="85%"/> </div><br>
-
-
 
 
 
@@ -545,88 +529,9 @@ B happens before C
 
 
 
-// TODO
-
-Java 下的运算符操作并非原子操作 -> `volatile` 变量的运算在并发下不安全
-
-**volatileDemo.java**
-
-```java
-/**
- * Java 下的运算符操作并非原子操作 -> volatile 变量的运算
- * 在并发下不安全
- */
-public class App {
-
-    public static volatile int race = 0;
-    private static final int THREAD_COUNTS = 20;
-
-    public static void increase() {
-        race++;
-    }
-
-    public static void main(String[] args) {
-
-        Thread[] threads = new Thread[THREAD_COUNTS];
-
-        for (int i = 0; i < THREAD_COUNTS; i++) {
-            threads[i] = new Thread(() -> {
-                for (int j = 0; j < 1000; j++) {
-                    increase();
-                }
-            });
-            threads[i].start();
-        }
-
-        // The number of active threads in the current thread's thread group and its subgroups
-        // 一条是 main 线程, 另一条是 IDEA 自动创建的线程
-        while (Thread.activeCount() > 2) {
-            // The current thread is willing to yield its current use of a processor
-            Thread.yield();
-        }
-
-        // 结果小于 20000
-        System.out.println(race);
-
-    }
-
-}
-```
-
-
-
-**适用场景**
-
-```java
-/**
- * volatile 适用场景
- */
-public class App {
-
-    volatile boolean shutdownRequested;
-
-    public void shutdown() {
-        shutdownRequested = true;
-    }
-
-    public void doWork() {
-        while (!shutdownRequested) {
-            // do your work here
-        }
-    }
-
-}
-```
-
-
-
-
-
-
-
 #### 5.3.3 有序性
 
-// TODO
+
 
 
 

@@ -4,14 +4,25 @@ Table of Contents
 -----------------
 
 * [Brainstorming](#brainstorming)
-* [1. 并发编程基础](#1-并发编程基础)
+* [1. 基础](#1-基础)
+   * [1.1 继承 Thread](#11-继承-thread)
+   * [1.2 实现 Runnable](#12-实现-runnable)
+   * [1.3 Thread 类构造方法](#13-thread-类构造方法)
+   * [1.4 ThreadGroup](#14-threadgroup)
+* [2. 原理](#2-原理)
+   * [2.1 CPU cache](#21-cpu-cache)
+   * [2.1 volatile](#21-volatile)
+      * [2.1.1 保证 visibility](#211-保证-visibility)
+      * [2.1.2 不保证 atomicity](#212-不保证-atomicity)
+      * [2.1.3 保证 ordering](#213-保证-ordering)
+
 
 
 ## Brainstorming
 
 <div align="center"> <img src="concurrency.svg" width="100%"/> </div><br>
 
-## 1. 使用线程
+## 1. 基础
 
 ### 1.1 继承 Thread
 
@@ -79,9 +90,7 @@ private void init(ThreadGroup g, Runnable target, String name,
 - acc:
 - inheritThreadLocals:
 
-
-
-## 2. ThreadGroup
+### 1.4 ThreadGroup
 
 `threadgroup` 呈树状结构
 
@@ -132,9 +141,108 @@ public class App {
 }
 ```
 
+## 2. 原理
+
+### 2.1 CPU cache
+
+<div align="center"> <img src="cpu-cache.png" width="40%"/> </div><br>
+
+### 2.1 volatile
+
+#### 2.1.1 保证 visibility
+
+**MyObj.java**
+
+```java
+public class MyObj {
+
+    private int x = 0;
+
+    public void increase() {
+        x = 100;
+    }
+
+    public int getX() {
+        return x;
+    }
+}
+```
+
+**App.java**
+
+```java
+public class App {
+
+    public static void main(String[] args) {
+
+        MyObj obj = new MyObj();
+
+        new Thread(() -> {
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(Thread.currentThread().getName() + " started");
+            obj.increase();
+            System.out.println("x has been updated");
+
+        }, "t1").start();
+
+        // main thread
+        while (obj.getX() == 0) {
+            // do nothing
+        }
+
+        System.out.println(Thread.currentThread().getName() + " exited");
+
+    }
+
+}
+```
+
+**结果**
+
+主线程不停止
+
+<div align="center"> <img src="image-20210129164731214.png" width="40%"/> </div><br>
+
+
+
+但对变量 x 加上 `volatile` 关键字后
+
+
+
+**MyObj.java**
+
+```java
+public class MyObj {
+
+    private volatile int x = 0;
+
+    public void increase() {
+        x = 100;
+    }
+
+    public int getX() {
+        return x;
+    }
+}
+```
+
+
+
+<div align="center"> <img src="image-20210129165523978.png" width="45%"/> </div><br>
+
+#### 2.1.2 不保证 atomicity
+
+#### 2.1.3 保证 ordering
 
 
 
 
-## 3. 线程状态
+
+## References
 

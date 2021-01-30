@@ -56,6 +56,8 @@ public enum State {
 }
 ```
 
+
+
 **Java 线程转换图**
 
 <div align="center"> <img src="thread-states-2.png" width="90%"/> </div><br>

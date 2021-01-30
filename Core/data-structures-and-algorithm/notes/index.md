@@ -4,7 +4,7 @@
 
 ### Array
 
-<div align="center"> <img src="array.png" width="70%"/> </div><br>
+<div align="center"> <img src="array.png" width="60%"/> </div><br>
 
 - [Dynamic array](https://github.com/ceezyyy/backend-notes/blob/master/Core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/array/DynamicArray.java)
 

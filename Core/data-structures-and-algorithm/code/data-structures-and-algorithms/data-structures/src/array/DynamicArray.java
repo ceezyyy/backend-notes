@@ -224,6 +224,7 @@ public class DynamicArray<E> {
     public String toString() {
 
         StringBuilder sb = new StringBuilder();
+
         sb.append(String.format("Array: {size = %d, capacity = %d, [ ", size, data.length));
         for (int i = 0; i < size; i++) {
             sb.append(data[i]);
@@ -231,6 +232,8 @@ public class DynamicArray<E> {
                 sb.append(", ");
         }
         sb.append(" ]");
+        
         return sb.toString();
+
     }
 }

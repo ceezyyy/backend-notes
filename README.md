@@ -22,7 +22,7 @@
 - [Basic](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/notes/basic.md)
 - Collections
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
-- [J.U.C](https://github.com/ceezyyy/backend-notes/blob/master/Java/juc/juc.md)
+- [J.U.C](https://github.com/ceezyyy/backend-notes/blob/master/Java/juc/notes/juc.md)
 - IO
 
 

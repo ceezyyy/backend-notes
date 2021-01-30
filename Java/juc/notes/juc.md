@@ -35,22 +35,11 @@ Table of Contents
 // Thread.State
 public enum State {
   
-    // 初始状态 -> 线程被构建，但未被调用 start()
     NEW,
-  
-    // 运行状态 -> 包含操作系统中的 ready 和 running 状态
     RUNNABLE,
-  
-    // 阻塞状态 -> 等待锁的释放进入同步区
     BLOCKED,
-  
-    // 等待状态 -> 变成 runnable 需被其他线程唤醒
     WAITING,
-
-	  // 超时等待状态 -> 线程在一段时间之后自动唤醒
     TIMED_WAITING,
-
-	  // 终止状态 -> 线程执行完毕
     TERMINATED;
 
 }

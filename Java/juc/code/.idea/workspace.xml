@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="42dc9e1e-7752-4c90-b6a0-1c53f8afc64f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/exclusive-synchronization/exclusive-synchronization.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exclusive-synchronization/src/synchronizedDemo/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/exclusive-synchronization/src/synchronizedDemo/SynchronizedDemo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-create/src/implementsRunnable/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-create/src/useFutureTask/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-create/thread-create.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-interrupt/src/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-interrupt/thread-interrupt.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-mechanism/src/daemonThread/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/thread-mechanism/thread-mechanism.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-states/src/App.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/thread-states/thread-states.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tickets-selling/tickets-selling.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notes/JUC.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/JUC.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notes/JUC.xmind" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/JUC.xmind" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../notes/juc.md" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/juc.md" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$APPLICATION_HOME_DIR$/plugins/maven/lib/maven3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1nogoC4mst5ZoPzTAfR9Xl3iyAQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="jdk.selected.JAVA_MODULE" value="1.8" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RunManager" selected="Application.App (4)">
+    <configuration name="App (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="useFutureTask.App" />
+      <module name="thread-create" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="useFutureTask.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="App (2)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="daemonThread.App" />
+      <module name="thread-mechanism" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="daemonThread.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="App (3)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="App" />
+      <module name="thread-interrupt" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="App (4)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="synchronizedDemo.App" />
+      <module name="exclusive-synchronization" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="synchronizedDemo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="implementsRunnable.App" />
+      <module name="thread-create" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="implementsRunnable.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="CLASS" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.App (4)" />
+        <item itemvalue="Application.App (3)" />
+        <item itemvalue="Application.App (2)" />
+        <item itemvalue="Application.App (1)" />
+        <item itemvalue="Application.App" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="42dc9e1e-7752-4c90-b6a0-1c53f8afc64f" name="Default Changelist" comment="" />
+      <created>1612062032318</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612062032318</updated>
+      <workItem from="1612062033386" duration="7703000" />
+      <workItem from="1612077120455" duration="4082000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="0" y="0" key="#Project_Structure" timestamp="1612062059055">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="0" y="0" key="#Project_Structure/0.0.1440.900@0.0.1440.900" timestamp="1612062059055" />
+    <state width="1388" height="176" key="GridCell.Tab.0.bottom" timestamp="1612084491658">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1388" height="176" key="GridCell.Tab.0.bottom/0.0.1440.900@0.0.1440.900" timestamp="1612084491658" />
+    <state width="1388" height="176" key="GridCell.Tab.0.center" timestamp="1612084491657">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1388" height="176" key="GridCell.Tab.0.center/0.0.1440.900@0.0.1440.900" timestamp="1612084491657" />
+    <state width="1388" height="176" key="GridCell.Tab.0.left" timestamp="1612084491656">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1388" height="176" key="GridCell.Tab.0.left/0.0.1440.900@0.0.1440.900" timestamp="1612084491656" />
+    <state width="1388" height="176" key="GridCell.Tab.0.right" timestamp="1612084491658">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state width="1388" height="176" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1612084491658" />
+    <state x="0" y="25" width="1440" height="875" key="new project wizard" timestamp="1612079845159">
+      <screen x="0" y="0" width="1440" height="900" />
+    </state>
+    <state x="0" y="25" width="1440" height="875" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1612079845159" />
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup" timestamp="1612083163307">
+      <screen x="48" y="25" width="1392" height="875" />
+    </state>
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1612081979007" />
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/48.25.1392.875@48.25.1392.875" timestamp="1612083163307" />
+  </component>
+</project>

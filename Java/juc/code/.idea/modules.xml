@@ -5,7 +5,9 @@
       <module fileurl="file://$PROJECT_DIR$/exclusive-synchronization/exclusive-synchronization.iml" filepath="$PROJECT_DIR$/exclusive-synchronization/exclusive-synchronization.iml" />
       <module fileurl="file://$PROJECT_DIR$/thread-create/thread-create.iml" filepath="$PROJECT_DIR$/thread-create/thread-create.iml" />
       <module fileurl="file://$PROJECT_DIR$/thread-interrupt/thread-interrupt.iml" filepath="$PROJECT_DIR$/thread-interrupt/thread-interrupt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/thread-join/thread-join.iml" filepath="$PROJECT_DIR$/thread-join/thread-join.iml" />
       <module fileurl="file://$PROJECT_DIR$/thread-mechanism/thread-mechanism.iml" filepath="$PROJECT_DIR$/thread-mechanism/thread-mechanism.iml" />
+      <module fileurl="file://$PROJECT_DIR$/wait-and-notify/wait-and-notify.iml" filepath="$PROJECT_DIR$/wait-and-notify/wait-and-notify.iml" />
     </modules>
   </component>
 </project>

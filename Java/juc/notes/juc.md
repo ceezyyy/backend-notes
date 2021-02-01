@@ -17,9 +17,15 @@ Table of Contents
       * [1.3.3 sleep()](#133-sleep)
    * [1.4 中断](#14-中断)
    * [1.5 互斥同步](#15-互斥同步)
-      * [1.5.1 锁是基于对象的](#151-锁是基于对象的)
+      * [1.5.1 synchronized 用法](#151-synchronized-用法)
+      * [1.5.2 锁为 Class 对象](#152-锁为-class-对象)
+      * [1.5.3 锁为 instance](#153-锁为-instance)
+      * [1.5.4 synchronized 内存语义](#154-synchronized-内存语义)
+   * [1.6 线程间协作](#16-线程间协作)
+      * [1.6.1 Thread.join()](#161-threadjoin)
+      * [1.6.2 Object.wait()  &amp; Object.notify()](#162-objectwait---objectnotify)
+* [2. 锁](#2-锁)
 * [References](#references)
-
 
 
 ## Brainstorming
@@ -38,18 +44,9 @@ Table of Contents
 ```java
 @FunctionalInterface
 public interface Runnable {
-    /**
-     * When an object implementing interface <code>Runnable</code> is used
-     * to create a thread, starting the thread causes the object's
-     * <code>run</code> method to be called in that separately executing
-     * thread.
-     * <p>
-     * The general contract of the method <code>run</code> is that it may
-     * take any action whatsoever.
-     *
-     * @see     java.lang.Thread#run()
-     */
+  
     public abstract void run();
+  
 }
 
 
@@ -81,13 +78,9 @@ public class App {
 ```java
 @FunctionalInterface
 public interface Callable<V> {
-    /**
-     * Computes a result, or throws an exception if unable to do so.
-     *
-     * @return computed result
-     * @throws Exception if unable to compute a result
-     */
+   
     V call() throws Exception;
+  
 }
 
 
@@ -265,19 +258,97 @@ public boolean isInterrupted() {
 
 ### 1.5 互斥同步
 
-#### 1.5.1 锁是基于对象的 
-
-**SynchronizedDemo.java**
+#### 1.5.1 synchronized 用法
 
 ```java
-public class SynchronizedDemo {
+// 关键字在 instance 方法上 -> 锁为当前 instance
+public synchronized void instanceLock() {
+    // code
+}
 
-    public synchronized void func() {
-        for (int i = 0; i < 10; i++) {
+
+// 关键字在静态方法上 -> 锁为当前 Class 对象
+public static synchronized void classLock() {
+    // code
+}
+
+
+// 关键字在代码块上 -> 锁为括号里面的对象 (Class 对象 / instance)
+public void blockLock() {
+    Object o = new Object();
+    synchronized (o) {
+        // code
+    }
+}
+```
+
+
+
+以下两种写法等价
+
+```java
+// 关键字在 instance 方法上 -> 锁为当前 instance
+public synchronized void instanceLock() {
+    // code
+}
+
+
+// 关键字在代码块上 -> 锁为括号里面的 instance
+public void blockLock() {
+    synchronized (this) {
+        // code
+    }
+}
+```
+
+
+
+这两种写法也是等价的
+
+```java
+// 关键字在静态方法上 -> 锁为当前 Class 对象
+public static synchronized void classLock() {
+    // code
+}
+
+
+// 关键字在代码块上 -> 锁为括号里的 Class 对象
+public void blockLock() {
+    synchronized (this.getClass()) {
+        // code
+    }
+}
+```
+
+
+
+#### 1.5.2 锁为 Class 对象
+
+**Resource.java**
+
+```java
+public class Resource {
+
+    public static synchronized void func() {
+        for (int i = 0; i < 20; i++) {
             System.out.print(i + " ");
         }
     }
+}
+```
 
+**Resource.java**
+
+```java
+public class Resource {
+
+    public void func() {
+        synchronized (this.getClass()) {
+            for (int i = 0; i < 20; i++) {
+                System.out.print(i + " ");
+            }
+        }
+    }
 }
 ```
 
@@ -287,15 +358,19 @@ public class SynchronizedDemo {
 
 ```java
 public class App {
+
     public static void main(String[] args) {
 
-        SynchronizedDemo demo = new SynchronizedDemo();
-
+        Resource r1 = new Resource();
+        Resource r2 = new Resource();
         ExecutorService pool = Executors.newCachedThreadPool();
-        pool.execute(() -> demo.func());
-        pool.execute(() -> demo.func());
 
-        // 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9
+        pool.execute(() -> {
+            r1.func();
+        });
+        pool.execute(() -> {
+            r2.func();
+        });
 
         pool.shutdown();
 
@@ -305,29 +380,275 @@ public class App {
 
 
 
-**Explained**
+**Output**
 
-使用 `ExecutorService` 执行了 2 个 **线程** 对 **资源**  `SynchronizedDemo` 进行 **操作**
+```
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+```
 
-由于 `func()` 为同步方法，当一个线程进入时，另一个就必须等待
+
+
+#### 1.5.3 锁为 instance
+
+**Resource.java**
+
+```java
+public class Resource {
+
+    public synchronized void func() {
+        for (int i = 0; i < 20; i++) {
+            System.out.print(i + " ");
+        }
+    }
+}
+```
 
 
 
-**App**
+**Resource.java**
+
+```java
+public class Resource {
+
+    public void func() {
+        synchronized (this) {
+            for (int i = 0; i < 20; i++) {
+                System.out.print(i + " ");
+            }
+        }
+    }
+}
+```
+
+
+
+**App.java**
+
+```java
+public class App {
+
+    public static void main(String[] args) {
+
+        Resource r1 = new Resource();
+        Resource r2 = new Resource();
+        ExecutorService pool = Executors.newCachedThreadPool();
+
+        pool.execute(() -> {
+            r1.func();
+        });
+        pool.execute(() -> {
+            r2.func();
+        });
+
+        pool.shutdown();
+
+    }
+}
+```
+
+
+
+**Output**
+
+```
+0 1 2 3 4 5 6 0 7 8 9 10 11 12 13 14 1 2 3 4 5 15 6 7 16 17 18 19 8 9 10 11 12 13 14 15 16 17 18 19 
+```
+
+
+
+#### 1.5.4 synchronized 内存语义
+
+**CPU**
+
+<div align="center"> <img src="cpu-structure.png" width="60%"/> </div><br>
+
+
+
+**Three level cache**
+
+<div align="center"> <img src="3-level-cache.png" width="70%"/> </div><br>
+
+
+
+
+
+### 1.6 线程间协作
+
+#### 1.6.1 Thread.join()
+
+**Thread.java**
+
+```java
+public final void join() throws InterruptedException {
+    join(0);
+}
+```
+
+**App.java**
 
 ```java
 public class App {
     public static void main(String[] args) {
 
-        SynchronizedDemo demo1 = new SynchronizedDemo();
-        SynchronizedDemo demo2 = new SynchronizedDemo();
+        System.out.println(Thread.currentThread().getName() + " started");
 
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 20; i++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }, "t1");
+
+        t1.start();
+//        t1.join();
+
+        System.out.println(Thread.currentThread().getName() + " exited");
+
+    }
+}
+```
+
+
+
+**Output**
+
+```
+main started
+main exited
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+```
+
+
+
+**App.java**
+
+```java
+public class App {
+    public static void main(String[] args) throws InterruptedException {
+
+        System.out.println(Thread.currentThread().getName() + " started");
+
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 20; i++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }, "t1");
+
+        t1.start();
+        t1.join();
+
+        System.out.println(Thread.currentThread().getName() + " exited");
+
+    }
+}
+```
+
+
+
+**Output**
+
+```
+main started
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+main exited
+```
+
+
+
+
+
+#### 1.6.2 Object.wait()  & Object.notify()
+
+**使用方法**
+
+```java
+synchronized (obj) {
+         while (<condition does not hold>)
+             obj.wait();
+         ... // Perform action appropriate to condition
+     }
+```
+
+
+
+**Example**
+
+<div align="center"> <img src="BlockingQueue.png" width="70%"/> </div><br>
+
+**BlockingQueue.java**
+
+```java
+/**
+ * A demo of Object.wait() & Object.notify()
+ *
+ * @param <E>
+ */
+public class BlockingQueue<E> {
+
+    private int capacity;
+    private Deque<E> deque = new LinkedList<>();
+
+    public BlockingQueue(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public synchronized void put(E element) throws InterruptedException {
+
+        while (deque.size() == capacity) {
+            wait();
+        }
+
+        deque.add(element);
+        notifyAll();
+
+    }
+
+    public synchronized E get() throws InterruptedException {
+
+        while (deque.isEmpty()) {
+            wait();
+        }
+
+        E res = deque.remove();
+        notifyAll();
+        return res;
+
+    }
+}
+```
+
+**App.java**
+
+```java
+public class App {
+    public static void main(String[] args) throws InterruptedException {
+
+        BlockingQueue<Object> blockingQueue = new BlockingQueue<>(10);
         ExecutorService pool = Executors.newCachedThreadPool();
-        pool.execute(() -> demo1.func());
-        pool.execute(() -> demo2.func());
 
-        // 0 1 2 0 1 2 3 4 3 5 4 5 6 7 8 9 6 7 8 9 
-        
+        // Producer
+        for (int i = 0; i < 5; i++) {
+            pool.execute(() -> {
+                try {
+                    blockingQueue.put(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        // Consumer
+        for (int i = 0; i < 8; i++) {
+            pool.execute(() -> {
+                try {
+                    blockingQueue.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
         pool.shutdown();
 
     }
@@ -336,9 +657,25 @@ public class App {
 
 
 
-**Explained**
+**思考**
 
-`Java` 中的锁是基于对象的
+- deque 的容量
+- 生产者数量
+- 消费者数量
+
+当三者何种关系时，会造成程序不退出？
+
+
+
+## 2. 锁
+
+
+
+
+
+
+
+
 
 
 
@@ -353,3 +690,5 @@ public class App {
 - [CyC2018](https://github.com/CyC2018/CS-Notes/blob/master/notes/Java%20%E5%B9%B6%E5%8F%91.md)
 - [RedSpider1 / concurrent](https://github.com/RedSpider1/concurrent)
 - [A Guide to the Java ExecutorService](https://www.baeldung.com/java-executor-service-tutorial)
+- [wait and notify() Methods in Java](https://www.baeldung.com/java-wait-notify)
+- [A simple scenario using wait() and notify() in java](https://stackoverflow.com/questions/2536692/a-simple-scenario-using-wait-and-notify-in-java)

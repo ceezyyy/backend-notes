@@ -5,29 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42dc9e1e-7752-4c90-b6a0-1c53f8afc64f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exclusive-synchronization/src/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/exclusive-synchronization/src/Resource.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/exclusive-synchronization/App.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/exclusive-synchronization/Resource.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/thread-join/App.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/wait-and-notify/App.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/wait-and-notify/BlockingQueue.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/thread-join/src/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/thread-join/thread-join.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wait-and-notify/src/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wait-and-notify/src/BlockingQueue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wait-and-notify/wait-and-notify.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../notes/3-level-cache.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../notes/BlockingQueue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../notes/cpu-structure.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../notes/cpu-structure.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/exclusive-synchronization/src/synchronizedDemo/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/exclusive-synchronization/src/synchronizedDemo/SynchronizedDemo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/exclusive-synchronization/synchronizedDemo/App.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/exclusive-synchronization/synchronizedDemo/SynchronizedDemo.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../notes/JUC.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/JUC.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../notes/JUC.xmind" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/JUC.xmind" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../notes/juc.md" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/juc.md" afterDir="false" />
@@ -174,7 +152,7 @@
       <option name="presentableId" value="Default" />
       <updated>1612062032318</updated>
       <workItem from="1612062033386" duration="7703000" />
-      <workItem from="1612077120455" duration="14028000" />
+      <workItem from="1612077120455" duration="17478000" />
     </task>
     <servers />
   </component>
@@ -214,10 +192,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state x="0" y="25" width="1440" height="875" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1612170630317" />
-    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup" timestamp="1612170107712">
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup" timestamp="1612253900271">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1612170107712" />
+    <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/0.0.1440.900@0.0.1440.900" timestamp="1612253900271" />
     <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup/48.25.1392.875@48.25.1392.875" timestamp="1612083163307" />
   </component>
 </project>

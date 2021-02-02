@@ -7,7 +7,7 @@ Table of Contents
 * [1. 线程基础](#1-线程基础)
    * [1.1 创建](#11-创建)
       * [1.1.1 Runnable](#111-runnable)
-      * [1.1.2 FutureTask](#112-futuretask)
+      * [1.1.2 FutureTask](#112-futuretasak)
    * [1.2 状态](#12-状态)
       * [1.2.1 操作系统中线程状态](#121-操作系统中线程状态)
       * [1.2.2 Java 中线程状态](#122-java-中线程状态)
@@ -16,15 +16,16 @@ Table of Contents
       * [1.3.2 Daemon](#132-daemon)
       * [1.3.3 sleep()](#133-sleep)
    * [1.4 中断](#14-中断)
-   * [1.5 互斥同步](#15-互斥同步)
-      * [1.5.1 synchronized 用法](#151-synchronized-用法)
-      * [1.5.2 锁为 Class 对象](#152-锁为-class-对象)
-      * [1.5.3 锁为 instance](#153-锁为-instance)
-      * [1.5.4 synchronized 内存语义](#154-synchronized-内存语义)
-   * [1.6 线程间协作](#16-线程间协作)
+   * [1.5 同步](#15-同步)
+      * [1.5.1 synchronized](#151-synchronized)
+      * [1.5.2 volatile](#152-volatile)
+   * [1.6 协作](#16-协作)
       * [1.6.1 Thread.join()](#161-threadjoin)
       * [1.6.2 Object.wait()  &amp; Object.notify()](#162-objectwait---objectnotify)
 * [2. 锁](#2-锁)
+   * [2.1 CAS 原理](#21-cas-原理)
+   * [2.2 Unsafe](#22-unsafe)
+   * [2.3 AtomicInteger 源码解析](#23-atomicinteger-源码解析)
 * [References](#references)
 
 
@@ -256,9 +257,11 @@ public boolean isInterrupted() {
 }
 ```
 
-### 1.5 互斥同步
+### 1.5 同步
 
-#### 1.5.1 synchronized 用法
+#### 1.5.1 synchronized
+
+**基本用法**
 
 ```java
 // 关键字在 instance 方法上 -> 锁为当前 instance
@@ -322,7 +325,7 @@ public void blockLock() {
 
 
 
-#### 1.5.2 锁为 Class 对象
+**Example: 锁为 Class 对象**
 
 **Resource.java**
 
@@ -388,7 +391,7 @@ public class App {
 
 
 
-#### 1.5.3 锁为 instance
+**Example: 锁为 instance**
 
 **Resource.java**
 
@@ -456,7 +459,7 @@ public class App {
 
 
 
-#### 1.5.4 synchronized 内存语义
+**内存语义**
 
 **CPU**
 
@@ -472,7 +475,17 @@ public class App {
 
 
 
-### 1.6 线程间协作
+
+
+#### 1.5.2 volatile
+
+ 
+
+
+
+
+
+### 1.6 协作
 
 #### 1.6.1 Thread.join()
 
@@ -663,17 +676,54 @@ public class App {
 - 生产者数量
 - 消费者数量
 
-当三者何种关系时，会造成程序不退出？
+三者关系？
 
 
 
 ## 2. 锁
 
+### 2.1 CAS 原理
+
+<div align="center"> <img src="compare-and-swap.png" width="40%"/> </div><br>
+
+### 2.2 Unsafe
+
+> Unsafe 是位于 sun.misc 包下的一个类，提供用于执行低级别、不安全操作等方法
+
+```java
+public final class Unsafe {
+  // code
+}
+```
 
 
 
+### 2.3 AtomicInteger 源码解析
+
+```java
+public class AtomicInteger extends Number implements java.io.Serializable {
+
+  // Atomically adds the given value to the current value
+  // delta: a difference between two things or values
+  public final int getAndAdd(int delta) {
+    return unsafe.getAndAddInt(this, valueOffset, delta);
+  }
 
 
+  public final int getAndAddInt(Object var1, long var2, int var4) {
+    int var5;
+    do {
+      var5 = this.getIntVolatile(var1, var2);
+    } while(!this.compareAndSwapInt(var1, var2, var5, var5 + var4));
+
+    return var5;
+  }
+
+  
+  public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5);
+  
+}
+```
 
 
 
@@ -692,3 +742,4 @@ public class App {
 - [A Guide to the Java ExecutorService](https://www.baeldung.com/java-executor-service-tutorial)
 - [wait and notify() Methods in Java](https://www.baeldung.com/java-wait-notify)
 - [A simple scenario using wait() and notify() in java](https://stackoverflow.com/questions/2536692/a-simple-scenario-using-wait-and-notify-in-java)
+- [无锁队列的实现](https://coolshell.cn/articles/8239.html)

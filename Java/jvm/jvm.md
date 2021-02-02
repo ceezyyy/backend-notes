@@ -468,10 +468,6 @@ public static void main(String[] args) {
 
 <div align="center"> <img src="reorder.png" width="80%"/> </div><br>
 
-**Example**
-
-<div align="center"> <img src="image-20210128161341901.png" width="85%"/> </div><br>
-
 
 
 ### 5.2 happens-before
@@ -519,17 +515,6 @@ B happens before C
 
 
 
-### 5.3 特性
-
-#### 5.3.1 原子性
-
-<div align="center"> <img src="java-memory-model.png" width="70%"/> </div><br>
-
-#### 5.3.2 可见性
-
-
-
-#### 5.3.3 有序性
 
 
 

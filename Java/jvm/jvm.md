@@ -476,6 +476,8 @@ public static void main(String[] args) {
 
 #### 5.2.1 Single thread rule
 
+Threads don't *have* code. Threads *execute* code.
+
 <div align="center"> <img src="single-thread-rule.png" width="25%"/> </div><br>
 
 #### 5.2.2 Monitor lock rule
@@ -485,8 +487,6 @@ public static void main(String[] args) {
 
 
 #### 5.2.3 Volatile variable rule
-
-> 先写后读
 
 <div align="center"> <img src="volatile-variable-rule.png" width="45%"/> </div><br>
 
@@ -531,7 +531,7 @@ B happens before C
 ## References
 
 - 周志明. 深入理解 Java 虚拟机 [M]. 机械工业出版社, 2011.
-- Java 并发编程的艺术
+- 方腾飞, 魏鹏, 程晓明. Java并发编程的艺术 [M]. 机械工业出版社, 2019.
 - [深入浅出 Java 多线程](http://concurrent.redspider.group/RedSpider.html)
 - [CyC2018 / CS-Notes](https://github.com/CyC2018/CS-Notes/blob/master/notes/Java%20%E8%99%9A%E6%8B%9F%E6%9C%BA.md)
 - [大白话理解可达性分析算法](https://blog.csdn.net/qq_32099833/article/details/109253339)

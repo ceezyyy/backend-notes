@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/atomic-demo/atomic-demo.iml" filepath="$PROJECT_DIR$/atomic-demo/atomic-demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/exclusive-synchronization/exclusive-synchronization.iml" filepath="$PROJECT_DIR$/exclusive-synchronization/exclusive-synchronization.iml" />
       <module fileurl="file://$PROJECT_DIR$/thread-create/thread-create.iml" filepath="$PROJECT_DIR$/thread-create/thread-create.iml" />
       <module fileurl="file://$PROJECT_DIR$/thread-interrupt/thread-interrupt.iml" filepath="$PROJECT_DIR$/thread-interrupt/thread-interrupt.iml" />

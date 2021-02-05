@@ -1,7 +1,9 @@
 package array;
 
 /**
- * Array
+ * Dynamic array
+ *
+ * @author ceezyyy
  */
 public class DynamicArray<E> {
 

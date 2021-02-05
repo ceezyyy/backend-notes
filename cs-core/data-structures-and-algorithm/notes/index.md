@@ -6,17 +6,19 @@
 
 <div align="center"> <img src="array.png" width="60%"/> </div><br>
 
-- [Dynamic array](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/array/DynamicArray.java)
+- [Array](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/array/DynamicArray.java)
 
 
 
 ### Stack
 
-<div align="center"> <img src="stack.bmp" width="35%"/> </div><br>
+<div align="center"> <img src="stack.png" width="45%"/> </div><br>
 
-- [ArrayStack](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/ArrayStack.java)
+- [Stack](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/ArrayStack.java)
 
 ### Queue
+
+<div align="center"> <img src="queue.png" width="80%"/> </div><br>
 
 
 

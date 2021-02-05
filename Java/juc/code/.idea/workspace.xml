@@ -5,25 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42dc9e1e-7752-4c90-b6a0-1c53f8afc64f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../notes/how-threadPoolExecutor-works.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../notes/image-20210205153842573.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../notes/life-cycle-of-threadpool.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/ArrayStack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/Stack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/queue/App.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/queue/CircularQueue.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/queue/Queue.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../notes/JUC.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/JUC.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../notes/JUC.xmind" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/JUC.xmind" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../notes/juc.md" beforeDir="false" afterPath="$PROJECT_DIR$/../notes/juc.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/algorithms/algorithms.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/algorithms/algorithms.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/data-structures.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/data-structures.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/array/DynamicArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/array/DynamicArray.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/out/production/data-structures/array/DynamicArray.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/out/production/data-structures/array/DynamicArray.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/ArrayStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/ArrayStack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/Stack.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/Stack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/notes/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/notes/index.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

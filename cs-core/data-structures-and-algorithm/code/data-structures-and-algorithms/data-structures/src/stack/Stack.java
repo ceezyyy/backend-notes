@@ -2,6 +2,8 @@ package stack;
 
 /**
  * Stack
+ *
+ * @author ceezyyy
  */
 public interface Stack<E> {
 

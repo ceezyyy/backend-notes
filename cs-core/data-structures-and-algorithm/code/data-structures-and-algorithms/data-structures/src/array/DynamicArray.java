@@ -1,7 +1,7 @@
 package array;
 
 /**
- * Dynamic array
+ * Dynamic Array
  *
  * @author ceezyyy
  */

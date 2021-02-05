@@ -6,7 +6,7 @@
 
 <div align="center"> <img src="array.png" width="60%"/> </div><br>
 
-- [Array](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/array/DynamicArray.java)
+- [Dynamic Array](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/array/DynamicArray.java)
 
 
 
@@ -20,7 +20,7 @@
 
 <div align="center"> <img src="queue.png" width="80%"/> </div><br>
 
-
+- Circular Queue
 
 
 

@@ -5,13 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="42dc9e1e-7752-4c90-b6a0-1c53f8afc64f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/queue/App.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/queue/CircularQueue.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/queue/Queue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/array/DynamicArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/array/DynamicArray.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/ArrayStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/ArrayStack.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/Stack.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/stack/Stack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/notes/index.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/notes/index.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

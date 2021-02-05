@@ -9,6 +9,7 @@ public class DynamicArray<E> {
     // Index of the element to be stored
     private int size;
     private E[] data;
+    private static final int SCALE_FACTOR = 2;
 
     public DynamicArray() {
         this(10);
@@ -75,7 +76,7 @@ public class DynamicArray<E> {
      */
     private void resize() {
 
-        int newCapacity = 2 * data.length;
+        int newCapacity = SCALE_FACTOR * data.length;
         E[] newData = (E[]) new Object[newCapacity];
 
         for (int i = 0; i < data.length; i++) {
@@ -229,7 +230,7 @@ public class DynamicArray<E> {
             if (i != size - 1)
                 sb.append(", ");
         }
-        sb.append(" ]");
+        sb.append(" ]}");
 
         return sb.toString();
 

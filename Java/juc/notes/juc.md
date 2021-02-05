@@ -36,7 +36,6 @@ Table of Contents
 
 <div align="center"> <img src="JUC.svg" width="100%"/> </div><br>
 
-
 ## 1. 线程
 
 ### 1.1 创建
@@ -145,7 +144,7 @@ public enum State {
 
 ### 1.3 机制
 
-#### 1.3.1 Executor
+#### 1.3.1 线程池
 
 <div align="center"> <img src="thread-pool.png" width="60%"/> </div><br>
 
@@ -262,306 +261,13 @@ public boolean isInterrupted() {
 
 
 
-### 1.5 协作
+### 1.5 互斥同步
 
-#### 1.5.1 Thread.join()
+#### 1.5.1 volatile
 
-**Thread.java**
 
-```java
-public final void join() throws InterruptedException {
-    join(0);
-}
-```
 
-**App.java**
-
-```java
-public class App {
-    public static void main(String[] args) {
-
-        System.out.println(Thread.currentThread().getName() + " started");
-
-        Thread t1 = new Thread(() -> {
-            for (int i = 0; i < 20; i++) {
-                System.out.print(i + " ");
-            }
-            System.out.println();
-        }, "t1");
-
-        t1.start();
-//        t1.join();
-
-        System.out.println(Thread.currentThread().getName() + " exited");
-
-    }
-}
-```
-
-
-
-**Output**
-
-```
-main started
-main exited
-0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
-```
-
-
-
-**App.java**
-
-```java
-public class App {
-    public static void main(String[] args) throws InterruptedException {
-
-        System.out.println(Thread.currentThread().getName() + " started");
-
-        Thread t1 = new Thread(() -> {
-            for (int i = 0; i < 20; i++) {
-                System.out.print(i + " ");
-            }
-            System.out.println();
-        }, "t1");
-
-        t1.start();
-        t1.join();
-
-        System.out.println(Thread.currentThread().getName() + " exited");
-
-    }
-}
-```
-
-
-
-**Output**
-
-```
-main started
-0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
-main exited
-```
-
-
-
-
-
-#### 1.5.2 Object.wait()  & Object.notify()
-
-**使用方法**
-
-```java
-synchronized (obj) {
-         while (<condition does not hold>)
-             obj.wait();
-         ... // Perform action appropriate to condition
-     }
-```
-
-
-
-**Example**
-
-<div align="center"> <img src="BlockingQueue.png" width="70%"/> </div><br>
-
-**BlockingQueue.java**
-
-```java
-/**
- * A demo of Object.wait() & Object.notify()
- *
- * @param <E>
- */
-public class BlockingQueue<E> {
-
-    private int capacity;
-    private Deque<E> deque = new LinkedList<>();
-
-    public BlockingQueue(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public synchronized void put(E element) throws InterruptedException {
-
-        while (deque.size() == capacity) {
-            wait();
-        }
-
-        deque.add(element);
-        notifyAll();
-
-    }
-
-    public synchronized E get() throws InterruptedException {
-
-        while (deque.isEmpty()) {
-            wait();
-        }
-
-        E res = deque.remove();
-        notifyAll();
-        return res;
-
-    }
-}
-```
-
-**App.java**
-
-```java
-public class App {
-    public static void main(String[] args) throws InterruptedException {
-
-        BlockingQueue<Object> blockingQueue = new BlockingQueue<>(10);
-        ExecutorService pool = Executors.newCachedThreadPool();
-
-        // Producer
-        for (int i = 0; i < 5; i++) {
-            pool.execute(() -> {
-                try {
-                    blockingQueue.put(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        // Consumer
-        for (int i = 0; i < 8; i++) {
-            pool.execute(() -> {
-                try {
-                    blockingQueue.get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-
-        pool.shutdown();
-
-    }
-}
-```
-
-
-
-**思考**
-
-- deque 的容量
-- 生产者数量
-- 消费者数量
-
-三者关系？
-
-
-
-## 2. 锁
-
-### 2.1 乐观锁
-
-#### 2.1.1 CAS 原理
-
-**三个变量**
-
-- V: var
-- E: expected
-- N: new
-
-**语义**
-
-“我认为 V 的值应该是 E，若 V = E，则修改 V 为 N；否则不修改”
-
-<div align="center"> <img src="compare-and-swap.png" width="40%"/> </div><br>
-
-
-
-#### 2.1.2 原子操作类
-
-**Example**
-
-**Resource.java**
-
-```java
-public class Resource {
-
-    private static AtomicInteger ai = new AtomicInteger(0);
-
-    public static AtomicInteger getAi() {
-        return ai;
-    }
-
-    public void increase() {
-        ai.getAndIncrement();
-    }
-
-}
-```
-
-**App.java**
-
-```java
-/**
- * Demo of java.util.concurrent.atomic.AtomicInteger
- */
-public class App {
-
-    public static void main(String[] args) {
-
-        ExecutorService pool = Executors.newCachedThreadPool();
-        Resource resource = new Resource();
-
-        pool.execute(() -> {
-            for (int i = 0; i < 500; i++) {
-                resource.increase();
-            }
-        });
-        pool.execute(() -> {
-            for (int i = 0; i < 500; i++) {
-                resource.increase();
-            }
-        });
-
-        pool.shutdown();
-
-        System.out.println(Resource.getAi());  // 1000
-
-    }
-}
-```
-
-
-
-**AtomicInteger.java**
-
-```java
-public final int getAndIncrement() {
-  return unsafe.getAndAddInt(this, valueOffset, 1);
-}
-
-
-public final int getAndAddInt(Object var1, long var2, int var4) {
-  int var5;
-  do {
-    // 通过 CAS 实现
-    // var1 和 var2 是为了确定该字段的值，记为 var5
-    // var4 也就是 delta (改变了多少)
-    var5 = this.getIntVolatile(var1, var2);
-  } while(!this.compareAndSwapInt(var1, var2, var5, var5 + var4));
-
-  return var5;
-}
-
-
-public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5);
-```
-
-
-
-### 2.2 悲观锁
-
-#### 2.2.1 synchronized
+#### 1.5.2 synchronized
 
 **基本用法**
 
@@ -775,7 +481,304 @@ public class App {
 
 
 
-### 2.3 AQS
+
+
+### 1.6 协作
+
+#### 1.6.1 Thread.join()
+
+**Thread.java**
+
+```java
+public final void join() throws InterruptedException {
+    join(0);
+}
+```
+
+**App.java**
+
+```java
+public class App {
+    public static void main(String[] args) {
+
+        System.out.println(Thread.currentThread().getName() + " started");
+
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 20; i++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }, "t1");
+
+        t1.start();
+//        t1.join();
+
+        System.out.println(Thread.currentThread().getName() + " exited");
+
+    }
+}
+```
+
+
+
+**Output**
+
+```
+main started
+main exited
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19
+```
+
+
+
+**App.java**
+
+```java
+public class App {
+    public static void main(String[] args) throws InterruptedException {
+
+        System.out.println(Thread.currentThread().getName() + " started");
+
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 20; i++) {
+                System.out.print(i + " ");
+            }
+            System.out.println();
+        }, "t1");
+
+        t1.start();
+        t1.join();
+
+        System.out.println(Thread.currentThread().getName() + " exited");
+
+    }
+}
+```
+
+
+
+**Output**
+
+```
+main started
+0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 
+main exited
+```
+
+
+
+
+
+#### 1.6.2 Object.wait()  & Object.notify()
+
+**使用方法**
+
+```java
+synchronized (obj) {
+         while (<condition does not hold>)
+             obj.wait();
+         ... // Perform action appropriate to condition
+     }
+```
+
+
+
+**Example**
+
+<div align="center"> <img src="BlockingQueue.png" width="70%"/> </div><br>
+
+**BlockingQueue.java**
+
+```java
+/**
+ * A demo of Object.wait() & Object.notify()
+ *
+ * @param <E>
+ */
+public class BlockingQueue<E> {
+
+    private int capacity;
+    private Deque<E> deque = new LinkedList<>();
+
+    public BlockingQueue(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public synchronized void put(E element) throws InterruptedException {
+
+        while (deque.size() == capacity) {
+            wait();
+        }
+
+        deque.add(element);
+        notifyAll();
+
+    }
+
+    public synchronized E get() throws InterruptedException {
+
+        while (deque.isEmpty()) {
+            wait();
+        }
+
+        E res = deque.remove();
+        notifyAll();
+        return res;
+
+    }
+}
+```
+
+**App.java**
+
+```java
+public class App {
+    public static void main(String[] args) throws InterruptedException {
+
+        BlockingQueue<Object> blockingQueue = new BlockingQueue<>(10);
+        ExecutorService pool = Executors.newCachedThreadPool();
+
+        // Producer
+        for (int i = 0; i < 5; i++) {
+            pool.execute(() -> {
+                try {
+                    blockingQueue.put(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        // Consumer
+        for (int i = 0; i < 8; i++) {
+            pool.execute(() -> {
+                try {
+                    blockingQueue.get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
+        pool.shutdown();
+
+    }
+}
+```
+
+
+
+**思考**
+
+- deque 的容量
+- 生产者数量
+- 消费者数量
+
+三者关系？
+
+
+
+## 2. 锁
+
+### 2.1 CAS
+
+**三个变量**
+
+- V: var
+- E: expected
+- N: new
+
+**语义**
+
+“我认为 V 的值应该是 E，若 V = E，则修改 V 为 N；否则不修改”
+
+<div align="center"> <img src="compare-and-swap.png" width="40%"/> </div><br>
+
+
+
+#### 2.1.1 原子操作类
+
+**Example**
+
+**Resource.java**
+
+```java
+public class Resource {
+
+    private static AtomicInteger ai = new AtomicInteger(0);
+
+    public static AtomicInteger getAi() {
+        return ai;
+    }
+
+    public void increase() {
+        ai.getAndIncrement();
+    }
+
+}
+```
+
+**App.java**
+
+```java
+/**
+ * Demo of java.util.concurrent.atomic.AtomicInteger
+ */
+public class App {
+
+    public static void main(String[] args) {
+
+        ExecutorService pool = Executors.newCachedThreadPool();
+        Resource resource = new Resource();
+
+        pool.execute(() -> {
+            for (int i = 0; i < 500; i++) {
+                resource.increase();
+            }
+        });
+        pool.execute(() -> {
+            for (int i = 0; i < 500; i++) {
+                resource.increase();
+            }
+        });
+
+        pool.shutdown();
+
+        System.out.println(Resource.getAi());  // 1000
+
+    }
+}
+```
+
+
+
+**AtomicInteger.java**
+
+```java
+public final int getAndIncrement() {
+  return unsafe.getAndAddInt(this, valueOffset, 1);
+}
+
+
+public final int getAndAddInt(Object var1, long var2, int var4) {
+  int var5;
+  do {
+    // 通过 CAS 实现
+    // var1 和 var2 是为了确定该字段的值，记为 var5
+    // var4 也就是 delta (改变了多少)
+    var5 = this.getIntVolatile(var1, var2);
+  } while(!this.compareAndSwapInt(var1, var2, var5, var5 + var4));
+
+  return var5;
+}
+
+
+public final native boolean compareAndSwapInt(Object var1, long var2, int var4, int var5);
+```
+
+
+
+### 2.2 AQS
 
 ```java
 public abstract class AbstractQueuedSynchronizer
@@ -793,7 +796,7 @@ public abstract class AbstractQueuedSynchronizer
 
 
 
-#### 2.3.1 Node
+#### 2.2.1 Node
 
 **AbstractQueuedSynchronizer.java**
 
@@ -851,7 +854,7 @@ static final class Node {
 
 
 
-#### 2.3.2 state
+#### 2.2.2 state
 
 ```java
 // 同步状态：临界资源的获锁情况
@@ -892,7 +895,7 @@ public final native boolean compareAndSwapInt(Object var1, long var2, int var4, 
 
 
 
-#### 2.3.3 获取资源
+#### 2.2.3 获取资源
 
 **如何入队**
 
@@ -903,6 +906,7 @@ private Node addWaiter(Node mode) {
   Node node = new Node(Thread.currentThread(), mode);
   // Try the fast path of enq; backup to full enq on failure
   Node pred = tail;
+  
   // 当等待队列不为空时
   if (pred != null) {
     node.prev = pred;
@@ -912,10 +916,11 @@ private Node addWaiter(Node mode) {
       return node;
     }
   }
-  // 若队列为空或者 CAS 尾插失败
-  // 再自旋 CAS 入队
+  
+  // 若队列为空或 CAS 尾插失败 -> 自旋 CAS 入队
   enq(node);
   return node;
+  
 }
 
 
@@ -923,6 +928,7 @@ private Node addWaiter(Node mode) {
 private Node enq(final Node node) {
   for (;;) {
     Node t = tail;
+    
     // 若等待队列为空 -> 头插
     if (t == null) { // Must initialize
       if (compareAndSetHead(new Node()))
@@ -1008,13 +1014,14 @@ final Node predecessor() throws NullPointerException {
   else
     return p;
 }
+
 ```
 
 **how acquire() works**
 
 <div align="center"> <img src="how-acquire-works.jpg" width="50%"/> </div><br>
 
-#### 2.3.4 释放资源
+#### 2.2.4 释放资源
 
 ```java
 public final boolean release(int arg) {
@@ -1067,6 +1074,56 @@ private void unparkSuccessor(Node node) {
 
 
 
+## 3. Executor
+
+**核心**
+
+将任务提交和任务管理解耦
+
+<div align="center"> <img src="image-20210205153842573.png" width="30%"/> </div><br>
+
+**Executor.java**
+
+```java
+public interface Executor {
+
+    void execute(Runnable command);
+
+}
+```
+
+### 3.1 ThreadPoolExecutor
+
+#### 3.1.1 概述
+
+<div align="center"> <img src="how-threadPoolExecutor-works.png" width="100%"/> </div><br>
+
+
+
+
+
+
+
+
+
+#### 3.1.2 生命周期
+
+<div align="center"> <img src="life-cycle-of-threadpool.png" width="100%"/> </div><br>
+
+
+
+| runState   | Description                                                  |
+| ---------- | ------------------------------------------------------------ |
+| RUNNING    | 1. 接受新任务<br />2. 处理阻塞队列中的任务                   |
+| SHUTDOWN   | 1. 不接受新任务<br />2. 处理阻塞队列中的任务                 |
+| STOP       | 1. 不接受新任务<br />2. 不处理阻塞队列中的任务<br />3. 中断正在运行的线程 |
+| TIDYING    | 1. 所有任务终止<br />2. workerCount = 0（有效线程为 0）      |
+| TERMINATED |                                                              |
+
+
+
+
+
 
 
 
@@ -1099,4 +1156,6 @@ private void unparkSuccessor(Node node) {
 - [A Guide to the Java ExecutorService](https://www.baeldung.com/java-executor-service-tutorial)
 - [wait and notify() Methods in Java](https://www.baeldung.com/java-wait-notify)
 - [A simple scenario using wait() and notify() in java](https://stackoverflow.com/questions/2536692/a-simple-scenario-using-wait-and-notify-in-java)
-- [从ReentrantLock的实现看AQS的原理及应用](https://tech.meituan.com/2019/12/05/aqs-theory-and-apply.html)
+- [从 ReentrantLock 的实现看 AQS 的原理及应用](https://tech.meituan.com/2019/12/05/aqs-theory-and-apply.html)
+- [Java 线程池实现原理及其在美团业务中的实践](https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html)
+- [Java ExecutorService Series](https://www.youtube.com/watch?v=6Oo-9Can3H8&list=PLhfHPmPYPPRl0LntrCBnQD5ln6lnqqoms)

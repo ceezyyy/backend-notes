@@ -32,9 +32,6 @@ Table of Contents
       * [2.3.4 释放资源](#234-释放资源)
 * [References](#references)
 
-
-
-
 ## Brainstorming
 
 <div align="center"> <img src="JUC.svg" width="100%"/> </div><br>
@@ -897,49 +894,41 @@ public final native boolean compareAndSwapInt(Object var1, long var2, int var4, 
 
 #### 2.3.3 获取资源
 
+**如何入队**
+
 **AbstractQueuedSynchronizer.java**
 
 ```java
-// 获取资源
-public final void acquire(int arg) {
-  if (!tryAcquire(arg) &&
-      acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
-    selfInterrupt();
-}
-
-
-// 将该线程插入到等待队列中
 private Node addWaiter(Node mode) {
   Node node = new Node(Thread.currentThread(), mode);
   // Try the fast path of enq; backup to full enq on failure
   Node pred = tail;
+  // 当等待队列不为空时
   if (pred != null) {
     node.prev = pred;
-    // 若成功插入则返回
+    // CAS 尝试尾插
     if (compareAndSetTail(pred, node)) {
       pred.next = node;
       return node;
     }
   }
+  // 若队列为空或者 CAS 尾插失败
+  // 再自旋 CAS 入队
   enq(node);
   return node;
 }
 
 
-// 通过 CAS 插入到队尾
-private final boolean compareAndSetTail(Node expect, Node update) {
-  return unsafe.compareAndSwapObject(this, tailOffset, expect, update);
-}
-
-
-// 自旋 CAS 插入等待队列
+// 自旋 CAS 入队 -> 分为头插和尾插两种情况
 private Node enq(final Node node) {
   for (;;) {
     Node t = tail;
+    // 若等待队列为空 -> 头插
     if (t == null) { // Must initialize
       if (compareAndSetHead(new Node()))
         tail = head;
     } else {
+      // 尾插
       node.prev = t;
       if (compareAndSetTail(t, node)) {
         t.next = node;
@@ -948,49 +937,133 @@ private Node enq(final Node node) {
     }
   }
 }
+
+
+// CAS 尾插
+private final boolean compareAndSetTail(Node expect, Node update) {
+  return unsafe.compareAndSwapObject(this, tailOffset, expect, update);
+}
+
+
+// CAS 头插
+private final boolean compareAndSetHead(Node update) {
+  return unsafe.compareAndSwapObject(this, headOffset, null, update);
+}
+
 ```
 
-接下来看看 `acquireQueued()`
+**入队之后**
+
+简而言之，队中的每个 `node` 都在自旋执行：
+
+```java
+(node.prev == head) && tryAcquire(args);
+```
+
+<div align="center"> <img src="image-20210205115440812.png" width="70%"/> </div><br>
 
 **AbstractQueuedSynchronizer.java**
 
 ```java
-// Acquires in exclusive uninterruptible mode for thread already in queue
-// Used by condition wait methods as well as acquire.
+// exclusive 模式下
 final boolean acquireQueued(final Node node, int arg) {
-    boolean failed = true;
-    try {
-        boolean interrupted = false;
-        for (;;) {
-            final Node p = node.predecessor();
-            if (p == head && tryAcquire(arg)) {
-                setHead(node);
-                p.next = null; // help GC
-                failed = false;
-                return interrupted;
-            }
-            if (shouldParkAfterFailedAcquire(p, node) &&
-                parkAndCheckInterrupt())
-                interrupted = true;
-        }
-    } finally {
-        if (failed)
-            cancelAcquire(node);
+  boolean failed = true;
+  try {
+    boolean interrupted = false;
+
+    // 自旋
+    for (;;) {
+      final Node p = node.predecessor();
+      
+      // 获取到了同步状态 -> 自旋结束
+      if (p == head && tryAcquire(arg)) {
+        setHead(node);
+        p.next = null; // help GC
+        failed = false;
+        return interrupted;
+      }
+      
+      if (shouldParkAfterFailedAcquire(p, node) &&
+          parkAndCheckInterrupt())
+        interrupted = true;
     }
+  } finally {
+    if (failed)
+      cancelAcquire(node);
+  }
+}
+
+
+// 在 exclusive 模式下获取资源
+protected boolean tryAcquire(int arg) {
+  throw new UnsupportedOperationException();
+}
+
+
+// 获取前一个 node
+final Node predecessor() throws NullPointerException {
+  Node p = prev;
+  if (p == null)
+    throw new NullPointerException();
+  else
+    return p;
 }
 ```
 
+**how acquire() works**
 
-
-// TODO
-
-
-
-
+<div align="center"> <img src="how-acquire-works.jpg" width="50%"/> </div><br>
 
 #### 2.3.4 释放资源
 
-// TODO
+```java
+public final boolean release(int arg) {
+  if (tryRelease(arg)) {
+    Node h = head;
+    
+    // 头节点出队
+    if (h != null && h.waitStatus != 0)
+      unparkSuccessor(h);
+    return true;
+    
+  }
+  return false;
+}
+
+
+// 和 tryAcquire() 相同，需要子类实现
+protected boolean tryRelease(int arg) {
+  throw new UnsupportedOperationException();
+}
+
+
+private void unparkSuccessor(Node node) {
+
+  int ws = node.waitStatus;
+  if (ws < 0)
+    // 将该 node 的状态设为 0（初始化状态）
+    compareAndSetWaitStatus(node, ws, 0);
+
+  // 入参 node 为队头节点
+  // s 为第二个节点
+  Node s = node.next;
+  
+  if (s == null || s.waitStatus > 0) {
+    s = null;
+    
+    // backwards: 所有节点向前移动
+    for (Node t = tail; t != null && t != node; t = t.prev)
+      if (t.waitStatus <= 0)
+        s = t;
+  }
+  
+  // 此时 s 为队头节点
+  if (s != null)
+    // 唤醒
+    LockSupport.unpark(s.thread);
+  
+}
+```
 
 
 

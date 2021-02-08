@@ -2,6 +2,8 @@ package sorting.insertionSort;
 
 /**
  * Insertion sort
+ *
+ * @author ceezyyy
  */
 public class InsertionSort {
 
@@ -32,5 +34,5 @@ public class InsertionSort {
 }
 
 
-// Time: O(n^2)
+// Time: O(n^2), if the array is sorted -> O(n)
 // Space: O(1)

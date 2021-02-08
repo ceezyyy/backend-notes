@@ -2,6 +2,8 @@ package sorting.selectionSort;
 
 /**
  * Selection sort
+ *
+ * @author ceezyyy
  */
 public class SelectionSort {
 

@@ -35,25 +35,9 @@
 
 
 
-## :leaves: Framework
-
-- [Spring](https://github.com/ceezyyy/awesome-backend-developer/blob/master/Framework/Spring/notes/Spring.md)
-- [SpringMVC](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringMVC/notes/Springmvc.md)
-- [SpringBoot](https://github.com/ceezyyy/backend-notes/blob/master/Framework/SpringBoot/notes/SpringBoot.md)
-- [MyBatis](https://github.com/ceezyyy/backend-notes/blob/master/Framework/orm/mybatis/notes/MyBatis.md)
-- [MyBatis Plus](https://github.com/ceezyyy/backend-notes/blob/master/Framework/orm/mybatis-plus/notes/mybatis-plus.md)
-
-
-
 ## :bulb: System Design
 
 - Design Patterns
-
-
-
-## :shield: Security 
-
-- [SpringSecurity](https://github.com/ceezyyy/backend-notes/blob/master/Security/SpringSecurity/notes/SpringSecurity.md)
 
 
 

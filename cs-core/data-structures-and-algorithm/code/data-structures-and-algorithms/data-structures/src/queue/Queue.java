@@ -6,4 +6,5 @@ package queue;
  * @author ceezyyy
  */
 public interface Queue {
+
 }

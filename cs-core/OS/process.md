@@ -3,128 +3,111 @@
 Table of Contents
 -----------------
 
-* [1. 概述](#1-概述)
-   * [1.1 进程组成](#11-进程组成)
-   * [1.2 进程状态](#12-进程状态)
-* [2. 进程调度](#2-进程调度)
-   * [2.1 时间片轮转调度算法](#21-时间片轮转调度算法)
-   * [2.2 优先级调度算法](#22-优先级调度算法)
-   * [2.3 多级反馈队列调度算法](#23-多级反馈队列调度算法)
-* [3. 信号量机制](#3-信号量机制)
-   * [3.1 记录型信号量](#31-记录型信号量)
-   * [3.2 信号量机制实现进程互斥](#32-信号量机制实现进程互斥)
-   * [3.3 信号量机制实现进程同步](#33-信号量机制实现进程同步)
-   * [3.4 Producer–Consumer Problem](#34-producerconsumer-problem)
-   * [3.5 Readers-Writers Problem](#35-readers-writers-problem)
-   * [3.6 Dining Philosophers Problem（待补充）](#36-dining-philosophers-problem待补充)
-* [4. 死锁](#4-死锁)
-   * [4.1 死锁产生的必要条件](#41-死锁产生的必要条件)
-   * [4.2 死锁避免](#42-死锁避免)
-      * [4.2.1 背景](#421-背景)
-      * [4.2.2 安全状态](#422-安全状态)
-      * [4.2.3 单个资源的银行家算法](#423-单个资源的银行家算法)
-      * [4.2.4 多个资源的银行家算法](#424-多个资源的银行家算法)
-   * [4.3 死锁检测 &amp; 恢复](#43-死锁检测--恢复)
-      * [4.3.1 单个资源](#431-单个资源)
-      * [4.3.2 多个资源](#432-多个资源)
+* [1. Blueprint](#1-blueprint)
+* [2. States](#2-states)
+* [3. System call](#3-system-call)
+* [4. Scheduling](#4-scheduling)
+* [5. Semaphore](#5-semaphore)
+   * [5.1 记录型信号量](#51-记录型信号量)
+   * [5.2 进程互斥](#52-进程互斥)
+   * [5.3 进程同步](#53-进程同步)
+   * [5.4 Producer–Consumer Problem](#54-producerconsumer-problem)
+   * [5.5 Readers-Writers Problem](#55-readers-writers-problem)
+   * [5.6 Dining Philosophers Problem（待补充）](#56-dining-philosophers-problem待补充)
+* [6. Deadlock](#6-deadlock)
+   * [6.1 产生的必要条件](#61-产生的必要条件)
+   * [6.2 死锁避免](#62-死锁避免)
+      * [6.2.1 背景](#621-背景)
+      * [6.2.2 安全状态](#622-安全状态)
+      * [6.2.3 单个资源的银行家算法](#623-单个资源的银行家算法)
+      * [6.2.4 多个资源的银行家算法](#624-多个资源的银行家算法)
+   * [6.3 死锁检测 &amp; 恢复](#63-死锁检测--恢复)
+      * [6.3.1 单个资源](#631-单个资源)
+      * [6.3.2 多个资源](#632-多个资源)
 
 
-## 1. 概述
+## 1. Blueprint
 
-### 1.1 进程组成
+**Process**
 
-- PCB
-- 代码块
-- 数据块
-
-<div align="center"> <img src="image-20201228180000394.png" width="30%"/> </div><br>
+<div align="center"> <img src="process.png" width="80%"/> </div><br>
 
 
 
-### 1.2 进程状态
+**Thread**
 
-<div align="center"> <img src="process-life-cycle.png" width="60%"/> </div><br>
-
-- `new` -> `ready`：操作系统完成进程创建工作
-- `ready` -> `running`：进程准备就绪，等待 `CPU` 调度
-- `running` -> `ready`：`CPU` 时间片到 / 有优先级很高的进程抢占调度
-- `running` -> `blocked`：等待系统调度 / 等待某事件（**主动**）
-- `blocked` -> `ready`：资源分配已到位 / 等待的时间已发生（**被动**）
-- `running` -> `terminated`：进程运行结束 / 运行过程中遇到不可修复错误
+<div align="center"> <img src="thread.png" width="40%"/> </div><br>
 
 
 
 
 
-## 2. 进程调度
+**Parallelism VS Concurrency**
 
-### 2.1 时间片轮转调度算法
+<div align="center"> <img src="concurrency.png" width="90%"/> </div><br>
 
-<div align="center"> <img src="image-20201226192757466.png" width="30%"/> </div><br>
+**schedule()**
 
-当时间片为 2 时：
-
-<div align="center"> <img src="image-20201226193253039.png" width="60%"/> </div><br>
-
-
-
-当时间片为 5 时：
-
-<div align="center"> <img src="image-20201226200320011.png" width="60%"/> </div><br>
-
-**注意：**
-
-- 在时间片内，若进程执行完毕，会主动放弃 `CPU`（进行下一次调度）
-- 时间片过大：退化成 `first come first serve`；时间片过小：进程切换太频繁
+```c
+schedule() {
+  pNew = getNext(ReadyQueue);
+  switch_to(pCur, pNew);
+}
+```
 
 
 
+## 2. States
 
-
-### 2.2 优先级调度算法
-
-<div align="center"> <img src="image-20201226202248271.png" width="35%"/> </div><br>
-
-**非抢占式**
-
-每次调度已到达队列且优先级最高的进程，当进程主动放弃 `CPU` 时发生调度
-
-<div align="center"> <img src="image-20201226221547720.png" width="60%"/> </div><br>
-
-**抢占式**
-
-与非抢占式相比，抢占式在**就绪队列发生改变时**也会判断是否需要抢占
-
-<div align="center"> <img src="image-20201226222621070.png" width="60%"/> </div><br>
+<div align="center"> <img src="process-life-cycle.png" width="70%"/> </div><br>
 
 
 
-### 2.3 多级反馈队列调度算法
+## 3. System call
 
-<div align="center"> <img src="image-20201226225925784.png" width="35%"/> </div><br>
+<div align="center"> <img src="system-call.png" width="70%"/> </div><br>
 
-设置**多级就绪队列**，优先级从高到低，时间片从小到大
+**Linux 下主要的系统调用**
 
-<div align="center"> <img src="image-20201226230030071.png" width="70%"/> </div><br>
+|   Task   |          Commands           |
+| :------: | :-------------------------: |
+| 进程控制 |   fork(); exit(); wait();   |
+| 进程通信 |  pipe(); shmget(); mmap();  |
+| 文件操作 |  open(); read(); write();   |
+| 设备操作 |  ioctl(); read(); write();  |
+| 信息维护 | getpid(); alarm(); sleep(); |
+|   安全   | chmod(); umask(); chown();  |
 
-## 3. 信号量机制
 
-信号量机制是一种工具，目的是解决进程同步/互斥问题
+
+## 4. Scheduling
+
+
+
+
+
+
+
+
+
+## 5. Semaphore
 
 ```cpp
 do {
+  
   // 对请求的资源上锁
   entry section;
   critical section;
   // 释放该资源的锁
   exit section;
   remainder section;
+  
 } while (true);
 ```
 
 
 
-### 3.1 记录型信号量
+### 5.1 记录型信号量
 
 **struct.cpp**
 
@@ -172,7 +155,7 @@ void signal (semaphore S) {
 
 
 
-### 3.2 信号量机制实现进程互斥
+### 5.2 进程互斥
 
 **核心思想：**
 
@@ -210,7 +193,7 @@ P2() {
 
 
 
-### 3.3 信号量机制实现进程同步
+### 5.3 进程同步
 
 **核心思想：**
 
@@ -244,7 +227,7 @@ P2() {
 
 
 
-### 3.4 Producer–Consumer Problem
+### 5.4 Producer–Consumer Problem
 
 <div align="center"> <img src="producer-consumer.png" width="60%"/> </div><br>
 
@@ -312,7 +295,7 @@ void consumer() {
 
 
 
-### 3.5 Readers-Writers Problem
+### 5.5 Readers-Writers Problem
 
 <div align="center"> <img src="the-readers-writers-problem.jpg" width="60%"/> </div><br>
 
@@ -379,7 +362,7 @@ void read() {
 
 
 
-### 3.6 Dining Philosophers Problem（待补充）
+### 5.6 Dining Philosophers Problem（待补充）
 
 <div align="center"> <img src="dining_phil.png" width="40%"/> </div><br>
 
@@ -393,13 +376,13 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 
-## 4. 死锁
+## 6. Deadlock
 
 死锁是指多个进程在执行过程中互相等待对方的资源而造成全部阻塞的情况
 
 <div align="center"> <img src="image-20201228212139674.png" width="70%"/> </div><br>
 
-### 4.1 死锁产生的必要条件
+### 6.1 产生的必要条件
 
 产生死锁**必须同时满足以下四个条件**（联想哲学家进餐问题）
 
@@ -414,9 +397,9 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 
-### 4.2 死锁避免
+### 6.2 死锁避免
 
-#### 4.2.1 背景
+#### 6.2.1 背景
 
 银行家算法（Banker's Algorithm）是一个避免死锁的著名算法（算法中银行家好比操作系统，资金好比系统资源，申请的客户好比进程）
 
@@ -430,7 +413,7 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 
-#### 4.2.2 安全状态
+#### 6.2.2 安全状态
 
 若没有发生死锁，并且即使所有进程突然请求对资源的最大需求，也仍然存在**某种调度次序能够使得每一个进程运行完毕**，则称该状态是安全的
 
@@ -447,7 +430,7 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 
-#### 4.2.3 单个资源的银行家算法
+#### 6.2.3 单个资源的银行家算法
 
 <div align="center"> <img src="bank-algo-2.png" width="70%"/> </div><br>
 
@@ -461,7 +444,7 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 
-#### 4.2.4 多个资源的银行家算法
+#### 6.2.4 多个资源的银行家算法
 
 在操作系统中，是
 
@@ -489,9 +472,9 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 
-### 4.3 死锁检测 & 恢复
+### 6.3 死锁检测 & 恢复
 
-#### 4.3.1 单个资源
+#### 6.3.1 单个资源
 
 <div align="center"> <img src="deadlocks-handling.png" width="70%"/> </div><br>
 
@@ -508,7 +491,7 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 
 
 
-#### 4.3.2 多个资源
+#### 6.3.2 多个资源
 
 <div align="center"> <img src="deadlocks-handling-2.png" width="70%"/> </div><br>
 
@@ -530,3 +513,4 @@ At any instant, a philosopher is either eating or thinking. When a philosopher w
 1. 寻找一个没有标记的进程 Pi，它所请求的资源小于等于 A
 2. 若找到，标记该进程，并将 C 矩阵的第 i 行向量加到 A 中，转第一步
 3. 若没找到，算法终止
+

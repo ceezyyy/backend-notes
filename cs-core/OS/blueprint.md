@@ -20,7 +20,7 @@ Table of Contents
 
 就像一个自动化的，能看懂菜谱的厨师，对于不同的菜谱能做出不同风味的佳肴
 
-**取指执行**
+**自动 取指执行**
 
 <div align="center"> <img src="image-20210208113142142.png" width="60%"/> </div><br>
 

@@ -13,7 +13,7 @@
 
 - [Data Structures & Algorithms](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/data-structures-and-algorithm/notes/index.md)
 - Computer Networking
-- [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/Core/OS/OS.md)
+- [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/OS.md)
 
   
 

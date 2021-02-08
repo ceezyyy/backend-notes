@@ -3,9 +3,9 @@
 Table of Contents
 -----------------
 
-- [蓝图](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/os/blueprint.md)
-- [进程管理](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/os/process.md)
-- [内存管理](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/os/memory.md)
+- [蓝图](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/blueprint.md)
+- [进程管理](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/process.md)
+- [内存管理](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/memory.md)
 
 ## Brainstorming
 

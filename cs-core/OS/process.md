@@ -7,6 +7,14 @@ Table of Contents
 * [2. States](#2-states)
 * [3. System call](#3-system-call)
 * [4. Scheduling](#4-scheduling)
+   * [4.1 思想](#41-思想)
+      * [4.1.1 FIFO](#411-fifo)
+      * [4.1.2 SJF](#412-sjf)
+      * [4.1.3 STCF](#413-stcf)
+      * [4.1.4 RR](#414-rr)
+      * [4.1.5 结合 IO](#415-结合-io)
+   * [4.2 实现](#42-实现)
+      * [4.2.1 MLFQ](#421-mlfq)
 * [5. Semaphore](#5-semaphore)
    * [5.1 记录型信号量](#51-记录型信号量)
    * [5.2 进程互斥](#52-进程互斥)
@@ -82,11 +90,86 @@ schedule() {
 
 ## 4. Scheduling
 
+### 4.1 思想
+
+#### 4.1.1 FIFO
+
+<div align="center"> <img src="fifo.jpg" width="80%"/> </div><br>
+
+#### 4.1.2 SJF
+
+<div align="center"> <img src="sjf.jpg" width="80%"/> </div><br>
 
 
 
 
 
+#### 4.1.3 STCF
+
+<div align="center"> <img src="stcf.jpg" width="40%"/> </div><br>
+
+#### 4.1.4 RR
+
+<div align="center"> <img src="rr.jpg" width="40%"/> </div><br>
+
+#### 4.1.5 结合 IO
+
+> 一个进程在等待另一个进程的 I/O 完成时使用 CPU
+
+<div align="center"> <img src="combine-io.jpg" width="75%"/> </div><br>
+
+
+
+### 4.2 实现
+
+#### 4.2.1 MLFQ
+
+**Rule 1**
+
+先执行优先级高的队列
+
+
+
+**Rule 2**
+
+对于在相同优先级队列中的任务，采用 `RR` 算法
+
+<div align="center"> <img src="mlfq-1.png" width="35%"/> </div><br>
+
+**Rule 3**
+
+新任务放入最高优先级队列（在最开始的假设是短工作，并赋予最高优先级；如果确实是短工作，很快就会执行完毕；反之，则移动到低优先级的队列中）
+
+
+
+<div align="center"> <img src="mlfq-2.png" width="30%"/> </div><br>
+
+
+<div align="center"> <img src="mlfq-3.png" width="30%"/> </div><br>
+
+**Rule 4**
+
+当任务用完整个时间片后，降低其优先级
+
+**但是**，若任务主动释放 CPU，则优先级不变（让交互型工作快速进行）
+
+<div align="center"> <img src="mlfq-4.png" width="30%"/> </div><br>
+
+**改进版 Rule 4**
+
+一旦工作用完了其在某一队列中的时间配额，无论中间主动放弃了多少次 CPU，都降低其优先级（避免被长作业“愚弄“）
+
+
+
+<div align="center"> <img src="mlfq-6.png" width="50%"/> </div><br>
+
+
+
+**Rule 5**
+
+经过一段时间 S，就将所有工作重新放入到最高优先级队列中（避免长作业 “饥饿”，甚至饿死）
+
+<div align="center"> <img src="mlfq-5.png" width="50%"/> </div><br>
 
 
 

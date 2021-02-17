@@ -1,4 +1,4 @@
-# 进程管理
+# Process Management
 
 Table of Contents
 -----------------
@@ -15,10 +15,12 @@ Table of Contents
       * [4.1.5 结合 IO](#415-结合-io)
    * [4.2 实现](#42-实现)
       * [4.2.1 MLFQ](#421-mlfq)
-* [5. Semaphore](#5-semaphore)
-   * [5.1 记录型信号量](#51-记录型信号量)
-   * [5.2 进程互斥](#52-进程互斥)
-   * [5.3 进程同步](#53-进程同步)
+* [5. Synchronization](#5-synchronization)
+   * [5.1 Basic Idea](#51-basic-idea)
+   * [5.2 Spin Lock](#52-spin-lock)
+      * [5.2.1 Test and Set](#521-test-and-set)
+      * [5.2.2 CAS](#522-cas)
+   * [5.3 Condition Variable](#53-condition-variable)
    * [5.4 Producer–Consumer Problem](#54-producerconsumer-problem)
    * [5.5 Readers-Writers Problem](#55-readers-writers-problem)
    * [5.6 Dining Philosophers Problem（待补充）](#56-dining-philosophers-problem待补充)
@@ -32,6 +34,7 @@ Table of Contents
    * [6.3 死锁检测 &amp; 恢复](#63-死锁检测--恢复)
       * [6.3.1 单个资源](#631-单个资源)
       * [6.3.2 多个资源](#632-多个资源)
+
 
 
 ## 1. Blueprint
@@ -173,140 +176,135 @@ schedule() {
 
 
 
-## 5. Semaphore
+## 5. Synchronization
+
+### 5.1 Basic Idea
 
 ```cpp
-do {
+lock_t mutex;
+// do something
+lock(&mutex);
+balance = balance + 1;
+unlock(&mutex);
+```
+
+锁就是一个变量，保存了**某一时刻的状态**
+
+
+
+### 5.2 Spin Lock
+
+<div align="center"> <img src="spinlock.jpg" width="70%"/> </div><br>
+
+#### 5.2.1 Test and Set
+
+**test-and-set**
+
+```c
+typedef struct lock_t { int flag; } lock_t;
+
+void init(lock_t *mutex) {
+  // 0 -> lock is available
+  // 1 -> held
+  mutex->flag = 0;
+}
+
+
+void lock(lock_t *mutex) {
+  // TEST the flag
+  while (mutex->flag == 1);
+  // spin-wait
+  // now SET it
+  mutex->flag = 1;
+}
+
+
+void unlock(lock_t *mutex) {
+  mutex->flag = 0;
+}
+```
+
+**缺陷**
+
+通过适时的中断，使得两个线程都可以进入临界区
+
+
+
+**TestAndSet 原子指令**
+
+```c
+int TestAndSet(int *old_ptr, int new) {
+  int old = *old_ptr;
+  *old_ptr = new;
+  return old;
+}
+
+
+void lock(lock_t *mutex) {
+  while (TestAndSet(&mutex->flag, 1) == 1);
+}
+
+```
+
+
+
+#### 5.2.2 CAS
+
+> Compare and Swap
+
+**CompareAndSwap 原子指令**
+
+```c
+int CompareAndSwap(int *ptr, int expected, int new) {
+  int actual = *ptr;
+  if (actual == expected)  // COMPARE
+    *ptr = new;  // SWAP
+  return actual;
+}
+
+
+void lock(lock_t *mutex) {
+  while (CompareAndSwap(&mutex->flag, 0, 1) == 1);
+}
+
+```
+
+
+
+### 5.3 Condition Variable
+
+```c
+// Declaration of thread condition variable 
+pthread_cond_t cond = PTHREAD_COND_INITIALIZER; 
+
+// declaring mutex 
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER; 
+
+// 0 -> unfinished
+// 1 -> finished
+int done = 1; 
+
+void thr_join() {
+  Pthread_mutex_lock(&lock);
   
-  // 对请求的资源上锁
-  entry section;
-  critical section;
-  // 释放该资源的锁
-  exit section;
-  remainder section;
+  while (done == 0) 
+    Pthread_cond_wait(&cond, &lock);
   
-} while (true);
-```
-
-
-
-### 5.1 记录型信号量
-
-**struct.cpp**
-
-```cpp
-typedef struct {
-  int value;  // 剩余资源数
-  struct process *L;  // 等待队列
-} semaphore;
-```
-
-**wait(S)**
-
-```cpp
-void wait (semaphore S) {
-  // 请求一个单位的资源
-  S.value--;
-  // 当前没有资源可用
-  if (S.value < 0) {
-    // running -> blocked
-    // 主动加入等待队列, 实现"让权等待"
-    block (S.L);  
-  }
-}
-```
-
-**signal(S)**
-
-```cpp
-void signal (semaphore S) {
-  // 释放一个单位的资源
-  S.value++;
-  // 仍有进程在等待队列等待
-  if (S.value <= 0) {
-    // blocked -> ready
-    // 使用 wakeup 原语唤醒等待队列中的一个进程
-    wakeup(S.L);
-  }
-}
-```
-
-**注意：**
-
-- `wait(S)` 和 `signal(S)` 设计为原语，一气呵成，不可分割（重要！！！）
-- `wait(S)` 和 `signal(S)` 也称 `PV` 操作，需成对出现
-
-
-
-### 5.2 进程互斥
-
-**核心思想：**
-
-1. 初始化互斥信号量为 1
-2. `P` 操作（原语）
-3. 临界区操作
-4. `V` 操作（原语）
-
-```cpp
-// 初始化互斥信号量为 1（因为临界资源区最多只能一个进程访问）
-semaphore mutex = 1;
-
-P1() {
-  ...;
-  // 加锁
-  P(mutex);
-  // 临界区代码段 
-  Do something;
-  // 释放锁
-  V(mutex);
-  ...;
+  Pthread_mutex_unlock(&lock);
 }
 
-P2() {
-  ...;
-  // 加锁
-  P(mutex);
-  // 临界区代码段 
-  Do something;
-  // 释放锁
-  V(mutex);
-  ...;
+
+void thr_exit() {
+  Pthread_mutex_lock(&lock);
+  
+  done = 1;
+  Pthread_cond_signal(&cond);
+  
+  Pthread_mutex_unlock(&lock);
 }
 ```
 
 
-
-### 5.3 进程同步
-
-**核心思想：**
-
-1. 初始化同步信号量为 0
-2. "前操作"
-3. `V` 操作（原语）
-4. `P` 操作（原语）
-5. “后操作”
-
-
-```cpp
-// 初始化同步信号量为 0
-semaphore S = 0;
-
-P1() {
-  // Code block 1
-  Do something;
-  V(S);
-  // Code block 2
-  Do Something;
-}
-
-P2() {
-  P(S);
-  // Code block 3
-  Do Something;
-}
-```
-
-保证了 `Code block 3` 一定在 `Code block 1` 之后执行
 
 
 

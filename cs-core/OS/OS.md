@@ -1,11 +1,11 @@
-# 操作系统
+# Operating System
 
 Table of Contents
 -----------------
 
-- [蓝图](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/blueprint.md)
-- [进程管理](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/process.md)
-- [内存管理](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/memory.md)
+- [Blueprint](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/blueprint.md)
+- [Process Management](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/process.md)
+- [Memory Management](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/memory.md)
 
 ## Brainstorming
 

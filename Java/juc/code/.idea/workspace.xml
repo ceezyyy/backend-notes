@@ -6,46 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="42dc9e1e-7752-4c90-b6a0-1c53f8afc64f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../jvm/JVM.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../jvm/JVM.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/algorithms/src/sorting/insertionSort/InsertionSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/algorithms/src/sorting/insertionSort/InsertionSort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/algorithms/src/sorting/selectionSort/SelectionSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/algorithms/src/sorting/selectionSort/SelectionSort.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/queue/Queue.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/data-structures-and-algorithm/code/data-structures-and-algorithms/data-structures/src/queue/Queue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/mvnw" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/mvnw.cmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/src/main/java/com/ceezyyy/springbootswagger/SpringbootSwaggerApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/src/main/java/com/ceezyyy/springbootswagger/config/SpringFoxConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/src/main/java/com/ceezyyy/springbootswagger/controller/HelloController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/src/main/java/com/ceezyyy/springbootswagger/entity/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/src/main/resources/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/code/springboot-swagger/src/test/java/com/ceezyyy/springbootswagger/SpringbootSwaggerApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/Swagger.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723105356604.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723105533131.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723105547082.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723105923631.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723110000705.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723134948274.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723135447656.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723141001036.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723141252573.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723142355683.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723145548168.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723145813008.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723150618244.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723150954321.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723151332159.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/Swagger/notes/image-20200723152707876.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/nginx/image-20201027160127383.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/nginx/image-20201027172547290.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/nginx/image-20201028094833305.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/nginx/logo.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../tools/nginx/nginx.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../cs-core/OS/OS.xmind" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/OS/OS.xmind" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../cs-core/OS/os.svg" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/OS/os.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../cs-core/OS/process.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../../cs-core/OS/process.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,19 +108,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
-      <option name="arquillianRunConfiguration">
-        <value>
-          <option name="containerStateName" value="" />
-        </value>
-      </option>
-      <option name="TEST_OBJECT" value="CLASS" />
-      <properties />
-      <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <list>
       <item itemvalue="Application.App (3)" />
       <item itemvalue="Application.App (4)" />
@@ -187,6 +137,7 @@
       <workItem from="1612077120455" duration="18095000" />
       <workItem from="1612408244248" duration="14664000" />
       <workItem from="1612497640267" duration="4199000" />
+      <workItem from="1613630463501" duration="787000" />
     </task>
     <servers />
   </component>
@@ -226,10 +177,10 @@
     </state>
     <state width="1388" height="128" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1612496188555" />
     <state width="1388" height="176" key="GridCell.Tab.0.right/48.25.1392.875@48.25.1392.875" timestamp="1612409888028" />
-    <state x="0" y="25" width="1440" height="875" key="new project wizard" timestamp="1612408312668">
+    <state x="0" y="25" width="1440" height="875" key="new project wizard" timestamp="1613630560334">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="0" y="25" width="1440" height="875" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1612408312668" />
+    <state x="0" y="25" width="1440" height="875" key="new project wizard/0.0.1440.900@0.0.1440.900" timestamp="1613630560334" />
     <state x="301" y="0" width="838" height="1032" key="search.everywhere.popup" timestamp="1612520789222">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

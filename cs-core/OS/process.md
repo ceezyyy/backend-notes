@@ -7,13 +7,13 @@ Table of Contents
 * [2. States](#2-states)
 * [3. System call](#3-system-call)
 * [4. Scheduling](#4-scheduling)
-   * [4.1 思想](#41-思想)
+   * [4.1 Idea](#41-idea)
       * [4.1.1 FIFO](#411-fifo)
       * [4.1.2 SJF](#412-sjf)
       * [4.1.3 STCF](#413-stcf)
       * [4.1.4 RR](#414-rr)
-      * [4.1.5 结合 IO](#415-结合-io)
-   * [4.2 实现](#42-实现)
+      * [4.1.5 With IO](#415-with-io)
+   * [4.2 Implementation](#42-implementation)
       * [4.2.1 MLFQ](#421-mlfq)
 * [5. Synchronization](#5-synchronization)
    * [5.1 Basic Idea](#51-basic-idea)
@@ -21,9 +21,10 @@ Table of Contents
       * [5.2.1 Test and Set](#521-test-and-set)
       * [5.2.2 CAS](#522-cas)
    * [5.3 Condition Variable](#53-condition-variable)
-   * [5.4 Producer–Consumer Problem](#54-producerconsumer-problem)
-   * [5.5 Readers-Writers Problem](#55-readers-writers-problem)
-   * [5.6 Dining Philosophers Problem（待补充）](#56-dining-philosophers-problem待补充)
+   * [5.4 Producer / Consumer Problem](#54-producer--consumer-problem)
+   * [5.5 Semaphore](#55-semaphore)
+   * [5.6 Readers-Writers Problem](#56-readers-writers-problem)
+   * [5.7 Dining Philosophers Problem](#57-dining-philosophers-problem)
 * [6. Deadlock](#6-deadlock)
    * [6.1 产生的必要条件](#61-产生的必要条件)
    * [6.2 死锁避免](#62-死锁避免)
@@ -34,7 +35,6 @@ Table of Contents
    * [6.3 死锁检测 &amp; 恢复](#63-死锁检测--恢复)
       * [6.3.1 单个资源](#631-单个资源)
       * [6.3.2 多个资源](#632-多个资源)
-
 
 
 ## 1. Blueprint
@@ -93,7 +93,7 @@ schedule() {
 
 ## 4. Scheduling
 
-### 4.1 思想
+### 4.1 Idea
 
 #### 4.1.1 FIFO
 
@@ -115,7 +115,7 @@ schedule() {
 
 <div align="center"> <img src="rr.jpg" width="40%"/> </div><br>
 
-#### 4.1.5 结合 IO
+#### 4.1.5 With IO
 
 > 一个进程在等待另一个进程的 I/O 完成时使用 CPU
 
@@ -123,7 +123,7 @@ schedule() {
 
 
 
-### 4.2 实现
+### 4.2 Implementation
 
 #### 4.2.1 MLFQ
 
@@ -306,144 +306,94 @@ void thr_exit() {
 
 
 
+### 5.4 Producer / Consumer Problem
+
+> 1972 年由 Dijkstra 提出，通过研究此问题，他和他的同事发明了通用的信号量
+
+<div align="center"> <img src="producer-consumer.png" width="50%"/> </div><br>
+
+**ProducerConsumerProblem.c**
+
+```c
+cond_t empty, fill;
+mutex_t mutex;
 
 
-### 5.4 Producer–Consumer Problem
-
-<div align="center"> <img src="producer-consumer.png" width="60%"/> </div><br>
-
-**Constraints**
-
-- 只有缓冲区没满时，`producer` 才能把产品放入缓冲区，否则必须等待
-- 只有缓冲区不空时，`consumer` 才能从中取出产品，否则必须等待
-- 缓冲区是临界资源，各进程必须互斥地访问（因为并发条件下，若两个进程同时将各自的产品放入缓冲区同一个位置，会出现 “数据覆盖” 的现象）
-
-
-
-**Explained**
-
-- Semaphore Q: 用来保证缓冲区进程互斥，初始值为 1（Q 代表 queue）
-- Semaphore E: 初始值为 n（E 代表 empty，缓冲区空闲的位置）
-- Semaphore F: 初始值为 0（F 代表 filled，缓冲区已占用的位置）
+void *producer(void *arg) {
+  int i;
+  for (i = 0; i < loops, i++) {
+    
+    Pthread_mutex_lock(&mutex);
+    
+    while (count == MAX)
+      Pthread_cond_wait(&empty, &mutex);
+    put(i);
+    Pthread_cond_signal(&fill);
+    
+    Pthread_mutex_unlock(&mutex);
+  
+  }
+}
 
 
-
-**Producer**
-
-```java
-void producer() {
-  while (T) {
-    // 生产数据
-    produce();
-    // 是否有空闲的位置可以投放
-    wait(E);
-    // 当前缓冲区是否被占用
-    wait(Q);
-    // 投放数据
-    append();
-    // 释放缓冲区
-    signal(Q);
-    // 更新缓冲区已占用的数量
-    signal(F);
+void *consumer(void *arg) {
+  int i;
+  for (i = 0; i < loops, i++) {
+    
+    Pthread_mutex_lock(&mutex);
+    
+    while (count == 0)
+      Pthread_cond_wait(&fill, &mutex);
+    get();
+    Pthread_cond_signal(&empty);
+    
+    Pthread_mutex_unlock(&mutex);
+  
   }
 }
 ```
 
 
 
-**Consumer**
+### 5.5 Semaphore
 
-```java
-void consumer() {
-  while (T) {
-    // 缓冲区是否有数据可以被消费
-    wait(F);
-    // 缓冲区是否被占用
-    wait(Q);
-    // 从缓冲区拿数据
-    take();
-    // 释放缓冲区的资源
-    signal(Q);
-    // 缓冲区空闲位置增加
-    signal(E);
-    // 消费数据
-    consume();
-  }
+**Semaphore.c**
+
+```c
+#include <semaphore.h>
+sem_t s;
+// 0 -> shared with multi threads
+// 1 -> initialize semaphore to 1
+sem_init(&s, 0, 1);
+
+
+// P 操作
+int sem_wait(sem_t *s) {
+  // decrement the value of semaphore by one
+  // wait if value of semaphore s is negative
+  // 信号量的值为负数：等待线程的个数
 }
+
+
+// V 操作
+int sem_post(sem_t *s) {
+  // increment the value of semaphore by one
+  // if there are one or more threads waiting, wake up
+}
+
 ```
 
 
 
 
 
-### 5.5 Readers-Writers Problem
+### 5.6 Readers-Writers Problem
 
 <div align="center"> <img src="the-readers-writers-problem.jpg" width="60%"/> </div><br>
 
-**Contraints**
-
-两种场景（针对同一时刻）：
-
-1. 一个 `writer`
-2. 多个 `reader`
 
 
-
-**Explained**
-
-- Semaphore W: 写操作是互斥的，初始值为 1（W 代表 write）
-- readCount: 当前 `reader` 的数量（普通变量），初始值为 0
-- Semaphore mutex: 用来互斥地增减 `readCount` 的值，初始值为 1
-
-
-
-**Writer**
-
-```java
-void write() {
-  // 是否有其他进程在写数据
-  wait(W);
-  // 写入数据
-  writing();
-  // 释放资源
-  signal(W);
-}
-```
-
-
-
-**Reader**
-
-```java
-void read() {
-  
-  // 互斥地增加 readCount 数量
-  wait(mutex);
-  readCount++;
-  //当第一个 reader 进来时, 给 writer 上锁
-  if (readCount == 1) {
-    wait(W);
-  }
-  signal(mutex);
-  
-  // 进行读操作
-  reading();
-  
-  // 互斥地减少 readCount 数量
-  wait(mutex);
-  readCount--;
-  // 当没有 reader 进程时, 释放 writer 锁
-  if (readCount == 0) {
-    signal(W);
-  }
-  signal(mutex);
-  
-}
-```
-
-
-
-### 5.6 Dining Philosophers Problem（待补充）
+### 5.7 Dining Philosophers Problem
 
 <div align="center"> <img src="dining_phil.png" width="40%"/> </div><br>
 

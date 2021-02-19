@@ -3,9 +3,7 @@
 [![](https://img.shields.io/badge/Java-Notes-orange?style=flat-square)](https://github.com/ceezyyy/Java-study-notes)
 
 :rocket: Backend notes for humans
-  <div align="center"> <img src="cover_front.png" width="90%"/> </div><br>
-
-
+<div align="center"> <img src="cover.png" width="90%"/> </div><br>
 
 
 
@@ -43,7 +41,5 @@
 
 ## :hammer: Tools
 
-- [Maven](https://github.com/ceezyyy/backend-notes/blob/master/tools/Maven/Maven.md)
-- [Swagger](https://github.com/ceezyyy/backend-notes/blob/master/tools/Swagger/notes/Swagger.md)
 - [Git](https://github.com/ceezyyy/backend-notes/blob/master/tools/git/notes/git.md)
 

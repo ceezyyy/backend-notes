@@ -16,25 +16,17 @@ Table of Contents
    * [4.2 Implementation](#42-implementation)
       * [4.2.1 MLFQ](#421-mlfq)
 * [5. Synchronization](#5-synchronization)
-   * [5.1 Basic Idea](#51-basic-idea)
-   * [5.2 Spin Lock](#52-spin-lock)
-      * [5.2.1 Test and Set](#521-test-and-set)
-      * [5.2.2 CAS](#522-cas)
-   * [5.3 Condition Variable](#53-condition-variable)
-   * [5.4 Producer / Consumer Problem](#54-producer--consumer-problem)
-   * [5.5 Semaphore](#55-semaphore)
-   * [5.6 Readers-Writers Problem](#56-readers-writers-problem)
-   * [5.7 Dining Philosophers Problem](#57-dining-philosophers-problem)
-* [6. Deadlock](#6-deadlock)
-   * [6.1 产生的必要条件](#61-产生的必要条件)
-   * [6.2 死锁避免](#62-死锁避免)
-      * [6.2.1 背景](#621-背景)
-      * [6.2.2 安全状态](#622-安全状态)
-      * [6.2.3 单个资源的银行家算法](#623-单个资源的银行家算法)
-      * [6.2.4 多个资源的银行家算法](#624-多个资源的银行家算法)
-   * [6.3 死锁检测 &amp; 恢复](#63-死锁检测--恢复)
-      * [6.3.1 单个资源](#631-单个资源)
-      * [6.3.2 多个资源](#632-多个资源)
+   * [5.1 Spin Lock](#51-spin-lock)
+      * [5.1.1 Test and Set](#511-test-and-set)
+      * [5.1.2 CAS](#512-cas)
+   * [5.2 Condition Variable](#52-condition-variable)
+   * [5.3 Producer / Consumer Problem](#53-producer--consumer-problem)
+   * [5.4 Semaphore](#54-semaphore)
+   * [5.5 Readers-Writers Problem](#55-readers-writers-problem)
+   * [5.6 Dining Philosophers Problem](#56-dining-philosophers-problem)
+   * [5.7 Concurrency Problems](#57-concurrency-problems)
+      * [5.7.1 Deadlock](#571-deadlock)
+
 
 
 ## 1. Blueprint
@@ -178,25 +170,11 @@ schedule() {
 
 ## 5. Synchronization
 
-### 5.1 Basic Idea
-
-```cpp
-lock_t mutex;
-// do something
-lock(&mutex);
-balance = balance + 1;
-unlock(&mutex);
-```
-
-锁就是一个变量，保存了**某一时刻的状态**
-
-
-
-### 5.2 Spin Lock
+### 5.1 Spin Lock
 
 <div align="center"> <img src="spinlock.jpg" width="70%"/> </div><br>
 
-#### 5.2.1 Test and Set
+#### 5.1.1 Test and Set
 
 **test-and-set**
 
@@ -248,7 +226,7 @@ void lock(lock_t *mutex) {
 
 
 
-#### 5.2.2 CAS
+#### 5.1.2 CAS
 
 > Compare and Swap
 
@@ -271,7 +249,7 @@ void lock(lock_t *mutex) {
 
 
 
-### 5.3 Condition Variable
+### 5.2 Condition Variable
 
 ```c
 // Declaration of thread condition variable 
@@ -306,7 +284,7 @@ void thr_exit() {
 
 
 
-### 5.4 Producer / Consumer Problem
+### 5.3 Producer / Consumer Problem
 
 > 1972 年由 Dijkstra 提出，通过研究此问题，他和他的同事发明了通用的信号量
 
@@ -326,8 +304,10 @@ void *producer(void *arg) {
     Pthread_mutex_lock(&mutex);
     
     while (count == MAX)
+      // wait for "empty"
       Pthread_cond_wait(&empty, &mutex);
     put(i);
+    // signal for "filling"
     Pthread_cond_signal(&fill);
     
     Pthread_mutex_unlock(&mutex);
@@ -343,8 +323,10 @@ void *consumer(void *arg) {
     Pthread_mutex_lock(&mutex);
     
     while (count == 0)
+      // wait for "filling"
       Pthread_cond_wait(&fill, &mutex);
     get();
+    // signal for "empty"
     Pthread_cond_signal(&empty);
     
     Pthread_mutex_unlock(&mutex);
@@ -355,7 +337,9 @@ void *consumer(void *arg) {
 
 
 
-### 5.5 Semaphore
+### 5.4 Semaphore
+
+> 同步原语
 
 **Semaphore.c**
 
@@ -385,163 +369,151 @@ int sem_post(sem_t *s) {
 
 
 
+**ProducerConsumerProblem.c**
 
+```c
+// Implemented producer-consumer-problem by semaphore
+// 将获取和释放互斥量的操作紧挨着临界区 -> 减少锁的作用域以避免 deadlock
+sem_t empty;
+sem_t full;
+sem_t mutex;
 
-### 5.6 Readers-Writers Problem
 
-<div align="center"> <img src="the-readers-writers-problem.jpg" width="60%"/> </div><br>
+void *producer(void *arg) {
+  int i;
+  for (i = 0; i < loops; i++) {
+    sem_wait(&empty);
+    sem_wait(&mutex);
+    put();
+    sem_post(&mutex);
+    sem_post(&full);
+  }
+}
 
 
+void *consumer(void *arg) {
+  int i;
+  for (i = 0; i < loops; i++) {
+    sem_wait(&full);
+    sem_wait(&mutex);
+    get();
+    sem_post(&mutex);
+    sem_post(&empty);
+  }
+}
 
-### 5.7 Dining Philosophers Problem
 
-<div align="center"> <img src="dining_phil.png" width="40%"/> </div><br>
+int main(int argc, char *argv[]) {
+  // do something
+  sem_init(&empty, 0, MAX);
+  sem_init(&full, 0, 0);
+  sem_init(&mutex, 0, 1);
+}
+```
 
 
 
-**Background**
+**Zemaphore.c**
 
-At any instant, a philosopher is either eating or thinking. When a philosopher wants to eat, he uses two chopsticks - one from their left and one from their right. When a philosopher wants to think, he keeps down both chopsticks at their original place
+```c
+typedef struct _Zem_t {
+  int value;
+  pthread_cond_t cond;
+  pthread_mutex_t lock;
+} Zem_t;
 
 
+// Only one thread can call this
+void Zem_init(Zem_t *s, int value) {
+  s->value = value;
+  Cond_init(&s->cond);
+  Mutex_init(&s->lock);
+}
 
 
+void Zem_wait(Zem_t *s) {
+  Mutex_lock(&s->lock);
+  while (s->value <= 0) 
+    Cond_wait(&s->cond, &s->lock);
+  s->value--;
+  Mutex_unlock(&s->lock);
+}
 
-## 6. Deadlock
 
-死锁是指多个进程在执行过程中互相等待对方的资源而造成全部阻塞的情况
+void Zem_post(Zem_t *s) {
+  Mutex_lock(&s->lock);
+  s->value++;
+  Cond_signal(&s->cond);
+  Mutex_unlock(&s->lock);
+}
 
-<div align="center"> <img src="image-20201228212139674.png" width="70%"/> </div><br>
+```
 
-### 6.1 产生的必要条件
 
-产生死锁**必须同时满足以下四个条件**（联想哲学家进餐问题）
 
+### 5.5 Readers-Writers Problem
 
+<div align="center"> <img src="image-20210219123120526.png" width="60%"/> </div><br>
 
-<div align="center"> <img src="dining-philosophers-problem-2.png" width="50%"/> </div><br>
+**ReadersWritersProblem.c**
 
-1. 互斥：若资源是共享的，则可避免死锁
-2. Hold and wait：若放弃手里的 / 不去等待其他资源，则可避免死锁
-3. 非抢占式：若其他进程可以抢夺，则可避免死锁
-4. 循环等待
+```c
+ typedef struct _rwlock_t {
+  sem_t lock;  // basic lock
+  sem_t writelock;  // used to allow ONE writer or MANY readers
+  int readers;
+} rwlock_t;
 
 
+void rwlock_init(rwlock_t *rw) {
+  rw->readers = 0;
+  sem_init(&rw->lock, 0, 1);
+  sem_init(&rw->writelock, 0, 1);
+}
 
-### 6.2 死锁避免
 
-#### 6.2.1 背景
+void rwlock_acquire_readlock(rwlock_t *rw) {
+  sem_wait(&rw->lock);
+  rw->readers++;
+  if (rw->readers == 1)
+    sem_wait(&rw->writelock);  // first reader acquires writelock
+  sem_post(&rw->lock);
+}
 
-银行家算法（Banker's Algorithm）是一个避免死锁的著名算法（算法中银行家好比操作系统，资金好比系统资源，申请的客户好比进程）
 
+void rwlock_release_readlock(rwlock_t *rw) {
+  sem_wait(&rw->lock);
+  rw->readers--;
+  if (rw->readers == 0)
+    sem_post(&rw->writelock);  // last reader releases writelock
+  sem_post(&rw->lock);
+}
 
 
-在银行中：
+void rwlock_acquire_writelock(rwlock_t *rw) {
+  sem_wait(&rw->writelock);
+}
 
-- 客户申请贷款数量有限，每个客户在第一次申请时要声明最大资金量
-- 在满足贷款要求后，客户应及时归还
-- 银行家应尽量满足客户需要
 
+void rwlock_release_writelock(rwlock_t *rw) {
+  sem_post(&rw->writelock);
+}
 
+```
 
-#### 6.2.2 安全状态
 
-若没有发生死锁，并且即使所有进程突然请求对资源的最大需求，也仍然存在**某种调度次序能够使得每一个进程运行完毕**，则称该状态是安全的
 
+### 5.6 Dining Philosophers Problem
 
+<div align="center"> <img src="dining-p-problem.gif" width="45%"/> </div><br>
 
-<div align="center"> <img src="bank-algo-1.png" width="70%"/> </div><br>
 
-- `Has`：表示已分配的资源
-- `Max`：表示所需的最大资源
 
+### 5.7 Concurrency Problems
 
+> 了解并发缺陷的模式是写出健壮，正确的程序的第一步
 
-分配流程：从图 a 开始出发，先让 B 拥有所需的资源（如图 b），等 B 运行结束后释放所有资源（如图 C）；再依次分配给 C（如图 d） 和 A（如图 e）
+#### 5.7.1 Deadlock
 
-
-
-#### 6.2.3 单个资源的银行家算法
-
-<div align="center"> <img src="bank-algo-2.png" width="70%"/> </div><br>
-
-第一次请求后：“银行家” 仅剩 2 个单位的资源
-
-第二次请求后：”银行家“（操作系统）仅剩 1 个单位资源，无法满足任一 “客户” （进程）的最大需求
-
-
-
-**因此，算法会拒绝之前的请求，避免进入图 c 的状态**
-
-
-
-#### 6.2.4 多个资源的银行家算法
-
-在操作系统中，是
-
-存在多个进程以及资源
-
-<div align="center"> <img src="bank-algo-3.png" width="70%"/> </div><br>
-
-- E: 总资源
-- P: 已分配资源
-- A: 待分配资源
-
-
-
-**检查一个状态是否安全的算法如下：**
-
-
-
-1. 查找右边的矩阵（待分配矩阵）是否存在一行小于等于向量 A；若不存在，则系统将会发生死锁，状态是不安全的
-2. 若存在，则将该进程标记为终止，并将其已分配资源加到 A 中
-3. 重复以上两步骤=。直到所有进程都标记为终止，则状态是安全的
-
-
-
-若一个状态是不安全的，则需要拒绝进入这个状态
-
-
-
-### 6.3 死锁检测 & 恢复
-
-#### 6.3.1 单个资源
-
-<div align="center"> <img src="deadlocks-handling.png" width="70%"/> </div><br>
-
-图示说明：
-
-- 正方形代表资源，圆形代表进程
-- 正方形指向圆形代表资源分配给该进程，圆形指向正方形代表进程请求该资源
-
-
-
-**总结**
-
-若有向图存在环，则证明有死锁的存在
-
-
-
-#### 6.3.2 多个资源
-
-<div align="center"> <img src="deadlocks-handling-2.png" width="70%"/> </div><br>
-
-
-
-图示说明：
-
-- E 向量：资源总量
-- A 向量：资源剩余量
-- C 矩阵：进程所占有资源数量
-- R 矩阵：进程所请求资源数量
-
-
-
-**总结**
-
-每个进程最开始都不被标记。当算法结束时，任何没有被标记的进程都是死锁进程
-
-1. 寻找一个没有标记的进程 Pi，它所请求的资源小于等于 A
-2. 若找到，标记该进程，并将 C 矩阵的第 i 行向量加到 A 中，转第一步
-3. 若没找到，算法终止
+<div align="center"> <img src="deadlock.png" width="40%"/> </div><br>
 

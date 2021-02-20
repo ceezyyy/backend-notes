@@ -7,7 +7,7 @@ Table of Contents
 * [2. States](#2-states)
 * [3. System call](#3-system-call)
 * [4. Scheduling](#4-scheduling)
-   * [4.1 Idea](#41-idea)
+   * [4.1 Strategy](#41-strategy)
       * [4.1.1 FIFO](#411-fifo)
       * [4.1.2 SJF](#412-sjf)
       * [4.1.3 STCF](#413-stcf)
@@ -85,7 +85,7 @@ schedule() {
 
 ## 4. Scheduling
 
-### 4.1 Idea
+### 4.1 Strategy
 
 #### 4.1.1 FIFO
 

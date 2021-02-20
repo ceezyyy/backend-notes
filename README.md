@@ -1,6 +1,6 @@
 # Backend-notes
 
-[![](https://img.shields.io/badge/Java-Notes-orange?style=flat-square)](https://github.com/ceezyyy/Java-study-notes)
+[![](https://img.shields.io/badge/Backend-Notes-orange?style=flat-square)](https://github.com/ceezyyy/Java-study-notes) 
 
 :rocket: Backend notes for humans
 <div align="center"> <img src="cover.png" width="90%"/> </div><br>

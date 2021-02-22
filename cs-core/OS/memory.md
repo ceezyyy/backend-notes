@@ -11,17 +11,19 @@ Table of Contents
       * [4.1.1 Splitting &amp; merging](#411-splitting--merging)
       * [4.1.2 Tracking](#412-tracking)
 * [5. Paging](#5-paging)
-   * [5.1 Basic](#51-basic)
-      * [5.1.1 Page](#511-page)
-      * [5.1.2 Page frame](#512-page-frame)
-      * [5.1.3 Page table](#513-page-table)
-      * [5.1.4 A memory trace](#514-a-memory-trace)
-   * [5.2 TLB](#52-tlb)
-      * [5.2.1 Cache](#521-cache)
-      * [5.2.2 Composition](#522-composition)
-   * [5.3 Smaller table](#53-smaller-table)
-      * [5.3.1 Segmentation   paging](#531-segmentation--paging)
-      * [5.3.2 Multi-level page table](#532-multi-level-page-table)
+   * [5.1 Page](#51-page)
+   * [5.2 Page frame](#52-page-frame)
+   * [5.3 Page table](#53-page-table)
+      * [5.3.1 Linear structure](#531-linear-structure)
+      * [5.3.2 Tree structure](#532-tree-structure)
+   * [5.4 TLB](#54-tlb)
+      * [5.4.1 A memory trace](#541-a-memory-trace)
+      * [5.4.2 Cache](#542-cache)
+   * [5.5 Swapping](#55-swapping)
+      * [5.5.1 Swap space](#551-swap-space)
+      * [5.5.2 Clock algorithm](#552-clock-algorithm)
+
+
 
 ## 1. Overview
 
@@ -168,15 +170,15 @@ free: header + space allocated to users
 
 **Example**
 
-memory: 4KB (4096 bytes)
+memory: 4KB (4096 B)
 
-header: 8 bytes -> rest: 4088 bytes
+header: 8 B -> rest: 4088 B
 
 <div align="center"> <img src="1023521-20200503210318164-1907980045.png" width="50%"/> </div><br>
 
 
 
-request: 100 bytes
+request: 100 B
 
 <div align="center"> <img src="1023521-20200503210427959-1653820691.png" width="50%"/> </div><br>
 
@@ -184,23 +186,25 @@ request: 100 bytes
 
 ## 5. Paging
 
-### 5.1 Basic
+### 5.1 Page
 
-#### 5.1.1 Page
+
 
 <div align="center"> <img src="page.png" width="40%"/> </div><br>
 
-#### 5.1.2 Page frame
+### 5.2 Page frame
 
 <div align="center"> <img src="page-frame.png" width="40%"/> </div><br>
 
-#### 5.1.3 Page table
+### 5.3 Page table
+
+#### 5.3.1 Linear structure
 
 **Example**
 
-process: 64 bytes
+process: 64 B
 
-page: 16 bytes
+page: 16 B
 
 <div align="center"> <img src="virtual-address-1.png" width="30%"/> </div><br>
 
@@ -220,9 +224,81 @@ PFN: page frame number
 
 
 
-#### 5.1.4 A memory trace
+#### 5.3.2 Tree structure
 
-> Reference: the use of a source of information in order to ascertain something
+**multi-level page table**
+
+<div align="center"> <img src="multi-level-page-table.png" width="60%"/> </div><br>
+
+<div align="center"> <img src="image-20210221181839504.png" width="70%"/> </div><br>
+
+**Example 1**
+
+virtual address: 16 KB
+
+page: 64 B
+
+
+
+**256 pages / keys**
+
+<div align="center"> <img src="image-20210221184037946.png" width="50%"/> </div><br>
+
+PTE: 4 B -> page table: 256 x 4 = 1 KB
+
+<div align="center"> <img src="pte.png" width="60%"/> </div><br>
+
+then, **chop up the page table into page-sized unit**
+
+so, page directory has 16 units, each unit has 16 PTEs
+
+
+
+<div align="center"> <img src="image-20210221190148926.png" width="50%"/> </div><br> 
+
+
+
+<div align="center"> <img src="image-20210222113410978.png" width="50%"/> </div><br>
+
+instead of allocating the full *sixteen* pages for a linear page table,
+
+we allocate only *three*: one for the page directory, and two for the chunks of the page table that have valid mappings
+
+<div align="center"> <img src="image-20210222113827849.png" width="60%"/> </div><br>
+
+
+
+Q: If the virtual address is 11 1111 1000 0000
+
+A: PFN: 55, offset: 00 0000
+
+
+
+**Example 2**
+
+Consider a virtual memory system with physical memory of 8GB, a page size of 8KB and 46 bit virtual address. *Assume every page table exactly fits into a single page*. If PTE size is 4B then how many levels of page tables would be required?
+
+
+
+**Explained**
+
+keys: 2<sup>33</sup>
+
+linear page table size: 2<sup>35</sup> B > 2<sup>13</sup> B, continue
+
+one-level page directory: 2<sup>22</sup> units, size: 2<sup>24</sup> B > 2<sup>13</sup> B, continue
+
+two-level page directory: 2<sup>11</sup> units, size: 2<sup>13</sup> B = 2<sup>13</sup> B, done
+
+so, 3 levels are required
+
+<div align="center"> <img src="level-paging.png" width="60%"/> </div><br>
+
+
+
+### 5.4 TLB
+
+#### 5.4.1 A memory trace
 
 **Example**
 
@@ -236,7 +312,7 @@ for (int i = 0; i < 1000; i++) {
 
 **assembly code**
 
-<div align="center"> <img src="image-20210221123515826.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20210221123515826.png" width="40%"/> </div><br>
 
 **virtual space: 64 KB**
 
@@ -262,15 +338,15 @@ page table: 1 KB
 
 <div align="center"> <img src="image-20210221123604766.png" width="60%"/> </div><br>
 
-### 5.2 TLB
 
-#### 5.2.1 Cache 
+
+#### 5.4.2 Cache 
 
 **Example**
 
-virtual address: 256 bytes
+virtual address: 256 B
 
-page: 16 bytes
+page: 16 B
 
 int a[10];
 
@@ -278,7 +354,7 @@ int a[10];
 
 ```c
 int sum = 0;
-doe (int i = 0; i < 10; i++) {
+for (int i = 0; i < 10; i++) {
   sum += a[i];
 }
 ```
@@ -293,45 +369,27 @@ miss hit hit miss hit hit hit miss hit hit
 
 <div align="center"> <img src="image-20210221152502598.png" width="40%"/> </div><br>
 
-#### 5.2.2 Composition
-
-**ASID: address space identifier**
-
-<div align="center"> <img src="image-20210221163801316.png" width="50%"/> </div><br>
-
-<div align="center"> <img src="image-20210221163816134.png" width="50%"/> </div><br>
-
-### 5.3 Smaller table
-
-#### 5.3.1 Segmentation + paging
-
-<div align="center"> <img src="image-20210221170735548.png" width="45%"/> </div><br>
-
-**Example**
-
-virtual address: 32 bits
-
-page: 4 KB
-
-<div align="center"> <img src="image-20210221170902428.png" width="60%"/> </div><br>
-
-#### 5.3.2 Multi-level page table
-
-<div align="center"> <img src="image-20210221181839504.png" width="70%"/> </div><br>
-
-**Example**
-
-virtual address: 16 KB, page: 64 bytes -> at least 256 PTEs
-
-PTE: 4 bytes -> page table: 1 KB
 
 
 
-<div align="center"> <img src="image-20210221184037946.png" width="50%"/> </div><br>
 
+### 5.5 Swapping
 
+#### 5.5.1 Swap space
 
-so, page table has 16 units -> 4 bits
+<div align="center"> <img src="image-20210222162127407.png" width="60%"/> </div><br>
 
-<div align="center"> <img src="image-20210221190148926.png" width="50%"/> </div><br>
+**What happens when a program fetches data from memory? (TLB is missed)**
+
+Three import cases:
+
+1. valid, present
+2. valid, not present
+3. not valid
+
+#### 5.5.2 Clock algorithm
+
+> Approximating LRU
+
+<div align="center"> <img src="clock-algorithm.png" width="50%"/> </div><br>
 

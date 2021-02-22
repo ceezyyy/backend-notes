@@ -13,4 +13,5 @@ Table of Contents
 
 ## References
 
-- [Operating Systems: Three Easy Pieces](https://pages.cs.wisc.edu/~remzi/OSTEP/)
+- [*Operating Systems: Three Easy Pieces*](https://pages.cs.wisc.edu/~remzi/OSTEP/)
+- [Multilevel Paging in Operating System](https://www.geeksforgeeks.org/multilevel-paging-in-operating-system/)

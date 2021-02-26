@@ -10,7 +10,7 @@
 ## :key: ​Core CS
 
 - [Data Structures & Algorithms](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/data-structures-and-algorithm/notes/index.md)
-- Computer Networking
+- [Computer Networking](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/networking/notes/index.md)
 - [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/OS.md)
 
   

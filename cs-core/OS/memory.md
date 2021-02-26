@@ -379,9 +379,9 @@ miss hit hit miss hit hit hit miss hit hit
 
 <div align="center"> <img src="image-20210222162127407.png" width="60%"/> </div><br>
 
-**What happens when a program fetches data from memory? (TLB is missed)**
+**What happens when a program fetches data from memory? (TLB ismissed)**
 
-Three import cases:
+*Three* import cases:
 
 1. valid, present
 2. valid, not present

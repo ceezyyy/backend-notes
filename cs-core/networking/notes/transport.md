@@ -3,75 +3,135 @@
 Table of Contents
 -----------------
 
-* [1. TCP](#1-tcp)
-   * [1.1 Header](#11-header)
-   * [1.2 Setup and Teardown](#12-setup-and-teardown)
-      * [1.2.1 Setup: 3-way handshake](#121-setup-3-way-handshake)
-      * [1.2.2 Teardown: 4-way handshake](#122-teardown-4-way-handshake)
-   * [1.3 Reliable Delivery](#13-reliable-delivery)
-      * [1.3.1 Go-back-N](#131-go-back-n)
-      * [1.3.2 Selective Repeat](#132-selective-repeat)
-   * [1.4 Flow Control](#14-flow-control)
-      * [1.4.1 Sliding Window](#141-sliding-window)
+* [1. MUX &amp; DEMUX](#1-mux--demux)
 * [2. UDP](#2-udp)
+* [3. TCP](#3-tcp)
+   * [3.1 Overview](#31-overview)
+   * [3.2 Connection](#32-connection)
+      * [3.2.1 Setup](#321-setup)
+      * [3.2.2 Teardown](#322-teardown)
+   * [3.3 Reliable Delivery](#33-reliable-delivery)
+      * [3.3.1 Go-back-N](#331-go-back-n)
+      * [3.3.2 Selective Repeat](#332-selective-repeat)
+      * [3.3.3 Fast Retransmit](#333-fast-retransmit)
+   * [3.4 Flow Control](#34-flow-control)
+   * [3.5 Congestion Control](#35-congestion-control)
+      * [3.5.1 Congestion Window](#351-congestion-window)
+      * [3.5.2 Slow Start](#352-slow-start)
+      * [3.5.3 Why AIMD](#353-why-aimd)
+* [References](#references)
 
 
 
 
-## 1. TCP
+## 1. MUX & DEMUX
 
-### 1.1 Header
+**Port vs. Socket**
 
-**TCP header**
+<div align="center"> <img src="port-vs-socket.svg" width="60%"/> </div><br>
 
 
-<div align="center"> <img src="image-20210226165610010.png" width="50%"/> </div><br>
 
-### 1.2 Setup and Teardown
+**Multiplexing and Demultiplexing**
 
-#### 1.2.1 Setup: 3-way handshake
+<div align="center"> <img src="image-20210301182113530.png" width="55%"/> </div><br>
+
+
+
+## 2. UDP
+
+**UDP segment**
+
+<div align="center"> <img src="image-20210302105457294.png" width="35%"/> </div><br>
+
+
+
+## 3. TCP
+
+### 3.1 Overview
+
+**TCP segment**
+
+<div align="center"> <img src="image-20210302115042177.png" width="60%"/> </div><br>
+
+**Sequence number**
+
+- TCP views data as unstructed, but ordered, stream of bytes
+- In truth, both sides of a TCP connection **randomly** choose an initial sequence number
+
+<div align="center"> <img src="image-20210302121557371.png" width="55%"/> </div><br>
+
+**Acknowledgement number**
+
+- the sequence number of the next byte Host A is expecting from Host B
+- TCP only acknowledges bytes up to the first missing byte in the stream
+
+
+
+**Example**
+
+
+<div align="center"> <img src="image-20210302151130634.png" width="40%"/> </div><br>
+
+
+
+<div align="center"> <img src="image-20210302151211674.png" width="60%"/> </div><br>
+
+
+
+<div align="center"> <img src="image-20210302151311857.png" width="55%"/> </div><br>
+
+
+
+
+
+
+
+
+
+### 3.2 Connection
+
+#### 3.2.1 Setup
+
+**Connection setup**
 
 <div align="center"> <img src="image-20210226173526009.png" width="50%"/> </div><br>
 
-- step 1: **SYN**, S<sub>A</sub>
-
-- step 2:
-
-  - **SYN**, S<sub>B</sub>
-  - **ACK**, S<sub>A+1</sub>
-
-- step 3:
-
-  - S<sub>A+1</sub>
-  - **ACK**, S<sub>B+1</sub>
+**3-way handshake**
 
 <div align="center"> <img src="image-20210225143351607.png" width="30%"/> </div><br>
 
+*step 1:* SYN = 1, seq = client_isn
+
+*step 2:* SYN = 1, ACK = client_isn + 1, seq = server_isn
+
+*step 3:* SYN = 0, ACK = server_isn, seq = client_isn + 1 (data)
 
 
-#### 1.2.2 Teardown: 4-way handshake
+
+
+
+#### 3.2.2 Teardown
+
+**Connection teardown**
 
 <div align="center"> <img src="image-20210226184427464.png" width="50%"/> </div><br>
 
-
+**4-way handshake**
 
 <div align="center"> <img src="image-20210225143816877.png" width="30%"/> </div><br>
 
-**FSM**
 
-P.S: *action taken on state transition* is optional
 
-<div align="center"> <img src="image-20210225180344409.png" width="40%"/> </div><br>
 
-**TCP Connection**
+
+**FSM: TCP Connection**
 
 <div align="center"> <img src="image-20210225183359173.png" width="90%"/> </div><br>
 
+### 3.3 Reliable Delivery
 
-
-### 1.3 Reliable Delivery
-
-#### 1.3.1 Go-back-N
+#### 3.3.1 Go-back-N
 
 <div align="center"> <img src="image-20210227121045315.png" width="65%"/> </div><br>
 
@@ -81,7 +141,7 @@ send_base = 0, nextseqnum = 0
 
 
 
-#### 1.3.2 Selective Repeat
+#### 3.3.2 Selective Repeat
 
 **Sender**
 
@@ -106,68 +166,100 @@ send_base = 0, nextseqnum = 0
 
 **Example**
 
-
-<div align="center"> <img src="image-20210227153243525.png" width="70%"/> </div><br>
-
+<div align="center"> <img src="image-20210227153243525.png" width="60%"/> </div><br>
 
 
 
+#### 3.3.3 Fast Retransmit
 
+> A hybrid of GBN and SR protocol
 
-### 1.4 Flow Control
-
-**Problem**
-
-<div align="center"> <img src="image-20210226120224860.png" width="50%"/> </div><br>
-
-
-
-**Stop and wait FSM**
-
-<div align="center"> <img src="image-20210226121825605.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20210302152338698.png" width="65%"/> </div><br>
 
 
 
+### 3.4 Flow Control
 
-#### 1.4.1 Sliding Window
+**Sliding window**
 
-<div align="center"> <img src="image-20210226125825295.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20210304141033128.png" width="60%"/> </div><br>
 
-**Receive window (rwnd)**
+**Send & Receive buffer**
 
-<div align="center"> <img src="sliding-window.png" width="60%"/> </div><br>
-
-**Reciever keep tracking of**
-
-- LastByteRead
-- LastByteRcvd
-- LastByteRcvd - LastByteRead <= RcvBuffer
-
-
-
-**Sender keep tracking of**
-
-- LastByteSent
-- LastByteAcked
-- LastByteSent - LastByteAcked <= rwnd
-
-
-
-**TCP flow control**
-
-Initialization: rwnd = RcvBuffer
+<div align="center"> <img src="image-20210302114501947.png" width="60%"/> </div><br>
 
 <div align="center"> <img src="image-20210226163617682.png" width="50%"/> </div><br>
 
+**Sending rate for a single flow**
+
+<div align="center"> <img src="image-20210304171350402.png" width="60%"/> </div><br>
 
 
 
+**Receive window**
+$$
+rwnd = RcvBuffer - (LastByteRcvd - LastByteRead)
+$$
 
-## 2. UDP
+
+<div align="center"> <img src="sliding-window.png" width="60%"/> </div><br>
+
+**Receiver**
+$$
+LastByteRcvd - LastByteRead <= RcvBuffer
+$$
+
+
+**Sender**
+$$
+LastByteSend - LastByteAcked <= rwnd
+$$
 
 
 
+### 3.5 Congestion Control
 
+#### 3.5.1 Congestion Window
+
+- *cwnd:* congestion window
+- *rwnd:* receive window
+
+$$
+LastByteSent - LastByteAcked <= min
+\left\{
+cwnd, rwnd
+\right\}
+$$
+
+
+
+#### 3.5.2 Slow Start
+
+<div align="center"> <img src="image-20210305113110093.png" width="35%"/> </div><br>
+
+**TCP Tahoe**
+
+<div align="center"> <img src="image-20210305114726950.png" width="50%"/> </div><br>
+
+**TCP Reno**
+
+<div align="center"> <img src="image-20210305114848694.png" width="50%"/> </div><br>
+
+**TCP Tahoe vs. TCP Reno**
+
+<div align="center"> <img src="tcp-congestion-example.png" width="70%"/> </div><br>
+
+
+
+#### 3.5.3 Why AIMD
+
+**AIMD**
+
+<div align="center"> <img src="image-20210304151010216.png" width="50%"/> </div><br>
+
+**Chiu J ain Plot**
+
+<div align="center"> <img src="image-20210305120746694.png" width="40%"/> </div><br>
 
 
 
@@ -175,3 +267,5 @@ Initialization: rwnd = RcvBuffer
 
 - [Go-Back-N Protocol - Baeldung](https://www.baeldung.com/cs/networking-go-back-n-protocol)
 - [Selective Repeat Protocol](https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/selective-repeat-protocol/index.html)
+- [The Difference Between a Port and a Socket](https://www.baeldung.com/cs/port-vs-socket)
+- [What is "Fair" ?](http://www.mathcs.emory.edu/~cheung/Courses/558/Syllabus/11-Fairness/Fair.html)

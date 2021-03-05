@@ -197,7 +197,7 @@ so, the response time is calculated as 10 / 50 = 0.2s
 
 ## 4. IP
 
-### 4.1 Segment
+### 4.1 Packet
 
 **IPv4**
 
@@ -218,7 +218,24 @@ so, the response time is calculated as 10 / 50 = 0.2s
 
 <div align="center"> <img src="image-20210301155829099.png" width="45%"/> </div><br>
 
+#### 4.2.1 DHCP
 
+**How does DHCP work?**
+
+<div align="center"> <img src="DHCP.png" width="40%"/> </div><br>
+
+
+
+1. *Server Discovery:* Once a device joins a network and requires an IP address, it broadcasts a message to the network asking for it. The DHCP server will process this request and all other devices in the network will ignore this message
+2. *DHCP Offer:* The DHCP server looks for an available IP address from its pool of addresses and offers one to the requesting device
+3. *DHCP Request:* The device responds to the DHCP server by confirming the provided IP address
+4. *Acknowledgment:* The DHPC server provides the IP address, subnet mask, default gateway and the DNS server details to the device
+
+
+
+
+
+#### 4.2.2 IPv4 vs. IPv6
 
 **IPv4**
 
@@ -229,8 +246,6 @@ so, the response time is calculated as 10 / 50 = 0.2s
 <div align="center"> <img src="ipv6.png" width="45%"/> </div><br>
 
 
-
-#### 4.2.1 IPv4 vs. IPv6
 
 | Characteristics       | IPv4                                                | IPv6                                                         |
 | --------------------- | --------------------------------------------------- | ------------------------------------------------------------ |
@@ -249,5 +264,6 @@ so, the response time is calculated as 10 / 50 = 0.2s
 
 - [Little's law - Wikipedia](https://en.wikipedia.org/wiki/Little%27s_law)
 - [Little's Law - The ONE thing you can do to improve process performance](https://www.youtube.com/watch?v=lHQZcMRr2n0)
+- [Introduction to DHCP](https://www.baeldung.com/cs/dhcp-intro)
 - [Networking: IPv4 vs. IPv6 Addresses](https://www.baeldung.com/cs/ipv4-vs-ipv6)
 

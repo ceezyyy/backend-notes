@@ -197,6 +197,8 @@ send_base = 0, nextseqnum = 0
 
 
 **Receive window**
+
+
 $$
 rwnd = RcvBuffer - (LastByteRcvd - LastByteRead)
 $$
@@ -205,15 +207,20 @@ $$
 <div align="center"> <img src="sliding-window.png" width="60%"/> </div><br>
 
 **Receiver**
-$$
+
+```matlab
 LastByteRcvd - LastByteRead <= RcvBuffer
-$$
+```
+
 
 
 **Sender**
-$$
+
+```matlab
 LastByteSend - LastByteAcked <= rwnd
-$$
+```
+
+
 
 
 
@@ -221,15 +228,9 @@ $$
 
 #### 3.5.1 Congestion Window
 
-- *cwnd:* congestion window
-- *rwnd:* receive window
-
-$$
-LastByteSent - LastByteAcked <= min
-\left\{
-cwnd, rwnd
-\right\}
-$$
+```matlab
+LastByteSent - LastByteAcked <= min{cwnd, rwnd}
+```
 
 
 
@@ -257,7 +258,7 @@ $$
 
 <div align="center"> <img src="image-20210304151010216.png" width="50%"/> </div><br>
 
-**Chiu J ain Plot**
+**Chiu Jain Plot**
 
 <div align="center"> <img src="image-20210305120746694.png" width="40%"/> </div><br>
 

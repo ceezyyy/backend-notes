@@ -1,5 +1,0 @@
-0:0:0:0:0:0:0:1 - - [24/May/2020:16:32:07 +0800] "POST /SpringmvcQuickstart/test HTTP/1.1" 405 1047 http-bio-9090-exec-1 38
-0:0:0:0:0:0:0:1 - - [24/May/2020:16:33:12 +0800] "POST /SpringmvcQuickstart/test HTTP/1.1" 400 1070 http-bio-9090-exec-1 157
-0:0:0:0:0:0:0:1 - - [24/May/2020:16:36:06 +0800] "POST /SpringmvcQuickstart/test HTTP/1.1" 404 1035 http-bio-9090-exec-1 201
-0:0:0:0:0:0:0:1 - - [24/May/2020:16:39:30 +0800] "POST /SpringmvcQuickstart/test/1 HTTP/1.1" 404 1039 http-bio-9090-exec-1 99
-0:0:0:0:0:0:0:1 - - [24/May/2020:16:39:36 +0800] "GET /SpringmvcQuickstart/test/1 HTTP/1.1" 404 1039 http-bio-9090-exec-2 3

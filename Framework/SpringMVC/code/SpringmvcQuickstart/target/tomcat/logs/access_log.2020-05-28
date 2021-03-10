@@ -1,7 +1,0 @@
-0:0:0:0:0:0:0:1 - - [28/May/2020:20:10:27 +0800] "GET /SpringmvcQuickstart/user/testModel HTTP/1.1" 200 133 http-bio-9090-exec-1 492
-0:0:0:0:0:0:0:1 - - [28/May/2020:20:19:42 +0800] "GET /SpringmvcQuickstart/user/testModelMap HTTP/1.1" 200 125 http-bio-9090-exec-1 229
-0:0:0:0:0:0:0:1 - - [28/May/2020:20:19:58 +0800] "GET /SpringmvcQuickstart/user/testModelMap HTTP/1.1" 200 150 http-bio-9090-exec-2 419
-0:0:0:0:0:0:0:1 - - [28/May/2020:20:20:30 +0800] "GET /SpringmvcQuickstart/user/testModelMap HTTP/1.1" 200 193 http-bio-9090-exec-3 47
-0:0:0:0:0:0:0:1 - - [28/May/2020:20:29:45 +0800] "GET /SpringmvcQuickstart/user/testModelMap HTTP/1.1" 200 123 http-bio-9090-exec-1 1005
-0:0:0:0:0:0:0:1 - - [28/May/2020:20:29:54 +0800] "GET /SpringmvcQuickstart/user/testModelMap HTTP/1.1" 200 123 http-bio-9090-exec-2 2
-0:0:0:0:0:0:0:1 - - [28/May/2020:20:30:03 +0800] "GET /SpringmvcQuickstart/user/testModelAndView HTTP/1.1" 200 137 http-bio-9090-exec-3 3

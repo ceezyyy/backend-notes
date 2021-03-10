@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="compactDisc" class="com.ceezyyy.BlackCab">
+        <constructor-arg value="Black Cab"></constructor-arg>
+        <constructor-arg value="Higher Brothers"></constructor-arg>
+        <constructor-arg>
+            <list>
+                <value>711</value>
+                <value>Wechat</value>
+                <value>Yahh</value>
+                <value>Wudidong</value>
+                <value>Mine</value>
+                <value>Why Not</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <bean id="cdPlayer" class="com.ceezyyy.CDPlayer">
+        <constructor-arg ref="compactDisc"></constructor-arg>
+    </bean>
+
+</beans>

@@ -198,10 +198,11 @@ send_base = 0, nextseqnum = 0
 
 **Receive window**
 
-
-$$
+```matlab
 rwnd = RcvBuffer - (LastByteRcvd - LastByteRead)
-$$
+```
+
+
 
 
 <div align="center"> <img src="sliding-window.png" width="60%"/> </div><br>

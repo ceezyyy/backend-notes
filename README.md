@@ -11,7 +11,7 @@
 
 - [Data Structures & Algorithms](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/data-structures-and-algorithm/notes/index.md)
 - [Computer Networking](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/networking/notes/index.md)
-- [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/OS.md)
+- [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/operating-system/OS.md)
 
   
 
@@ -35,9 +35,8 @@
 
 ## :leaves: Framework
 
-- [Spring]()
-- Spring Boot
-- [Spring Cloud]()
+- [Spring](https://github.com/ceezyyy/backend-notes/blob/master/spring-framework/spring/notes/spring.md)
+- [Spring Cloud](https://github.com/ceezyyy/backend-notes/blob/master/spring-framework/springcloud/notes/springcloud.md)
 
 
 
@@ -51,4 +50,5 @@
 ## :hammer: Tools
 
 - [Git](https://github.com/ceezyyy/backend-notes/blob/master/tools/git/notes/git.md)
-- Docker
+- [Docker](https://github.com/ceezyyy/backend-notes/blob/master/tools/docker/notes/docker.md)
+

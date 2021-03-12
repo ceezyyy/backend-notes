@@ -9,7 +9,9 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/annotated/pom.xml" />
         <option value="$PROJECT_DIR$/wiring-beans/auto-wiring/pom.xml" />
+        <option value="$PROJECT_DIR$/wiring-beans/mix-config/pom.xml" />
       </set>
     </option>
   </component>

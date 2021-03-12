@@ -6,13 +6,18 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="mix-config" />
+        <module name="annotated-aop" />
+        <module name="advice-args" />
         <module name="java-config" />
         <module name="xml-config" />
+        <module name="xml-aop" />
+        <module name="around-advice" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="annotated" target="1.5" />
       <module name="auto-wiring" target="1.5" />
+      <module name="mix-config" target="1.5" />
     </bytecodeTargetLevel>
   </component>
 </project>

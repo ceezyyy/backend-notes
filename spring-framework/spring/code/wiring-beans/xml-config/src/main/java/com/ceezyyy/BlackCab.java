@@ -33,4 +33,5 @@ public class BlackCab implements CompactDisc {
         System.out.println("Playing " + album + " by " + artist);
         tracks.forEach(System.out::println);
     }
+
 }

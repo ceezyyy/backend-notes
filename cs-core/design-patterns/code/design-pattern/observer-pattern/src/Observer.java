@@ -1,0 +1,5 @@
+/**
+ * Observer
+ */
+public interface Observer {
+}

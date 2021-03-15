@@ -3,9 +3,9 @@
 Table of Contents
 -----------------
 
-- [Blueprint](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/blueprint.md)
-- [Process Management](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/process.md)
-- [Memory Management](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/OS/memory.md)
+- [Blueprint](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/operating-system/blueprint.md)
+- [Process Management](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/operating-system/process.md)
+- [Memory Management](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/operating-system/memory.md)
 
 ## Brainstorming
 

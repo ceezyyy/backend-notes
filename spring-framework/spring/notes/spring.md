@@ -13,8 +13,8 @@ Table of Contents
    * [2.3 Join point](#23-join-point)
    * [2.4 Pointcut](#24-pointcut)
 * [3. Spring MVC](#3-spring-mvc)
+* [4. Spring Boot](#4-spring-boot)
 * [References](#references)
-
 
 
 
@@ -122,6 +122,13 @@ This point could be a method being called, an exception being thrown, or even a 
 - *ViewResolver* :  logical name -> actual view
 
 
+
+## 4. Spring Boot
+
+- *Spring Boot Starter*
+- *Autoconfiguration*
+- *CLI*
+- *Actuator*
 
 
 

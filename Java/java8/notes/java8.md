@@ -15,7 +15,6 @@ Table of Contents
 
 
 
-
 ## 1. Why Java 8?
 
 - More concise code

@@ -13,8 +13,13 @@ Table of Contents
 * [3. 事务](#3-事务)
 * [4. 锁](#4-锁)
    * [4.1 快照读](#41-快照读)
-      * [4.1.1 ReadView](#411-readview)
+* [5. 其他](#5-其他)
+   * [5.1 切分](#51-切分)
+   * [5.2 主从复制](#52-主从复制)
+   * [5.3 读写分离](#53-读写分离)
 * [References](#references)
+
+
 
 ## Brainstorming
 
@@ -34,7 +39,7 @@ Table of Contents
 
 #### 2.1.1 B Tree
 
-<div align="center"> <img src="B-Tree.svg" width="50%"/> </div><br>
+<div align="center"> <img src="B-tree.svg" width="50%"/> </div><br>
 
 #### 2.1.2 B+ Tree
 
@@ -72,26 +77,21 @@ Table of Contents
 
 **Example**
 
-> redo log: 记录事务的行为以实现持久化 | undo log: 支撑事务的 rollback 操作
->
-
-举个例子，现在需要将 a 字段的值由 1 改为 3，b 字段的值由 2 改为 4
+现在需要将 a 字段的值由 1 改为 3，b 字段的值由 2 改为 4
 
 | column | value |
 | ------ | ----- |
 | a      | 1     |
 | b      | 2     |
 
-**执行流程**
+**执行流程** 
 
 1. start transaction
-2. a = 1 -> 写入 `undo log`
-3. 写入/更新 a = 3
-4. a = 3 -> 写入 `redo log`
-5. b = 2 -> 写入 `undo log`
-6. 写入/更新 b = 4
-7. b = 4 -> 写入 `redo log`
-8. 将 `redo log` 刷入磁盘实现持久化
+2. a = 1 -> 写入 undo log
+3. 更新 a = 3, a = 3 -> 写入 redo log
+5. b = 2 -> 写入 undo log
+6. 更新 b = 4, b = 4 -> 写入 redo log
+8. 将所有日志 (undo log, redo log, ...) 刷入磁盘实现持久化
 9. commit
 
 
@@ -100,11 +100,7 @@ Table of Contents
 
 ### 4.1 快照读
 
-> 写：新增 snapshot 数据；读：旧 snapshot 数据
-
-#### 4.1.1 ReadView
-
-> MVCC 维护了一个 ReadView 结构，主要包含了当前系统活跃的事务列表 TRX_IDs
+**ReadView**
 
 <div align="center"> <img src="image-20210109154530693.png" width="60%"/> </div><br>
 
@@ -115,6 +111,36 @@ Table of Contents
 - 若在绿色部分：**可见**
 - 若在黄色部分：**不可见**
 - 若在红色部分：**不可见**
+
+
+
+## 5. 其他
+
+### 5.1 切分
+
+**水平切分**
+
+<div align="center"> <img src="hor-sharding.jpeg" width="50%"/> </div><br>
+
+**垂直切分**
+
+<div align="center"> <img src="ver-sharding.jpeg" width="45%"/> </div><br>
+
+### 5.2 主从复制
+
+- binlog 线程：将 master 的数据更改写入 binary log 中
+- I/O 线程：从 master 读 binary log，写到 slave 的 relay log 中 (relay 有接力的意思)
+- SQL 线程：读取 relay log，将其重放到 slave 上
+
+<div align="center"> <img src="master-slave.png" width="55%"/> </div><br>
+
+
+
+### 5.3 读写分离
+
+<div align="center"> <img src="read-write.png" width="55%"/> </div><br>
+
+
 
 
 

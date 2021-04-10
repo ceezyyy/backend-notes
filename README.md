@@ -21,7 +21,7 @@
 - Collections
 - [Java 8](https://github.com/ceezyyy/backend-notes/blob/master/Java/java8/notes/java8.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
-- Concurrency
+- [Concurrency](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrency/notes/concurrency.md)
 
 
 

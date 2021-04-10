@@ -83,6 +83,7 @@ public class ThreadPool {
     public void execute(Runnable task) {
         synchronized (workers) {
             if (workers.size() < coreSize) {
+                // 用到时才创建
                 Worker worker = new Worker(task);
                 workers.add(worker);
                 log.info("{} 任务开启", task);

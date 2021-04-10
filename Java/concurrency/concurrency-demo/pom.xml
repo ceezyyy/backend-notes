@@ -17,6 +17,8 @@
         <module>wait-notify</module>
         <module>volatile</module>
         <module>thread-pool</module>
+        <module>fixed-thread-pool-demo</module>
+        <module>cached-thread-pool-demo</module>
     </modules>
 
     <properties>

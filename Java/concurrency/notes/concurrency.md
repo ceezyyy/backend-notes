@@ -19,7 +19,14 @@
 	- [4.3 要不要锁住同步资源?](#43-要不要锁住同步资源)
 		- [4.3.1 悲观锁](#431-悲观锁)
 		- [4.3.2 乐观锁](#432-乐观锁)
-- [5. ThreadPool](#5-threadpool)
+		- [4.3.3 CAS](#433-cas)
+- [5. AQS](#5-aqs)
+- [6. ThreadPool](#6-threadpool)
+	- [6.1 总体设计](#61-总体设计)
+		- [6.1.1 阻塞队列](#611-阻塞队列)
+		- [6.1.2 不同线程池适用场景](#612-不同线程池适用场景)
+	- [6.2 生命周期管理](#62-生命周期管理)
+	- [6.3 任务执行机制](#63-任务执行机制)
 - [References](#references)
 
 
@@ -158,7 +165,7 @@ synchronized(lock) {
 ```java
 reentrantLock.lock();
 try {
-	// 临界区
+  // 临界区
 } finally {
   // 释放锁
   reentrantLock.unlock();
@@ -226,9 +233,27 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 
 
 
+## 5. AQS
 
 
-## 5. ThreadPool
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## 6. ThreadPool
 
 **为什么需要线程池?**
 
@@ -246,6 +271,78 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 
 
 
+### 6.1 总体设计
+
+**ThreadPoolExecutor**
+
+<div align="center"> <img src="thread-pool-executor.png" width="70%"/> </div><br>
+
+**ThreadPoolExecutor.java**
+
+```java
+public ThreadPoolExecutor(
+
+  // 核心线程数量, 一直存在（铁饭碗）
+  int corePoolSize,
+
+  // 最大线程 = 核心线程 + 救急线程
+  // 救急线程若长时间闲置会被销毁（临时工）
+  int maximumPoolSize,
+
+  // 闲置超时时间
+  long keepAliveTime,
+  TimeUnit unit,
+
+  // 阻塞队列
+  BlockingQueue<Runnable> workQueue,
+  
+  // 创建线程工厂
+  ThreadFactory threadFactory,
+
+  /*
+    拒绝策略
+    1) 丢弃任务, 抛异常
+    2) 丢弃任务, 但不抛异常
+    3) 丢弃头部任务, 尝试加入
+    4) 由调用线程自己处理
+   */
+  RejectedExecutionHandler handler) {
+
+}
+```
+
+
+
+#### 6.1.1 阻塞队列
+
+
+
+
+
+
+
+#### 6.1.2 不同线程池适用场景
+
+
+
+
+
+
+
+### 6.2 生命周期管理
+
+
+
+
+
+
+
+
+
+### 6.3 任务执行机制
+
+
+
 
 
 
@@ -259,7 +356,9 @@ public class AtomicInteger extends Number implements java.io.Serializable {
 ## References
 
 - *Java 并发编程的艺术*
+- [深入浅出多线程](http://concurrent.redspider.group/RedSpider.html)
 - [What is a Monitor in Computer Science?](https://www.baeldung.com/cs/monitor)
 - [不可不说的 Java “锁”事](https://tech.meituan.com/2018/11/15/java-lock.html)
 - [Java魔法类：Unsafe应用解析](https://tech.meituan.com/2019/02/14/talk-about-java-magic-class-unsafe.html)
 - [Java线程池实现原理及其在美团业务中的实践](https://tech.meituan.com/2020/04/02/java-pooling-pratice-in-meituan.html)
+

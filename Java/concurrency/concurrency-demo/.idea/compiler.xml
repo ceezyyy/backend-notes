@@ -11,6 +11,8 @@
         <module name="memory-layout-of-objects" />
         <module name="reentrant-lock" />
         <module name="synchronized-counter" />
+        <module name="fixed-thread-pool-demo" />
+        <module name="cached-thread-pool-demo" />
         <module name="thread-pool" />
         <module name="volatile" />
         <module name="wait-notify" />

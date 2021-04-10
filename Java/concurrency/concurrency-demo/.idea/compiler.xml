@@ -2,13 +2,29 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="thread-creation" />
         <module name="jvm-stack" />
+        <module name="memory-layout-of-objects" />
+        <module name="reentrant-lock" />
+        <module name="synchronized-counter" />
+        <module name="thread-pool" />
+        <module name="volatile" />
+        <module name="wait-notify" />
+        <module name="producer-consumer" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="connection-pool" target="8" />
+      <module name="deadlock" target="8" />
+      <module name="thread-creation" target="8" />
+      <module name="thread-pool-diy" target="8" />
+      <module name="version-1" target="8" />
+      <module name="version1" target="8" />
+      <module name="volatile-demo" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

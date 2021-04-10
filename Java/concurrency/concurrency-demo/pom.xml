@@ -9,8 +9,14 @@
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>thread-creation</module>
         <module>jvm-stack</module>
+        <module>synchronized-counter</module>
+        <module>memory-layout-of-objects</module>
+        <module>producer-consumer</module>
+        <module>reentrant-lock</module>
+        <module>wait-notify</module>
+        <module>volatile</module>
+        <module>thread-pool</module>
     </modules>
 
     <properties>
@@ -30,8 +36,16 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.16</version>
-            <scope>provided</scope>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+
 
     </dependencies>
 </project>

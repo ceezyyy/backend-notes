@@ -15,6 +15,7 @@
         <module name="cached-thread-pool-demo" />
         <module name="thread-pool" />
         <module name="volatile" />
+        <module name="mylock" />
         <module name="wait-notify" />
         <module name="producer-consumer" />
       </profile>
@@ -22,6 +23,7 @@
     <bytecodeTargetLevel>
       <module name="connection-pool" target="8" />
       <module name="deadlock" target="8" />
+      <module name="mylock-impl-aqs" target="8" />
       <module name="thread-creation" target="8" />
       <module name="thread-pool-diy" target="8" />
       <module name="version-1" target="8" />

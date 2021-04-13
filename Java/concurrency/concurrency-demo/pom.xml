@@ -19,6 +19,8 @@
         <module>thread-pool</module>
         <module>fixed-thread-pool-demo</module>
         <module>cached-thread-pool-demo</module>
+        <module>mylock-impl-aqs</module>
+        <module>mylock</module>
     </modules>
 
     <properties>

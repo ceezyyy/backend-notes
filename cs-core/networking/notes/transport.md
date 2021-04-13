@@ -3,64 +3,55 @@
 Table of Contents
 -----------------
 
-* [1. MUX &amp; DEMUX](#1-mux--demux)
-* [2. UDP](#2-udp)
-* [3. TCP](#3-tcp)
-   * [3.1 Overview](#31-overview)
-   * [3.2 Connection](#32-connection)
-      * [3.2.1 Setup](#321-setup)
-      * [3.2.2 Teardown](#322-teardown)
-   * [3.3 Reliable Delivery](#33-reliable-delivery)
-      * [3.3.1 Go-back-N](#331-go-back-n)
-      * [3.3.2 Selective Repeat](#332-selective-repeat)
-      * [3.3.3 Fast Retransmit](#333-fast-retransmit)
-   * [3.4 Flow Control](#34-flow-control)
-   * [3.5 Congestion Control](#35-congestion-control)
-      * [3.5.1 Congestion Window](#351-congestion-window)
-      * [3.5.2 Slow Start](#352-slow-start)
-      * [3.5.3 Why AIMD](#353-why-aimd)
-* [References](#references)
+- [1. UDP](#1-udp)
+- [2. TCP](#2-tcp)
+	- [2.1 面向连接](#21-面向连接)
+		- [2.2.1 三次握手](#221-三次握手)
+		- [2.1.2 四次挥手](#212-四次挥手)
+	- [2.2 可靠传输](#22-可靠传输)
+		- [2.3.1 回退 N 步](#231-回退-n-步)
+		- [2.3.2 选择重传](#232-选择重传)
+		- [2.3.3 快速重传](#233-快速重传)
+	- [2.3 流量控制](#23-流量控制)
+	- [2.4 拥塞控制](#24-拥塞控制)
+		- [2.4.1 线增积减](#241-线增积减)
+		- [2.4.2 拥塞窗口](#242-拥塞窗口)
+		- [2.4.3 实现原理](#243-实现原理)
+- [References](#references)
 
 ## 1. UDP
 
 **UDP segment**
 
-<div align="center"> <img src="image-20210302105457294.png" width="35%"/> </div><br>
+<div align="center"> <img src="udp-segment.jpeg" width="65%"/> </div><br>
+
+
+
+**应用场景**
+
+- 包总量较少的通信（*DNS*, *SNMP*）
+
+- 即时通信（视频, 音频等多媒体通信）
+
+  
+
+
 
 ## 2. TCP
+### 2.1 面向连接
+**TCP segment header**
 
-### 2.1 Overview
-
-**TCP segment**
-
-<div align="center"> <img src="image-20210302115042177.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20210413122329297.png" width="70%"/> </div><br>
 
 
 
-**Example**
+**⚠️注意**
 
-
-<div align="center"> <img src="image-20210302151130634.png" width="40%"/> </div><br>
-
-
-
-<div align="center"> <img src="image-20210302151211674.png" width="60%"/> </div><br>
+*TCP* 和 *UDP* 的端口号是两套命名空间，即只有通过 (*port*, *transport protocol*, *ip addr*) 才能定位到具体的服务
 
 
 
-<div align="center"> <img src="image-20210302151311857.png" width="55%"/> </div><br>
-
-
-
-
-
-
-
-
-
-### 2.2 Connection-oriented
-
-#### 2.2.1 Setup
+#### 2.2.1 三次握手
 
 **Connection setup**
 
@@ -78,13 +69,44 @@ Table of Contents
 
 
 
+**为什么 TCP 需要三次握手?**
+
+建立一个连接需要确定**三种信息**：
+
+1. *socket*
+2. *window size*
+3. *sequence number*
 
 
-**TCP connection**
 
-<div align="center"> <img src="what-is-tcp-connection.png" width="70%"/> </div><br>
+**1. 阻止重复历史连接的初始化（主要原因）**
 
-#### 2.2.2 Teardown
+<div align="center"> <img src="why-three-way-handshake.png" width="70%"/> </div><br>
+
+- 当 *seq* 是历史连接（过期 / 超时），发送方会发送 *RST* 终止此次连接
+- 当 *seq* 不是历史连接，发送方会发送 *ACK* ，成功建立连接
+
+
+
+**What's more**
+
+网络作为一个分布式系统，并不存在用于计数的全局时钟，而 TCP 可通过不同的机制来初始化序列号，作为 TCP **接收方**是**无法判断**对方传来的初始化序列号是否过期，只能由发送方判断，TCP **发送方**可以通过**保存发出的序列号**判断连接是否过期
+
+
+
+
+
+**2. 对通信双方的初始序列号进行初始化**
+
+为什么需要 *sequence number*?
+
+1. 接收方可以通过序列号对重复数据包去重
+2. 发送方会在对应数据包未被 ack 时进行重发
+3. 接收方根据 *seq* 进行有序排列
+
+
+
+#### 2.1.2 四次挥手
 
 **Connection teardown**
 
@@ -96,139 +118,102 @@ Table of Contents
 
 
 
+### 2.2 可靠传输
 
-
-
-
-### 2.3 Reliable Delivery
-
-#### 2.3.1 Go-back-N
+#### 2.3.1 回退 N 步
 
 <div align="center"> <img src="image-20210227121045315.png" width="65%"/> </div><br>
 
-**Initialization**
-
-send_base = 0, nextseqnum = 0
 
 
-
-#### 2.3.2 Selective Repeat
+#### 2.3.2 选择重传
 
 **Sender**
-
-- *Data received above:* If the sequence number is within the sender's window -> the data is packetized and sent
-- *Timeout:* Each packet has its own logical timer
-- *ACK received:*
-  - In the window: marked as received
-  - Equal to *send_base*: *send_base* **move forward to the unacknowledged packet w/ the smallest sequence number**
 
 <div align="center"> <img src="image-20210227152729195.png" width="70%"/> </div><br>
 
 **Receiver**
 
-- *Packet in [rcv_base, rcv_base + N - 1]:* 
-  - Sent back an ACK
-  - And if this packet's number equals to *rcv_base*, and any pre buffered and consecutively numbered -> delivery to the upper layer -> window move forward *x* units
-- *Packet in [rcv_base - N, rcv_base - 1]:* Sent back an ACK
-
 
 
 <div align="center"> <img src="image-20210227152821480.png" width="70%"/> </div><br>
 
+
+
+#### 2.3.3 快速重传
+
+> 回退 N 步和选择重传的结合
+
+当收到三个**冗余** ACK 后，表示该 segment 之后的报文已丢失，重传
+
 **Example**
 
-<div align="center"> <img src="image-20210227153243525.png" width="60%"/> </div><br>
-
-#### 2.3.3 Fast Retransmit
-
-> A hybrid of GBN and SR protocol
-
-<div align="center"> <img src="image-20210302152338698.png" width="65%"/> </div><br>
+<div align="center"> <img src="image-20210302152338698.png" width="50%"/> </div><br>
 
 
 
-### 2.4 Flow Control
-
-**Sliding window**
-
-<div align="center"> <img src="image-20210304141033128.png" width="60%"/> </div><br>
+### 2.3 流量控制
 
 **Send & Receive buffer**
 
-<div align="center"> <img src="image-20210302114501947.png" width="60%"/> </div><br>
 
 <div align="center"> <img src="image-20210226163617682.png" width="50%"/> </div><br>
-
-**Sending rate for a single flow**
-
-<div align="center"> <img src="image-20210304171350402.png" width="60%"/> </div><br>
 
 
 
 **Receive window**
 
-```matlab
-rwnd = RcvBuffer - (LastByteRcvd - LastByteRead)
-```
-
-
-
 
 <div align="center"> <img src="sliding-window.png" width="60%"/> </div><br>
 
-**Receiver**
+**Receiver** : LastByteRcvd - LastByteRead <= RcvBuffer
 
-```matlab
-LastByteRcvd - LastByteRead <= RcvBuffer
-```
-
-
-
-**Sender**
-
-```matlab
-LastByteSend - LastByteAcked <= rwnd
-```
+**Sender** : LastByteSend - LastByteAcked <= rwnd
 
 
 
 
 
-### 2.5 Congestion Control
+### 2.4 拥塞控制
 
-#### 2.5.1 Congestion Window
-
-```matlab
-LastByteSent - LastByteAcked <= min{cwnd, rwnd}
-```
-
-#### 2.5.2 Slow Start
-
-<div align="center"> <img src="image-20210305113110093.png" width="35%"/> </div><br>
-
-**TCP Tahoe**
-
-<div align="center"> <img src="image-20210305114726950.png" width="50%"/> </div><br>
-
-**TCP Reno**
-
-<div align="center"> <img src="image-20210305114848694.png" width="50%"/> </div><br>
-
-**TCP Tahoe vs. TCP Reno**
-
-<div align="center"> <img src="tcp-congestion-example.png" width="70%"/> </div><br>
-
-
-
-#### 2.5.3 Why AIMD
+#### 2.4.1 线增积减
 
 **AIMD**
 
-<div align="center"> <img src="image-20210304151010216.png" width="50%"/> </div><br>
+<div align="center"> <img src="image-20210304151010216.png" width="45%"/> </div><br> 
 
-**Chiu Jain Plot**
 
-<div align="center"> <img src="image-20210305120746694.png" width="40%"/> </div><br>
+
+#### 2.4.2 拥塞窗口
+
+每个 TCP 连接都会维护一个拥塞窗口，决定了发送方能向接收方发送多少数据，目的如下：
+
+1. 防止发送方发送过多数据，导致接收方无法处理
+2. 防止 TCP 连接的任意一方向网络中发送大量数据，导致网络拥塞崩溃
+
+客户端同时传输的最大数据段的数量为 *min(rwnd, cwnd)*
+
+
+
+#### 2.4.3 实现原理
+
+TCP 采用慢启动阈值 (*slow start threshold*, *ssthresh*) 来决定慢启动或者拥塞避免算法：
+
+- 当 *cwnd* 小于 *ssthresh* 时：慢启动
+- 当 *cwnd* 大于 *ssthresh* 时：拥塞避免
+- 当 *cwnd* 等于 *ssthresh* 时：慢启动/拥塞避免
+
+
+
+**Reno 算法**
+
+<div align="center"> <img src="tcp-reno.png" width="60%"/> </div><br>
+
+
+
+**TCP Tahoe vs. TCP Reno**
+
+<div align="center"> <img src="tcp-congestion-example.png" width="60%"/> </div><br>
 
 
 
@@ -238,4 +223,6 @@ LastByteSent - LastByteAcked <= min{cwnd, rwnd}
 - [Selective Repeat Protocol](https://media.pearsoncmg.com/aw/ecs_kurose_compnetwork_7/cw/content/interactiveanimations/selective-repeat-protocol/index.html)
 - [The Difference Between a Port and a Socket](https://www.baeldung.com/cs/port-vs-socket)
 - [What is "Fair" ?](http://www.mathcs.emory.edu/~cheung/Courses/558/Syllabus/11-Fairness/Fair.html)
+- [为什么 UDP 头只有 8 个字节](https://draveness.me/whys-the-design-udp-minimum-header/)
+- [为什么 TCP 建立连接需要三次握手](https://draveness.me/whys-the-design-tcp-three-way-handshake/)
 

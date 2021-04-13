@@ -3,21 +3,25 @@
 Table of Contents
 -----------------
 
-* [1. Overview](#1-overview)
-   * [1.1 Packet Switching](#11-packet-switching)
-   * [1.2 Delay](#12-delay)
-      * [1.2.1 Propagation](#121-propagation)
-      * [1.2.2 Transmission](#122-transmission)
-      * [1.2.3 Queueing](#123-queueing)
-* [2. Router](#2-router)
-   * [2.1 Overview](#21-overview)
-   * [2.2 Lookup Address](#22-lookup-address)
-* [3. Routing](#3-routing)
-* [4. IP](#4-ip)
-   * [4.1 Segment](#41-segment)
-   * [4.2 Addressing](#42-addressing)
-      * [4.2.1 IPv4 vs. IPv6](#421-ipv4-vs-ipv6)
-* [References](#references)
+- [1. Overview](#1-overview)
+	- [1.1 Packet Switching](#11-packet-switching)
+	- [1.2 Delay](#12-delay)
+		- [1.2.1 Propagation](#121-propagation)
+		- [1.2.2 Transmission](#122-transmission)
+		- [1.2.3 Queueing](#123-queueing)
+- [2. Router](#2-router)
+	- [2.1 Overview](#21-overview)
+	- [2.2 Lookup Address](#22-lookup-address)
+- [3. Routing](#3-routing)
+- [4. IP](#4-ip)
+	- [4.1 Packet](#41-packet)
+	- [4.2 Addressing](#42-addressing)
+		- [4.2.1 DHCP](#421-dhcp)
+		- [4.2.2 IPv4 vs. IPv6](#422-ipv4-vs-ipv6)
+- [5. DNS](#5-dns)
+	- [5.1 域名](#51-域名)
+	- [5.2 DNS 查询](#52-dns-查询)
+- [References](#references)
 
 
 
@@ -147,23 +151,7 @@ so, the response time is calculated as 10 / 50 = 0.2s
 
 
 
-
-
-
-
-
-
 ## 3. Routing
-
-
-
-
-
-
-
-
-
-
 
 **Example**
 
@@ -233,8 +221,6 @@ so, the response time is calculated as 10 / 50 = 0.2s
 
 
 
-
-
 #### 4.2.2 IPv4 vs. IPv6
 
 **IPv4**
@@ -255,6 +241,44 @@ so, the response time is calculated as 10 / 50 = 0.2s
 | Address configuration | Manually or through DHCP                            | Stateless address autoconfiguration through Internet Control Message Protocol version 6 (ICMPv6) or DHCPv6 |
 
 
+
+
+
+
+
+## 5. DNS
+
+> Domain Name System, 域名系统
+
+*DNS* 是一个将域名和 *ip* 地址相互映射的分布式数据库
+
+### 5.1 域名
+
+<div align="center"> <img src="dns-domain.jpeg" width="60%"/> </div><br>
+
+top level 包括代表国家的域名以及代表特定领域的域名
+
+
+
+
+
+**域名服务器**
+
+- 指的是管理域名的**主机**和相应的**软件**，根域名服务器注册着 top level 域名服务器的 *ip* 地址（以此类推）
+
+- 考虑到容灾能力，至少设置两个及以上 *DNS* 服务器
+- 所有的域名服务器都必须注册**根域名服务器**的 *ip* 地址
+
+
+
+### 5.2 DNS 查询
+
+**How DNS works?**
+
+<div align="center"> <img src="how-dns-works.png" width="50%"/> </div><br>
+
+- 从 root 开始对树进行遍历
+- 本地 *DNS* 服务器上有缓存
 
 
 

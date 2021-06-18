@@ -18,7 +18,6 @@
 ## :coffee: Java 
 
 - [Basic](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/notes/basic.md)
-- Collections
 - [Java 8](https://github.com/ceezyyy/backend-notes/blob/master/Java/java8/notes/java8.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
 - [Concurrency](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrency/notes/concurrency.md)
@@ -27,28 +26,21 @@
 
 ## 📦 DB
 
-- [SQL Practice](https://github.com/ceezyyy/backend-notes/blob/master/db/sql/sql-prac.md)
 - [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/notes/mysql.md)
 - Redis
 
 
 
-## :leaves: Framework
+## :dagger: Middleware
 
-- [Spring](https://github.com/ceezyyy/backend-notes/blob/master/spring-framework/spring/notes/spring.md)
-- [Spring Cloud](https://github.com/ceezyyy/backend-notes/blob/master/spring-framework/springcloud/notes/springcloud.md)
+- Kafka
+
 
 
 
 ## :bulb: System Design
 
 - Design Patterns
-- Distributed System
 
 
-
-## :hammer: Tools
-
-- [Git](https://github.com/ceezyyy/backend-notes/blob/master/tools/git/notes/git.md)
-- [Docker](https://github.com/ceezyyy/backend-notes/blob/master/tools/docker/notes/docker.md)
 

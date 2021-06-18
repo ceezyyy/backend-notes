@@ -33,7 +33,7 @@
 
 ## :dagger: Middleware
 
-- Kafka
+- [Kafka](https://github.com/ceezyyy/backend-notes/blob/master/middleware/kafka/kafka.md)
 
 
 

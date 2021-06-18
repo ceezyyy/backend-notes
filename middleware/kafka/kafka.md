@@ -15,19 +15,12 @@
 
 **Topic & Partition**
 
-> 发布者以某种方式对消息分类, 接收者订阅他们，以便接收特定类型的消息 (e.g: 数据库表, 文件夹)
-
 <div align="center"> <img src="./pics/topic.png" width="45%"/> </div><br>
 
-- 发布者以某种方式对消息分类, 接收者订阅他们，以便接收特定类型的消息
-  
-  - 例如, 数据库中的表, 文件系统的文件夹
-  
+- 发布者以某种方式对消息分类，接收者订阅他们，以便接收特定类型的消息
+  - e.g: 数据库中的表，文件系统的文件夹
 - 一个 *topic* 可以横跨多个服务器
-
 - 消息可由 (*topic*, *partition*, *offset*) 识别
-
-  
 
 **Broker**
 
@@ -36,6 +29,22 @@
 - 独立的 *kafka* 服务器称为 *broker*
 - 接收来自生产者的消息，设置 *offset*，写入磁盘
 - 对消费者读取分区的请求作出响应，返回已经提交到磁盘的消息
+
+
+
+**启动**
+
+```bash
+# 开启
+brew services start zookeeper
+brew services start kafka
+
+# 关闭
+./kafka-server-stop
+./zookeeper-server-stop
+```
+
+
 
 ## 2. Producers
 
@@ -56,6 +65,8 @@
 ## 3. Consumers
 
 > 消费者订阅一个/多个 *topic*，并按消息生产的顺序读区（通过 *offset* 区分）
+
+
 
 
 

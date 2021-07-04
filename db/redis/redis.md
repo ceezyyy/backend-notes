@@ -5,7 +5,14 @@
 - [1. 概览](#1-概览)
 - [2. 高性能](#2-高性能)
 	- [2.1 数据结构](#21-数据结构)
-	- [2.2 Unix I/O 模型](#22-unix-io-模型)
+		- [2.1.1 SDS](#211-sds)
+		- [2.1.2 链表](#212-链表)
+		- [2.1.3 字典](#213-字典)
+		- [2.1.4 跳跃表](#214-跳跃表)
+		- [2.1.5 整数集合](#215-整数集合)
+		- [2.1.6 压缩列表](#216-压缩列表)
+		- [2.1.7 对象](#217-对象)
+	- [2.2 单线程 I/O 模型](#22-单线程-io-模型)
 - [3. 高可用](#3-高可用)
 	- [3.1 持久化](#31-持久化)
 		- [3.1.1 AOF 日志](#311-aof-日志)
@@ -34,51 +41,181 @@
 
 ### 2.1 数据结构
 
-- String
-  - 动态字符串/整数/浮点数
-- List
-  - 双向链表
-  - 压缩列表
-- Hash
-  - 哈希表
-  - 压缩列表
-- Zset
-  - 压缩列表
-  - 跳表
-- Set
-  - 哈希表
-  - 整数数组
+#### 2.1.1 SDS
+
+> Simple Dynamic String 简单动态字符串
+
+**sdshdr.h**
+
+```c
+struct sdshdr {
+  // buf 中已占用的空间
+  int len;
+  // buf 中剩余可用空间
+  int free;
+  // 保存字符串
+  char buf[];
+};
+```
+
+**为什么要这样设计?**
+
+- 获取字符串长度 *O(1)*
+- 杜绝缓冲区溢出
+  - 扩容
+- 减少修改字符串导致的频繁内存重分配
+  - 空间预分配
+  - 惰性空间释放
+- 二进制安全
+
+#### 2.1.2 链表
+
+**adlist.h**
+
+```c
+typedef struct listNode {
+  // 前置节点
+  struct listNode *prev;
+  // 后置节点
+  struct listNode *next;
+  // 节点的值
+  void *value;
+} listNode;
 
 
-**压缩列表**
+typedef struct list {
+  // 表头
+  listNode *head;
+  // 表尾
+  listNode *tail;
+  // 节点值复制函数
+  void *(*dup)(void *ptr);
+  // 节点值释放函数
+  void (*free)(void *ptr);
+  // 节点值对比函数
+  int (*match)(void *ptr, void *key);
+  // 节点数量
+  unsigned long len;
+} list;
+```
 
-<div align="center"> <img src="./pics/image-20210626194437141.png" width="70%"/> </div><br>
+**list 有何特点?**
 
-- *zlbytes*
-  - 占用的内存字节数
-  - 可用于计算末端
-- *zltail*
-  - 到达表尾节点的偏移量
-- *zllen*
-  - 节点的数量
+- 双端
+- 无环
+- 访问头尾 *O(1)*
+- 获取链表长度 *O(1)*
 
-**跳表**
+#### 2.1.3 字典
 
-<div align="center"> <img src="./pics/skip-list.png" width="75%"/> </div><br>
+**哈希表**
 
-**全局哈希表**
+```c
+// hash table
+typedef struct dictht {
+  // 哈希表数组
+  dictEntry **table;
+  // 哈希表大小
+  unsigned long size;
+  // 哈希表大小掩码, 等于 size-1
+  unsigned long sizemask;
+  // 哈希表已有节点数量
+  unsigned long used;
+} dictht;
 
-<div align="center"> <img src="./pics/image-20210626184713493.png" width="75%"/> </div><br>
+typedef struct dictEntry {
+  void *key;
+  // 相同内存位置存储不同类型数据
+  union {
+    void *val;
+    uint64_t u64;
+    int64_t s64;
+    double d;
+  } v;
+  // 拉链法, 头插
+  struct dictEntry *next;
+} dictEntry;
+```
 
-- 如何解决 *hash* 冲突？
-  - 链式哈希
-- 如何 *rehash*？
-  - 给 *hashtable 2* 分配更大的空间
-  - 将 *hashtable 1* 的数据重新映射并**拷贝**到 *hashmap 2* （**渐进式**）
-  - 释放 *hashtable 1* 
-- 什么是**渐进式** *rehash*？
-  - 在**拷贝**数据时，*redis* 仍处理客户端请求
-  - 每处理一个请求，从 *hashtable 1* 中第一个索引开始，将此位置的**所有** *entries* 拷贝
+**一个空的哈希表**
+
+<div align="center"> <img src="./pics/image-20210704120439483.png" width="50%"/> </div><br>
+
+**字典**
+
+```c
+// 字典, 更高层次封装
+typedef struct dict {
+  dictType *type;
+  void *privdata;
+  // 字典使用 ht[0] 哈希表
+  // ht[1] 进行 rehash 时使用
+  dictht ht[2];
+  long rehashidx; /* rehashing not in progress if rehashidx == -1 */
+  int16_t pauserehash; /* If >0 rehashing is paused (<0 indicates coding error) */
+} dict;
+
+
+typedef struct dictType {
+  uint64_t (*hashFunction)(const void *key);
+  void *(*keyDup)(void *privdata, const void *key);
+  void *(*valDup)(void *privdata, const void *obj);
+  int (*keyCompare)(void *privdata, const void *key1, const void *key2);
+  void (*keyDestructor)(void *privdata, void *key);
+  void (*valDestructor)(void *privdata, void *obj);
+  int (*expandAllowed)(size_t moreMem, double usedRatio);
+} dictType;
+```
+
+**普通状态下的字典**
+
+<div align="center"> <img src="./pics/image-20210704141647155.png" width="70%"/> </div><br>
+
+**字典是如何 rehash 的?**
+
+- 为 *ht[1]* 分配空间
+  - 扩容
+    - *ht[1]* 的大小为第一个大于等于 *ht[0].used x 2* 的 2<sup>n</sup> 
+  - 收缩
+    - *ht[1]* 的大小为第一个大于等于 *ht[0].used* 的 2<sup>n</sup>
+- 将 *ht[0]* 的键值对 rehash 到 *ht[1]*
+- 释放 *ht[0]*，将 *ht[1]* 置为 *ht[0]*，并在 *ht[1]* 新创建一个空白哈希表
+
+**什么是渐进式 rehash?**
+
+维持一个变量 *rehashidx*，初始值为 0
+
+
+
+#### 2.1.4 跳跃表
+
+
+
+
+
+
+
+#### 2.1.5 整数集合
+
+
+
+
+
+
+
+#### 2.1.6 压缩列表
+
+
+
+
+
+
+
+#### 2.1.7 对象
+
+
+
+
 
 ### 2.2 单线程 I/O 模型
 
@@ -151,7 +288,10 @@
 
 - [Redis Documentation](https://redis.io/)
 - *Redis In Action*
-- [为什么 Redis 快照使用子进程](https://draveness.me/whys-the-design-redis-bgsave-fork/)
 - *Redis 核心技术与实战*
-- [跳表──没听过但很犀利的数据结构](https://lotabout.me/2018/skip-list/)
+- *Redis 设计与实现*
+- [为什么 Redis 快照使用子进程](https://draveness.me/whys-the-design-redis-bgsave-fork/)
 - [Copy on Write](https://www.geeksforgeeks.org/copy-on-write/)
+- [Double Pointer (Pointer to Pointer) in C](https://www.geeksforgeeks.org/double-pointer-pointer-pointer-c/)
+- [C 函数指针与回调函数](https://www.runoob.com/cprogramming/c-fun-pointer-callback.html)
+- [C 语言中 void* 详解及应用](https://www.runoob.com/w3cnote/c-void-intro.html)

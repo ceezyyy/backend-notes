@@ -23,7 +23,7 @@ Table of Contents
 
 **UDP segment**
 
-<div align="center"> <img src="udp-segment.jpeg" width="65%"/> </div><br>
+<div align="center"> <img src="./pics/udp-segment.jpeg" width="65%"/> </div><br>
 
 
 
@@ -35,13 +35,11 @@ Table of Contents
 
   
 
-
-
 ## 2. TCP
 ### 2.1 面向连接
 **TCP segment header**
 
-<div align="center"> <img src="image-20210413122329297.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210413122329297.png" width="70%"/> </div><br>
 
 
 
@@ -55,11 +53,11 @@ Table of Contents
 
 **Connection setup**
 
-<div align="center"> <img src="image-20210226173526009.png" width="50%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210226173526009.png" width="50%"/> </div><br>
 
 **3-way handshake**
 
-<div align="center"> <img src="image-20210225143351607.png" width="30%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210225143351607.png" width="30%"/> </div><br>
 
 *step 1:* SYN = 1, seq = client_isn (*isn* means initial sequence number)
 
@@ -81,7 +79,7 @@ Table of Contents
 
 **1. 阻止重复历史连接的初始化（主要原因）**
 
-<div align="center"> <img src="why-three-way-handshake.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/why-three-way-handshake.png" width="70%"/> </div><br>
 
 - 当 *seq* 是历史连接（过期 / 超时），发送方会发送 *RST* 终止此次连接
 - 当 *seq* 不是历史连接，发送方会发送 *ACK* ，成功建立连接
@@ -110,11 +108,11 @@ Table of Contents
 
 **Connection teardown**
 
-<div align="center"> <img src="image-20210226184427464.png" width="50%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210226184427464.png" width="50%"/> </div><br>
 
 **4-way handshake**
 
-<div align="center"> <img src="image-20210225143816877.png" width="30%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210225143816877.png" width="30%"/> </div><br>
 
 
 
@@ -122,7 +120,7 @@ Table of Contents
 
 #### 2.3.1 回退 N 步
 
-<div align="center"> <img src="image-20210227121045315.png" width="65%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210227121045315.png" width="65%"/> </div><br>
 
 
 
@@ -130,13 +128,13 @@ Table of Contents
 
 **Sender**
 
-<div align="center"> <img src="image-20210227152729195.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210227152729195.png" width="70%"/> </div><br>
 
 **Receiver**
 
 
 
-<div align="center"> <img src="image-20210227152821480.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210227152821480.png" width="70%"/> </div><br>
 
 
 
@@ -148,7 +146,7 @@ Table of Contents
 
 **Example**
 
-<div align="center"> <img src="image-20210302152338698.png" width="50%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210302152338698.png" width="50%"/> </div><br>
 
 
 
@@ -156,15 +154,13 @@ Table of Contents
 
 **Send & Receive buffer**
 
-
-<div align="center"> <img src="image-20210226163617682.png" width="50%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210226163617682.png" width="50%"/> </div><br>
 
 
 
 **Receive window**
 
-
-<div align="center"> <img src="sliding-window.png" width="60%"/> </div><br>
+<div align="center"> <img src="./pics/sliding-window.png" width="60%"/> </div><br>
 
 **Receiver** : LastByteRcvd - LastByteRead <= RcvBuffer
 
@@ -180,7 +176,7 @@ Table of Contents
 
 **AIMD**
 
-<div align="center"> <img src="image-20210304151010216.png" width="45%"/> </div><br> 
+<div align="center"> <img src="./pics/image-20210304151010216.png" width="45%"/> </div><br> 
 
 
 
@@ -207,13 +203,13 @@ TCP 采用慢启动阈值 (*slow start threshold*, *ssthresh*) 来决定慢启�
 
 **Reno 算法**
 
-<div align="center"> <img src="tcp-reno.png" width="60%"/> </div><br>
+<div align="center"> <img src="./pics/tcp-reno.png" width="60%"/> </div><br>
 
 
 
 **TCP Tahoe vs. TCP Reno**
 
-<div align="center"> <img src="tcp-congestion-example.png" width="60%"/> </div><br>
+<div align="center"> <img src="./pics/tcp-congestion-example.png" width="60%"/> </div><br>
 
 
 

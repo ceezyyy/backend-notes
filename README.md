@@ -27,7 +27,7 @@
 ## 📦 DB
 
 - [MySQL](https://github.com/ceezyyy/backend-notes/blob/master/db/mysql/notes/mysql.md)
-- Redis
+- [Redis](https://github.com/ceezyyy/backend-notes/blob/master/db/redis/redis.md)
 
 
 
@@ -41,6 +41,4 @@
 ## :bulb: System Design
 
 - Design Patterns
-
-
 

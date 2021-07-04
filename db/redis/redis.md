@@ -48,6 +48,9 @@
 **sdshdr.h**
 
 ```c
+/*
+ * 简单动态字符串
+ */
 struct sdshdr {
   // buf 中已占用的空间
   int len;
@@ -73,16 +76,9 @@ struct sdshdr {
 **adlist.h**
 
 ```c
-typedef struct listNode {
-  // 前置节点
-  struct listNode *prev;
-  // 后置节点
-  struct listNode *next;
-  // 节点的值
-  void *value;
-} listNode;
-
-
+/*
+ * 链表
+ */
 typedef struct list {
   // 表头
   listNode *head;
@@ -97,21 +93,33 @@ typedef struct list {
   // 节点数量
   unsigned long len;
 } list;
+
+
+/*
+ * 链表节点
+ */
+typedef struct listNode {
+  // 前置节点
+  struct listNode *prev;
+  // 后置节点
+  struct listNode *next;
+  // 节点的值
+  void *value;
+} listNode;
 ```
 
-**list 有何特点?**
 
-- 双端
-- 无环
-- 访问头尾 *O(1)*
-- 获取链表长度 *O(1)*
+
+<div align="center"> <img src="./pics/image-20210704181745523.png" width="65%"/> </div><br>
 
 #### 2.1.3 字典
 
-**哈希表**
+**dict.h**
 
 ```c
-// hash table
+/*
+ * 哈希表
+ */
 typedef struct dictht {
   // 哈希表数组
   dictEntry **table;
@@ -123,6 +131,10 @@ typedef struct dictht {
   unsigned long used;
 } dictht;
 
+
+/*
+ * 哈希表节点
+ */
 typedef struct dictEntry {
   void *key;
   // 相同内存位置存储不同类型数据
@@ -137,14 +149,14 @@ typedef struct dictEntry {
 } dictEntry;
 ```
 
-**一个空的哈希表**
+<div align="center"> <img src="./pics/image-20210704120439483.png" width="45%"/> </div><br>
 
-<div align="center"> <img src="./pics/image-20210704120439483.png" width="50%"/> </div><br>
-
-**字典**
+**dict.h**
 
 ```c
-// 字典, 更高层次封装
+/*
+ * 字典
+ */
 typedef struct dict {
   dictType *type;
   void *privdata;
@@ -167,8 +179,6 @@ typedef struct dictType {
 } dictType;
 ```
 
-**普通状态下的字典**
-
 <div align="center"> <img src="./pics/image-20210704141647155.png" width="70%"/> </div><br>
 
 **字典是如何 rehash 的?**
@@ -183,25 +193,83 @@ typedef struct dictType {
 
 **什么是渐进式 rehash?**
 
-维持一个变量 *rehashidx*，初始值为 0
-
-
+- 维持一个变量 *rehashidx*，初始值为 0
+- 每次对字典进行操作时，会顺带将 *ht[0]* 索引为 *rehashidx* 的键值对 *rehash* 到 *ht[1]*（**分而治之**）
 
 #### 2.1.4 跳跃表
 
+**redis.h**
+
+```c
+/*
+ * 跳跃表
+ */
+typedef struct zskiplist {
+  // 头节点与尾节点
+  struct zskiplistNode *header, *tail;
+  // 节点数量 (不包括header)
+  unsigned long length;
+  // 最大层数 (不包括header)
+  int level;
+} zskiplist;
+
+
+/*
+ * 跳跃表节点
+ */
+typedef struct zskiplistNode {
+  // SDS 对象的地址, 唯一
+  robj *obj;
+  // 分值, double, 有序, 可以相同
+  double score;
+  // 后退指针
+  struct zskiplistNode *backward;
+  // 层 (1-32)
+  struct zskiplistLevel {
+    // 前进指针
+    struct zskiplistNode *forward;
+    // 跨度
+    unsigned int span;
+  } level[];
+
+} zskiplistNode;
+```
 
 
 
+<div align="center"> <img src="./pics/image-20210704171213313.png" width="75%"/> </div><br>
 
 
 
 #### 2.1.5 整数集合
 
+**intset.h**
 
+```c
+typedef struct intset {
+  // 编码方式
+  uint32_t encoding;
+  // 元素数量
+  uint32_t length;
+  // 底层数组, 有序, 不重复
+  int8_t contents[];
+} intset;
+```
 
+**什么是升级?**
 
+当新元素的类型要大于 *intset* 所有元素的类型时 -> 升级
 
+- 扩展底层数组大小，为新元素分配空间
+- 统一元素类型，重新放置元素（保持**有序**）
+- 放置新元素
+  - 队头
+  - 队尾
 
+**升级好处?**
+
+- 灵活
+- 节约内存空间
 
 #### 2.1.6 压缩列表
 

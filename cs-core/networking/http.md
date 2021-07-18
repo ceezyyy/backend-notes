@@ -45,6 +45,12 @@
 
 #### 1.2.2 持久化连接
 
+**pros**
+
+- 快，避免连接建立阶段以及慢启动的拥塞适应阶段
+
+**cons**
+
 
 
 
@@ -53,4 +59,3 @@
 ## References
 
 - *HTTP: The Definitive Guide*
-

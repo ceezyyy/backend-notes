@@ -4,37 +4,48 @@
 
 - [1. 概览](#1-概览)
 - [2. 数据结构](#2-数据结构)
-	- [2.1 SDS](#21-sds)
-	- [2.2 链表](#22-链表)
-	- [2.3 字典](#23-字典)
-	- [2.4 跳跃表](#24-跳跃表)
-	- [2.5 整数集合](#25-整数集合)
-	- [2.6 压缩列表](#26-压缩列表)
-	- [2.7 对象](#27-对象)
+	- [2.1 String](#21-string)
+	- [2.2 List](#22-list)
+		- [2.2.1 Ziplist](#221-ziplist)
+		- [2.2.2 Quicklist](#222-quicklist)
+	- [2.3 Hash](#23-hash)
 - [References](#references)
 
 ## 1. 概览
-
-**Overview**
-
-- 访问框架
-  - 动态库
-  - 网络访问框架
-- 操作模块 (PUT/GET/SCAN/DELETE)
-- 索引模块
-- 存储模块
-  - 分配器
-  - 持久化
 
 **三条主线**
 
 <div align="center"> <img src="./pics/image-20210627160643569.png" width="70%"/> </div><br>
 
-## 2. 底层数据结构
+## 2. 数据结构
 
-### 2.1 SDS
+### 2.1 RedisObject
 
-> Simple Dynamic String
+```c
+// server.h 文件
+typedef struct redisObject {
+  	// 数据类型
+    unsigned type:4;
+  	// 内部编码
+    unsigned encoding:4;
+  	// 最后一次被访问的时间
+    unsigned lru:LRU_BITS; /* lru time (relative to server.lruclock) */
+  	// 被引用的次数（等于0时, 可以安全回收当前对象空间）
+    int refcount;
+  	// 数据内容
+    void *ptr;
+} robj;
+```
+
+
+
+### 2.2 String
+
+> 所有的 *key* 都是字符串类型，*value* 对象除了整数，都使用字符串类型
+
+**底层：SDS**
+
+*SDS* 为 *simple dynamic string* 缩写
 
 **sds.h**
 
@@ -56,37 +67,95 @@ struct sdshdr {
   - 惰性空间释放
 - 二进制安全
 
-### 2.2 链表
+### 2.3 List
 
-**adlist.h**
+> 从 3.2 开始，*list* 的内部编码为 *quicklist*
+
+#### 2.3.1 Ziplist
+
+> 为了更好地理解 *quicklist*，先看看 *ziplist*
+
+**ziplist**
+
+<div align="center"> <img src="./pics/ziplist.png" width="70%"/> </div><br>
+
+- *zlbytes:* 压缩列表占用的内存字节数
+- *zltail:* 尾节点的偏移量
+- *zllen:* 压缩列表包含的节点数量
+- *entry:* 列表节点
+- *zlend:* 标记压缩列表的末端
+
+
+
+**entry**
+
+- *previous_entry_length:* 前一个节点的长度（用于反向遍历）
+- *encoding:* 记录了 *content* 属性所保存数据的类型和长度
+- *content*
+  - 字节数组
+  - 整数
+
+
+
+**连锁更新**
+
+连续多次空间扩展的操作称为“连锁更新”，最坏为 *O(n<sup>2</sup>)*
+
+
+
+#### 2.3.2 Quicklist
+
+> 每个节点为 ziplist 的双向链表
+
+3.2 版本之前，采用 *ziplist* + *linkedlist* 作为列表对象的底层实现，但为了减少**内存碎片**，从 3.2 开始采用 *quicklist* 作为其底层实现
+
+*P.S:* *redis* 进程内消耗主要包括：对象内存 + 缓冲内存 + 内存碎片
+
+**quicklist**
+
+<div align="center"> <img src="./pics/quicklist.png" width="65%"/> </div><br>
+
+**quicklist.h**
 
 ```c
-typedef struct list {
-    listNode *head;
-    listNode *tail;
-    void *(*dup)(void *ptr);
-    void (*free)(void *ptr);
-    int (*match)(void *ptr, void *key);
-    unsigned long len;
-} list;
+// quicklist.h - A generic doubly linked quicklist implementation
+typedef struct quicklist {
+    quicklistNode *head;
+    quicklistNode *tail;
+    unsigned long count;        /* total count of all entries in all ziplists */
+    unsigned int len;           /* number of quicklistNodes */
+  	// ziplist 大小设置
+    int fill : 16;              /* fill factor for individual nodes */
+    unsigned int compress : 16; /* depth of end nodes not to compress;0=off */
+} quicklist;
 
 
-typedef struct listNode {
-    struct listNode *prev;
-    struct listNode *next;
-  	// 对所保存值的类型不作限制
-    void *value;
-} listNode;
+typedef struct quicklistNode {
+    struct quicklistNode *prev;
+    struct quicklistNode *next;
+  	// 数据指针, 若没被压缩 -> ziplist, 否则 -> quicklistLZF
+    unsigned char *zl;
+    unsigned int sz;             /* ziplist size in bytes */
+    unsigned int count : 16;     /* count of items in ziplist */
+  	// 是否被压缩
+    unsigned int encoding : 2;   /* RAW==1 or LZF==2 */
+    unsigned int container : 2;  /* NONE==1 or ZIPLIST==2 */
+    unsigned int recompress : 1; /* was this node previous compressed? */
+    unsigned int attempted_compress : 1; /* node can't compress; too small */
+    unsigned int extra : 10; /* more bits to steal for future usage */
+} quicklistNode;
+
+
+typedef struct quicklistLZF {
+    unsigned int sz; /* LZF size in bytes*/
+    char compressed[];
+} quicklistLZF;
 ```
 
-<div align="center"> <img src="./pics/list.png" width="60%"/> </div><br>
 
-**设计意义**
 
-- 作为 *LIST* 的底层实现
-- 作为通用数据结构，被其他模块使用
 
-### 2.3 字典
+### 2.4 Hash
 
 **dict.h**
 
@@ -185,63 +254,6 @@ int dictRehash(dict *d, int n) {
 }
 ```
 
-### 2.4 跳跃表
-
-**skip list**
-
-<div align="center"> <img src="./pics/skiplist.png" width="55%"/> </div><br>
-
-**server.h**
-
-```c
-typedef struct zskiplist {
-    struct zskiplistNode *header, *tail;
-    unsigned long length;
-    int level;
-} zskiplist;
-
-
-typedef struct zskiplistNode {
-    sds ele;
-    double score;
-    struct zskiplistNode *backward;
-    struct zskiplistLevel {
-        struct zskiplistNode *forward;
-      	// 用于计算元素排名（跳表扩展）
-        unsigned long span;
-    } level[];
-} zskiplistNode;
-```
-
-**设计意义**
-
-- *zset* 的底层实现
-
-### 2.5 整数集合
-
-**设计意义**
-
-- 
-
-
-
-### 2.6 压缩列表
-
-**设计意义**
-
-- 
-
-
-
-## 3. Redis 对象
-
-
-
-
-
-
-
-
 
 
 
@@ -256,8 +268,5 @@ typedef struct zskiplistNode {
 - *Redis 设计与实现*
 - [Skip Lists: A Probabilistic Alternative to Balanced Trees](https://15721.courses.cs.cmu.edu/spring2018/papers/08-oltpindexes1/pugh-skiplists-cacm1990.pdf)
 - [Alg-2C: Skip List](https://www.youtube.com/watch?v=UGaOXaXAM5M)
-- [为什么 Redis 快照使用子进程](https://draveness.me/whys-the-design-redis-bgsave-fork/)
-- [Copy on Write](https://www.geeksforgeeks.org/copy-on-write/)
-- [Double Pointer (Pointer to Pointer) in C](https://www.geeksforgeeks.org/double-pointer-pointer-pointer-c/)
-- [C 函数指针与回调函数](https://www.runoob.com/cprogramming/c-fun-pointer-callback.html)
-- [C 语言中 void* 详解及应用](https://www.runoob.com/w3cnote/c-void-intro.html)
+- [Redis内部数据结构详解(4)——ziplist](http://zhangtielei.com/posts/blog-redis-ziplist.html)
+- [Redis内部数据结构详解(5)——quicklist](http://zhangtielei.com/posts/blog-redis-quicklist.html)

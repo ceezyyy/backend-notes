@@ -3,12 +3,16 @@
 Table of Contents
 -----------------
 
-- [Table of Contents](#table-of-contents)
 - [1. 进程](#1-进程)
-	- [1.1 进程模型](#11-进程模型)
-	- [1.2 进程创建与销毁](#12-进程创建与销毁)
-	- [1.3 进程状态](#13-进程状态)
+	- [1.1 模型](#11-模型)
+	- [1.2 创建与销毁](#12-创建与销毁)
+	- [1.3 状态](#13-状态)
 - [2. 线程](#2-线程)
+	- [2.1 用处](#21-用处)
+	- [2.2 模型](#22-模型)
+	- [2.3 实现](#23-实现)
+		- [2.3.1 User space](#231-user-space)
+		- [2.3.2 Kernel space](#232-kernel-space)
 - [3. 进程间通信](#3-进程间通信)
 - [4. 调度](#4-调度)
 - [5. 经典 IPC 问题](#5-经典-ipc-问题)
@@ -18,17 +22,17 @@ Table of Contents
 
 > An abstraction of a running program
 
-### 1.1 进程模型
+### 1.1 模型
 
 **Process**
 
-<div align="center"> <img src="./pics/process.png" width="80%"/> </div><br>
+<div align="center"> <img src="./pics/process.png" width="70%"/> </div><br>
 
 **进程与程序的区别?**
 
 A process is an **activity** of some kind, including a program, input, output, and a state.
 
-### 1.2 进程创建与销毁
+### 1.2 创建与销毁
 
 **fork**
 
@@ -39,7 +43,7 @@ A process is an **activity** of some kind, including a program, input, output, a
 
 Whenever either of the two processes wants to modify part of the memory, that chunk of memory is explicitly **copied first** to make sure the modification occurs in a private memory area. **Again, no writable memory is shared**
 
-### 1.3 进程状态
+### 1.3 状态
 
 <div align="center"> <img src="./pics/image-20210905165120289.png" width="40%"/> </div><br>
 
@@ -50,10 +54,40 @@ Whenever either of the two processes wants to modify part of the memory, that ch
 3. Scheduler picks this *process*
 4. Input becomes available
 
-
-
-
 ## 2. 线程
+
+### 2.1 用处 
+
+- In many applications, **multiple activities** are going on at once, share a **common memory**
+- Easier to create and destroy
+- Performance
+
+<div align="center"> <img src="./pics/thread_usage.png" width="50%"/> </div><br>
+
+
+
+**线程与进程的区别?**
+
+*Processes* are used to **group resources** together, *threads* are the **entities scheduled for execution** on the *CPU*
+
+<div align="center"> <img src="./pics/processes_threads.png" width="70%"/> </div><br>
+
+
+
+### 2.2 模型
+
+
+<div align="center"> <img src="./pics/image-20210905191203042.png" width="65%"/> </div><br>
+
+### 2.3 实现
+
+#### 2.3.1 User space
+
+<div align="center"> <img src="./pics/image-20210905195722715.png" width="65%"/> </div><br>
+
+#### 2.3.2 Kernel space
+
+
 
 ## 3. 进程间通信
 

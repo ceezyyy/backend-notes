@@ -18,7 +18,6 @@
 ## :coffee: Java 
 
 - [Basic](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/notes/basic.md)
-- [Java 8](https://github.com/ceezyyy/backend-notes/blob/master/Java/java8/notes/java8.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
 - [Concurrency](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrency/notes/concurrency.md)
 
@@ -33,12 +32,10 @@
 
 ## :dagger: Middleware
 
-- [Kafka](https://github.com/ceezyyy/backend-notes/blob/master/middleware/kafka/kafka.md)
+- Kafka
 
 
 
 
 ## :bulb: System Design
-
-- Design Patterns
 

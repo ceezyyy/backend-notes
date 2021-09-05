@@ -2,55 +2,41 @@
 
 ## Table of Contents
 
-- [1. 概览](#1-概览)
-- [2. 数据结构](#2-数据结构)
-	- [2.1 String](#21-string)
-	- [2.2 List](#22-list)
-		- [2.2.1 Ziplist](#221-ziplist)
-		- [2.2.2 Quicklist](#222-quicklist)
-	- [2.3 Hash](#23-hash)
+- [1. Brainstorming](#1-brainstorming)
+- [2. 数据类型](#2-数据类型)
+	- [2.1 RedisObject](#21-redisobject)
+	- [2.2 String](#22-string)
+		- [2.2.1 raw & embstr](#221-raw--embstr)
+	- [2.3 List](#23-list)
+		- [2.3.1 Quicklist](#231-quicklist)
+	- [2.4 Hash](#24-hash)
+		- [2.4.1 Ziplist](#241-ziplist)
+		- [2.4.2 Hashtable](#242-hashtable)
 - [References](#references)
 
-## 1. 概览
+## 1. Brainstorming
 
-**三条主线**
+<div align="center"> <img src="./pics/redis.svg" width="100%"/> </div><br>
 
-<div align="center"> <img src="./pics/image-20210627160643569.png" width="70%"/> </div><br>
-
-## 2. 数据结构
+## 2. 数据类型
 
 ### 2.1 RedisObject
 
 ```c
-// server.h 文件
 typedef struct redisObject {
-  	// 数据类型
-    unsigned type:4;
-  	// 内部编码
-    unsigned encoding:4;
-  	// 最后一次被访问的时间
+    unsigned type:4;  // 数据类型, e.g: string, list, set...
+    unsigned encoding:4;  // 底层编码
     unsigned lru:LRU_BITS; /* lru time (relative to server.lruclock) */
-  	// 被引用的次数（等于0时, 可以安全回收当前对象空间）
     int refcount;
-  	// 数据内容
-    void *ptr;
+    void *ptr;  // 数据指针
 } robj;
 ```
 
-
-
 ### 2.2 String
-
-> 所有的 *key* 都是字符串类型，*value* 对象除了整数，都使用字符串类型
-
-**底层：SDS**
-
-*SDS* 为 *simple dynamic string* 缩写
 
 **sds.h**
 
 ```c
-// redis 3.0
 struct sdshdr {
     int len;
     int free;
@@ -58,58 +44,36 @@ struct sdshdr {
 };
 ```
 
-**设计意义**
+#### 2.2.1 SDS
+
+**为什么要设计 SDS？**
 
 - 杜绝缓冲区溢出
-  - 扩容
-- 减少修改字符串导致的频繁内存重分配
+  - 会先判断 *SDS* 的容量是否足够，不够会扩容
+- **减少修改字符串时带来的内存重分配次数**
   - 空间预分配
   - 惰性空间释放
 - 二进制安全
+
+#### 2.2.2 raw & embstr
+
+**相同**
+
+- 基于 *SDS* 实现
+
+**不同**
+
+- *embstr* 分配/释放仅需要**一次**，即 *redisObject* 和 *sdshdr* 一次到位，而 *raw* 需要**两次**
 
 ### 2.3 List
 
 > 从 3.2 开始，*list* 的内部编码为 *quicklist*
 
-#### 2.3.1 Ziplist
-
-> 为了更好地理解 *quicklist*，先看看 *ziplist*
-
-**ziplist**
-
-<div align="center"> <img src="./pics/ziplist.png" width="70%"/> </div><br>
-
-- *zlbytes:* 压缩列表占用的内存字节数
-- *zltail:* 尾节点的偏移量
-- *zllen:* 压缩列表包含的节点数量
-- *entry:* 列表节点
-- *zlend:* 标记压缩列表的末端
-
-
-
-**entry**
-
-- *previous_entry_length:* 前一个节点的长度（用于反向遍历）
-- *encoding:* 记录了 *content* 属性所保存数据的类型和长度
-- *content*
-  - 字节数组
-  - 整数
-
-
-
-**连锁更新**
-
-连续多次空间扩展的操作称为“连锁更新”，最坏为 *O(n<sup>2</sup>)*
-
-
-
-#### 2.3.2 Quicklist
+#### 2.3.1 Quicklist
 
 > 每个节点为 ziplist 的双向链表
 
 3.2 版本之前，采用 *ziplist* + *linkedlist* 作为列表对象的底层实现，但为了减少**内存碎片**，从 3.2 开始采用 *quicklist* 作为其底层实现
-
-*P.S:* *redis* 进程内消耗主要包括：对象内存 + 缓冲内存 + 内存碎片
 
 **quicklist**
 
@@ -118,13 +82,12 @@ struct sdshdr {
 **quicklist.h**
 
 ```c
-// quicklist.h - A generic doubly linked quicklist implementation
+/* quicklist.h - A generic doubly linked quicklist implementation */
 typedef struct quicklist {
     quicklistNode *head;
     quicklistNode *tail;
     unsigned long count;        /* total count of all entries in all ziplists */
     unsigned int len;           /* number of quicklistNodes */
-  	// ziplist 大小设置
     int fill : 16;              /* fill factor for individual nodes */
     unsigned int compress : 16; /* depth of end nodes not to compress;0=off */
 } quicklist;
@@ -133,11 +96,9 @@ typedef struct quicklist {
 typedef struct quicklistNode {
     struct quicklistNode *prev;
     struct quicklistNode *next;
-  	// 数据指针, 若没被压缩 -> ziplist, 否则 -> quicklistLZF
-    unsigned char *zl;
+    unsigned char *zl;  // 数据指针, 若没被压缩 -> ziplist, 否则 -> quicklistLZF
     unsigned int sz;             /* ziplist size in bytes */
     unsigned int count : 16;     /* count of items in ziplist */
-  	// 是否被压缩
     unsigned int encoding : 2;   /* RAW==1 or LZF==2 */
     unsigned int container : 2;  /* NONE==1 or ZIPLIST==2 */
     unsigned int recompress : 1; /* was this node previous compressed? */
@@ -152,46 +113,61 @@ typedef struct quicklistLZF {
 } quicklistLZF;
 ```
 
-
-
-
 ### 2.4 Hash
+
+#### 2.4.1 Ziplist
+
+**Ziplist**
+
+<div align="center"> <img src="./pics/ziplist.png" width="70%"/> </div><br>
+
+**Entry**
+
+- *previous_entry_length* : 用于从尾向头遍历
+- *encoding*
+- *content*
+  - 字节数组
+  - 整数值
+
+**什么时候采用 ziplist 的编码方式？**
+
+- 键和值的长度都小于 *hash-max-ziplist-value*
+- 键值对数量小于 *hash-max-ziplist-entries*
+
+#### 2.4.2 Hashtable
 
 **dict.h**
 
 ```c
+/* 字典对象（更高层次抽象）*/
 typedef struct dict {
     dictType *type;
     void *privdata;
-  	// 2 个哈希表
-    dictht ht[2];
-  	// rehash 进度
+    dictht ht[2];  // 两个哈希表, 用于渐进式哈希
     long rehashidx; /* rehashing not in progress if rehashidx == -1 */
     int16_t pauserehash; /* If >0 rehashing is paused (<0 indicates coding error) */
 } dict;
 
 
+/* 哈希表 */
 typedef struct dictht {
-  	// bucket
-    dictEntry **table;
+    dictEntry **table;  // bucket
     unsigned long size;
     unsigned long sizemask;
     unsigned long used;
 } dictht;
 
 
+/* 哈希表节点 */
 typedef struct dictEntry {
-  	// 键
     void *key;
-  	// 值
     union {
         void *val;
         uint64_t u64;
         int64_t s64;
         double d;
     } v;
-  	// 拉链法, 头插
-    struct dictEntry *next;
+    struct dictEntry *next;  // 头插法解决冲突
 } dictEntry;
 ```
 
@@ -212,41 +188,38 @@ int dictRehash(dict *d, int n) {
             d->rehashidx++;
             if (--empty_visits == 0) return 1;
         }
-        de = d->ht[0].table[d->rehashidx];
-        // 处理ht[0]的每个bucket: 渐进式
+      
+      	/* 渐进式处理 ht[0] 的每个 bucket, 也就是 de */
+        de = d->ht[0].table[d->rehashidx];   
         while(de) {
             uint64_t h;
 						
-          	// 1）遍历链表
             nextde = de->next;
           
-          	// 计算新的 hash 值
-            h = dictHashKey(d, de->key) & d->ht[1].sizemask;
-          	// 头插法
-            de->next = d->ht[1].table[h];
+            h = dictHashKey(d, de->key) & d->ht[1].sizemask;  // 计算新的 hash 值
+
+          	/* 头插法解决冲突 */
+          	de->next = d->ht[1].table[h];
             d->ht[1].table[h] = de;
           
-          	// 更新计数器
             d->ht[0].used--;
             d->ht[1].used++;
-          
-          	// 2）遍历链表
-            de = nextde;
+          	
+            de = nextde;  // 继续处理下一个哈希节点
         }
       	
-      	// 更新
-        d->ht[0].table[d->rehashidx] = NULL;
+        d->ht[0].table[d->rehashidx] = NULL; 
         d->rehashidx++;
     }
 
-    // 是否 rehash 完成
+		/* 判断是否 rehash 完成 */  
     if (d->ht[0].used == 0) {
+      	/* 释放原来的空间, 交换两个哈希表 */
         zfree(d->ht[0].table);
         d->ht[0] = d->ht[1];
         _dictReset(&d->ht[1]);
         d->rehashidx = -1;
-      	// rehash 成功
-        return 0;
+        return 0;  
     }
 
     /* More to rehash... */
@@ -256,7 +229,30 @@ int dictRehash(dict *d, int n) {
 
 
 
+**为什么要渐进式？**
 
+- **分而治之**
+- 将 *rehash* 的操作均摊到每次操作上，避免了集中式引发的庞大计算量
+
+### 2.5 Set
+
+**inset.h**
+
+```c
+typedef struct intset {
+    uint32_t encoding;  // 编码方式
+    uint32_t length;  // 内容集合的元素数量
+    int8_t contents[];  // 元素数组, 从小到大, 不含重复项
+} intset;
+```
+
+#### 2.5.1 升级
+
+**为什么要这样设计？**
+
+确保升级操作在有需要的时候进行（**灵活性**），尽量**节约内存**
+
+### 2.6 Sorted Set
 
 
 

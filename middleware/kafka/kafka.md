@@ -17,54 +17,17 @@
 
 <div align="center"> <img src="./pics/kafka.svg" width="100%"/> </div><br>
 
-## 2. 基础
-
-### 2.1 架构
+## 2. 体系结构
 
 **Outline**
 
 <div align="center"> <img src="./pics/structure.png" width="60%"/> </div><br>
 
-- 由多个 *broker* 组成（多个节点）
-- *topic* 逻辑上的概念, *partition* 是物理上的概念
-
-### 2.2 生产者
-
-**发送消息主要步骤**
-
-<div align="center"> <img src="./pics/image-20210720095818292.png" width="60%"/> </div><br>
-
-- 同一个记录批次的消息会发送到相同的主题和分区上
-
-### 2.3 消费者
-
-> 消费者是实际的应用实例，可以是一个线程/进程
-
-**消费组与消费者模型**
+**消费者组和消费者的关系**
 
 <div align="center"> <img src="./pics/consumers.png" width="30%"/> </div><br>
 
-- 如果所有 *consumer* 都隶属于同一个 *consumer group* -> 每条消息只会被**一个** *consumer* 处理 (**P2P**)
-- 如果所有 *consumer* 都隶属于不同 *consumer group* -> 每条消息会被**所有**的 *consumer* 处理 (**Pub/Sub**)
 
-
-
-## 3. 多副本机制
-
-### 3.1 生产者
-
-**ack 模式**
-
-- *ack = 0*
-  - 一定丢失消息
-  - 吞吐量最高
-- *ack = 1*
-  - 消息成功发送，但在 *follower* 同步成功之前，*leader* 发生崩溃，则会**丢失消息**
-- *ack = all*
-  - 吞吐量低
-  - 可通过异步/加大批次来加快速度
-
-### 3.2 消费者
 
 
 

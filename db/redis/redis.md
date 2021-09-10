@@ -190,7 +190,7 @@ typedef struct zskiplistNode {
 } zskiplistNode;
 ```
 
-**search: O(n)**
+**search: O(logN)**
 
 <div align="center"> <img src="./pics/image-20210910103035459.png" width="70%"/> </div><br>
 

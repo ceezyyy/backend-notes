@@ -2,25 +2,18 @@
 
 ## Table of Contents
 
-- [1. Brainstorming](#1-brainstorming)
-- [2. 数据类型](#2-数据类型)
-	- [2.1 RedisObject](#21-redisobject)
-	- [2.2 String](#22-string)
-		- [2.2.1 raw & embstr](#221-raw--embstr)
-	- [2.3 List](#23-list)
-		- [2.3.1 Quicklist](#231-quicklist)
-	- [2.4 Hash](#24-hash)
-		- [2.4.1 Ziplist](#241-ziplist)
-		- [2.4.2 Hashtable](#242-hashtable)
+- [1. 数据类型](#1-数据类型)
+	- [1.1 RedisObject](#11-redisobject)
+	- [1.2 String](#12-string)
+	- [1.3 List](#13-list)
+	- [1.4 Hash](#14-hash)
+	- [1.5 Set](#15-set)
+	- [1.6 Sorted Set](#16-sorted-set)
 - [References](#references)
 
-## 1. Brainstorming
+## 1. 数据类型
 
-<div align="center"> <img src="./pics/redis.svg" width="100%"/> </div><br>
-
-## 2. 数据类型
-
-### 2.1 RedisObject
+### 1.1 RedisObject
 
 ```c
 typedef struct redisObject {
@@ -32,7 +25,7 @@ typedef struct redisObject {
 } robj;
 ```
 
-### 2.2 String
+### 1.2 String
 
 **sds.h**
 
@@ -44,99 +37,23 @@ struct sdshdr {
 };
 ```
 
-#### 2.2.1 SDS
+### 1.3 List
 
-**为什么要设计 SDS？**
-
-- 杜绝缓冲区溢出
-  - 会先判断 *SDS* 的容量是否足够，不够会扩容
-- **减少修改字符串时带来的内存重分配次数**
-  - 空间预分配
-  - 惰性空间释放
-- 二进制安全
-
-#### 2.2.2 raw & embstr
-
-**相同**
-
-- 基于 *SDS* 实现
-
-**不同**
-
-- *embstr* 分配/释放仅需要**一次**，即 *redisObject* 和 *sdshdr* 一次到位，而 *raw* 需要**两次**
-
-### 2.3 List
-
-> 从 3.2 开始，*list* 的内部编码为 *quicklist*
-
-#### 2.3.1 Quicklist
-
-> 每个节点为 ziplist 的双向链表
+**quicklist**
 
 3.2 版本之前，采用 *ziplist* + *linkedlist* 作为列表对象的底层实现，但为了减少**内存碎片**，从 3.2 开始采用 *quicklist* 作为其底层实现
 
 **quicklist**
 
-<div align="center"> <img src="./pics/quicklist.png" width="65%"/> </div><br>
+<div align="center"> <img src="./pics/quicklist.jpeg" width="90%"/> </div><br>
 
-**quicklist.h**
+### 1.4 Hash
 
-```c
-/* quicklist.h - A generic doubly linked quicklist implementation */
-typedef struct quicklist {
-    quicklistNode *head;
-    quicklistNode *tail;
-    unsigned long count;        /* total count of all entries in all ziplists */
-    unsigned int len;           /* number of quicklistNodes */
-    int fill : 16;              /* fill factor for individual nodes */
-    unsigned int compress : 16; /* depth of end nodes not to compress;0=off */
-} quicklist;
-
-
-typedef struct quicklistNode {
-    struct quicklistNode *prev;
-    struct quicklistNode *next;
-    unsigned char *zl;  // 数据指针, 若没被压缩 -> ziplist, 否则 -> quicklistLZF
-    unsigned int sz;             /* ziplist size in bytes */
-    unsigned int count : 16;     /* count of items in ziplist */
-    unsigned int encoding : 2;   /* RAW==1 or LZF==2 */
-    unsigned int container : 2;  /* NONE==1 or ZIPLIST==2 */
-    unsigned int recompress : 1; /* was this node previous compressed? */
-    unsigned int attempted_compress : 1; /* node can't compress; too small */
-    unsigned int extra : 10; /* more bits to steal for future usage */
-} quicklistNode;
-
-
-typedef struct quicklistLZF {
-    unsigned int sz; /* LZF size in bytes*/
-    char compressed[];
-} quicklistLZF;
-```
-
-### 2.4 Hash
-
-#### 2.4.1 Ziplist
-
-**Ziplist**
+**ziplist**
 
 <div align="center"> <img src="./pics/ziplist.png" width="70%"/> </div><br>
 
-**Entry**
-
-- *previous_entry_length* : 用于从尾向头遍历
-- *encoding*
-- *content*
-  - 字节数组
-  - 整数值
-
-**什么时候采用 ziplist 的编码方式？**
-
-- 键和值的长度都小于 *hash-max-ziplist-value*
-- 键值对数量小于 *hash-max-ziplist-entries*
-
-#### 2.4.2 Hashtable
-
-**dict.h**
+**dict**
 
 ```c
 /* 字典对象（更高层次抽象）*/
@@ -227,16 +144,14 @@ int dictRehash(dict *d, int n) {
 }
 ```
 
-
-
 **为什么要渐进式？**
 
 - **分而治之**
 - 将 *rehash* 的操作均摊到每次操作上，避免了集中式引发的庞大计算量
 
-### 2.5 Set
+### 1.5 Set
 
-**inset.h**
+**inset**
 
 ```c
 typedef struct intset {
@@ -246,13 +161,46 @@ typedef struct intset {
 } intset;
 ```
 
-#### 2.5.1 升级
+### 1.6 Sorted Set
 
-**为什么要这样设计？**
+**ziplist**
 
-确保升级操作在有需要的时候进行（**灵活性**），尽量**节约内存**
+<div align="center"> <img src="./pics/zset_ziplist.png" width="60%"/> </div><br>
 
-### 2.6 Sorted Set
+**zset (skiplist + dict)**
+
+<div align="center"> <img src="./pics/skiplist.png" width="60%"/> </div><br>
+
+**skiplist**
+
+<div align="center"> <img src="./pics/image-20210910101942692.png" width="65%"/> </div><br>
+
+
+**结构**
+
+```c
+typedef struct zskiplistNode {
+    struct zskiplistNode *backward;  // 后退指针, 用于反向遍历
+    double score;  // 分值（可重复）, 小到大排列
+    robj *obj;  // SDS（唯一）
+    struct zskiplistLevel {  // 层（数组）
+        struct zskiplistNode *forward;  // 前进指针
+        unsigned int span;  // 跨度, 用于计算排名
+    } level[];
+} zskiplistNode;
+```
+
+**search: O(n)**
+
+<div align="center"> <img src="./pics/image-20210910103035459.png" width="70%"/> </div><br>
+
+**insert**
+
+
+
+**delete**
+
+
 
 
 

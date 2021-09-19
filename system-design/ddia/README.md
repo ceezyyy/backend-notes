@@ -66,17 +66,13 @@
 
 **Pros**
 
-- 磁盘顺序读写
-- 更好地应对并发，更好地从宕机恢复
+- *Sequential write* operations, which are much faster than *random writes*
+- Concurrency and crash recovery are much simpler if segment files are *append-only*
 
 **Cons**
 
-- 内存 *hashmap*，不适用于大量键值对
-- 不支持 *range* 查询
-
-
-
-
+- The *hash table* must fit in memory, so it's not suitable for a very large number of keys
+- *Range queries* are not efficient
 
 ## References
 

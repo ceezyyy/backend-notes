@@ -1,4 +1,4 @@
-# System Design
+# Data-Intensive Application
 
 ## Brainstorming
 
@@ -8,6 +8,8 @@
 
 - [1. Overview](#1-overview)
 - [2. Data Models](#2-data-models)
+- [3. Storage and Retrieval](#3-storage-and-retrieval)
+	- [3.1 Hash](#31-hash)
 - [References](#references)
 
 ## 1. Overview
@@ -24,11 +26,15 @@
 
 - Making life better for the engineering and operations teams who need to work with the system
 
+**Data system**
+
+<div align="center"> <img src="./pics/image-20210919170945287.png" width="70%"/> </div><br>
+
 ## 2. Data Models
 
 **Relational model**
 
-<div align="center"> <img src="./pics/image-20210919143110231.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210919143110231.png" width="70%"/> </div><br>
 
 **Document model**
 
@@ -43,6 +49,32 @@
 <div align="center"> <img src="./pics/image-20210919154701784.png" width="70%"/> </div><br>
 
 - many to many
+
+## 3. Storage and Retrieval
+
+> How we can store the data that we're given, and how we can find it again when we're asked for
+
+### 3.1 Hash
+
+**Append-only log**
+
+<div align="center"> <img src="./pics/image-20210919202706768.png" width="70%"/> </div><br>
+
+**Compaction**
+
+<div align="center"> <img src="./pics/image-20210919202407681.png" width="70%"/> </div><br>
+
+**Pros**
+
+- 磁盘顺序读写
+- 更好地应对并发，更好地从宕机恢复
+
+**Cons**
+
+- 内存 *hashmap*，不适用于大量键值对
+- 不支持 *range* 查询
+
+
 
 
 

@@ -8,6 +8,7 @@
 
 - [1. Overview](#1-overview)
 - [2. Data Models](#2-data-models)
+- [References](#references)
 
 ## 1. Overview
 
@@ -25,7 +26,27 @@
 
 ## 2. Data Models
 
+**Relational model**
+
+<div align="center"> <img src="./pics/image-20210919143110231.png" width="75%"/> </div><br>
+
 **Document model**
 
-<div align="center"> <img src="./pics/image-20210919140757990.png" width="80%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210919140757990.png" width="70%"/> </div><br>
+
+- storage locality (stored as a single continuous string)
+- one to many
+- no relationships
+
+**Graph model**
+
+<div align="center"> <img src="./pics/image-20210919154701784.png" width="70%"/> </div><br>
+
+- many to many
+
+
+
+## References
+
+- *Designing Data-Intensive Applications: The Big Ideas Behind Reliable, Scalable, and Maintainable Systems*
 

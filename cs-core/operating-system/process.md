@@ -13,9 +13,10 @@ Table of Contents
 	- [2.3 实现](#23-实现)
 		- [2.3.1 User space](#231-user-space)
 		- [2.3.2 Kernel space](#232-kernel-space)
-- [3. 进程间通信](#3-进程间通信)
+- [3. 通信](#3-通信)
 - [4. 调度](#4-调度)
-- [5. 经典 IPC 问题](#5-经典-ipc-问题)
+- [5. IPC 问题](#5-ipc-问题)
+- [6. References](#6-references)
 
 
 ## 1. 进程
@@ -85,11 +86,34 @@ Whenever either of the two processes wants to modify part of the memory, that ch
 
 <div align="center"> <img src="./pics/image-20210905195722715.png" width="65%"/> </div><br>
 
+
+
+
+
 #### 2.3.2 Kernel space
 
+**What is kernel?**
+
+<div align="center"> <img src="./pics/image-20210912143251401.png" width="30%"/> </div><br>
+
+**Where is kernel?**
+
+<div align="center"> <img src="./pics/image-20210912143445269.png" width="35%"/> </div><br>
+
+**Why kernel?**
+
+- Determines which process is the next process on thc *CPU*, when, and how long
+- Monitors how much *memory* is being used to store what and where
+- Serves as an interpreter between the *hardware* and *processes*
+- Receives requests for service from the process via **system calls**
+
+## 3. 通信
 
 
-## 3. 进程间通信
+
+
+
+
 
 
 
@@ -97,11 +121,15 @@ Whenever either of the two processes wants to modify part of the memory, that ch
 
 
 
-## 5. 经典 IPC 问题
+
+
+## 5. IPC 问题
 
 
 
+## 6. References
 
-
-
+- [What Is the Difference Between Trap and Interrupt?](https://www.baeldung.com/cs/os-trap-vs-interrupt)
+- [What is an OS Kernel?](https://www.baeldung.com/cs/os-kernel)
+- [What’s the Difference Between User and Kernel Modes?](https://www.baeldung.com/cs/user-kernel-modes)
 

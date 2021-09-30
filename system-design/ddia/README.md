@@ -9,9 +9,8 @@
 	- [3.1 Hash Index (log)](#31-hash-index-log)
 	- [3.2 LSM-Trees Index (log)](#32-lsm-trees-index-log)
 	- [3.3 B Trees Index (page)](#33-b-trees-index-page)
-- [4. Encoding and Evolution](#4-encoding-and-evolution)
-	- [4.1 Encoding](#41-encoding)
-		- [4.1.1 Thrift](#411-thrift)
+- [4. Replication](#4-replication)
+	- [4.1 Leader-based](#41-leader-based)
 - [References](#references)
 
 ## Brainstorming
@@ -35,6 +34,21 @@
 **Data system**
 
 <div align="center"> <img src="./pics/image-20210919170945287.png" width="70%"/> </div><br>
+
+
+**Why distributed data?**
+
+- *Scalability*
+  - data volume
+  - read/write load
+- *High availability*
+  - redundancy
+- *Latency*
+  - geographic location
+
+**Partition VS Replica**
+
+<div align="center"> <img src="./pics/image-20210930121557394.png" width="70%"/> </div><br>
 
 ## 2. Data Models
 
@@ -96,7 +110,7 @@
 
 **Bloom filters**
 
-- xxx
+- TODO
 
 ### 3.3 B Trees Index (page)
 
@@ -106,7 +120,7 @@
 
 <div align="center"> <img src="./pics/image-20210920154720634.png" width="70%"/> </div><br>
 
-- *KV* pairs sorted by key, which allows efficient lookups and queries
+- *K-V* pairs sorted by key, which allows efficient lookups and queries
 - *B-trees* breaks the database down into *pages* (fixed size block)
 
 **Growing on disk**
@@ -122,36 +136,51 @@
 - An *append-only* file
 - Every *B-tree* modifications must be written before it can be applied to the *pages*
 
-**Why we need WAL?**
+**Why WAL?**
 
 Because some operations require **several different** pages to be overwritten, it's a dangerous operation if the database **crashes** after only some of the pages have been written
 
-## 4. Encoding and Evolution
+## 4. Replication
 
-> How encoding data handle schema changes and how they support systemts where old & new data and code need to coexist
+> All of the difficulty in replication lies in handling *changes* to replicated data
 
-### 4.1 Encoding
+**Why Replica?**
 
-> The translation from the in-memory representation to a byte sequence
+- Increase availability 
+- Increase read throughput
+- Reduce latency
 
-**Example**
+### 4.1 Leader-based
 
-```json
-{
-   "userName":"Martin",
-   "favoriteNumber":1337,
-   "interests":[
-      "daydreaming",
-      "hacking"
-   ]
-}
-```
+**Leader-based**
 
-#### 4.1.1 Thrift
+<div align="center"> <img src="./pics/image-20210930141319520.png" width="80%"/> </div><br>
 
-**BinaryProtocol**
+**Sync VS Asyns**
 
-<div align="center"> <img src="./pics/image-20210922102706358.png" width="65%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210930152540570.png" width="75%"/> </div><br>
+
+**Setting Up New Followers**
+
+- Take a snapshot from *leader* (if possible, without taking a lock on the entire table)
+- Copy the snapshot to the new *follower*
+- The *follower* requests all the data changes that have happened since the snapshot was taken
+- The *follower* caught up
+
+#### 4.1.1 Handling Node Outages
+
+**Follower failure: Catch-up recovery**
+
+- Each *follower* keeps a log of the data changes it has received from the leader
+- The *follower* can request all the data changes that occured during the time when the *follower* was disconnected
+
+**Leader failure: Failover**
+
+
+
+
+
+
 
 
 ## References

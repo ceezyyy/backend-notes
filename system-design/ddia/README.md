@@ -11,6 +11,7 @@
 	- [3.3 B Trees Index (page)](#33-b-trees-index-page)
 - [4. Replication](#4-replication)
 	- [4.1 Leader-based](#41-leader-based)
+		- [4.1.1 Handling Node Outages](#411-handling-node-outages)
 - [References](#references)
 
 ## Brainstorming
@@ -160,23 +161,10 @@ Because some operations require **several different** pages to be overwritten, i
 
 <div align="center"> <img src="./pics/image-20210930152540570.png" width="75%"/> </div><br>
 
-**Setting Up New Followers**
-
-- Take a snapshot from *leader* (if possible, without taking a lock on the entire table)
-- Copy the snapshot to the new *follower*
-- The *follower* requests all the data changes that have happened since the snapshot was taken
-- The *follower* caught up
-
 #### 4.1.1 Handling Node Outages
 
-**Follower failure: Catch-up recovery**
-
-- Each *follower* keeps a log of the data changes it has received from the leader
-- The *follower* can request all the data changes that occured during the time when the *follower* was disconnected
-
-**Leader failure: Failover**
-
-
+- *follower failure* : catch-up recovery
+- *leader failure* : failover
 
 
 

@@ -11,7 +11,10 @@
 	- [3.3 B Trees Index (page)](#33-b-trees-index-page)
 - [4. Replication](#4-replication)
 	- [4.1 Leader-based](#41-leader-based)
-		- [4.1.1 Handling Node Outages](#411-handling-node-outages)
+		- [4.1.1 Replication Lag](#411-replication-lag)
+	- [4.2 Multi-leader](#42-multi-leader)
+	- [4.3 Leaderless](#43-leaderless)
+		- [4.3.1 Quorum Consistency](#431-quorum-consistency)
 - [References](#references)
 
 ## Brainstorming
@@ -161,13 +164,47 @@ Because some operations require **several different** pages to be overwritten, i
 
 <div align="center"> <img src="./pics/image-20210930152540570.png" width="75%"/> </div><br>
 
-#### 4.1.1 Handling Node Outages
+#### 4.1.1 Replication Lag
 
-- *follower failure* : catch-up recovery
-- *leader failure* : failover
+**Reading your own writes**
+
+<div align="center"> <img src="./pics/image-20211010112617581.png" width="75%"/> </div><br>
+
+**Monotonic reads**
+
+<div align="center"> <img src="./pics/image-20211010114650605.png" width="70%"/> </div><br>
+
+**Consistent prefix reads**
+
+<div align="center"> <img src="./pics/image-20211010145316549.png" width="70%"/> </div><br>
+
+### 4.2 Multi-leader
+
+**Multi-leader across datacenters**
+
+<div align="center"> <img src="./pics/image-20211010151720516.png" width="70%"/> </div><br>
+
+**Write conflicts**
+
+<div align="center"> <img src="./pics/image-20211010151839030.png" width="80%"/> </div><br>
+
+**Topologies**
+
+<div align="center"> <img src="./pics/image-20211010155811821.png" width="75%"/> </div><br>
 
 
 
+### 4.3 Leaderless
+
+**Leaderless replication**
+
+<div align="center"> <img src="./pics/image-20211010183952873.png" width="75%"/> </div><br>
+
+#### 4.3.1 Quorum Consistency
+
+**Quorum reads & writes**
+
+<div align="center"> <img src="./pics/image-20211010204828601.png" width="75%"/> </div><br>
 
 
 

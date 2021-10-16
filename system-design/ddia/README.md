@@ -14,7 +14,8 @@
 		- [4.1.1 Replication Lag](#411-replication-lag)
 	- [4.2 Multi-leader](#42-multi-leader)
 	- [4.3 Leaderless](#43-leaderless)
-		- [4.3.1 Quorum Consistency](#431-quorum-consistency)
+		- [4.3.1 Quorums](#431-quorums)
+		- [4.3.2 Write Conflicts](#432-write-conflicts)
 - [References](#references)
 
 ## Brainstorming
@@ -200,11 +201,36 @@ Because some operations require **several different** pages to be overwritten, i
 
 <div align="center"> <img src="./pics/image-20211010183952873.png" width="75%"/> </div><br>
 
-#### 4.3.1 Quorum Consistency
+#### 4.3.1 Quorums
 
 **Quorum reads & writes**
 
 <div align="center"> <img src="./pics/image-20211010204828601.png" width="75%"/> </div><br>
+
+#### 4.3.2 Write Conflicts
+
+**Concurrent writes**
+
+<div align="center"> <img src="./pics/image-20211012094148860.png" width="75%"/> </div><br>
+
+**Merging concurrently written values**
+
+<div align="center"> <img src="./pics/image-20211015173302483.png" width="75%"/> </div><br>
+
+- *version1* : [*milk*]
+- *version2* : [*eggs*]
+- *version3* : [*milk*, *flour*]
+- *version4* : [*eggs*, *milk*, *ham*]
+- *version5* : [*milk*, *flour*, *eggs*, *bacon*]
+
+**Happens-before**
+
+<div align="center"> <img src="./pics/image-20211015143530319.png" width="75%"/> </div><br>
+
+
+
+
+
 
 
 
@@ -215,3 +241,4 @@ Because some operations require **several different** pages to be overwritten, i
 - [What are Bloom Filters? - Hashing](https://www.youtube.com/watch?v=bgzUdBVr5tE)
 - [Merge sort in 3 minutes](https://www.youtube.com/watch?v=4VqmGXwpLqc)
 - [Bloom Filters by Example](https://llimllib.github.io/bloomfilter-tutorial/)
+

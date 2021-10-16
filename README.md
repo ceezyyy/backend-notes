@@ -17,7 +17,6 @@
 
 ## :coffee: Java 
 
-- [Basic](https://github.com/ceezyyy/backend-notes/blob/master/Java/basic/notes/basic.md)
 - [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
 - [Concurrency](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrency/notes/concurrency.md)
 

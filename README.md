@@ -7,20 +7,12 @@
 
 
 
-## :key: ​Core CS
+## :key: ​Core
 
-- [Data Structures & Algorithms](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/data-structures-and-algorithm/notes/index.md)
-- [Computer Networking](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/networking/notes/index.md)
-- [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/cs-core/operating-system/os.md)
+- [Networking](https://github.com/ceezyyy/backend-notes/blob/master/core/networking/tcp-ip.md)
+- [Operating System](https://github.com/ceezyyy/backend-notes/blob/master/core/operating-system/os.md)
 
   
-
-## :coffee: Java 
-
-- [JVM](https://github.com/ceezyyy/backend-notes/blob/master/Java/jvm/jvm.md)
-- [Concurrency](https://github.com/ceezyyy/backend-notes/blob/master/Java/concurrency/notes/concurrency.md)
-
-
 
 ## 📦 DB
 

@@ -16,6 +16,17 @@
 	- [4.3 Leaderless](#43-leaderless)
 		- [4.3.1 Quorums](#431-quorums)
 		- [4.3.2 Write Conflicts](#432-write-conflicts)
+- [5. Partitioning](#5-partitioning)
+	- [5.1 Strategies](#51-strategies)
+		- [5.1.1 Key-Range](#511-key-range)
+		- [5.1.2 Hash](#512-hash)
+		- [5.1.3 Secondary Indexes](#513-secondary-indexes)
+	- [5.2 Rebalancing](#52-rebalancing)
+	- [5.3 Request Routing](#53-request-routing)
+- [6. Transactions](#6-transactions)
+	- [6.1 ACID](#61-acid)
+	- [6.2 Isolation Levels](#62-isolation-levels)
+		- [6.2.1 Read Committed](#621-read-committed)
 - [References](#references)
 
 ## Brainstorming
@@ -227,10 +238,81 @@ Because some operations require **several different** pages to be overwritten, i
 
 <div align="center"> <img src="./pics/image-20211015143530319.png" width="75%"/> </div><br>
 
+## 5. Partitioning
+
+**Partition w/ replication**
+
+<div align="center"> <img src="./pics/image-20211016161603696.png" width="75%"/> </div><br>
+
+### 5.1 Strategies
+
+#### 5.1.1 Key-Range
+
+**Partitioning by Key Range**
+
+<div align="center"> <img src="./pics/image-20211016165839597.png" width="75%"/> </div><br>
+
+#### 5.1.2 Hash
+
+**Partitioning by Hash**
+
+<div align="center"> <img src="./pics/image-20211016165924649.png" width="75%"/> </div><br>
+
+#### 5.1.3 Secondary Indexes
+
+**Document-based**
+
+<div align="center"> <img src="./pics/image-20211017135642516.png" width="75%"/> </div><br>
+
+**Term-based**
+
+<div align="center"> <img src="./pics/image-20211017141907593.png" width="75%"/> </div><br>
+
+### 5.2 Rebalancing
+
+**Fixed Number of Partitions**
+
+<div align="center"> <img src="./pics/image-20211017153122032.png" width="70%"/> </div><br>
 
 
 
+### 5.3 Request Routing
 
+**Differeny Ways of Request Routing**
+
+<div align="center"> <img src="./pics/image-20211017212718961.png" width="75%"/> </div><br>
+
+**Coordination Service**
+
+<div align="center"> <img src="./pics/image-20211017213900553.png" width="75%"/> </div><br>
+
+## 6. Transactions
+
+### 6.1 ACID
+
+**Race Condition**
+
+<div align="center"> <img src="./pics/image-20211018182052054.png" width="75%"/> </div><br>
+
+**Dirty Read**
+
+<div align="center"> <img src="./pics/image-20211018185935250.png" width="75%"/> </div><br>
+
+**Atomicity avoids inconsistent state**
+
+<div align="center"> <img src="./pics/image-20211018190103081.png" width="75%"/> </div><br>
+
+### 6.2 Isolation Levels
+
+#### 6.2.1 Read Committed
+
+**No Dirty Read**
+
+<div align="center"> <img src="./pics/image-20211018210224250.png" width="75%"/> </div><br>
+
+**With Dirty Write**
+
+<div align="center"> <img src="./pics/image-20211018212952257.png" width="75%"/> </div><br>
 
 
 

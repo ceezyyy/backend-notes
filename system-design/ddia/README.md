@@ -27,6 +27,11 @@
 	- [6.1 ACID](#61-acid)
 	- [6.2 Isolation Levels](#62-isolation-levels)
 		- [6.2.1 Read Committed](#621-read-committed)
+		- [6.2.2 Snapshot Isolation](#622-snapshot-isolation)
+		- [6.2.3 Serializable](#623-serializable)
+	- [6.3 Problems](#63-problems)
+		- [6.3.1 Read Skew](#631-read-skew)
+		- [6.3.2 Write Skew](#632-write-skew)
 - [References](#references)
 
 ## Brainstorming
@@ -100,7 +105,7 @@
 
 **Compaction**
 
-<div align="center"> <img src="./pics/image-20210919202407681.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210919202407681.png" width="65%"/> </div><br>
 
 **Pros**
 
@@ -118,7 +123,7 @@
 
 **Sorted String Table**
 
-<div align="center"> <img src="./pics/image-20210920182120645.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210920182120645.png" width="65%"/> </div><br>
 
 - Merging segments, like ***mergesort***
 - Keep the value from the **most recent** segment and discard the values in older segments, ***log-structed***
@@ -170,39 +175,39 @@ Because some operations require **several different** pages to be overwritten, i
 
 **Leader-based**
 
-<div align="center"> <img src="./pics/image-20210930141319520.png" width="80%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210930141319520.png" width="70%"/> </div><br>
 
 **Sync VS Asyns**
 
-<div align="center"> <img src="./pics/image-20210930152540570.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20210930152540570.png" width="65%"/> </div><br>
 
 #### 4.1.1 Replication Lag
 
 **Reading your own writes**
 
-<div align="center"> <img src="./pics/image-20211010112617581.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211010112617581.png" width="70%"/> </div><br>
 
 **Monotonic reads**
 
-<div align="center"> <img src="./pics/image-20211010114650605.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211010114650605.png" width="65%"/> </div><br>
 
 **Consistent prefix reads**
 
-<div align="center"> <img src="./pics/image-20211010145316549.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211010145316549.png" width="65%"/> </div><br>
 
 ### 4.2 Multi-leader
 
 **Multi-leader across datacenters**
 
-<div align="center"> <img src="./pics/image-20211010151720516.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211010151720516.png" width="65%"/> </div><br>
 
 **Write conflicts**
 
-<div align="center"> <img src="./pics/image-20211010151839030.png" width="80%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211010151839030.png" width="75%"/> </div><br>
 
 **Topologies**
 
-<div align="center"> <img src="./pics/image-20211010155811821.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211010155811821.png" width="65%"/> </div><br>
 
 
 
@@ -210,23 +215,23 @@ Because some operations require **several different** pages to be overwritten, i
 
 **Leaderless replication**
 
-<div align="center"> <img src="./pics/image-20211010183952873.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211010183952873.png" width="65%"/> </div><br>
 
 #### 4.3.1 Quorums
 
 **Quorum reads & writes**
 
-<div align="center"> <img src="./pics/image-20211010204828601.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211010204828601.png" width="65%"/> </div><br>
 
 #### 4.3.2 Write Conflicts
 
 **Concurrent writes**
 
-<div align="center"> <img src="./pics/image-20211012094148860.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211012094148860.png" width="65%"/> </div><br>
 
 **Merging concurrently written values**
 
-<div align="center"> <img src="./pics/image-20211015173302483.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211015173302483.png" width="65%"/> </div><br>
 
 - *version1* : [*milk*]
 - *version2* : [*eggs*]
@@ -236,13 +241,13 @@ Because some operations require **several different** pages to be overwritten, i
 
 **Happens-before**
 
-<div align="center"> <img src="./pics/image-20211015143530319.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211015143530319.png" width="70%"/> </div><br>
 
 ## 5. Partitioning
 
 **Partition w/ replication**
 
-<div align="center"> <img src="./pics/image-20211016161603696.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211016161603696.png" width="65%"/> </div><br>
 
 ### 5.1 Strategies
 
@@ -250,29 +255,29 @@ Because some operations require **several different** pages to be overwritten, i
 
 **Partitioning by Key Range**
 
-<div align="center"> <img src="./pics/image-20211016165839597.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211016165839597.png" width="70%"/> </div><br>
 
 #### 5.1.2 Hash
 
 **Partitioning by Hash**
 
-<div align="center"> <img src="./pics/image-20211016165924649.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211016165924649.png" width="70%"/> </div><br>
 
 #### 5.1.3 Secondary Indexes
 
 **Document-based**
 
-<div align="center"> <img src="./pics/image-20211017135642516.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211017135642516.png" width="70%"/> </div><br>
 
 **Term-based**
 
-<div align="center"> <img src="./pics/image-20211017141907593.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211017141907593.png" width="70%"/> </div><br>
 
 ### 5.2 Rebalancing
 
 **Fixed Number of Partitions**
 
-<div align="center"> <img src="./pics/image-20211017153122032.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211017153122032.png" width="65%"/> </div><br>
 
 
 
@@ -280,11 +285,11 @@ Because some operations require **several different** pages to be overwritten, i
 
 **Differeny Ways of Request Routing**
 
-<div align="center"> <img src="./pics/image-20211017212718961.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211017212718961.png" width="70%"/> </div><br>
 
 **Coordination Service**
 
-<div align="center"> <img src="./pics/image-20211017213900553.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211017213900553.png" width="70%"/> </div><br>
 
 ## 6. Transactions
 
@@ -292,27 +297,75 @@ Because some operations require **several different** pages to be overwritten, i
 
 **Race Condition**
 
-<div align="center"> <img src="./pics/image-20211018182052054.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211018182052054.png" width="70%"/> </div><br>
 
 **Dirty Read**
 
-<div align="center"> <img src="./pics/image-20211018185935250.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211018185935250.png" width="70%"/> </div><br>
 
 **Atomicity avoids inconsistent state**
 
-<div align="center"> <img src="./pics/image-20211018190103081.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211018190103081.png" width="70%"/> </div><br>
 
 ### 6.2 Isolation Levels
 
 #### 6.2.1 Read Committed
 
-**No Dirty Read**
+**Read Committed**
 
-<div align="center"> <img src="./pics/image-20211018210224250.png" width="75%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211018210224250.png" width="70%"/> </div><br>
 
-**With Dirty Write**
+#### 6.2.2 Snapshot Isolation
 
-<div align="center"> <img src="./pics/image-20211018212952257.png" width="75%"/> </div><br>
+**MVCC**
+
+<div align="center"> <img src="./pics/image-20211021202121976.png" width="65%"/> </div><br>
+
+- An *update* is internally translated into a *delete* and a *create*
+- At some later time, *GC* process in the database removes any rows marked for deletion and frees their space
+
+#### 6.2.3 Serializable
+
+**Stored Procedure**
+
+<div align="center"> <img src="./pics/image-20211023140736194.png" width="70%"/> </div><br>
+
+
+
+
+### 6.3 Problems
+
+#### 6.3.1 Read Skew
+
+**Read Skew**
+
+<div align="center"> <img src="./pics/image-20211019100507682.png" width="70%"/> </div><br>
+
+#### 6.3.2 Write Skew
+
+**Dirty Writes**
+
+<div align="center"> <img src="./pics/image-20211018212952257.png" width="70%"/> </div><br>
+
+
+
+**Examples**
+
+> The hospital tries to have serveral doctors on call at any one time, but it absolutely must have at least one doctor on call
+
+<div align="center"> <img src="./pics/image-20211023110248691.png" width="70%"/> </div><br>
+
+- Since the database is using snapshot isolation, both checks return 2, so both transactions proceed to the next stage
+
+**Explicit lock**
+
+<div align="center"> <img src="./pics/image-20211023111956125.png" width="40%"/> </div><br>
+
+- *SELECT FOR UPDATE* tells the database to lock all rows returned by this query. So, we could make the transaction safe and avoid *write skew*
+
+
+
+
 
 
 

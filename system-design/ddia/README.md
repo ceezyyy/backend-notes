@@ -4,13 +4,18 @@
 
 - [Brainstorming](#brainstorming)
 - [1. Overview](#1-overview)
+	- [1.1 Big Ideas](#11-big-ideas)
+	- [1.2 Problems](#12-problems)
+		- [1.2.1 Unreliable Networks](#121-unreliable-networks)
+		- [1.2.2 Unreliable Clocks](#122-unreliable-clocks)
+		- [1.2.3 Process Pauses](#123-process-pauses)
 - [2. Data Models](#2-data-models)
 - [3. Storage and Retrieval](#3-storage-and-retrieval)
 	- [3.1 Hash Index (log)](#31-hash-index-log)
 	- [3.2 LSM-Trees Index (log)](#32-lsm-trees-index-log)
 	- [3.3 B Trees Index (page)](#33-b-trees-index-page)
 - [4. Replication](#4-replication)
-	- [4.1 Leader-based](#41-leader-based)
+	- [4.1 Single-leader](#41-single-leader)
 		- [4.1.1 Replication Lag](#411-replication-lag)
 	- [4.2 Multi-leader](#42-multi-leader)
 	- [4.3 Leaderless](#43-leaderless)
@@ -32,13 +37,18 @@
 	- [6.3 Problems](#63-problems)
 		- [6.3.1 Read Skew](#631-read-skew)
 		- [6.3.2 Write Skew](#632-write-skew)
+- [7. Consistency & Consensus](#7-consistency--consensus)
+	- [7.1 Strong Consistency](#71-strong-consistency)
 - [References](#references)
+
 
 ## Brainstorming
 
 <div align="center"> <img src="./pics/DDIA.svg" width="100%"/> </div><br>
 
 ## 1. Overview
+
+### 1.1 Big Ideas
 
 **Reliable**
 
@@ -67,9 +77,51 @@
 - *Latency*
   - geographic location
 
-**Partition VS Replica**
+### 1.2 Problems
 
-<div align="center"> <img src="./pics/image-20210930121557394.png" width="70%"/> </div><br>
+> Building a reliable system from unreliable components
+
+#### 1.2.1 Unreliable Networks
+
+<div align="center"> <img src="./pics/image-20211024202212257.png" width="70%"/> </div><br>
+
+- The request was lost
+- The remote node was down
+- The response was lost
+
+**Network Congestion**
+
+<div align="center"> <img src="./pics/image-20211024212045002.png" width="70%"/> </div><br>
+
+#### 1.2.2 Unreliable Clocks
+
+**Timestamp for ordering events**
+
+<div align="center"> <img src="./pics/image-20211025161710556.png" width="65%"/> </div><br>
+
+- Database writes can disappear
+  - a lagging clock is unable to overwrite values previously written by a node with a fast clock
+
+#### 1.2.3 Process Pauses
+
+**Process Pauses**
+
+<div align="center"> <img src="./pics/image-20211026104227223.png" width="65%"/> </div><br>
+
+- If the clocks are out of sync by more than a few seconds? (*time-of-day clocks*)
+- What if there is an unexpected pause in the execution of the program?
+  - *GC STW* 
+  - Waiting for a slow disk I/O
+  - *Paging*
+
+**Incorrect implementation of a distributed lock**
+
+<div align="center"> <img src="./pics/image-20211026174539803.png" width="70%"/> </div><br>
+
+**Fencing Token**
+
+<div align="center"> <img src="./pics/image-20211026175548179.png" width="70%"/> </div><br>
+
 
 ## 2. Data Models
 
@@ -83,15 +135,9 @@
 
 <div align="center"> <img src="./pics/image-20210919140757990.png" width="70%"/> </div><br>
 
-- storage locality (stored as a single continuous string)
-- one to many
-- no relationships
-
 **Graph model**
 
 <div align="center"> <img src="./pics/image-20210919154701784.png" width="70%"/> </div><br>
-
-- many to many
 
 ## 3. Storage and Retrieval
 
@@ -171,9 +217,13 @@ Because some operations require **several different** pages to be overwritten, i
 - Increase read throughput
 - Reduce latency
 
-### 4.1 Leader-based
+**Partition vs Replica**
 
-**Leader-based**
+<div align="center"> <img src="./pics/image-20210930121557394.png" width="70%"/> </div><br>
+
+### 4.1 Single-leader
+
+**Single-leader**
 
 <div align="center"> <img src="./pics/image-20210930141319520.png" width="70%"/> </div><br>
 
@@ -313,7 +363,7 @@ Because some operations require **several different** pages to be overwritten, i
 
 **Read Committed**
 
-<div align="center"> <img src="./pics/image-20211018210224250.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211018210224250.png" width="65%"/> </div><br>
 
 #### 6.2.2 Snapshot Isolation
 
@@ -326,11 +376,33 @@ Because some operations require **several different** pages to be overwritten, i
 
 #### 6.2.3 Serializable
 
-**Stored Procedure**
+**2PL**
 
-<div align="center"> <img src="./pics/image-20211023140736194.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211023202038343.png" width="50%"/> </div><br>
 
 
+- After a transaction has acquired the lock, **it must continue to hold the lock until the end of the transaction (commit or abort)**
+
+**Index-Range Locks Example**
+
+<div align="center"> <img src="./pics/image-20211023170526755.png" width="50%"/> </div><br>
+
+- **Approach 1:** Database attach a *shared lock* to **index** *room_id* for room 123
+- **Approach 2:** Database attach a *shared lock* to a **range** of values in **index** *start_time* and *end_time* with the time period of noon to 1pm
+
+
+
+**SSI: Detecting stale *MVCC* reads**
+
+ <div align="center"> <img src="./pics/image-20211023180600429.png" width="65%"/> </div><br>
+
+- When the transaction **wants to commit** (not abort immediately), the database checks whether any of the ignored writes have now been committed. **If so, the transaction must be aborted** (*optimistic*)
+
+
+
+**SSI: Detecting writes that affect prior reads**
+
+<div align="center"> <img src="./pics/image-20211023183816109.png" width="65%"/> </div><br>
 
 
 ### 6.3 Problems
@@ -339,21 +411,21 @@ Because some operations require **several different** pages to be overwritten, i
 
 **Read Skew**
 
-<div align="center"> <img src="./pics/image-20211019100507682.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211019100507682.png" width="65%"/> </div><br>
 
 #### 6.3.2 Write Skew
 
 **Dirty Writes**
 
-<div align="center"> <img src="./pics/image-20211018212952257.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211018212952257.png" width="65%"/> </div><br>
 
 
 
-**Examples**
+**Write Skew Example**
 
 > The hospital tries to have serveral doctors on call at any one time, but it absolutely must have at least one doctor on call
 
-<div align="center"> <img src="./pics/image-20211023110248691.png" width="70%"/> </div><br>
+<div align="center"> <img src="./pics/image-20211023110248691.png" width="65%"/> </div><br>
 
 - Since the database is using snapshot isolation, both checks return 2, so both transactions proceed to the next stage
 
@@ -362,6 +434,34 @@ Because some operations require **several different** pages to be overwritten, i
 <div align="center"> <img src="./pics/image-20211023111956125.png" width="40%"/> </div><br>
 
 - *SELECT FOR UPDATE* tells the database to lock all rows returned by this query. So, we could make the transaction safe and avoid *write skew*
+
+
+
+## 7. Consensus
+
+### 7.1 2PC
+
+**Two-Phase Commit**
+
+<div align="center"> <img src="./pics/image-20211029211102957.png" width="70%"/> </div><br>
+
+1. The application begins a single-node transaction on each of the nodes (what if node crashes or request timeout?)
+2. The coordinator sends a prepare request to all nodes (what if node crashes or request timeout?)
+3. When a node receives the prepare request, it makes sure that it can **definitely** commit the *tx* under all circumstances
+4. The coordinator makes a **definitely decision**, writes it to its log on disk
+
+**Coordinator Failure**
+
+<div align="center"> <img src="./pics/image-20211029212805578.png" width="70%"/> </div><br>
+
+- This is why the *coordinator* must write its commit / abort decision to a transaction log on disk before phase 2
+
+
+
+
+
+
+
 
 
 
@@ -376,4 +476,4 @@ Because some operations require **several different** pages to be overwritten, i
 - [What are Bloom Filters? - Hashing](https://www.youtube.com/watch?v=bgzUdBVr5tE)
 - [Merge sort in 3 minutes](https://www.youtube.com/watch?v=4VqmGXwpLqc)
 - [Bloom Filters by Example](https://llimllib.github.io/bloomfilter-tutorial/)
-
+- [An Illustrated Proof of the CAP Theorem](https://mwhittaker.github.io/blog/an_illustrated_proof_of_the_cap_theorem/)
